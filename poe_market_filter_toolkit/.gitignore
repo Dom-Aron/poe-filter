@@ -7,6 +7,9 @@ venv/
 # Generated market history
 market/snapshots/*.json
 
+# Optional local filter copies for toolkit experiments
+filters/current/*.filter
+
 # OS
 .DS_Store
 Thumbs.db
