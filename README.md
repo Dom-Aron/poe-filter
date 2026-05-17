@@ -709,6 +709,79 @@ Allflame Embers e Djinn Coins separados por mecânica
 Nome duplicado Fire Of Unknown Origin consolidado como Fire of Unknown Origin
 ```
 
+### v19-dev mercado — Runegrafts, Harvest e Tattoos
+
+Mudanças principais:
+
+```text
+Runegrafts atualizados pelos prints do PoE Overlay
+Harvest/Lifeforce conferido com preços em chaos
+Tattoos adicionadas em tiers de preço
+Runegraft of the Combat corrigido para Runegraft of the Combatant
+Runegrafts sem histórico de preço ficaram visíveis em tier baixo/situacional
+```
+
+### v19-dev mercado 2 — Omens, Catalysts, Oils e fragments
+
+Mudanças principais:
+
+```text
+Omens atualizados pelos prints do PoE Overlay
+Catalysts recalibrados por preço em chaos
+Oils recalibrados com Tainted/Golden/Prismatic/Silver em destaque máximo
+Fragments, Lab offerings e boss fragments reclassificados por preço
+Itens sem histórico de preço ficaram visíveis em tier baixo/situacional
+```
+
+### v19-dev mercado 3 — Legion, Delirium e Delve
+
+Mudanças principais:
+
+```text
+Legion Emblems e splinters recalibrados pelos prints do PoE Overlay
+Delirium Orbs e Simulacrum recalibrados por preço em chaos
+Delirium Orbs sem histórico ficaram visíveis em tier baixo/situacional
+Fossils e resonators de Delve reclassificados por preço
+Alchemical Resonators sem histórico ficaram visíveis em tier baixo/situacional
+```
+
+### v19-dev mercado 4 — Currency geral
+
+Mudanças principais:
+
+```text
+Currency geral recalibrada pelos prints do PoE Overlay
+Itens de 100c+ mantidos nos overrides de maior destaque
+Currency util de craft/mapas mantida visível, mas sem som exagerado
+Itens com preço em razão inversa, como varios orbs comuns por 1 chaos, mantidos discretos
+Shards e scrolls ficaram no tier baixo para evitar poluição em Breach Hives
+```
+
+### v19-dev mercado 5 — Essences
+
+Mudanças principais:
+
+```text
+Essences recalibradas pelos prints do PoE Overlay
+Essence of Desolation isolada como T0
+Essences especiais e Deafening caras reclassificadas em T1/T2
+Essences medias e baixas separadas por preço real em chaos
+Essences sem histórico ficaram visíveis em tier baixo/situacional
+```
+
+### v19-dev mercado 6 — Scarabs
+
+Mudanças principais:
+
+```text
+Scarabs recalibrados pelos prints do PoE Overlay
+Scarabs de 100c+ ficaram em destaque máximo
+Breach Scarab of Resonant Cascade mantido com alerta forte
+Scarabs do farm Breach/Hive continuam destacados mesmo quando baratos
+Scarabs baratos por razão inversa ficaram pequenos para não poluir
+Scarabs sem histórico ficaram visíveis em tier baixo/situacional
+```
+
 ---
 
 ## 11. Erros encontrados e lições aprendidas
