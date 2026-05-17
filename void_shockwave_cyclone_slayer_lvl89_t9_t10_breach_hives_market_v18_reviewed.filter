@@ -35,6 +35,8 @@
 #        GemLevel/Quality, mapas caros e cluster enchant/passive count quando o filtro consegue ler.
 # - v20-dev triagem: adicionada bancada in-game para identificar itens, jogar no chao
 #        e destacar rares identificados com mods explicitos bons para build/mercado.
+# - v20-dev safety: unique maps e nomes comerciais do poe.ninja nao devem virar BaseType;
+#        usar regras estruturais como Class/Rarity quando o parser nao aceita o nome de mercado.
 # =====================================================================
 
 # ---------------------------------------------------------------------
@@ -110,9 +112,15 @@ Show
     PlayEffect Orange Temp
 
 # Mercado T0/T1 - unique maps e mapas especiais caros.
+# Estrategia de seguranca:
+# - poe.ninja usa nomes comerciais/unicos, como Doryani's Machinarium.
+# - O parser do filtro exige BaseType real, entao nomes unicos de mapas nao
+#   devem ser usados em BaseType.
+# - Para unique maps, destacar por Rarity Unique + Class Maps.
+# - Para Vaal Temple, usar o base real "Vaal Temple Map".
 Show
     Class "Maps"
-    BaseType "Doryani's Machinarium" "Untainted Paradise" "Replica Poorjoy's Asylum" "Replica Cortex" "The Coward's Trial" "Cortex" "Vaal Temple Map" "Nightmare Map"
+    Rarity Unique
     SetTextColor 255 255 255 255
     SetBorderColor 255 70 190 255
     SetBackgroundColor 75 0 55 245
@@ -120,6 +128,17 @@ Show
     PlayAlertSound 6 280
     MinimapIcon 0 Purple Square
     PlayEffect Purple Temp
+
+Show
+    Class "Maps"
+    BaseType "Vaal Temple Map"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 180 0 255
+    SetBackgroundColor 75 35 0 240
+    SetFontSize 42
+    PlayAlertSound 5 240
+    MinimapIcon 1 Orange Square
+    PlayEffect Orange Temp
 
 # Mercado/Build - cluster jewels caros por enchant e passive count.
 # O mercado atual valoriza muito Large 8 passivas de phys/two-handed; isso tambem

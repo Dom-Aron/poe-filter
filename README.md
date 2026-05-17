@@ -809,6 +809,8 @@ Erros encontrados:
 BaseType error: Unrelenting Timeless...
 BaseType rule Bower's Dream type not found
 BaseType: The Tinker's Table
+BaseType rule Charged Dash of Projection type not found
+BaseType rule Doryani's Machinarium type not found
 ```
 
 Lição:
@@ -817,6 +819,34 @@ Lição:
 Nunca usar nomes cortados de prints no BaseType.
 Só usar BaseType quando o nome estiver 100% confirmado.
 Nomes parciais como "Allflame Ember of the Gil..." não devem entrar no filtro.
+Nem todo nome de mercado do poe.ninja/PoE Overlay é um BaseType válido.
+```
+
+Estratégia segura:
+
+```text
+1. Categorias simples de exchange podem virar BaseType quando o item existe no chão:
+   Currency, Fragment, Scarab, Fossil, Resonator, Essence, Oil, DeliriumOrb,
+   Omen, Tattoo, Runegraft, AllflameEmber.
+
+2. Categorias de stash exigem revisão manual antes de virar BaseType:
+   UniqueMap, SkillGem, ClusterJewel, Beast e alguns Map.
+
+3. UniqueMap:
+   não listar nomes únicos como "Doryani's Machinarium" no BaseType.
+   usar Class "Maps" + Rarity Unique.
+   quando houver base real conhecida, como "Vaal Temple Map", usar essa base.
+
+4. SkillGem:
+   não transformar automaticamente nomes caros do mercado em BaseType.
+   usar Class "Skill Gems" / "Support Gems" com GemLevel, Quality e Corrupted.
+
+5. ClusterJewel:
+   usar BaseType "Large Cluster Jewel" / "Medium Cluster Jewel" / "Small Cluster Jewel"
+   junto com EnchantmentPassiveNode e EnchantmentPassiveNum.
+
+6. Beast:
+   tratar como dado de mercado, não como drop normal garantido do filtro.
 ```
 
 ### 3. Ordem de regras importa
@@ -1079,6 +1109,38 @@ poe_market_filter_toolkit/market/reports/filter_audit.md
 ```
 
 O toolkit nao edita o filtro automaticamente. Ele coleta precos, compara com os `BaseType` do filtro ativo na raiz do repositorio e gera sugestoes para revisao.
+
+### Segurança de BaseType
+
+Os relatorios do poe.ninja misturam itens que funcionam bem como `BaseType` com nomes comerciais que o parser do filtro nao aceita. A regra de manutencao e:
+
+```text
+Exchange simples -> pode virar BaseType depois de uma checagem visual.
+Stash/nomes unicos -> preferir regra estrutural.
+```
+
+Exemplos aplicados no filtro:
+
+```text
+Unique maps caros:
+Class "Maps"
+Rarity Unique
+
+Vaal Temple:
+Class "Maps"
+BaseType "Vaal Temple Map"
+
+Gemas caras:
+Class "Skill Gems" "Support Gems"
+GemLevel / Quality / Corrupted
+
+Clusters caros:
+BaseType "Large Cluster Jewel"
+EnchantmentPassiveNode
+EnchantmentPassiveNum
+```
+
+Isso evita repetir erros como `Charged Dash of Projection` e `Doryani's Machinarium`, que aparecem no mercado mas nao sao `BaseType` validos para o parser.
 
 ### v20-dev — integração de mercado no filtro
 

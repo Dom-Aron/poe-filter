@@ -97,6 +97,28 @@ Beast
 
 `filter_audit.md` procura sinais estruturais de risco, como BaseTypes duplicados, nomes marcados como arriscados/removidos e regras genericas que podem vir antes de regras especificas.
 
+## Uso seguro de BaseType
+
+Nem todo nome vindo do poe.ninja/PoE Overlay e um `BaseType` valido para o parser do filtro.
+
+Regra pratica:
+
+```text
+Categorias de exchange simples -> podem virar BaseType apos revisao.
+Categorias de stash -> revisar manualmente e preferir regra estrutural.
+```
+
+Casos que nao devem ser convertidos automaticamente para `BaseType`:
+
+```text
+UniqueMap   -> usar Class "Maps" + Rarity Unique; excecao para bases reais conhecidas.
+SkillGem    -> usar Class, GemLevel, Quality e Corrupted.
+ClusterJewel-> usar base do cluster + EnchantmentPassiveNode/EnchantmentPassiveNum.
+Beast       -> tratar como informacao de mercado, nao como drop normal garantido.
+```
+
+Exemplo: `Doryani's Machinarium` e `Charged Dash of Projection` aparecem como nomes de mercado, mas causam erro quando usados diretamente em `BaseType`.
+
 ## Observacoes
 
 - `listing_count` representa listagens nas categorias de stash e volume/liquidez nas categorias de exchange.
