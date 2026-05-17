@@ -843,7 +843,9 @@ Estratégia segura:
 
 5. ClusterJewel:
    usar BaseType "Large Cluster Jewel" / "Medium Cluster Jewel" / "Small Cluster Jewel"
-   junto com EnchantmentPassiveNode e EnchantmentPassiveNum.
+   junto com EnchantmentPassiveNum.
+   evitar EnchantmentPassiveNode em regras automaticas, porque o parser exige o
+   texto exato do enchant e pode rejeitar descricoes vindas do mercado.
 
 6. Beast:
    tratar como dado de mercado, não como drop normal garantido do filtro.
@@ -1136,11 +1138,10 @@ GemLevel / Quality / Corrupted
 
 Clusters caros:
 BaseType "Large Cluster Jewel"
-EnchantmentPassiveNode
 EnchantmentPassiveNum
 ```
 
-Isso evita repetir erros como `Charged Dash of Projection` e `Doryani's Machinarium`, que aparecem no mercado mas nao sao `BaseType` validos para o parser.
+Isso evita repetir erros como `Charged Dash of Projection`, `Doryani's Machinarium` e descricoes de `EnchantmentPassiveNode` que aparecem no mercado mas nao sao parametros validos para o parser.
 
 ### v20-dev — integração de mercado no filtro
 
@@ -1160,12 +1161,13 @@ Integração de atributos usada de forma segura:
 ```text
 GemLevel
 Quality
-EnchantmentPassiveNode
 EnchantmentPassiveNum
 FracturedItem
 SynthesisedItem
 HasInfluence
 ```
+
+Observacao: `EnchantmentPassiveNode` so deve ser usado quando o texto exato ja foi validado dentro do jogo/parser. Para dados importados do mercado, o filtro usa apenas `EnchantmentPassiveNum` nos clusters.
 
 `HasExplicitMod` não foi usado como regra obrigatória para rares, porque a maior parte dos rares cai não identificada e o filtro não deve depender de mods que o chão ainda não expõe.
 

@@ -113,11 +113,11 @@ Casos que nao devem ser convertidos automaticamente para `BaseType`:
 ```text
 UniqueMap   -> usar Class "Maps" + Rarity Unique; excecao para bases reais conhecidas.
 SkillGem    -> usar Class, GemLevel, Quality e Corrupted.
-ClusterJewel-> usar base do cluster + EnchantmentPassiveNode/EnchantmentPassiveNum.
+ClusterJewel-> usar base do cluster + EnchantmentPassiveNum; evitar EnchantmentPassiveNode automatico.
 Beast       -> tratar como informacao de mercado, nao como drop normal garantido.
 ```
 
-Exemplo: `Doryani's Machinarium` e `Charged Dash of Projection` aparecem como nomes de mercado, mas causam erro quando usados diretamente em `BaseType`.
+Exemplo: `Doryani's Machinarium` e `Charged Dash of Projection` aparecem como nomes de mercado, mas causam erro quando usados diretamente em `BaseType`. Em clusters, descricoes de enchant vindas do mercado tambem podem falhar em `EnchantmentPassiveNode`; prefira `EnchantmentPassiveNum` ate validar o texto exato.
 
 ## Observacoes
 

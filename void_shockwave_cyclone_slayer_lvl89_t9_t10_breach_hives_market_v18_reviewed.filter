@@ -37,6 +37,8 @@
 #        e destacar rares identificados com mods explicitos bons para build/mercado.
 # - v20-dev safety: unique maps e nomes comerciais do poe.ninja nao devem virar BaseType;
 #        usar regras estruturais como Class/Rarity quando o parser nao aceita o nome de mercado.
+# - v20-dev safety 2: removido EnchantmentPassiveNode automatico dos clusters; manter
+#        BaseType + EnchantmentPassiveNum para evitar erro de texto de enchant nao reconhecido.
 # =====================================================================
 
 # ---------------------------------------------------------------------
@@ -60,7 +62,9 @@ Show
 # nao servem para Shockwave Cyclone.
 #
 # Observacao sobre atributos/mods:
-# - GemLevel/Quality e EnchantmentPassiveNode/Num sao confiaveis no chao.
+# - GemLevel/Quality e EnchantmentPassiveNum sao confiaveis no chao.
+# - EnchantmentPassiveNode exige texto exato aceito pelo parser; evitar em regras
+#   geradas do mercado sem validacao manual.
 # - FracturedItem/SynthesisedItem sao confiaveis e aparecem mais abaixo nas bases.
 # - HasExplicitMod existe, mas a maioria dos rares cai nao identificada; por isso
 #   explicit mods nao devem ser a unica forma de mostrar um item valioso.
@@ -140,13 +144,13 @@ Show
     MinimapIcon 1 Orange Square
     PlayEffect Orange Temp
 
-# Mercado/Build - cluster jewels caros por enchant e passive count.
-# O mercado atual valoriza muito Large 8 passivas de phys/two-handed; isso tambem
-# conversa com Cyclone/Staff. Mana reservation fica separado por ser valor de mercado.
+# Mercado/Build - cluster jewels caros por passive count.
+# O mercado atual valoriza clusters com baixo numero de passivas. Nao usar
+# EnchantmentPassiveNode aqui: o parser exige textos exatos e rejeita alguns nomes
+# vindos do poe.ninja/PoE Overlay.
 Show
     BaseType "Large Cluster Jewel"
     EnchantmentPassiveNum <= 8
-    EnchantmentPassiveNode "12% increased Physical Damage" "12% increased Damage with Two Handed Weapons" "Staff Attacks deal 12% increased Damage"
     SetTextColor 255 255 255 255
     SetBorderColor 120 220 255 255
     SetBackgroundColor 0 45 75 235
@@ -158,7 +162,6 @@ Show
 Show
     BaseType "Small Cluster Jewel"
     EnchantmentPassiveNum <= 3
-    EnchantmentPassiveNode "6% increased Mana Reservation Efficiency of Skills"
     SetTextColor 255 255 255 255
     SetBorderColor 255 180 0 255
     SetBackgroundColor 70 35 0 230
@@ -1536,7 +1539,7 @@ Show
 # 10) BUILD - Bases raras/craft alinhadas com Cyclone fisico + block por staff
 # Aqui a prioridade e utilidade para a build, nao apenas preco de mercado.
 # Atributos visiveis no chao usados com seguranca: FracturedItem,
-# SynthesisedItem, HasInfluence, EnchantmentPassiveNode e passive count.
+# SynthesisedItem, HasInfluence e passive count.
 # Explicit mods em rares identificados existem, mas nao sao usados como camada
 # obrigatoria porque rares normalmente caem nao identificados.
 # ---------------------------------------------------------------------
