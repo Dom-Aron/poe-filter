@@ -31,6 +31,10 @@
 # - v19-dev mercado 4: Currency geral atualizada com prints do PoE Overlay.
 # - v19-dev mercado 5: Essences atualizadas com prints do PoE Overlay.
 # - v19-dev mercado 6: Scarabs atualizados com prints do PoE Overlay.
+# - v20-dev: integrada leitura poe.ninja; separado mercado x build; adicionadas regras por
+#        GemLevel/Quality, mapas caros e cluster enchant/passive count quando o filtro consegue ler.
+# - v20-dev triagem: adicionada bancada in-game para identificar itens, jogar no chao
+#        e destacar rares identificados com mods explicitos bons para build/mercado.
 # =====================================================================
 
 # ---------------------------------------------------------------------
@@ -44,6 +48,101 @@ Show
     SetFontSize 42
     PlayAlertSound 1 200
     MinimapIcon 1 Green Star
+
+
+# ---------------------------------------------------------------------
+# 0.4) VALOR DE MERCADO - independente da build
+# Fonte: poe_market_filter_toolkit / poe.ninja Mirage.
+# Estas regras ficam no topo para nao serem engolidas por regras de build,
+# gemas, mapas ou fallbacks genericos. Elas destacam itens caros mesmo quando
+# nao servem para Shockwave Cyclone.
+#
+# Observacao sobre atributos/mods:
+# - GemLevel/Quality e EnchantmentPassiveNode/Num sao confiaveis no chao.
+# - FracturedItem/SynthesisedItem sao confiaveis e aparecem mais abaixo nas bases.
+# - HasExplicitMod existe, mas a maioria dos rares cai nao identificada; por isso
+#   explicit mods nao devem ser a unica forma de mostrar um item valioso.
+# ---------------------------------------------------------------------
+
+# Mercado T0 - gemas premium por nivel/qualidade/corrupcao.
+# Evita mostrar versoes comuns baratas do mesmo BaseType.
+Show
+    Class "Skill Gems" "Support Gems"
+    GemLevel >= 21
+    Quality >= 20
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 0 255 255
+    SetBackgroundColor 80 0 90 255
+    SetFontSize 45
+    PlayAlertSound 6 300
+    MinimapIcon 0 Purple Star
+    PlayEffect Purple
+
+# Mercado T0 - supports excepcionais/awakened em nivel alto.
+Show
+    Class "Support Gems"
+    BaseType "Awakened Empower Support" "Awakened Enlighten Support" "Awakened Enhance Support" "Companionship Support" "Eclipse Support" "Greater Multistrike Support" "Greater Spell Echo Support" "Cooldown Recovery Support" "Cast on Ward Break Support" "Congregation Support" "Vaal Temptation Support" "Invert the Rules Support" "Greater Unleash Support" "Minion Pact Support" "Void Shockwave Support" "Greater Ancestral Call Support"
+    GemLevel >= 4
+    Quality >= 20
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 70 190 255
+    SetBackgroundColor 75 0 55 245
+    SetFontSize 45
+    PlayAlertSound 6 300
+    MinimapIcon 0 Purple Diamond
+    PlayEffect Purple Temp
+
+# Mercado T1 - gemas/transfigured gems que aparecem caras mesmo sem depender da build.
+Show
+    Class "Skill Gems" "Support Gems"
+    BaseType "Item Rarity Support" "Charged Dash of Projection" "Summon Reaper of Eviscerating" "Flame Surge of Combusting" "Bladefall of Trarthus" "Essence Drain of Wickedness" "Contagion of Subsiding" "Frostblink of Wintry Blast" "Cold Snap of Power" "Galvanic Arrow of Energy" "Ice Crash of Cadence" "Flame Dash of Return" "Cyclone of Tumult" "Detonate Dead of Scavenging" "Siphoning Trap of Pain" "Icicle Mine of Fanning" "Wave of Conviction of Trarthus" "Explosive Concoction of Destruction" "Holy Hammers" "Crackling Lance of Disintegration" "Ethereal Knives of the Massacre" "Spectral Shield Throw of Trarthus" "Animate Guardian of Smiting" "Kinetic Blast of Clustering" "Reave of Refraction" "Ice Spear of Splitting" "Essence Drain of Desperation"
+    Quality >= 20
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 180 0 255
+    SetBackgroundColor 75 35 0 240
+    SetFontSize 43
+    PlayAlertSound 5 250
+    MinimapIcon 1 Orange Star
+    PlayEffect Orange Temp
+
+# Mercado T0/T1 - unique maps e mapas especiais caros.
+Show
+    Class "Maps"
+    BaseType "Doryani's Machinarium" "Untainted Paradise" "Replica Poorjoy's Asylum" "Replica Cortex" "The Coward's Trial" "Cortex" "Vaal Temple Map" "Nightmare Map"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 70 190 255
+    SetBackgroundColor 75 0 55 245
+    SetFontSize 44
+    PlayAlertSound 6 280
+    MinimapIcon 0 Purple Square
+    PlayEffect Purple Temp
+
+# Mercado/Build - cluster jewels caros por enchant e passive count.
+# O mercado atual valoriza muito Large 8 passivas de phys/two-handed; isso tambem
+# conversa com Cyclone/Staff. Mana reservation fica separado por ser valor de mercado.
+Show
+    BaseType "Large Cluster Jewel"
+    EnchantmentPassiveNum <= 8
+    EnchantmentPassiveNode "12% increased Physical Damage" "12% increased Damage with Two Handed Weapons" "Staff Attacks deal 12% increased Damage"
+    SetTextColor 255 255 255 255
+    SetBorderColor 120 220 255 255
+    SetBackgroundColor 0 45 75 235
+    SetFontSize 43
+    PlayAlertSound 5 250
+    MinimapIcon 1 Cyan Diamond
+    PlayEffect Cyan Temp
+
+Show
+    BaseType "Small Cluster Jewel"
+    EnchantmentPassiveNum <= 3
+    EnchantmentPassiveNode "6% increased Mana Reservation Efficiency of Skills"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 180 0 255
+    SetBackgroundColor 70 35 0 230
+    SetFontSize 41
+    PlayAlertSound 4 220
+    MinimapIcon 1 Orange Diamond
+    PlayEffect Orange Temp
 
 
 # ---------------------------------------------------------------------
@@ -1190,7 +1289,9 @@ Show
     SetFontSize 25
 
 # ---------------------------------------------------------------------
-# 6) Gemas: qualidade alta ou suportes importantes da build
+# 6) BUILD - Gemas: qualidade alta ou suportes importantes da build
+# Mesmo quando o mercado nao estiver alto, estas gemas ficam visiveis porque
+# servem para Shockwave Cyclone / General's Cry Slayer.
 # ---------------------------------------------------------------------
 
 # Miragem T1 - gemas Imbued: mostrar mesmo sem qualidade alta
@@ -1409,8 +1510,106 @@ Show
     MinimapIcon 2 Blue Circle
 
 # ---------------------------------------------------------------------
-# 10) Bases raras/craft alinhadas com Cyclone fisico + block por staff
+# 10) BUILD - Bases raras/craft alinhadas com Cyclone fisico + block por staff
+# Aqui a prioridade e utilidade para a build, nao apenas preco de mercado.
+# Atributos visiveis no chao usados com seguranca: FracturedItem,
+# SynthesisedItem, HasInfluence, EnchantmentPassiveNode e passive count.
+# Explicit mods em rares identificados existem, mas nao sao usados como camada
+# obrigatoria porque rares normalmente caem nao identificados.
 # ---------------------------------------------------------------------
+
+# Fractured nas bases certas: prioridade para craft/venda. Esta regra vem
+# antes das bases comuns para garantir o destaque de mercado/craft.
+Show
+    BaseType "Judgement Staff" "Foul Staff" "Ezomyte Staff" "Astral Plate" "Crusader Plate" "Precursor Gauntlets" "Leviathan Gauntlets" "Titan Gauntlets" "Slink Gloves" "Ezomyte Burgonet" "Gladiator Helmet" "Titan Greaves" "Hydrascale Boots" "Stygian Vise" "Rustic Sash" "Amethyst Ring" "Two-Stone Ring" "Lapis Amulet" "Turquoise Amulet" "Citrine Amulet" "Onyx Amulet"
+    ItemLevel >= 80
+    FracturedItem True
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 120 255 255
+    SetBackgroundColor 65 0 65 220
+    SetFontSize 40
+    PlayAlertSound 5 230
+    MinimapIcon 1 Purple Diamond
+    PlayEffect Purple Temp
+
+# Synthesised em joias/acessorios e bases da build: pode valer por implicitos.
+Show
+    BaseType "Stygian Vise" "Rustic Sash" "Amethyst Ring" "Two-Stone Ring" "Lapis Amulet" "Turquoise Amulet" "Citrine Amulet" "Onyx Amulet" "Judgement Staff" "Foul Staff" "Ezomyte Staff" "Precursor Gauntlets"
+    SynthesisedItem True
+    SetTextColor 255 255 255 255
+    SetBorderColor 120 220 255 255
+    SetBackgroundColor 0 45 65 220
+    SetFontSize 39
+    PlayAlertSound 4 220
+    MinimapIcon 1 Cyan Diamond
+
+# Influenced nas bases certas: bom para craft/venda quando a base conversa com a build.
+Show
+    BaseType "Judgement Staff" "Foul Staff" "Ezomyte Staff" "Astral Plate" "Crusader Plate" "Precursor Gauntlets" "Leviathan Gauntlets" "Titan Gauntlets" "Slink Gloves" "Stygian Vise" "Rustic Sash" "Amethyst Ring" "Two-Stone Ring" "Lapis Amulet" "Turquoise Amulet" "Citrine Amulet" "Onyx Amulet"
+    ItemLevel >= 82
+    HasInfluence Shaper Elder Crusader Hunter Warlord Redeemer
+    SetTextColor 255 255 220 255
+    SetBorderColor 120 160 255 255
+    SetBackgroundColor 20 20 70 210
+    SetFontSize 37
+    PlayAlertSound 3 180
+    MinimapIcon 2 Blue Diamond
+
+# Bancada de triagem in-game:
+# pegue uma base com potencial, identifique, jogue no chao e deixe o filtro reavaliar.
+# Se acender aqui, o item tem combinacao real de mods para build/venda.
+# Regra conservadora: exige 2-3 mods relevantes para reduzir falsos positivos.
+Show
+    BaseType "Precursor Gauntlets" "Leviathan Gauntlets" "Titan Gauntlets" "Slink Gloves"
+    Rarity Rare
+    Identified True
+    HasExplicitMod >=2 "to Accuracy Rating" "to maximum Life" "increased Attack Speed" "increased Damage while Leeching" "to Fire Resistance" "to Cold Resistance" "to Lightning Resistance" "to Chaos Resistance" "to Strength" "to Dexterity"
+    SetTextColor 255 255 255 255
+    SetBorderColor 80 255 230 255
+    SetBackgroundColor 0 60 55 240
+    SetFontSize 43
+    PlayAlertSound 5 250
+    MinimapIcon 1 Cyan Star
+    PlayEffect Cyan Temp
+
+Show
+    BaseType "Judgement Staff" "Foul Staff" "Ezomyte Staff"
+    Rarity Rare
+    Identified True
+    HasExplicitMod >=2 "increased Physical Damage" "Adds" "to Accuracy Rating" "increased Attack Speed" "to Global Critical Strike Multiplier" "chance to Impale" "increased Critical Strike Chance"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 180 0 255
+    SetBackgroundColor 75 35 0 240
+    SetFontSize 42
+    PlayAlertSound 5 230
+    MinimapIcon 1 Orange Star
+    PlayEffect Orange Temp
+
+Show
+    BaseType "Stygian Vise" "Rustic Sash" "Amethyst Ring" "Two-Stone Ring" "Lapis Amulet" "Turquoise Amulet" "Citrine Amulet" "Onyx Amulet"
+    Rarity Rare
+    Identified True
+    HasExplicitMod >=3 "to maximum Life" "to Accuracy Rating" "to all Attributes" "to Strength" "to Dexterity" "to Fire Resistance" "to Cold Resistance" "to Lightning Resistance" "to Chaos Resistance" "Total Mana Cost of Channeling Skills" "increased Global Physical Damage" "to Global Critical Strike Multiplier"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 120 255 255
+    SetBackgroundColor 65 0 65 220
+    SetFontSize 40
+    PlayAlertSound 4 220
+    MinimapIcon 1 Purple Diamond
+    PlayEffect Purple Temp
+
+Show
+    Class "Jewels" "Abyss Jewels"
+    Rarity Rare
+    Identified True
+    HasExplicitMod >=3 "to maximum Life" "to Accuracy Rating" "increased Physical Damage" "increased Attack Speed" "to Global Critical Strike Multiplier" "to Fire Resistance" "to Cold Resistance" "to Lightning Resistance" "to Chaos Resistance"
+    SetTextColor 255 255 255 255
+    SetBorderColor 130 130 255 255
+    SetBackgroundColor 20 20 70 230
+    SetFontSize 40
+    PlayAlertSound 4 210
+    MinimapIcon 1 Blue Star
+    PlayEffect Blue Temp
 
 # Staff de endgame: sua staff ja e boa; mostrar so bases realmente relevantes
 Show
@@ -1454,30 +1653,6 @@ Show
     SetBorderColor 190 100 190 220
     SetBackgroundColor 40 0 40 170
     SetFontSize 34
-
-# Fractured nas bases certas: prioridade para craft/venda
-Show
-    BaseType "Judgement Staff" "Foul Staff" "Ezomyte Staff" "Astral Plate" "Crusader Plate" "Precursor Gauntlets" "Leviathan Gauntlets" "Titan Gauntlets" "Slink Gloves" "Ezomyte Burgonet" "Gladiator Helmet" "Titan Greaves" "Hydrascale Boots" "Stygian Vise" "Rustic Sash" "Amethyst Ring" "Two-Stone Ring" "Lapis Amulet" "Turquoise Amulet" "Citrine Amulet" "Onyx Amulet"
-    ItemLevel >= 80
-    FracturedItem True
-    SetTextColor 255 255 255 255
-    SetBorderColor 255 120 255 255
-    SetBackgroundColor 65 0 65 220
-    SetFontSize 40
-    PlayAlertSound 5 230
-    MinimapIcon 1 Purple Diamond
-    PlayEffect Purple Temp
-
-# Synthesised em joias/acessorios e bases da build
-Show
-    BaseType "Stygian Vise" "Rustic Sash" "Amethyst Ring" "Two-Stone Ring" "Lapis Amulet" "Turquoise Amulet" "Citrine Amulet" "Onyx Amulet" "Judgement Staff" "Foul Staff" "Ezomyte Staff" "Precursor Gauntlets"
-    SynthesisedItem True
-    SetTextColor 255 255 255 255
-    SetBorderColor 120 220 255 255
-    SetBackgroundColor 0 45 65 220
-    SetFontSize 39
-    PlayAlertSound 4 220
-    MinimapIcon 1 Cyan Diamond
 
 # Cluster jewels: foco em Large Physical 8 passivas via trade, mas mostrar todos para venda/craft
 Show
