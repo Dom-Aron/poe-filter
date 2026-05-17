@@ -21,9 +21,10 @@
 # - v12: corrigido Tattoo de Valako; nome valido: "Tattoo of the Valako Shieldbearer".
 # - v13: versao consolidada com Essences e Delve/Fossils/Resonators incluidos.
 # - v14: nomes conferidos/corrigidos com PoE Wiki League/itens: Allflame, Djinn Coins e Breach Scarabs; removidos BaseTypes legados/duvidosos.
-# - v18: revisado para LVL 89 em mapas T9/T10; removido Cartographer's Chisel (removido em 3.28),
+# - v18: revisado para LVL 89 em mapas T9/T10; removido Cartographer's Chisel (fora da economia atual 3.28),
 #        movido Hivebrain Gland antes do fallback de Map Fragments, adicionados MirageMap/Imbued,
 #        adicionados scarabs novos de Mirage e reclassificadas cartas/omens/runegrafts com mercado atual.
+# - v19-dev: reorganizado por liga/mecanica, mantendo tiers de preco dentro de cada liga.
 # =====================================================================
 
 # ---------------------------------------------------------------------
@@ -40,9 +41,10 @@ Show
 
 
 # ---------------------------------------------------------------------
-# 0.5) OVERRIDE DE MERCADO - PoE Overlay / valores em Chaos
-# Coloquei isto antes de Foulborn/Wombgift para itens caros nao cairem
-# em uma regra generica. Criterio: destaque pelo valor medio em Chaos.
+# 0.5) ECONOMIA GLOBAL - PoE Overlay / valores em Chaos
+# Bloco universal de prioridade maxima: fica antes das ligas para garantir
+# que currency e itens de alto valor nao caiam em regras genericas.
+# Dentro deste bloco a organizacao continua por preco.
 # ---------------------------------------------------------------------
 
 # T0 - Mega jackpot / itens de valor altissimo ou dificilmente precificados
@@ -107,15 +109,16 @@ Show
 
 
 # ---------------------------------------------------------------------
-# 0.6) OVERRIDE DE MERCADO - Delirium, Legion, Fragments e Oils
+# 0.6) LIGAS ANTIGAS - Delirium, Legion, Blight/Oils e fragments
 # Calibrado pelos prints atuais do PoE Overlay em Chaos.
 # Regra: acima de ~80c = alerta forte; 20c-80c = destaque bom;
 # abaixo disso = visivel, mas sem poluir o farm de Breach/Hives.
+# Cada liga/mecanica abaixo mantem seus proprios tiers de preco.
 # ---------------------------------------------------------------------
 
-# T0/T1 - Oils, Legion/Fragmentos e especiais muito caros. Sempre precificar.
+# Blight/Oils T0 - jackpot.
 Show
-    BaseType "Tainted Oil" "Syndicate Medallion" "Gift to the Goddess" "The Black Barya" "Unrelenting Timeless Eternal Emblem" "Unrelenting Timeless Maraketh Emblem" "Unrelenting Timeless Templar Emblem" "Unrelenting Timeless Karui Emblem" "Unrelenting Timeless Vaal Emblem" "Echo of Trauma" "Echo of Reverence" "Reality Fragment" "Reverent Fragment" "Fragment of Knowledge" "Echo of Loneliness" "Damnation" "House of Mirrors"
+    BaseType "Tainted Oil"
     SetTextColor 255 255 255 255
     SetBorderColor 255 0 255 255
     SetBackgroundColor 80 0 90 255
@@ -124,9 +127,9 @@ Show
     MinimapIcon 0 Purple Star
     PlayEffect Purple
 
-# T1 - Alto: ~80c+ no print; vender/precificar antes de usar.
+# Blight/Oils T1 - alto.
 Show
-    BaseType "Refracting Fog" "Golden Oil" "Prismatic Oil" "Silver Oil" "Fragment of Shape" "Devouring Fragment" "Blazing Fragment" "Decaying Fragment" "Tribute to the Goddess" "Sacred Blossom" "Dedication to the Goddess" "Unrelenting Timeless Karui Emblem" "Unrelenting Timeless Vaal Emblem" "Diviner's Delirium Orb"
+    BaseType "Golden Oil" "Prismatic Oil" "Silver Oil"
     SetTextColor 255 255 255 255
     SetBorderColor 255 70 190 255
     SetBackgroundColor 75 0 55 245
@@ -135,9 +138,9 @@ Show
     MinimapIcon 0 Purple Diamond
     PlayEffect Purple Temp
 
-# T2 - Medio-alto: ~30c-80c. Pegar sempre; bom retorno por slot.
+# Blight/Oils T2 - medio-alto.
 Show
-    BaseType "Opalescent Oil" "Reflective Oil" "Cosmic Fragment" "Fragment of Emptiness" "An Audience With The King" "Fragment of Terror" "Lonely Fragment" "Traumatic Fragment" "Timeless Templar Emblem" "Timeless Maraketh Emblem" "Fine Delirium Orb" "Thaumaturge's Delirium Orb" "Skittering Delirium Orb" "Jeweller's Delirium Orb" "Singular Delirium Orb" "Abyssal Delirium Orb" "Cartographer's Delirium Orb" "Blacksmith's Delirium Orb" "Armoursmith's Delirium Orb" "Timeless Delirium Orb" "Whispering Delirium Orb" "Blighted Delirium Orb" "Fragmented Delirium Orb" "Simulacrum"
+    BaseType "Opalescent Oil" "Reflective Oil"
     SetTextColor 255 255 255 255
     SetBorderColor 255 180 0 255
     SetBackgroundColor 75 35 0 240
@@ -146,9 +149,9 @@ Show
     MinimapIcon 1 Orange Star
     PlayEffect Orange Temp
 
-# T3 - Medio: ~10c-30c. Visivel com destaque moderado.
+# Blight/Oils T3 - medio.
 Show
-    BaseType "Simulacrum Splinter" "Baran's Crest" "Fragment of Constriction" "Fragment of Eradication" "Fragment of the Chimera" "Fragment of Purification" "Synthesising Fragment" "Al-Hezmin's Crest" "Veritania's Crest" "Mortal Ignorance" "Drox's Crest" "Mortal Grief" "Fragment of the Phoenix" "Mortal Rage" "Mortal Hope" "The Maven's Writ" "Black Oil" "Timeless Karui Emblem"
+    BaseType "Black Oil"
     SetTextColor 255 245 210 255
     SetBorderColor 230 180 80 255
     SetBackgroundColor 55 35 0 225
@@ -156,36 +159,58 @@ Show
     PlayAlertSound 4 190
     MinimapIcon 2 Yellow Star
 
-# T4 - Baixo/medio-baixo: ~2c-10c. Pegar se estiver perto; bom para bulk.
+# Blight/Oils T4 - baixo/medio-baixo.
 Show
-    BaseType "Timeless Vaal Emblem" "Timeless Eternal Emblem" "Fragment of the Minotaur" "Fragment of Enslavement" "Fragment of the Hydra" "Crescent Splinter" "Hivebrain Gland" "Awakening Fragment" "Ritual Vessel" "Crimson Oil" "Violet Oil" "Sepia Oil"
+    BaseType "Crimson Oil" "Violet Oil" "Sepia Oil"
     SetTextColor 230 230 200 230
     SetBorderColor 180 150 80 190
     SetBackgroundColor 40 30 0 145
     SetFontSize 32
     MinimapIcon 2 Yellow Circle
 
-# T5 - Muito baixo, mas de mecanica util: aparece pequeno. Juntar/vender em bulk.
+# Blight/Oils T5 - baixo, mas juntavel em bulk.
 Show
-    BaseType "Timeless Karui Splinter" "Timeless Eternal Empire Splinter" "Timeless Templar Splinter" "Timeless Maraketh Splinter" "Timeless Vaal Splinter" "Sacrifice at Noon" "Offering to the Goddess" "Sacrifice at Midnight" "Sacrifice at Dawn" "Sacrifice at Dusk" "Ritual Splinter" "Amber Oil" "Verdant Oil" "Clear Oil" "Indigo Oil" "Azure Oil" "Teal Oil"
+    BaseType "Amber Oil" "Verdant Oil" "Clear Oil" "Indigo Oil" "Azure Oil" "Teal Oil"
     SetTextColor 170 170 160 210
     SetBorderColor 100 95 70 130
     SetBackgroundColor 20 20 15 90
     SetFontSize 26
 
-
-# ---------------------------------------------------------------------
-# 0.7) OVERRIDE DE MERCADO - Catalyst, Omen, Expedition,
-# Harvest/Lifeforce e Runegrafts
-# Calibrado pelos prints atuais do PoE Overlay em Chaos.
-# Observacao v11: removi BaseTypes parciais/genericos como "Tattoo",
-# "Omen", "Catalyst" e "Lifeforce", pois podem causar erro de parser.
-# O restante dessas mecanicas ainda cai no fallback geral de Stackable Currency.
-# ---------------------------------------------------------------------
-
-# T0 - Muito alto / jackpot de mecanicas diversas: 100c+ ou valor fora da curva.
+# Delirium T1 - alto.
 Show
-    BaseType "Dextral Catalyst" "Omen of Fortune" "Omen of Connections" "Omen of Amelioration" "Omen of Blanching" "Tattoo of the Valako Shieldbearer" "Runegraft of Stability" "Runegraft of the Warp" "Runegraft of the Fortress" "Runegraft of the Soulwick" "Runegraft of Gemcraft" "Sacred Crystallised Lifeforce"
+    BaseType "Refracting Fog" "Diviner's Delirium Orb"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 70 190 255
+    SetBackgroundColor 75 0 55 245
+    SetFontSize 44
+    PlayAlertSound 6 280
+    MinimapIcon 0 Purple Diamond
+    PlayEffect Purple Temp
+
+# Delirium T2 - orbs e Simulacrum com bom retorno por slot.
+Show
+    BaseType "Fine Delirium Orb" "Thaumaturge's Delirium Orb" "Skittering Delirium Orb" "Jeweller's Delirium Orb" "Singular Delirium Orb" "Abyssal Delirium Orb" "Cartographer's Delirium Orb" "Blacksmith's Delirium Orb" "Armoursmith's Delirium Orb" "Timeless Delirium Orb" "Whispering Delirium Orb" "Blighted Delirium Orb" "Fragmented Delirium Orb" "Simulacrum"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 180 0 255
+    SetBackgroundColor 75 35 0 240
+    SetFontSize 42
+    PlayAlertSound 5 240
+    MinimapIcon 1 Orange Star
+    PlayEffect Orange Temp
+
+# Delirium T3 - splinters.
+Show
+    BaseType "Simulacrum Splinter"
+    SetTextColor 255 245 210 255
+    SetBorderColor 230 180 80 255
+    SetBackgroundColor 55 35 0 225
+    SetFontSize 38
+    PlayAlertSound 4 190
+    MinimapIcon 2 Yellow Star
+
+# Legion T0 - emblems unrelenting muito caros.
+Show
+    BaseType "Unrelenting Timeless Eternal Emblem" "Unrelenting Timeless Maraketh Emblem" "Unrelenting Timeless Templar Emblem" "Unrelenting Timeless Karui Emblem" "Unrelenting Timeless Vaal Emblem"
     SetTextColor 255 255 255 255
     SetBorderColor 255 0 255 255
     SetBackgroundColor 80 0 90 255
@@ -194,20 +219,128 @@ Show
     MinimapIcon 0 Purple Star
     PlayEffect Purple
 
-# T1 - Alto: 50c-100c. Pegar sempre, geralmente vender/precificar antes de usar.
+# Legion T2 - emblems bons.
 Show
-    BaseType "Runegraft of the River" "Wild Crystallised Lifeforce" "Omen of Brilliance" "Omen of Death's Door"
+    BaseType "Timeless Templar Emblem" "Timeless Maraketh Emblem"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 180 0 255
+    SetBackgroundColor 75 35 0 240
+    SetFontSize 42
+    PlayAlertSound 5 240
+    MinimapIcon 1 Orange Star
+    PlayEffect Orange Temp
+
+# Legion T3 - emblems medios.
+Show
+    BaseType "Timeless Karui Emblem"
+    SetTextColor 255 245 210 255
+    SetBorderColor 230 180 80 255
+    SetBackgroundColor 55 35 0 225
+    SetFontSize 38
+    PlayAlertSound 4 190
+    MinimapIcon 2 Yellow Star
+
+# Legion T4 - emblems baixos/medio-baixos.
+Show
+    BaseType "Timeless Vaal Emblem" "Timeless Eternal Emblem"
+    SetTextColor 230 230 200 230
+    SetBorderColor 180 150 80 190
+    SetBackgroundColor 40 30 0 145
+    SetFontSize 32
+    MinimapIcon 2 Yellow Circle
+
+# Legion T5 - splinters.
+Show
+    BaseType "Timeless Karui Splinter" "Timeless Eternal Empire Splinter" "Timeless Templar Splinter" "Timeless Maraketh Splinter" "Timeless Vaal Splinter"
+    SetTextColor 170 170 160 210
+    SetBorderColor 100 95 70 130
+    SetBackgroundColor 20 20 15 90
+    SetFontSize 26
+
+# Boss fragments / Maven / Shaper / Elder / Lab T0 - sempre precificar.
+Show
+    BaseType "Syndicate Medallion" "Gift to the Goddess" "The Black Barya" "Echo of Trauma" "Echo of Reverence" "Reality Fragment" "Reverent Fragment" "Fragment of Knowledge" "Echo of Loneliness" "Damnation" "House of Mirrors"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 0 255 255
+    SetBackgroundColor 80 0 90 255
+    SetFontSize 45
+    PlayAlertSound 6 300
+    MinimapIcon 0 Purple Star
+    PlayEffect Purple
+
+# Boss fragments / Lab T1 - alto.
+Show
+    BaseType "Fragment of Shape" "Devouring Fragment" "Blazing Fragment" "Decaying Fragment" "Tribute to the Goddess" "Sacred Blossom" "Dedication to the Goddess"
     SetTextColor 255 255 255 255
     SetBorderColor 255 70 190 255
     SetBackgroundColor 75 0 55 245
     SetFontSize 44
-    PlayAlertSound 6 270
+    PlayAlertSound 6 280
     MinimapIcon 0 Purple Diamond
     PlayEffect Purple Temp
 
-# T2 - Medio-alto: 20c-50c. Bom retorno por slot.
+# Boss fragments T2 - medio-alto.
 Show
-    BaseType "Sinistral Catalyst" "Prismatic Catalyst" "Tainted Catalyst" "Fertile Catalyst" "Runegraft of Treachery" "Runegraft of Rallying" "Primal Crystallised Lifeforce"
+    BaseType "Cosmic Fragment" "Fragment of Emptiness" "An Audience With The King" "Fragment of Terror" "Lonely Fragment" "Traumatic Fragment"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 180 0 255
+    SetBackgroundColor 75 35 0 240
+    SetFontSize 42
+    PlayAlertSound 5 240
+    MinimapIcon 1 Orange Star
+    PlayEffect Orange Temp
+
+# Boss fragments T3 - medio.
+Show
+    BaseType "Baran's Crest" "Fragment of Constriction" "Fragment of Eradication" "Fragment of the Chimera" "Fragment of Purification" "Synthesising Fragment" "Al-Hezmin's Crest" "Veritania's Crest" "Mortal Ignorance" "Drox's Crest" "Mortal Grief" "Fragment of the Phoenix" "Mortal Rage" "Mortal Hope" "The Maven's Writ"
+    SetTextColor 255 245 210 255
+    SetBorderColor 230 180 80 255
+    SetBackgroundColor 55 35 0 225
+    SetFontSize 38
+    PlayAlertSound 4 190
+    MinimapIcon 2 Yellow Star
+
+# Boss fragments / Ritual T4 - baixo/medio-baixo.
+Show
+    BaseType "Fragment of the Minotaur" "Fragment of Enslavement" "Fragment of the Hydra" "Crescent Splinter" "Hivebrain Gland" "Awakening Fragment" "Ritual Vessel"
+    SetTextColor 230 230 200 230
+    SetBorderColor 180 150 80 190
+    SetBackgroundColor 40 30 0 145
+    SetFontSize 32
+    MinimapIcon 2 Yellow Circle
+
+# Vaal/Lab/Ritual T5 - muito baixo, mas de mecanica util.
+Show
+    BaseType "Sacrifice at Noon" "Offering to the Goddess" "Sacrifice at Midnight" "Sacrifice at Dawn" "Sacrifice at Dusk" "Ritual Splinter"
+    SetTextColor 170 170 160 210
+    SetBorderColor 100 95 70 130
+    SetBackgroundColor 20 20 15 90
+    SetFontSize 26
+
+
+# ---------------------------------------------------------------------
+# 0.7) LIGAS ANTIGAS - Metamorph, Ancestor, Expedition,
+# Harvest/Lifeforce e Runegrafts
+# Calibrado pelos prints atuais do PoE Overlay em Chaos.
+# Observacao v11: removi BaseTypes parciais/genericos como "Tattoo",
+# "Omen", "Catalyst" e "Lifeforce", pois podem causar erro de parser.
+# Cada liga abaixo mantem sua propria escala de preco.
+# ---------------------------------------------------------------------
+
+# Metamorph/Catalysts T0 - jackpot.
+Show
+    BaseType "Dextral Catalyst"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 0 255 255
+    SetBackgroundColor 80 0 90 255
+    SetFontSize 45
+    PlayAlertSound 6 300
+    MinimapIcon 0 Purple Star
+    PlayEffect Purple
+
+# Metamorph/Catalysts T2 - medio-alto.
+Show
+    BaseType "Sinistral Catalyst" "Prismatic Catalyst" "Tainted Catalyst" "Fertile Catalyst"
     SetTextColor 255 255 255 255
     SetBorderColor 255 180 0 255
     SetBackgroundColor 75 35 0 240
@@ -216,9 +349,9 @@ Show
     MinimapIcon 1 Orange Star
     PlayEffect Orange Temp
 
-# T3 - Medio: 5c-20c. Visivel; vender em bulk ou usar quando fizer sentido.
+# Metamorph/Catalysts T3 - medio.
 Show
-    BaseType "Omen of the Jeweller" "Omen of Death-dancing" "Omen of Refreshment" "Tempering Catalyst" "Unstable Catalyst" "Accelerating Catalyst" "Imbued Catalyst" "Noxious Catalyst" "Exotic Coinage" "Astragali" "Runegraft of Time" "Runegraft of Bellows" "Runegraft of the Imbued" "Runegraft of the Witchmark" "Runegraft of Rotblood" "Runegraft of Suffering" "Runegraft of the Spellbound" "Runegraft of the Agile" "Runegraft of Resurgence" "Vivid Crystallised Lifeforce" "Crystallised Rancour"
+    BaseType "Tempering Catalyst" "Unstable Catalyst" "Accelerating Catalyst" "Imbued Catalyst" "Noxious Catalyst"
     SetTextColor 255 245 210 255
     SetBorderColor 230 180 80 255
     SetBackgroundColor 55 35 0 225
@@ -226,27 +359,18 @@ Show
     PlayAlertSound 4 180
     MinimapIcon 2 Yellow Star
 
-# T4 - Baixo, mas de mecanica util: aparece pequeno para juntar/vender em bulk.
+# Metamorph/Catalysts T4 - baixo/bulk.
 Show
-    BaseType "Omen of Return" "Burial Medallion" "Scrap Metal" "Intrinsic Catalyst" "Turbulent Catalyst" "Abrasive Catalyst" "Runegraft of the Bound" "Runegraft of the Combat" "Runegraft of Connection" "Runegraft of Consecration" "Runegraft of Fury" "Runegraft of the Sinistral" "Runegraft of Blasphemy" "Runegraft of Quaffing"
+    BaseType "Intrinsic Catalyst" "Turbulent Catalyst" "Abrasive Catalyst"
     SetTextColor 210 210 190 230
     SetBorderColor 145 125 70 170
     SetBackgroundColor 35 28 0 125
     SetFontSize 30
     MinimapIcon 2 Yellow Circle
 
-
-# ---------------------------------------------------------------------
-# 0.8) OVERRIDE DE MERCADO - Allflame Embers e Djinn Coins
-# Conferido com PoE Wiki: os 8 Allflames atuais sao:
-# Allflame Ember of the Gilded, the Ethereal, the Wildwood, Toads,
-# Kulemak, Propagation, Resplendence e Flesh.
-# Djinn Coins atuais: Coin of Power, Skill, Knowledge, Restoration e Desecration.
-# ---------------------------------------------------------------------
-
-# T0/T1 - Djinn Coins e Allflames muito caros. Pegar sempre e precificar.
+# Ancestor/Omen/Tattoo T0 - jackpot ou upgrade direto da build.
 Show
-    BaseType "Coin of Power" "Coin of Skill" "Coin of Knowledge" "Allflame Ember of the Gilded"
+    BaseType "Omen of Fortune" "Omen of Connections" "Omen of Amelioration" "Omen of Blanching" "Tattoo of the Valako Shieldbearer"
     SetTextColor 255 255 255 255
     SetBorderColor 255 0 255 255
     SetBackgroundColor 80 0 90 255
@@ -255,7 +379,192 @@ Show
     MinimapIcon 0 Purple Star
     PlayEffect Purple
 
-# T1 - Allflame caro no mercado atual.
+# Ancestor/Omen T1 - alto.
+Show
+    BaseType "Omen of Brilliance" "Omen of Death's Door"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 70 190 255
+    SetBackgroundColor 75 0 55 245
+    SetFontSize 44
+    PlayAlertSound 6 270
+    MinimapIcon 0 Purple Diamond
+    PlayEffect Purple Temp
+
+# Ancestor/Omen T3 - medio.
+Show
+    BaseType "Omen of the Jeweller" "Omen of Death-dancing" "Omen of Refreshment"
+    SetTextColor 255 245 210 255
+    SetBorderColor 230 180 80 255
+    SetBackgroundColor 55 35 0 225
+    SetFontSize 38
+    PlayAlertSound 4 180
+    MinimapIcon 2 Yellow Star
+
+# Ancestor/Omen T4 - uso situacional.
+Show
+    BaseType "Omen of Return"
+    SetTextColor 210 210 190 230
+    SetBorderColor 145 125 70 170
+    SetBackgroundColor 35 28 0 125
+    SetFontSize 30
+    MinimapIcon 2 Yellow Circle
+
+# Expedition T3 - artefatos/moeda de reroll com valor de bulk.
+Show
+    BaseType "Exotic Coinage" "Astragali"
+    SetTextColor 255 245 210 255
+    SetBorderColor 230 180 80 255
+    SetBackgroundColor 55 35 0 225
+    SetFontSize 38
+    PlayAlertSound 4 180
+    MinimapIcon 2 Yellow Star
+
+# Expedition T4 - baixo, mas ainda juntavel.
+Show
+    BaseType "Burial Medallion" "Scrap Metal"
+    SetTextColor 210 210 190 230
+    SetBorderColor 145 125 70 170
+    SetBackgroundColor 35 28 0 125
+    SetFontSize 30
+    MinimapIcon 2 Yellow Circle
+
+# Harvest/Lifeforce T0 - alto valor.
+Show
+    BaseType "Sacred Crystallised Lifeforce"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 0 255 255
+    SetBackgroundColor 80 0 90 255
+    SetFontSize 45
+    PlayAlertSound 6 300
+    MinimapIcon 0 Purple Star
+    PlayEffect Purple
+
+# Harvest/Lifeforce T1 - alto.
+Show
+    BaseType "Wild Crystallised Lifeforce"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 70 190 255
+    SetBackgroundColor 75 0 55 245
+    SetFontSize 44
+    PlayAlertSound 6 270
+    MinimapIcon 0 Purple Diamond
+    PlayEffect Purple Temp
+
+# Harvest/Lifeforce T2 - medio-alto.
+Show
+    BaseType "Primal Crystallised Lifeforce"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 180 0 255
+    SetBackgroundColor 75 35 0 240
+    SetFontSize 42
+    PlayAlertSound 5 230
+    MinimapIcon 1 Orange Star
+    PlayEffect Orange Temp
+
+# Harvest/Lifeforce T3 - medio.
+Show
+    BaseType "Vivid Crystallised Lifeforce" "Crystallised Rancour"
+    SetTextColor 255 245 210 255
+    SetBorderColor 230 180 80 255
+    SetBackgroundColor 55 35 0 225
+    SetFontSize 38
+    PlayAlertSound 4 180
+    MinimapIcon 2 Yellow Star
+
+# Runegrafts T0 - muito alto.
+Show
+    BaseType "Runegraft of Stability" "Runegraft of the Warp" "Runegraft of the Fortress" "Runegraft of the Soulwick" "Runegraft of Gemcraft"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 0 255 255
+    SetBackgroundColor 80 0 90 255
+    SetFontSize 45
+    PlayAlertSound 6 300
+    MinimapIcon 0 Purple Star
+    PlayEffect Purple
+
+# Runegrafts T1 - alto.
+Show
+    BaseType "Runegraft of the River"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 70 190 255
+    SetBackgroundColor 75 0 55 245
+    SetFontSize 44
+    PlayAlertSound 6 270
+    MinimapIcon 0 Purple Diamond
+    PlayEffect Purple Temp
+
+# Runegrafts T2 - medio-alto.
+Show
+    BaseType "Runegraft of Treachery" "Runegraft of Rallying"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 180 0 255
+    SetBackgroundColor 75 35 0 240
+    SetFontSize 42
+    PlayAlertSound 5 230
+    MinimapIcon 1 Orange Star
+    PlayEffect Orange Temp
+
+# Runegrafts T3 - medio.
+Show
+    BaseType "Runegraft of Time" "Runegraft of Bellows" "Runegraft of the Imbued" "Runegraft of the Witchmark" "Runegraft of Rotblood" "Runegraft of Suffering" "Runegraft of the Spellbound" "Runegraft of the Agile" "Runegraft of Resurgence"
+    SetTextColor 255 245 210 255
+    SetBorderColor 230 180 80 255
+    SetBackgroundColor 55 35 0 225
+    SetFontSize 38
+    PlayAlertSound 4 180
+    MinimapIcon 2 Yellow Star
+
+# Runegrafts T4 - baixo, mas de mecanica util.
+Show
+    BaseType "Runegraft of the Bound" "Runegraft of the Combat" "Runegraft of Connection" "Runegraft of Consecration" "Runegraft of Fury" "Runegraft of the Sinistral" "Runegraft of Blasphemy" "Runegraft of Quaffing"
+    SetTextColor 210 210 190 230
+    SetBorderColor 145 125 70 170
+    SetBackgroundColor 35 28 0 125
+    SetFontSize 30
+    MinimapIcon 2 Yellow Circle
+
+
+# ---------------------------------------------------------------------
+# 0.8) LIGAS ANTIGAS - Allflame Embers e Djinn Coins
+# Conferido com PoE Wiki: os 8 Allflames atuais sao:
+# Allflame Ember of the Gilded, the Ethereal, the Wildwood, Toads,
+# Kulemak, Propagation, Resplendence e Flesh.
+# Djinn Coins atuais: Coin of Power, Skill, Knowledge, Restoration e Desecration.
+# Separado por liga/mecanica e por preco dentro de cada uma.
+# ---------------------------------------------------------------------
+
+# Djinn Coins T0/T1 - muito caros. Pegar sempre e precificar.
+Show
+    BaseType "Coin of Power" "Coin of Skill" "Coin of Knowledge"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 0 255 255
+    SetBackgroundColor 80 0 90 255
+    SetFontSize 45
+    PlayAlertSound 6 300
+    MinimapIcon 0 Purple Star
+    PlayEffect Purple
+
+# Djinn Coins T4 - baratos/uso situacional.
+Show
+    BaseType "Coin of Restoration" "Coin of Desecration"
+    SetTextColor 210 210 190 230
+    SetBorderColor 145 125 70 170
+    SetBackgroundColor 35 28 0 125
+    SetFontSize 30
+    MinimapIcon 2 Yellow Circle
+
+# Allflame T0/T1 - caro no mercado atual.
+Show
+    BaseType "Allflame Ember of the Gilded"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 0 255 255
+    SetBackgroundColor 80 0 90 255
+    SetFontSize 45
+    PlayAlertSound 6 300
+    MinimapIcon 0 Purple Star
+    PlayEffect Purple
+
+# Allflame T1 - caro no mercado atual.
 Show
     BaseType "Allflame Ember of the Ethereal"
     SetTextColor 255 255 255 255
@@ -287,18 +596,9 @@ Show
     PlayAlertSound 4 170
     MinimapIcon 2 Yellow Star
 
-# T4 - Djinn Coins baratos/uso situacional.
-Show
-    BaseType "Coin of Restoration" "Coin of Desecration"
-    SetTextColor 210 210 190 230
-    SetBorderColor 145 125 70 170
-    SetBackgroundColor 35 28 0 125
-    SetFontSize 30
-    MinimapIcon 2 Yellow Circle
-
 
 # ---------------------------------------------------------------------
-# 0.9) OVERRIDE DE MERCADO - Essences e Delve/Fossils/Resonators
+# 0.9) LIGAS ANTIGAS - Essences e Delve/Fossils/Resonators
 # Calibrado pelos prints atuais do PoE Overlay em Chaos.
 # Regra: especiais/Deafening caros e fossils/resonators caros recebem alerta;
 # tiers baixos ficam visiveis para bulk, mas discretos.
@@ -388,10 +688,12 @@ Show
 
 
 # ---------------------------------------------------------------------
-# 1) Drops especiais / liga / Breach Hives
+# 1) LIGA ATUAL - Miragem / Breach Hives
+# A liga atual fica antes dos fallbacks de mapas, fragments e currency.
+# Dentro dela, Wombgifts continuam ordenados por prioridade/preco de farm.
 # ---------------------------------------------------------------------
 
-# Foulborn: especiais da mecanica atual
+# Miragem T0/T1 - Foulborn: especiais da mecanica atual
 Show
     Foulborn True
     SetTextColor 255 255 255 255
@@ -402,7 +704,7 @@ Show
     MinimapIcon 1 Purple Hexagon
     PlayEffect Purple Temp
 
-# Breach Hives - melhor escolha para farm de currency/valor variado
+# Miragem/Breach Hives T0 - melhor escolha para farm de currency/valor variado
 # Lavish = currency; Mysterious = recompensas variadas. Destaque maximo.
 Show
     Class "Wombgifts"
@@ -415,7 +717,7 @@ Show
     MinimapIcon 0 Green Star
     PlayEffect Green
 
-# Ancient/Provisioning ainda aparecem bem, mas abaixo de Lavish/Mysterious.
+# Miragem/Breach Hives T1 - Ancient/Provisioning ainda aparecem bem, mas abaixo de Lavish/Mysterious.
 Show
     Class "Wombgifts"
     BaseType "Ancient Wombgift" "Provisioning Wombgift"
@@ -427,7 +729,7 @@ Show
     MinimapIcon 1 Green Diamond
     PlayEffect Green Temp
 
-# Fallback: qualquer Wombgift nao listado acima
+# Miragem/Breach Hives fallback - qualquer Wombgift nao listado acima
 Show
     Class "Wombgifts"
     SetTextColor 220 255 230 255
@@ -439,12 +741,12 @@ Show
 
 
 # ---------------------------------------------------------------------
-# 1.5) SCARABS - calibrado pelo PoE Overlay atual + farm Breach Hives
+# 1.5) ATLAS/SCARABS - por liga e preco
 # Regra: scarabs de Breach/Hive aparecem mesmo quando baratos, porque voce provavelmente usa.
 # Scarabs muito caros aparecem com alerta forte para vender/precificar, nao jogar fora.
 # ---------------------------------------------------------------------
 
-# Breach Resonant Cascade: no print esta caro (~83c). Nao consumir sem calcular ROI.
+# Breach T1 - Resonant Cascade: no print esta caro (~83c). Nao consumir sem calcular ROI.
 Show
     Class "Map Fragments"
     BaseType "Breach Scarab of Resonant Cascade"
@@ -456,7 +758,7 @@ Show
     MinimapIcon 0 Cyan Star
     PlayEffect Cyan
 
-# Core do seu farm: manter destacado mesmo se o valor unitario for baixo.
+# Breach T2/T3 - core do seu farm: manter destacado mesmo se o valor unitario for baixo.
 # PoE Wiki 3.28 lista Hive, Instability, Marshal, Incensed Swarm e Resonant Cascade; removi "Breach Scarab" legado e "Dreamer" duvidoso.
 Show
     Class "Map Fragments"
@@ -469,7 +771,7 @@ Show
     MinimapIcon 1 Cyan Diamond
     PlayEffect Cyan Temp
 
-# Scarabs jackpot / valor muito alto no print atual.
+# Scarabs globais T0 - jackpot / valor muito alto no print atual.
 Show
     Class "Map Fragments"
     BaseType "Horned Scarab of Bloodlines" "Horned Scarab of Preservation" "Ambush Scarab of Containment" "Harvest Scarab of Cornucopia"
@@ -481,7 +783,7 @@ Show
     MinimapIcon 0 Purple Star
     PlayEffect Purple
 
-# Scarabs altos/medio-altos: precificar antes de usar/vender.
+# Scarabs globais T1/T2 - altos/medio-altos: precificar antes de usar/vender.
 Show
     Class "Map Fragments"
     BaseType "Horned Scarab of Pandemonium" "Horned Scarab of Awakening" "Cartography Scarab of Risk" "Ultimatum Scarab of Catalysing" "Domination Scarab of Terrors" "Kalguuran Scarab of Refinement" "Harvest Scarab of Doubling" "Legion Scarab of Eternal Conflict" "Divination Scarab of The Cloister" "Delirium Scarab of Paranoia" "Ambush Scarab of Discernment"
@@ -493,7 +795,7 @@ Show
     MinimapIcon 1 Orange Star
     PlayEffect Orange Temp
 
-# Scarabs medios que ainda valem pegar sempre.
+# Scarabs globais T3 - medios que ainda valem pegar sempre.
 Show
     Class "Map Fragments"
     BaseType "Legion Scarab of Treasures" "Abyss Scarab of Edifice" "Divination Scarab of Pilfering" "Blight Scarab of Blooming" "Incursion Scarab of Timelines" "Horned Scarab of Tradition" "Essence Scarab of Calcification" "Abyss Scarab of Profound Depth" "Ambush Scarab" "Blight Scarab of Invigoration" "Titanic Scarab of Legend" "Bestiary Scarab of Duplicating" "Bestiary Scarab of the Herd" "Horned Scarab of Glittering" "Essence Scarab of Adaptation" "Ultimatum Scarab of Dueling"
@@ -505,7 +807,7 @@ Show
     MinimapIcon 2 Yellow Circle
 
 
-# Hivebrain Gland e scarabs ligados a Breach/Hive
+# Breach/Hive T1 - Hivebrain Gland e scarabs ligados ao farm atual
 Show
     BaseType "Hivebrain Gland" "Breach Scarab of the Hive" "Breach Scarab of the Marshal" "Breach Scarab of Instability" "Breach Scarab of the Incensed Swarm" "Breach Scarab of Resonant Cascade"
     SetTextColor 255 255 255 255
@@ -516,7 +818,7 @@ Show
     MinimapIcon 0 Cyan Diamond
     PlayEffect Cyan Temp
 
-# Scarabs novos de Mirage/3.28: baixo/medio valor, mas mostrar antes do fallback generico.
+# Miragem/3.28 T4 - scarabs novos de baixo/medio valor, antes do fallback generico.
 Show
     Class "Map Fragments"
     BaseType "Anarchy Scarab of the Exceptional" "Ritual Scarab of Corpses" "Kalguuran Scarab of Enriching" "Scarab of the Dextral" "Betrayal Scarab of Unbreaking" "Abyss Scarab of Descending" "Expedition Scarab of Infusion"
@@ -537,7 +839,7 @@ Show
 
 
 # ---------------------------------------------------------------------
-# 2) Currency aberta, mas hierarquizada
+# 2) ECONOMIA GLOBAL - Currency aberta, mas hierarquizada por preco
 # ---------------------------------------------------------------------
 
 # Jackpot / impossivel perder
@@ -575,7 +877,7 @@ Show
     PlayAlertSound 3 190
     MinimapIcon 2 Yellow Circle
 
-# Tattoos de block ou utilidade da build
+# Ancestor/Tattoos T0 - block ou utilidade da build
 Show
     Class "Stackable Currency"
     BaseType "Tattoo of the Valako Shieldbearer"
@@ -587,7 +889,7 @@ Show
     MinimapIcon 1 Cyan Star
     PlayEffect Cyan Temp
 
-# Moedas novas de Mirage: visiveis e chamativas o suficiente
+# Miragem T1/T2 - moedas novas visiveis e chamativas o suficiente
 Show
     Class "Stackable Currency"
     BaseType "Coin of Restoration" "Coin of Desecration" "Coin of Knowledge" "Coin of Power" "Coin of Skill" "Refracting Fog" "Essence of Desolation"
@@ -617,10 +919,10 @@ Show
     MinimapIcon 2 Yellow Circle
 
 # ---------------------------------------------------------------------
-# 3) Itens de mecanicas antigas / temporadas anteriores
+# 3) FALLBACKS DE LIGAS ANTIGAS / TEMPORADAS ANTERIORES
 # ---------------------------------------------------------------------
 
-# Fragmentos, logbooks, contratos, blueprints, incubators, Delve e Heist.
+# Fallback multi-liga: fragmentos, logbooks, contratos, blueprints, incubators, Delve e Heist.
 Show
     Class "Map Fragments" "Misc Map Items" "Breachstones" "Expedition Logbooks" "Contracts" "Blueprints" "Incubators" "Trinkets" "Delve Stackable Socketable Currency" "Heist Gear" "Heist Tools" "Heist Cloaks" "Heist Brooches" "Heist Targets" "Relics" "Vault Keys" "Pieces" "Memories" "Incursion Items" "Metamorph Samples" "Corpses"
     SetTextColor 220 235 255 255
@@ -634,7 +936,7 @@ Show
 # 4) Mapas e progresso do Atlas
 # ---------------------------------------------------------------------
 
-# Mapas Mirage: importantes na liga atual, mostrar acima dos mapas comuns
+# Miragem T1 - mapas Mirage: importantes na liga atual, acima dos mapas comuns
 Show
     Class "Maps"
     MirageMap True
@@ -748,7 +1050,7 @@ Show
 # 6) Gemas: qualidade alta ou suportes importantes da build
 # ---------------------------------------------------------------------
 
-# Gemas Imbued da liga Mirage: mostrar mesmo sem qualidade alta
+# Miragem T1 - gemas Imbued: mostrar mesmo sem qualidade alta
 Show
     Class "Skill Gems" "Support Gems"
     Imbued True
@@ -869,7 +1171,7 @@ Hide
 # T0 - cartas jackpot / valores em milhares de chaos no print.
 Show
     Class "Divination Cards"
-    BaseType "Damnation" "House of Mirrors" "Lucky Bastion" "The Miracle" "History" "Unrequited Love" "The Slumbering Beast" "The Price of Devotion" "The Immortal" "The Eye of Terror" "The Apothecary" "The Lake" "The Demon" "Seven Years Bad Luck" "The Insane Cat" "Fire Of Unknown Origin" "Fire of Unknown Origin"
+    BaseType "Damnation" "House of Mirrors" "Lucky Bastion" "The Miracle" "History" "Unrequited Love" "The Slumbering Beast" "The Price of Devotion" "The Immortal" "The Eye of Terror" "The Apothecary" "The Lake" "The Demon" "Seven Years Bad Luck" "The Insane Cat" "Fire of Unknown Origin"
     SetTextColor 255 255 255 255
     SetBorderColor 255 0 255 255
     SetBackgroundColor 80 0 90 255
