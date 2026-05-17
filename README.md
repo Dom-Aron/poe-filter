@@ -1057,3 +1057,115 @@ Evitar erros de BaseType
 ```
 
 A versão atual, **v19-dev**, parte da v18 consolidada para **level 89 em mapas T9/T10** e reorganiza o filtro por ligas/mecânicas, mantendo os tiers de preço dentro de cada uma.
+
+---
+
+## 19. Toolkit de mercado poe.ninja
+
+O repositorio agora inclui `poe_market_filter_toolkit/`, um conjunto de scripts Python para consultar o mercado atual da liga `Mirage` no poe.ninja e gerar relatorios de apoio para revisao manual do filtro.
+
+Rodar tudo:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_all.py
+```
+
+Relatorios principais:
+
+```text
+poe_market_filter_toolkit/market/reports/market_report.md
+poe_market_filter_toolkit/market/reports/filter_suggestions.md
+poe_market_filter_toolkit/market/reports/filter_audit.md
+```
+
+O toolkit nao edita o filtro automaticamente. Ele coleta precos, compara com os `BaseType` do filtro ativo na raiz do repositorio e gera sugestoes para revisao.
+
+### v20-dev — integração de mercado no filtro
+
+O filtro passou a separar explicitamente duas camadas:
+
+```text
+VALOR DE MERCADO
+BUILD - Shockwave Cyclone / General's Cry Slayer
+```
+
+A camada de mercado fica no topo do `.filter` e destaca itens caros mesmo quando não pertencem à build, como gemas 21/20+, supports awakened altos, mapas especiais, unique maps caros e clusters com enchant/passive count valiosos.
+
+A camada da build continua destacando gemas, bases, clusters, frascos e itens úteis para o personagem mesmo quando o preço de mercado não justifica alerta forte.
+
+Integração de atributos usada de forma segura:
+
+```text
+GemLevel
+Quality
+EnchantmentPassiveNode
+EnchantmentPassiveNum
+FracturedItem
+SynthesisedItem
+HasInfluence
+```
+
+`HasExplicitMod` não foi usado como regra obrigatória para rares, porque a maior parte dos rares cai não identificada e o filtro não deve depender de mods que o chão ainda não expõe.
+
+### Triagem manual de rares identificados
+
+Há um fluxo útil dentro do jogo:
+
+```text
+1. Pegue apenas bases que o filtro marcou como potencial.
+2. Identifique o item.
+3. Jogue o item no chão novamente.
+4. Observe se o filtro destaca o item com alerta mais forte.
+```
+
+Se o item acender depois de identificado, ele entrou em uma regra de triagem por mods explícitos. Isso não garante venda imediata, mas indica que o item tem uma combinação que merece inspeção manual ou checagem no trade.
+
+O filtro agora usa essa lógica para:
+
+```text
+Luvas da build:
+- Accuracy
+- Life
+- Attack Speed
+- Damage while Leeching
+- Resistências
+- Strength/Dexterity
+
+Staffs:
+- Physical Damage
+- Added Damage
+- Accuracy
+- Attack Speed
+- Critical Multiplier
+- Impale
+- Critical Strike Chance
+
+Anéis, amuletos e cintos:
+- Life
+- Accuracy
+- Attributes
+- Resistências
+- -mana cost para channeling
+- Physical Damage
+- Critical Multiplier
+
+Jewels e Abyss Jewels:
+- Life
+- Accuracy
+- Physical Damage
+- Attack Speed
+- Critical Multiplier
+- Resistências
+```
+
+Limitação importante: o filtro consegue ler `HasExplicitMod` somente quando o item está identificado ou quando o jogo já expõe os mods daquele item no chão. Por isso a regra não substitui trade macro/PoE Overlay; ela serve como uma segunda peneira rápida depois da identificação.
+
+Recomendação prática:
+
+```text
+Pegue bases boas marcadas pelo filtro.
+Identifique em lote no fim do mapa ou em um canto seguro.
+Jogue no chão.
+Se continuar apagado/discreto, venda no NPC ou ignore.
+Se acender forte, compare no trade.
+```
