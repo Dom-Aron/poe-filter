@@ -79,9 +79,10 @@ Show
     PlayEffect Purple
 
 # Mercado T0 - supports excepcionais/awakened em nivel alto.
+# Evita listar nomes de gemas vindos do poe.ninja como BaseType: alguns nomes
+# de mercado nao sao aceitos pelo parser do filtro no jogo.
 Show
     Class "Support Gems"
-    BaseType "Awakened Empower Support" "Awakened Enlighten Support" "Awakened Enhance Support" "Companionship Support" "Eclipse Support" "Greater Multistrike Support" "Greater Spell Echo Support" "Cooldown Recovery Support" "Cast on Ward Break Support" "Congregation Support" "Vaal Temptation Support" "Invert the Rules Support" "Greater Unleash Support" "Minion Pact Support" "Void Shockwave Support" "Greater Ancestral Call Support"
     GemLevel >= 4
     Quality >= 20
     SetTextColor 255 255 255 255
@@ -92,10 +93,13 @@ Show
     MinimapIcon 0 Purple Diamond
     PlayEffect Purple Temp
 
-# Mercado T1 - gemas/transfigured gems que aparecem caras mesmo sem depender da build.
+# Mercado T1 - gemas premium corrompidas, independentemente da build.
+# Usar criterios estruturais e nao uma lista de BaseType evita erro de parser
+# com nomes de mercado/transfigured gems que o jogo nao reconhece no filtro.
 Show
     Class "Skill Gems" "Support Gems"
-    BaseType "Item Rarity Support" "Charged Dash of Projection" "Summon Reaper of Eviscerating" "Flame Surge of Combusting" "Bladefall of Trarthus" "Essence Drain of Wickedness" "Contagion of Subsiding" "Frostblink of Wintry Blast" "Cold Snap of Power" "Galvanic Arrow of Energy" "Ice Crash of Cadence" "Flame Dash of Return" "Cyclone of Tumult" "Detonate Dead of Scavenging" "Siphoning Trap of Pain" "Icicle Mine of Fanning" "Wave of Conviction of Trarthus" "Explosive Concoction of Destruction" "Holy Hammers" "Crackling Lance of Disintegration" "Ethereal Knives of the Massacre" "Spectral Shield Throw of Trarthus" "Animate Guardian of Smiting" "Kinetic Blast of Clustering" "Reave of Refraction" "Ice Spear of Splitting" "Essence Drain of Desperation"
+    Corrupted True
+    GemLevel >= 20
     Quality >= 20
     SetTextColor 255 255 255 255
     SetBorderColor 255 180 0 255
