@@ -25,6 +25,12 @@
 #        movido Hivebrain Gland antes do fallback de Map Fragments, adicionados MirageMap/Imbued,
 #        adicionados scarabs novos de Mirage e reclassificadas cartas/omens/runegrafts com mercado atual.
 # - v19-dev: reorganizado por liga/mecanica, mantendo tiers de preco dentro de cada liga.
+# - v19-dev mercado: Runegrafts, Harvest/Lifeforce e Tattoos atualizados com prints do PoE Overlay.
+# - v19-dev mercado 2: Omens, Catalysts, Oils e fragments atualizados com prints do PoE Overlay.
+# - v19-dev mercado 3: Legion, Delirium e Delve atualizados com prints do PoE Overlay.
+# - v19-dev mercado 4: Currency geral atualizada com prints do PoE Overlay.
+# - v19-dev mercado 5: Essences atualizadas com prints do PoE Overlay.
+# - v19-dev mercado 6: Scarabs atualizados com prints do PoE Overlay.
 # =====================================================================
 
 # ---------------------------------------------------------------------
@@ -47,9 +53,9 @@ Show
 # Dentro deste bloco a organizacao continua por preco.
 # ---------------------------------------------------------------------
 
-# T0 - Mega jackpot / itens de valor altissimo ou dificilmente precificados
+# T0 - Mega jackpot / itens de valor altissimo
 Show
-    BaseType "Mirror of Kalandra" "Hinekora's Lock" "Mirror Shard" "Reflecting Mist"
+    BaseType "Mirror of Kalandra" "Hinekora's Lock" "Mirror Shard" "Reflecting Mist" "Eternal Orb"
     SetTextColor 255 255 255 255
     SetBorderColor 255 0 255 255
     SetBackgroundColor 80 0 90 255
@@ -60,7 +66,7 @@ Show
 
 # T1 - Muito alto: geralmente 100c+ no mercado atual
 Show
-    BaseType "Veiled Exalted Orb" "Orb of Dominance" "Awakener's Orb" "Foulborn Exalted Orb" "Tainted Divine Teardrop" "Volatile Vaal Orb" "Tempering Orb" "Tailoring Orb" "Orb of Conflict" "Crusader's Exalted Orb" "Divine Orb" "Voidborn Reliquary Key" "Fruiting Astrolabe" "Grasping Astrolabe" "Exceptional Eldritch Ember" "Exceptional Eldritch Ichor" "Warlord's Exalted Orb" "Valdo's Puzzle Box" "Hunter's Exalted Orb" "Enshrouded Astrolabe" "Veiled Chaos Orb" "Templar Astrolabe" "Nameless Astrolabe" "Chaotic Astrolabe" "Lightless Astrolabe" "Timeless Astrolabe" "Fungal Astrolabe" "Runic Astrolabe" "Redeemer's Exalted Orb" "Fracturing Orb" "Shaper's Exalted Orb" "Maven's Chisel of Avarice" "Flesh of Xesht" "Elder's Exalted Orb" "Orb of Remembrance"
+    BaseType "Veiled Exalted Orb" "Orb of Dominance" "Awakener's Orb" "Foulborn Exalted Orb" "Tainted Divine Teardrop" "Volatile Vaal Orb" "Tempering Orb" "Tailoring Orb" "Orb of Conflict" "Voidborn Reliquary Key" "Divine Orb" "Crusader's Exalted Orb" "Fruiting Astrolabe" "Grasping Astrolabe" "Valdo's Puzzle Box" "Hunter's Exalted Orb" "Enshrouded Astrolabe" "Shaper's Exalted Orb" "Exceptional Eldritch Ichor" "Veiled Chaos Orb" "Exceptional Eldritch Ember" "Nameless Astrolabe" "Fungal Astrolabe" "Runic Astrolabe" "Chaotic Astrolabe" "Lightless Astrolabe" "Templar Astrolabe" "Timeless Astrolabe" "Elder's Exalted Orb" "Redeemer's Exalted Orb" "Flesh of Xesht" "Fracturing Orb" "Maven's Chisel of Avarice" "Warlord's Exalted Orb"
     SetTextColor 255 255 255 255
     SetBorderColor 255 70 190 255
     SetBackgroundColor 75 0 55 245
@@ -71,7 +77,7 @@ Show
 
 # T2 - Alto/medio-alto: aproximadamente 10c a 100c
 Show
-    BaseType "Sacred Orb" "Tainted Exalted Orb" "Eldritch Chaos Orb" "Maven's Chisel of Divination" "Eldritch Orb of Annulment" "Foulborn Regal Orb" "Memory of Trauma" "Orb of Annulment" "Memory of Reverence" "Maven's Chisel of Scarab" "Fracturing Shard"
+    BaseType "Maven's Chisel of Proliferation" "Orb of Remembrance" "Tainted Exalted Orb" "Sacred Orb" "Eldritch Chaos Orb" "Eldritch Orb of Annulment" "Maven's Chisel of Divination" "Orb of Annulment" "Memory of Trauma"
     SetTextColor 255 255 255 255
     SetBorderColor 255 180 0 255
     SetBackgroundColor 75 35 0 240
@@ -82,7 +88,7 @@ Show
 
 # T3 - Medio: vale pegar sempre; bom retorno por slot
 Show
-    BaseType "Tainted Mythic Orb" "Stacked Deck" "Grand Eldritch Ember" "Maven's Chisel of Procurement" "Orb of Unravelling" "Tainted Orb of Fusing" "Exalted Orb" "Tainted Chaos Orb" "Ancient Orb" "Memory of Loneliness" "Eldritch Exalted Orb" "Foulborn Orb of Augmentation" "Tainted Armourer's Scrap" "Tainted Chromatic Orb" "Gemcutter's Prism"
+    BaseType "Maven's Chisel of Scarabs" "Grand Eldritch Ember" "Foulborn Regal Orb" "Maven's Chisel of Procurement" "Eldritch Exalted Orb" "Stacked Deck" "Orb of Unravelling" "Tainted Mythic Orb" "Tainted Chaos Orb" "Ancient Orb" "Memory of Reverence" "Tainted Orb of Fusing" "Exalted Orb" "Memory of Loneliness" "Tainted Armourer's Scrap" "Foulborn Orb of Augmentation" "Enkindling Orb" "Gemcutter's Prism" "Tainted Chromatic Orb"
     SetTextColor 255 245 210 255
     SetBorderColor 230 180 80 255
     SetBackgroundColor 55 35 0 225
@@ -92,7 +98,7 @@ Show
 
 # T4 - Baixo, mas util: craft/qualidade/mapas. Visivel e discreto.
 Show
-    BaseType "Orb of Intention" "Orb of Scouring" "Blessed Orb" "Grand Eldritch Ichor" "Orb of Alchemy" "Tainted Blacksmith's Whetstone" "Armourer's Scrap" "Enkindling Orb" "Tainted Jeweller's Orb" "Glassblower's Bauble" "Greater Eldritch Ember" "Vaal Orb" "Orb of Fusing" "Instilling Orb" "Orb of Regret" "Orb of Chance" "Regal Orb" "Chromatic Orb" "Orb of Augmentation" "Divine Vessel" "Greater Eldritch Ichor" "Orb of Unmaking" "Orb of Alteration" "Lesser Eldritch Ichor" "Blacksmith's Whetstone" "Orb of Binding" "Lesser Eldritch Ember" "Jeweller's Orb"
+    BaseType "Orb of Scouring" "Grand Eldritch Ichor" "Orb of Intention" "Orb of Regret" "Blessed Orb" "Vaal Orb" "Orb of Alchemy" "Tainted Blacksmith's Whetstone" "Tainted Jeweller's Orb" "Glassblower's Bauble" "Instilling Orb" "Divine Vessel" "Orb of Fusing" "Lesser Eldritch Ichor" "Greater Eldritch Ichor" "Orb of Chance" "Orb of Unmaking" "Orb of Alteration" "Regal Orb" "Chromatic Orb" "Orb of Augmentation" "Greater Eldritch Ember" "Lesser Eldritch Ember" "Blacksmith's Whetstone" "Armourer's Scrap" "Orb of Binding" "Jeweller's Orb"
     SetTextColor 230 230 200 230
     SetBorderColor 180 150 80 190
     SetBackgroundColor 40 30 0 145
@@ -101,7 +107,7 @@ Show
 
 # T5 - Muito baixo / muita pilha. Aparece minimo; sem som, para nao atrapalhar Breach.
 Show
-    BaseType "Portal Scroll" "Scroll of Wisdom" "Orb of Transmutation" "Rogue's Marker" "Scroll Fragment" "Transmutation Shard" "Alteration Shard" "Alchemy Shard" "Chaos Shard"
+    BaseType "Portal Scroll" "Scroll of Wisdom" "Orb of Transmutation" "Rogue's Marker" "Scroll Fragment" "Transmutation Shard" "Alteration Shard" "Alchemy Shard" "Chaos Shard" "Regal Shard" "Exalted Shard" "Annulment Shard" "Fracturing Shard"
     SetTextColor 150 150 150 180
     SetBorderColor 80 80 80 100
     SetBackgroundColor 15 15 15 65
@@ -116,9 +122,9 @@ Show
 # Cada liga/mecanica abaixo mantem seus proprios tiers de preco.
 # ---------------------------------------------------------------------
 
-# Blight/Oils T0 - jackpot.
+# Blight/Oils T0 - jackpot: Tainted ~1.9k, Golden ~434c, Prismatic/Silver 100c+.
 Show
-    BaseType "Tainted Oil"
+    BaseType "Tainted Oil" "Golden Oil" "Prismatic Oil" "Silver Oil"
     SetTextColor 255 255 255 255
     SetBorderColor 255 0 255 255
     SetBackgroundColor 80 0 90 255
@@ -129,7 +135,7 @@ Show
 
 # Blight/Oils T1 - alto.
 Show
-    BaseType "Golden Oil" "Prismatic Oil" "Silver Oil"
+    BaseType "Opalescent Oil" "Reflective Oil"
     SetTextColor 255 255 255 255
     SetBorderColor 255 70 190 255
     SetBackgroundColor 75 0 55 245
@@ -140,7 +146,7 @@ Show
 
 # Blight/Oils T2 - medio-alto.
 Show
-    BaseType "Opalescent Oil" "Reflective Oil"
+    BaseType "Black Oil"
     SetTextColor 255 255 255 255
     SetBorderColor 255 180 0 255
     SetBackgroundColor 75 35 0 240
@@ -151,7 +157,7 @@ Show
 
 # Blight/Oils T3 - medio.
 Show
-    BaseType "Black Oil"
+    BaseType "Crimson Oil"
     SetTextColor 255 245 210 255
     SetBorderColor 230 180 80 255
     SetBackgroundColor 55 35 0 225
@@ -161,7 +167,7 @@ Show
 
 # Blight/Oils T4 - baixo/medio-baixo.
 Show
-    BaseType "Crimson Oil" "Violet Oil" "Sepia Oil"
+    BaseType "Violet Oil"
     SetTextColor 230 230 200 230
     SetBorderColor 180 150 80 190
     SetBackgroundColor 40 30 0 145
@@ -170,15 +176,26 @@ Show
 
 # Blight/Oils T5 - baixo, mas juntavel em bulk.
 Show
-    BaseType "Amber Oil" "Verdant Oil" "Clear Oil" "Indigo Oil" "Azure Oil" "Teal Oil"
+    BaseType "Amber Oil" "Verdant Oil" "Clear Oil" "Indigo Oil" "Azure Oil" "Teal Oil" "Sepia Oil"
     SetTextColor 170 170 160 210
     SetBorderColor 100 95 70 130
     SetBackgroundColor 20 20 15 90
     SetFontSize 26
 
-# Delirium T1 - alto.
+# Delirium T0 - alto: Refracting Fog ~124c.
 Show
-    BaseType "Refracting Fog" "Diviner's Delirium Orb"
+    BaseType "Refracting Fog"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 0 255 255
+    SetBackgroundColor 80 0 90 255
+    SetFontSize 45
+    PlayAlertSound 6 300
+    MinimapIcon 0 Purple Star
+    PlayEffect Purple
+
+# Delirium T1 - alto: Diviner's ~68c.
+Show
+    BaseType "Diviner's Delirium Orb"
     SetTextColor 255 255 255 255
     SetBorderColor 255 70 190 255
     SetBackgroundColor 75 0 55 245
@@ -187,9 +204,9 @@ Show
     MinimapIcon 0 Purple Diamond
     PlayEffect Purple Temp
 
-# Delirium T2 - orbs e Simulacrum com bom retorno por slot.
+# Delirium T2 - orbs e Simulacrum com bom retorno por slot: ~20c-40c.
 Show
-    BaseType "Fine Delirium Orb" "Thaumaturge's Delirium Orb" "Skittering Delirium Orb" "Jeweller's Delirium Orb" "Singular Delirium Orb" "Abyssal Delirium Orb" "Cartographer's Delirium Orb" "Blacksmith's Delirium Orb" "Armoursmith's Delirium Orb" "Timeless Delirium Orb" "Whispering Delirium Orb" "Blighted Delirium Orb" "Fragmented Delirium Orb" "Simulacrum"
+    BaseType "Fine Delirium Orb" "Skittering Delirium Orb" "Simulacrum" "Singular Delirium Orb" "Whispering Delirium Orb" "Timeless Delirium Orb" "Cartographer's Delirium Orb" "Abyssal Delirium Orb" "Blacksmith's Delirium Orb" "Fragmented Delirium Orb" "Armoursmith's Delirium Orb" "Jeweller's Delirium Orb" "Blighted Delirium Orb" "Thaumaturge's Delirium Orb"
     SetTextColor 255 255 255 255
     SetBorderColor 255 180 0 255
     SetBackgroundColor 75 35 0 240
@@ -208,7 +225,16 @@ Show
     PlayAlertSound 4 190
     MinimapIcon 2 Yellow Star
 
-# Legion T0 - emblems unrelenting muito caros.
+# Delirium T4 - sem historico estavel, mas nomes confirmados no print.
+Show
+    BaseType "Delirium Orb" "Obscured Delirium Orb" "Fossilised Delirium Orb" "Kalguuran Delirium Orb" "Primal Delirium Orb" "Imperial Delirium Orb" "Challenging Delirium Orb"
+    SetTextColor 210 210 190 230
+    SetBorderColor 145 125 70 170
+    SetBackgroundColor 35 28 0 125
+    SetFontSize 30
+    MinimapIcon 2 Yellow Circle
+
+# Legion T0 - emblems unrelenting muito caros: 90c+.
 Show
     BaseType "Unrelenting Timeless Eternal Emblem" "Unrelenting Timeless Maraketh Emblem" "Unrelenting Timeless Templar Emblem" "Unrelenting Timeless Karui Emblem" "Unrelenting Timeless Vaal Emblem"
     SetTextColor 255 255 255 255
@@ -219,7 +245,7 @@ Show
     MinimapIcon 0 Purple Star
     PlayEffect Purple
 
-# Legion T2 - emblems bons.
+# Legion T2 - emblems bons: ~30c-40c.
 Show
     BaseType "Timeless Templar Emblem" "Timeless Maraketh Emblem"
     SetTextColor 255 255 255 255
@@ -232,7 +258,7 @@ Show
 
 # Legion T3 - emblems medios.
 Show
-    BaseType "Timeless Karui Emblem"
+    BaseType "Timeless Vaal Emblem" "Timeless Karui Emblem"
     SetTextColor 255 245 210 255
     SetBorderColor 230 180 80 255
     SetBackgroundColor 55 35 0 225
@@ -242,7 +268,7 @@ Show
 
 # Legion T4 - emblems baixos/medio-baixos.
 Show
-    BaseType "Timeless Vaal Emblem" "Timeless Eternal Emblem"
+    BaseType "Timeless Eternal Emblem"
     SetTextColor 230 230 200 230
     SetBorderColor 180 150 80 190
     SetBackgroundColor 40 30 0 145
@@ -257,9 +283,9 @@ Show
     SetBackgroundColor 20 20 15 90
     SetFontSize 26
 
-# Boss fragments / Maven / Shaper / Elder / Lab T0 - sempre precificar.
+# Boss fragments / Maven / Shaper / Elder / Lab T0 - sempre precificar; 100c+.
 Show
-    BaseType "Syndicate Medallion" "Gift to the Goddess" "The Black Barya" "Echo of Trauma" "Echo of Reverence" "Reality Fragment" "Reverent Fragment" "Fragment of Knowledge" "Echo of Loneliness" "Damnation" "House of Mirrors"
+    BaseType "Syndicate Medallion" "Gift to the Goddess" "The Black Barya" "Echo of Reverence" "Echo of Trauma" "Dedication to the Goddess" "Reverent Fragment" "Reality Fragment" "Fragment of Shape" "Fragment of Knowledge" "Tribute to the Goddess" "Devouring Fragment" "Blazing Fragment" "Echo of Loneliness" "Decaying Fragment" "Damnation" "House of Mirrors"
     SetTextColor 255 255 255 255
     SetBorderColor 255 0 255 255
     SetBackgroundColor 80 0 90 255
@@ -268,9 +294,9 @@ Show
     MinimapIcon 0 Purple Star
     PlayEffect Purple
 
-# Boss fragments / Lab T1 - alto.
+# Boss fragments / Lab T1 - alto: ~50c-100c.
 Show
-    BaseType "Fragment of Shape" "Devouring Fragment" "Blazing Fragment" "Decaying Fragment" "Tribute to the Goddess" "Sacred Blossom" "Dedication to the Goddess"
+    BaseType "Sacred Blossom"
     SetTextColor 255 255 255 255
     SetBorderColor 255 70 190 255
     SetBackgroundColor 75 0 55 245
@@ -279,9 +305,9 @@ Show
     MinimapIcon 0 Purple Diamond
     PlayEffect Purple Temp
 
-# Boss fragments T2 - medio-alto.
+# Boss fragments T2 - medio-alto: ~25c-50c.
 Show
-    BaseType "Cosmic Fragment" "Fragment of Emptiness" "An Audience With The King" "Fragment of Terror" "Lonely Fragment" "Traumatic Fragment"
+    BaseType "Fragment of Terror" "Lonely Fragment" "Cosmic Fragment" "Fragment of Emptiness" "Traumatic Fragment" "An Audience With The King" "Crescent Splinter"
     SetTextColor 255 255 255 255
     SetBorderColor 255 180 0 255
     SetBackgroundColor 75 35 0 240
@@ -290,9 +316,9 @@ Show
     MinimapIcon 1 Orange Star
     PlayEffect Orange Temp
 
-# Boss fragments T3 - medio.
+# Boss fragments T3 - medio: ~8c-25c.
 Show
-    BaseType "Baran's Crest" "Fragment of Constriction" "Fragment of Eradication" "Fragment of the Chimera" "Fragment of Purification" "Synthesising Fragment" "Al-Hezmin's Crest" "Veritania's Crest" "Mortal Ignorance" "Drox's Crest" "Mortal Grief" "Fragment of the Phoenix" "Mortal Rage" "Mortal Hope" "The Maven's Writ"
+    BaseType "Baran's Crest" "Fragment of Eradication" "Fragment of Purification" "Al-Hezmin's Crest" "Mortal Ignorance" "Fragment of Constriction" "Mortal Rage" "Veritania's Crest" "Drox's Crest" "Mortal Hope" "Synthesising Fragment" "Fragment of the Phoenix" "Mortal Grief" "Fragment of the Chimera" "Fragment of Enslavement" "The Maven's Writ"
     SetTextColor 255 245 210 255
     SetBorderColor 230 180 80 255
     SetBackgroundColor 55 35 0 225
@@ -302,7 +328,7 @@ Show
 
 # Boss fragments / Ritual T4 - baixo/medio-baixo.
 Show
-    BaseType "Fragment of the Minotaur" "Fragment of Enslavement" "Fragment of the Hydra" "Crescent Splinter" "Hivebrain Gland" "Awakening Fragment" "Ritual Vessel"
+    BaseType "Fragment of the Hydra" "Fragment of the Minotaur" "Awakening Fragment" "Hivebrain Gland" "Ritual Vessel"
     SetTextColor 230 230 200 230
     SetBorderColor 180 150 80 190
     SetBackgroundColor 40 30 0 145
@@ -327,7 +353,7 @@ Show
 # Cada liga abaixo mantem sua propria escala de preco.
 # ---------------------------------------------------------------------
 
-# Metamorph/Catalysts T0 - jackpot.
+# Metamorph/Catalysts T0 - jackpot: Dextral ~173c.
 Show
     BaseType "Dextral Catalyst"
     SetTextColor 255 255 255 255
@@ -338,7 +364,7 @@ Show
     MinimapIcon 0 Purple Star
     PlayEffect Purple
 
-# Metamorph/Catalysts T2 - medio-alto.
+# Metamorph/Catalysts T2 - medio-alto: ~15c-30c.
 Show
     BaseType "Sinistral Catalyst" "Prismatic Catalyst" "Tainted Catalyst" "Fertile Catalyst"
     SetTextColor 255 255 255 255
@@ -349,7 +375,7 @@ Show
     MinimapIcon 1 Orange Star
     PlayEffect Orange Temp
 
-# Metamorph/Catalysts T3 - medio.
+# Metamorph/Catalysts T3 - medio/baixo.
 Show
     BaseType "Tempering Catalyst" "Unstable Catalyst" "Accelerating Catalyst" "Imbued Catalyst" "Noxious Catalyst"
     SetTextColor 255 245 210 255
@@ -368,9 +394,9 @@ Show
     SetFontSize 30
     MinimapIcon 2 Yellow Circle
 
-# Ancestor/Omen/Tattoo T0 - jackpot ou upgrade direto da build.
+# Ancestor/Omen T0 - jackpot: Fortune ~9.5k, Connections/Amelioration/Blanching 180c+.
 Show
-    BaseType "Omen of Fortune" "Omen of Connections" "Omen of Amelioration" "Omen of Blanching" "Tattoo of the Valako Shieldbearer"
+    BaseType "Omen of Fortune" "Omen of Connections" "Omen of Amelioration" "Omen of Blanching"
     SetTextColor 255 255 255 255
     SetBorderColor 255 0 255 255
     SetBackgroundColor 80 0 90 255
@@ -379,9 +405,50 @@ Show
     MinimapIcon 0 Purple Star
     PlayEffect Purple
 
-# Ancestor/Omen T1 - alto.
+# Ancestor/Omen T2 - medio-alto.
 Show
-    BaseType "Omen of Brilliance" "Omen of Death's Door"
+    BaseType "Omen of Brilliance"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 180 0 255
+    SetBackgroundColor 75 35 0 240
+    SetFontSize 42
+    PlayAlertSound 5 230
+    MinimapIcon 1 Orange Star
+    PlayEffect Orange Temp
+
+# Ancestor/Omen T3 - medio.
+Show
+    BaseType "Omen of the Jeweller" "Omen of Death's Door" "Omen of Return" "Omen of Death-dancing"
+    SetTextColor 255 245 210 255
+    SetBorderColor 230 180 80 255
+    SetBackgroundColor 55 35 0 225
+    SetFontSize 38
+    PlayAlertSound 4 180
+    MinimapIcon 2 Yellow Star
+
+# Ancestor/Omen T4 - uso situacional ou sem historico.
+Show
+    BaseType "Omen of Refreshment" "Omen of the Soul Devourer" "Omen of Adrenaline"
+    SetTextColor 210 210 190 230
+    SetBorderColor 145 125 70 170
+    SetBackgroundColor 35 28 0 125
+    SetFontSize 30
+    MinimapIcon 2 Yellow Circle
+
+# Ancestor/Tattoos T0 - jackpot ou upgrade direto da build.
+Show
+    BaseType "Journey Tattoo of the Mind" "Tattoo of the Arohongui Shaman" "Tattoo of the Valako Shieldbearer" "Tattoo of the Ramako Shaman" "Tattoo of the Ngamahu Firewalker" "Tattoo of the Ramako Fleetfoot" "Tattoo of the Ngamahu Warmonger"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 0 255 255
+    SetBackgroundColor 80 0 90 255
+    SetFontSize 45
+    PlayAlertSound 6 300
+    MinimapIcon 0 Purple Star
+    PlayEffect Purple
+
+# Ancestor/Tattoos T1 - alto.
+Show
+    BaseType "Tattoo of the Rongokurai Turtle" "Tattoo of the Hinekora Warmonger"
     SetTextColor 255 255 255 255
     SetBorderColor 255 70 190 255
     SetBackgroundColor 75 0 55 245
@@ -390,9 +457,20 @@ Show
     MinimapIcon 0 Purple Diamond
     PlayEffect Purple Temp
 
-# Ancestor/Omen T3 - medio.
+# Ancestor/Tattoos T2 - medio-alto.
 Show
-    BaseType "Omen of the Jeweller" "Omen of Death-dancing" "Omen of Refreshment"
+    BaseType "Tattoo of the Hinekora Storyteller" "Tattoo of the Ramako Sniper" "Tattoo of the Ramako Archer" "Tattoo of the Ramako Scout" "Tattoo of the Valako Stormrider" "Tattoo of the Hinekora Warrior" "Tattoo of the Kitava Warrior" "Tattoo of the Ngamahu Woodcarver" "Tattoo of the Valako Warrior" "Tattoo of the Tukohama Shaman" "Tattoo of the Valako Shaman" "Tattoo of the Valako Scout" "Tattoo of the Ngamahu Shaman" "Tattoo of the Rongokurai Warrior" "Tattoo of the Rongokurai Guard"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 180 0 255
+    SetBackgroundColor 75 35 0 240
+    SetFontSize 42
+    PlayAlertSound 5 230
+    MinimapIcon 1 Orange Star
+    PlayEffect Orange Temp
+
+# Ancestor/Tattoos T3 - medio.
+Show
+    BaseType "Tattoo of the Arohongui Moonwarden" "Tattoo of the Ngamahu Warrior" "Tattoo of the Arohongui Warrior" "Tattoo of the Arohongui Scout" "Tattoo of the Arohongui Warmonger" "Tattoo of the Kitava Shaman" "Tattoo of the Tukohama Warcaller" "Tattoo of the Tawhoa Shaman" "Tattoo of the Tasalio Warrior" "Tattoo of the Tasalio Tideshifter" "Tattoo of the Tasalio Scout" "Tattoo of the Hinekora Deathwarden" "Tattoo of the Kitava Blood Drinker" "Tattoo of the Kitava Heart Eater" "Tattoo of the Tawhoa Herbalist"
     SetTextColor 255 245 210 255
     SetBorderColor 230 180 80 255
     SetBackgroundColor 55 35 0 225
@@ -400,9 +478,9 @@ Show
     PlayAlertSound 4 180
     MinimapIcon 2 Yellow Star
 
-# Ancestor/Omen T4 - uso situacional.
+# Ancestor/Tattoos T4 - baixo ou sem preco estavel; visivel para bulk/checagem.
 Show
-    BaseType "Omen of Return"
+    BaseType "Tattoo of the Hinekora Shaman" "Tattoo of the Rongokurai Brute" "Tattoo of the Rongokurai Goliath" "Tattoo of the Tasalio Bladedancer" "Tattoo of the Tukohama Warmonger" "Tattoo of the Tukohama Brawler" "Tattoo of the Kitava Rebel" "Tattoo of the Tukohama Warrior" "Tattoo of the Tawhoa Naturalist" "Tattoo of the Tawhoa Scout" "Tattoo of the Tasalio Shaman" "Tattoo of the Tawhoa Warrior" "Journey Tattoo of the Body" "Journey Tattoo of the Soul"
     SetTextColor 210 210 190 230
     SetBorderColor 145 125 70 170
     SetBackgroundColor 35 28 0 125
@@ -428,7 +506,7 @@ Show
     SetFontSize 30
     MinimapIcon 2 Yellow Circle
 
-# Harvest/Lifeforce T0 - alto valor.
+# Harvest/Lifeforce T0 - alto valor: Sacred ~141c.
 Show
     BaseType "Sacred Crystallised Lifeforce"
     SetTextColor 255 255 255 255
@@ -439,7 +517,7 @@ Show
     MinimapIcon 0 Purple Star
     PlayEffect Purple
 
-# Harvest/Lifeforce T1 - alto.
+# Harvest/Lifeforce T1 - alto: Wild ~64c.
 Show
     BaseType "Wild Crystallised Lifeforce"
     SetTextColor 255 255 255 255
@@ -450,7 +528,7 @@ Show
     MinimapIcon 0 Purple Diamond
     PlayEffect Purple Temp
 
-# Harvest/Lifeforce T2 - medio-alto.
+# Harvest/Lifeforce T2 - medio-alto: Primal ~26c.
 Show
     BaseType "Primal Crystallised Lifeforce"
     SetTextColor 255 255 255 255
@@ -461,7 +539,7 @@ Show
     MinimapIcon 1 Orange Star
     PlayEffect Orange Temp
 
-# Harvest/Lifeforce T3 - medio.
+# Harvest/Lifeforce T3 - medio: Rancour ~6c, Vivid ~5c.
 Show
     BaseType "Vivid Crystallised Lifeforce" "Crystallised Rancour"
     SetTextColor 255 245 210 255
@@ -471,9 +549,9 @@ Show
     PlayAlertSound 4 180
     MinimapIcon 2 Yellow Star
 
-# Runegrafts T0 - muito alto.
+# Runegrafts T0 - muito alto: ~140c+.
 Show
-    BaseType "Runegraft of Stability" "Runegraft of the Warp" "Runegraft of the Fortress" "Runegraft of the Soulwick" "Runegraft of Gemcraft"
+    BaseType "Runegraft of the Warp" "Runegraft of the Fortress" "Runegraft of Gemcraft" "Runegraft of Stability"
     SetTextColor 255 255 255 255
     SetBorderColor 255 0 255 255
     SetBackgroundColor 80 0 90 255
@@ -482,9 +560,9 @@ Show
     MinimapIcon 0 Purple Star
     PlayEffect Purple
 
-# Runegrafts T1 - alto.
+# Runegrafts T1 - alto: ~50c-100c.
 Show
-    BaseType "Runegraft of the River"
+    BaseType "Runegraft of Rotblood"
     SetTextColor 255 255 255 255
     SetBorderColor 255 70 190 255
     SetBackgroundColor 75 0 55 245
@@ -493,9 +571,9 @@ Show
     MinimapIcon 0 Purple Diamond
     PlayEffect Purple Temp
 
-# Runegrafts T2 - medio-alto.
+# Runegrafts T2 - medio-alto: ~15c-50c.
 Show
-    BaseType "Runegraft of Treachery" "Runegraft of Rallying"
+    BaseType "Runegraft of the Witchmark" "Runegraft of Time" "Runegraft of Treachery"
     SetTextColor 255 255 255 255
     SetBorderColor 255 180 0 255
     SetBackgroundColor 75 35 0 240
@@ -504,9 +582,9 @@ Show
     MinimapIcon 1 Orange Star
     PlayEffect Orange Temp
 
-# Runegrafts T3 - medio.
+# Runegrafts T3 - medio: ~5c-15c.
 Show
-    BaseType "Runegraft of Time" "Runegraft of Bellows" "Runegraft of the Imbued" "Runegraft of the Witchmark" "Runegraft of Rotblood" "Runegraft of Suffering" "Runegraft of the Spellbound" "Runegraft of the Agile" "Runegraft of Resurgence"
+    BaseType "Runegraft of the Soulwick" "Runegraft of Rallying" "Runegraft of Bellows" "Runegraft of the Imbued"
     SetTextColor 255 245 210 255
     SetBorderColor 230 180 80 255
     SetBackgroundColor 55 35 0 225
@@ -514,9 +592,9 @@ Show
     PlayAlertSound 4 180
     MinimapIcon 2 Yellow Star
 
-# Runegrafts T4 - baixo, mas de mecanica util.
+# Runegrafts T4 - baixo, mas de mecanica util: ~1c-5c ou sem historico.
 Show
-    BaseType "Runegraft of the Bound" "Runegraft of the Combat" "Runegraft of Connection" "Runegraft of Consecration" "Runegraft of Fury" "Runegraft of the Sinistral" "Runegraft of Blasphemy" "Runegraft of Quaffing"
+    BaseType "Runegraft of Resurgence" "Runegraft of the Jeweller" "Runegraft of Blasphemy" "Runegraft of the Agile" "Runegraft of the Bound" "Runegraft of Refraction" "Runegraft of Connection" "Runegraft of the Sinistral" "Runegraft of Consecration" "Runegraft of the Combatant" "Runegraft of Quaffing" "Runegraft of Loyalty" "Runegraft of the Novamark" "Runegraft of Suffering" "Runegraft of the River" "Runegraft of Restitching" "Runegraft of the Spellbound" "Runegraft of the Angler" "Runegraft of Fury"
     SetTextColor 210 210 190 230
     SetBorderColor 145 125 70 170
     SetBackgroundColor 35 28 0 125
@@ -604,9 +682,20 @@ Show
 # tiers baixos ficam visiveis para bulk, mas discretos.
 # ---------------------------------------------------------------------
 
-# Essences T1 - alto valor, pegar sempre e precificar.
+# Essences T0 - alto valor, pegar sempre e precificar.
 Show
-    BaseType "Essence of Desolation" "Deafening Essence of Scorn" "Essence of Horror" "Essence of Insanity" "Essence of Hysteria" "Essence of Delirium"
+    BaseType "Essence of Desolation"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 0 255 255
+    SetBackgroundColor 80 0 90 255
+    SetFontSize 45
+    PlayAlertSound 6 300
+    MinimapIcon 0 Purple Star
+    PlayEffect Purple
+
+# Essences T1 - especiais/deafening caras: ~20c-50c.
+Show
+    BaseType "Essence of Insanity" "Essence of Horror" "Deafening Essence of Scorn" "Essence of Hysteria" "Essence of Delirium"
     SetTextColor 255 255 255 255
     SetBorderColor 255 70 190 255
     SetBackgroundColor 75 0 55 245
@@ -617,7 +706,7 @@ Show
 
 # Essences T2 - 8c a 20c aproximado. Bom retorno por slot.
 Show
-    BaseType "Weeping Essence of Rage" "Whispering Essence of Woe" "Weeping Essence of Hatred" "Wailing Essence of Wrath" "Deafening Essence of Spite" "Shrieking Essence of Scorn"
+    BaseType "Weeping Essence of Contempt" "Deafening Essence of Spite" "Shrieking Essence of Scorn" "Wailing Essence of Sorrow" "Weeping Essence of Woe" "Deafening Essence of Loathing" "Wailing Essence of Rage" "Deafening Essence of Contempt"
     SetTextColor 255 255 255 255
     SetBorderColor 255 180 0 255
     SetBackgroundColor 75 35 0 240
@@ -626,9 +715,9 @@ Show
     MinimapIcon 1 Orange Star
     PlayEffect Orange Temp
 
-# Essences T3 - Deafening comuns e Shrieking/Wailing medianas.
+# Essences T3 - Deafening comuns e Shrieking/Wailing medianas: ~4c-8c.
 Show
-    BaseType "Deafening Essence of Anger" "Deafening Essence of Envy" "Deafening Essence of Contempt" "Deafening Essence of Loathing" "Deafening Essence of Greed" "Deafening Essence of Rage" "Deafening Essence of Woe" "Deafening Essence of Zeal" "Deafening Essence of Hatred" "Deafening Essence of Misery" "Deafening Essence of Wrath" "Deafening Essence of Doubt" "Deafening Essence of Suffering" "Deafening Essence of Fear" "Deafening Essence of Anguish" "Deafening Essence of Torment" "Deafening Essence of Sorrow" "Deafening Essence of Dread" "Shrieking Essence of Rage" "Shrieking Essence of Woe" "Shrieking Essence of Anger" "Shrieking Essence of Anguish" "Shrieking Essence of Loathing" "Shrieking Essence of Torment" "Shrieking Essence of Fear" "Shrieking Essence of Greed" "Shrieking Essence of Hatred" "Shrieking Essence of Sorrow" "Shrieking Essence of Wrath" "Screaming Essence of Zeal"
+    BaseType "Wailing Essence of Doubt" "Deafening Essence of Wrath" "Screaming Essence of Contempt" "Deafening Essence of Envy" "Deafening Essence of Rage" "Shrieking Essence of Dread" "Deafening Essence of Woe" "Deafening Essence of Zeal" "Deafening Essence of Fear" "Deafening Essence of Hatred" "Deafening Essence of Greed" "Deafening Essence of Anger" "Shrieking Essence of Anger" "Wailing Essence of Zeal" "Shrieking Essence of Envy" "Deafening Essence of Misery" "Deafening Essence of Torment" "Deafening Essence of Suffering" "Deafening Essence of Sorrow" "Deafening Essence of Anguish" "Deafening Essence of Doubt" "Deafening Essence of Dread" "Shrieking Essence of Sorrow" "Screaming Essence of Anger" "Wailing Essence of Contempt"
     SetTextColor 255 245 210 255
     SetBorderColor 230 180 80 255
     SetBackgroundColor 55 35 0 225
@@ -636,16 +725,24 @@ Show
     PlayAlertSound 3 160
     MinimapIcon 2 Yellow Circle
 
-# Essences T4 - baixo valor/bulk. Visivel, sem som forte.
+# Essences T4 - baixo valor/bulk: ~1c-4c ou razao inversa.
 Show
-    BaseType "Screaming Essence of Anger" "Wailing Essence of Spite" "Wailing Essence of Torment" "Screaming Essence of Hatred" "Shrieking Essence of Doubt" "Muttering Essence of Hatred" "Shrieking Essence of Misery" "Screaming Essence of Greed" "Screaming Essence of Scorn" "Wailing Essence of Hatred" "Wailing Essence of Greed" "Weeping Essence of Doubt" "Shrieking Essence of Zeal" "Shrieking Essence of Envy" "Shrieking Essence of Spite" "Screaming Essence of Dread" "Muttering Essence of Woe" "Shrieking Essence of Suffering" "Screaming Essence of Rage" "Screaming Essence of Misery" "Shrieking Essence of Dread" "Screaming Essence of Wrath" "Weeping Essence of Woe" "Wailing Essence of Woe" "Shrieking Essence of Contempt" "Screaming Essence of Sorrow" "Screaming Essence of Fear" "Screaming Essence of Suffering" "Screaming Essence of Anguish" "Screaming Essence of Spite" "Screaming Essence of Doubt" "Screaming Essence of Torment" "Screaming Essence of Contempt" "Screaming Essence of Envy"
+    BaseType "Screaming Essence of Wrath" "Wailing Essence of Torment" "Shrieking Essence of Spite" "Screaming Essence of Greed" "Shrieking Essence of Woe" "Screaming Essence of Scorn" "Weeping Essence of Doubt" "Shrieking Essence of Zeal" "Screaming Essence of Hatred" "Screaming Essence of Spite" "Shrieking Essence of Wrath" "Muttering Essence of Woe" "Screaming Essence of Woe" "Screaming Essence of Sorrow" "Wailing Essence of Anger" "Screaming Essence of Fear" "Wailing Essence of Spite" "Screaming Essence of Misery" "Screaming Essence of Dread" "Screaming Essence of Envy" "Screaming Essence of Rage" "Shrieking Essence of Contempt" "Wailing Essence of Woe" "Screaming Essence of Anguish" "Screaming Essence of Torment" "Screaming Essence of Suffering" "Shrieking Essence of Rage" "Shrieking Essence of Greed" "Shrieking Essence of Torment" "Shrieking Essence of Fear" "Shrieking Essence of Doubt" "Shrieking Essence of Suffering" "Screaming Essence of Doubt" "Shrieking Essence of Hatred" "Shrieking Essence of Anguish" "Shrieking Essence of Loathing" "Screaming Essence of Zeal" "Screaming Essence of Loathing"
     SetTextColor 210 210 190 230
     SetBorderColor 145 125 70 170
     SetBackgroundColor 35 28 0 125
     SetFontSize 29
     MinimapIcon 2 Yellow Circle
 
-# Delve T1 - fossils/resonators caros. Precificar.
+# Essences T5 - sem historico estavel no print; manter visivel e pequeno.
+Show
+    BaseType "Whispering Essence of Hatred" "Muttering Essence of Hatred" "Weeping Essence of Hatred" "Wailing Essence of Hatred" "Whispering Essence of Woe" "Whispering Essence of Greed" "Muttering Essence of Greed" "Weeping Essence of Greed" "Wailing Essence of Greed" "Whispering Essence of Contempt" "Muttering Essence of Contempt" "Muttering Essence of Sorrow" "Weeping Essence of Sorrow" "Muttering Essence of Anger" "Weeping Essence of Anger" "Muttering Essence of Torment" "Weeping Essence of Torment" "Muttering Essence of Fear" "Weeping Essence of Fear" "Wailing Essence of Fear" "Weeping Essence of Suffering" "Wailing Essence of Suffering" "Weeping Essence of Rage" "Weeping Essence of Wrath" "Wailing Essence of Wrath" "Wailing Essence of Anguish" "Wailing Essence of Loathing" "Shrieking Essence of Misery"
+    SetTextColor 170 170 160 210
+    SetBorderColor 100 95 70 130
+    SetBackgroundColor 20 20 15 90
+    SetFontSize 26
+
+# Delve T0 - fossils/resonators caros. Precificar: 300c+.
 Show
     BaseType "Prime Chaotic Resonator" "Faceted Fossil" "Hollow Fossil"
     SetTextColor 255 255 255 255
@@ -656,9 +753,9 @@ Show
     MinimapIcon 0 Purple Star
     PlayEffect Purple
 
-# Delve T2 - 40c a 100c aproximado.
+# Delve T1 - 40c a 100c aproximado.
 Show
-    BaseType "Sanctified Fossil" "Fractured Fossil" "Shuddering Fossil"
+    BaseType "Fractured Fossil" "Sanctified Fossil" "Glyphic Fossil" "Gilded Fossil" "Shuddering Fossil"
     SetTextColor 255 255 255 255
     SetBorderColor 255 70 190 255
     SetBackgroundColor 75 0 55 245
@@ -667,9 +764,19 @@ Show
     MinimapIcon 0 Purple Diamond
     PlayEffect Purple Temp
 
-# Delve T3 - 10c a 40c aproximado.
+# Delve T2 - 18c a 30c aproximado.
 Show
-    BaseType "Corroded Fossil" "Gilded Fossil" "Dense Fossil" "Glyphic Fossil" "Bound Fossil" "Fundamental Fossil" "Jagged Fossil" "Serrated Fossil" "Bloodstained Fossil"
+    BaseType "Corroded Fossil" "Aetheric Fossil" "Deft Fossil" "Pristine Fossil" "Dense Fossil" "Metallic Fossil"
+    SetTextColor 255 245 210 255
+    SetBorderColor 230 180 80 255
+    SetBackgroundColor 55 35 0 225
+    SetFontSize 37
+    PlayAlertSound 4 180
+    MinimapIcon 2 Yellow Star
+
+# Delve T3 - 8c a 18c aproximado.
+Show
+    BaseType "Jagged Fossil" "Opulent Fossil" "Bound Fossil" "Fundamental Fossil" "Lucent Fossil" "Aberrant Fossil" "Serrated Fossil" "Bloodstained Fossil" "Tangled Fossil" "Frigid Fossil" "Scorched Fossil"
     SetTextColor 255 245 210 255
     SetBorderColor 230 180 80 255
     SetBackgroundColor 55 35 0 225
@@ -679,12 +786,20 @@ Show
 
 # Delve T4 - baixo/medio-baixo. Visivel para bulk.
 Show
-    BaseType "Pristine Fossil" "Deft Fossil" "Opulent Fossil" "Metallic Fossil" "Tangled Fossil" "Frigid Fossil" "Aetheric Fossil" "Aberrant Fossil" "Lucent Fossil" "Prismatic Fossil" "Scorched Fossil" "Powerful Chaotic Resonator" "Primitive Chaotic Resonator" "Potent Chaotic Resonator"
+    BaseType "Prismatic Fossil" "Powerful Chaotic Resonator" "Primitive Chaotic Resonator" "Potent Chaotic Resonator"
     SetTextColor 210 210 190 230
     SetBorderColor 145 125 70 170
     SetBackgroundColor 35 28 0 125
     SetFontSize 30
     MinimapIcon 2 Yellow Circle
+
+# Delve T5 - resonators sem historico estavel no print.
+Show
+    BaseType "Primitive Alchemical Resonator" "Potent Alchemical Resonator" "Powerful Alchemical Resonator" "Prime Alchemical Resonator"
+    SetTextColor 170 170 160 210
+    SetBorderColor 100 95 70 130
+    SetBackgroundColor 20 20 15 90
+    SetFontSize 26
 
 
 # ---------------------------------------------------------------------
@@ -746,7 +861,7 @@ Show
 # Scarabs muito caros aparecem com alerta forte para vender/precificar, nao jogar fora.
 # ---------------------------------------------------------------------
 
-# Breach T1 - Resonant Cascade: no print esta caro (~83c). Nao consumir sem calcular ROI.
+# Breach T1 - Resonant Cascade: caro (~92c). Nao consumir sem calcular ROI.
 Show
     Class "Map Fragments"
     BaseType "Breach Scarab of Resonant Cascade"
@@ -758,11 +873,10 @@ Show
     MinimapIcon 0 Cyan Star
     PlayEffect Cyan
 
-# Breach T2/T3 - core do seu farm: manter destacado mesmo se o valor unitario for baixo.
-# PoE Wiki 3.28 lista Hive, Instability, Marshal, Incensed Swarm e Resonant Cascade; removi "Breach Scarab" legado e "Dreamer" duvidoso.
+# Breach T3/T4 - core do seu farm; manter destacado mesmo quando barato.
 Show
     Class "Map Fragments"
-    BaseType "Breach Scarab of the Hive" "Breach Scarab of Instability" "Breach Scarab of the Incensed Swarm" "Breach Scarab of the Marshal"
+    BaseType "Breach Scarab of Instability" "Breach Scarab of the Incensed Swarm" "Breach Scarab of the Marshal" "Breach Scarab of the Hive"
     SetTextColor 230 255 255 255
     SetBorderColor 90 220 255 255
     SetBackgroundColor 0 45 75 235
@@ -771,10 +885,10 @@ Show
     MinimapIcon 1 Cyan Diamond
     PlayEffect Cyan Temp
 
-# Scarabs globais T0 - jackpot / valor muito alto no print atual.
+# Scarabs globais T0 - jackpot / valor muito alto no print atual: 100c+.
 Show
     Class "Map Fragments"
-    BaseType "Horned Scarab of Bloodlines" "Horned Scarab of Preservation" "Ambush Scarab of Containment" "Harvest Scarab of Cornucopia"
+    BaseType "Horned Scarab of Bloodlines" "Horned Scarab of Preservation" "Ambush Scarab of Containment" "Harvest Scarab of Cornucopia" "Horned Scarab of Pandemonium"
     SetTextColor 255 255 255 255
     SetBorderColor 255 60 190 255
     SetBackgroundColor 80 0 55 245
@@ -783,10 +897,22 @@ Show
     MinimapIcon 0 Purple Star
     PlayEffect Purple
 
-# Scarabs globais T1/T2 - altos/medio-altos: precificar antes de usar/vender.
+# Scarabs globais T1 - altos: ~40c-100c. Precificar antes de usar/vender.
 Show
     Class "Map Fragments"
-    BaseType "Horned Scarab of Pandemonium" "Horned Scarab of Awakening" "Cartography Scarab of Risk" "Ultimatum Scarab of Catalysing" "Domination Scarab of Terrors" "Kalguuran Scarab of Refinement" "Harvest Scarab of Doubling" "Legion Scarab of Eternal Conflict" "Divination Scarab of The Cloister" "Delirium Scarab of Paranoia" "Ambush Scarab of Discernment"
+    BaseType "Cartography Scarab of Risk" "Horned Scarab of Awakening" "Ultimatum Scarab of Catalysing"
+    SetTextColor 255 255 255 255
+    SetBorderColor 255 70 190 255
+    SetBackgroundColor 75 0 55 245
+    SetFontSize 44
+    PlayAlertSound 6 270
+    MinimapIcon 0 Purple Diamond
+    PlayEffect Purple Temp
+
+# Scarabs globais T2 - medio-altos: ~15c-40c.
+Show
+    Class "Map Fragments"
+    BaseType "Kalguuran Scarab of Refinement" "Domination Scarab of Terrors" "Legion Scarab of Eternal Conflict" "Harvest Scarab of Doubling" "Blight Scarab of Blooming" "Divination Scarab of Pilfering" "Divination Scarab of The Cloister"
     SetTextColor 255 255 255 255
     SetBorderColor 255 180 60 255
     SetBackgroundColor 70 35 0 235
@@ -795,10 +921,10 @@ Show
     MinimapIcon 1 Orange Star
     PlayEffect Orange Temp
 
-# Scarabs globais T3 - medios que ainda valem pegar sempre.
+# Scarabs globais T3 - medios que ainda valem pegar sempre: ~5c-15c.
 Show
     Class "Map Fragments"
-    BaseType "Legion Scarab of Treasures" "Abyss Scarab of Edifice" "Divination Scarab of Pilfering" "Blight Scarab of Blooming" "Incursion Scarab of Timelines" "Horned Scarab of Tradition" "Essence Scarab of Calcification" "Abyss Scarab of Profound Depth" "Ambush Scarab" "Blight Scarab of Invigoration" "Titanic Scarab of Legend" "Bestiary Scarab of Duplicating" "Bestiary Scarab of the Herd" "Horned Scarab of Glittering" "Essence Scarab of Adaptation" "Ultimatum Scarab of Dueling"
+    BaseType "Delirium Scarab of Paranoia" "Incursion Scarab of Timelines" "Horned Scarab of Glittering" "Blight Scarab of Invigoration" "Delirium Scarab of Neuroses"
     SetTextColor 255 245 210 255
     SetBorderColor 220 170 70 240
     SetBackgroundColor 50 35 0 210
@@ -806,6 +932,24 @@ Show
     PlayAlertSound 3 170
     MinimapIcon 2 Yellow Circle
 
+# Scarabs globais T4 - baixo valor unitario, ainda bons em bulk.
+Show
+    Class "Map Fragments"
+    BaseType "Essence Scarab of Calcification" "Betrayal Scarab of Unbreaking" "Divination Scarab of Plenty" "Bestiary Scarab of the Herd" "Legion Scarab of Treasures" "Bestiary Scarab of Duplicating" "Horned Scarab of Tradition" "Kalguuran Scarab of Enriching" "Ambush Scarab of Discernment" "Ritual Scarab of Abundance" "Ambush Scarab" "Abyss Scarab of Edifice" "Delirium Scarab of Mania" "Essence Scarab of Adaptation" "Scarab of Wisps" "Ultimatum Scarab of Dueling"
+    SetTextColor 210 230 240 230
+    SetBorderColor 90 140 180 170
+    SetBackgroundColor 10 25 40 130
+    SetFontSize 31
+    MinimapIcon 2 Blue Circle
+
+# Scarabs globais T5 - muito baixo/razao inversa; aparece pequeno.
+Show
+    Class "Map Fragments"
+    BaseType "Legion Scarab of Officers" "Scarab of the Sinistral" "Incursion Scarab of Champions" "Ritual Scarab of Wisps" "Ritual Scarab of Selectiveness" "Cartography Scarab of Corruption" "Torment Scarab of Possession" "Kalguuran Scarab of Guarded Riches" "Beyond Scarab of the Invasion" "Anarchy Scarab of Partnership" "Scarab of Radiant Storms" "Beyond Scarab of Resurgence" "Scarab of the Dextral" "Abyss Scarab of Profound Depth" "Essence Scarab of Ascent" "Expedition Scarab of Infusion" "Abyss Scarab of Descending" "Blight Scarab of the Blightheart" "Scarab of Monstrous Lineage" "Titanic Scarab of Treasures" "Expedition Scarab of Runefinding" "Kalguuran Scarab" "Expedition Scarab of Archaeology" "Expedition Scarab of Verisium Powder" "Delirium Scarab of Delusions" "Harvest Scarab" "Legion Scarab" "Ultimatum Scarab of Inscription" "Cartography Scarab of the Multitude" "Influencing Scarab of the Elder" "Essence Scarab of Stability" "Incursion Scarab" "Expedition Scarab" "Ambush Scarab of Potency" "Abyss Scarab" "Cartography Scarab of Escalation" "Domination Scarab of Evolution" "Scarab of Adversaries" "Anarchy Scarab" "Betrayal Scarab of the Allflame" "Beyond Scarab" "Sulphite Scarab" "Beyond Scarab of Haemophilia" "Blight Scarab" "Influencing Scarab of the Shaper" "Incursion Scarab of Invasion" "Essence Scarab" "Domination Scarab" "Domination Scarab of Apparitions" "Horned Scarab of Nemeses" "Ultimatum Scarab" "Betrayal Scarab of Reinforcements" "Ambush Scarab of Hidden Compartments" "Ultimatum Scarab of Bribing" "Anarchy Scarab of the Exceptional" "Delirium Scarab" "Ritual Scarab of Corpses" "Abyss Scarab of Multitudes" "Bestiary Scarab" "Influencing Scarab of Hordes" "Betrayal Scarab" "Scarab of Divinity" "Influencing Scarab of Interference" "Titanic Scarab" "Torment Scarab" "Anarchy Scarab of Gigantification" "Torment Scarab of Peculiarity" "Titanic Scarab of Legend" "Scarab of Stability" "Sulphite Scarab of Fumes"
+    SetTextColor 170 170 160 210
+    SetBorderColor 100 95 70 130
+    SetBackgroundColor 20 20 15 90
+    SetFontSize 26
 
 # Breach/Hive T1 - Hivebrain Gland e scarabs ligados ao farm atual
 Show
@@ -818,15 +962,14 @@ Show
     MinimapIcon 0 Cyan Diamond
     PlayEffect Cyan Temp
 
-# Miragem/3.28 T4 - scarabs novos de baixo/medio valor, antes do fallback generico.
+# Scarabs sem historico estavel no print; manter visivel e pequeno.
 Show
     Class "Map Fragments"
-    BaseType "Anarchy Scarab of the Exceptional" "Ritual Scarab of Corpses" "Kalguuran Scarab of Enriching" "Scarab of the Dextral" "Betrayal Scarab of Unbreaking" "Abyss Scarab of Descending" "Expedition Scarab of Infusion"
-    SetTextColor 210 230 240 230
-    SetBorderColor 90 140 180 170
-    SetBackgroundColor 10 25 40 130
-    SetFontSize 31
-    MinimapIcon 2 Blue Circle
+    BaseType "Breach Scarab of the Dreamer" "Cartography Scarab of Singularity" "Bestiary Scarab of the Shadowed Crow" "Sulphite Scarab of Greed" "Torment Scarab of Release" "Legion Scarab of The Sekhema" "Beyond Scarab of Corruption" "Blight Scarab of Bounty" "Scarab of Hunted Traitors"
+    SetTextColor 170 170 160 210
+    SetBorderColor 100 95 70 130
+    SetBackgroundColor 20 20 15 90
+    SetFontSize 26
 
 # Fallback: todos os scarabs aparecem. Baixo valor fica pequeno, mas nao escondido.
 Show
@@ -845,7 +988,7 @@ Show
 # Jackpot / impossivel perder
 Show
     Class "Stackable Currency"
-    BaseType "Mirror of Kalandra" "Mirror Shard" "Divine Orb" "Fracturing Orb" "Hinekora's Lock"
+    BaseType "Mirror of Kalandra" "Hinekora's Lock" "Mirror Shard" "Reflecting Mist" "Eternal Orb"
     SetTextColor 255 255 255 255
     SetBorderColor 255 90 255 255
     SetBackgroundColor 70 0 70 245
@@ -857,7 +1000,7 @@ Show
 # Currency alta e liquida: usada para upgrades/trade
 Show
     Class "Stackable Currency"
-    BaseType "Chaos Orb" "Exalted Orb" "Orb of Annulment" "Ancient Orb" "Orb of Unmaking" "Vaal Orb" "Volatile Vaal Orb" "Flesh of Xesht" "Crystallised Rancour"
+    BaseType "Divine Orb" "Fracturing Orb" "Volatile Vaal Orb" "Flesh of Xesht" "Orb of Remembrance" "Tainted Exalted Orb" "Sacred Orb" "Eldritch Chaos Orb" "Eldritch Orb of Annulment" "Orb of Annulment" "Memory of Trauma"
     SetTextColor 255 255 255 255
     SetBorderColor 255 170 0 255
     SetBackgroundColor 80 35 0 235
@@ -869,7 +1012,7 @@ Show
 # Currency util para o seu momento: gemas, flask craft, mapas, trade e ajustes
 Show
     Class "Stackable Currency"
-    BaseType "Gemcutter's Prism" "Instilling Orb" "Enkindling Orb" "Glassblower's Bauble" "Orb of Scouring" "Orb of Fusing" "Jeweller's Orb" "Chromatic Orb" "Orb of Regret" "Regal Orb" "Orb of Alchemy" "Blessed Orb" "Orb of Chance" "Stacked Deck"
+    BaseType "Chaos Orb" "Maven's Chisel of Scarabs" "Grand Eldritch Ember" "Maven's Chisel of Procurement" "Eldritch Exalted Orb" "Stacked Deck" "Orb of Unravelling" "Tainted Mythic Orb" "Tainted Chaos Orb" "Ancient Orb" "Memory of Reverence" "Tainted Orb of Fusing" "Exalted Orb" "Memory of Loneliness" "Enkindling Orb" "Gemcutter's Prism" "Orb of Scouring" "Grand Eldritch Ichor" "Orb of Regret" "Blessed Orb" "Vaal Orb" "Orb of Alchemy" "Glassblower's Bauble" "Instilling Orb" "Divine Vessel" "Orb of Fusing" "Greater Eldritch Ichor" "Orb of Chance" "Orb of Unmaking" "Orb of Alteration" "Regal Orb" "Chromatic Orb"
     SetTextColor 255 245 200 255
     SetBorderColor 220 190 90 255
     SetBackgroundColor 55 35 0 220
@@ -892,7 +1035,7 @@ Show
 # Miragem T1/T2 - moedas novas visiveis e chamativas o suficiente
 Show
     Class "Stackable Currency"
-    BaseType "Coin of Restoration" "Coin of Desecration" "Coin of Knowledge" "Coin of Power" "Coin of Skill" "Refracting Fog" "Essence of Desolation"
+    BaseType "Coin of Restoration" "Coin of Desecration" "Coin of Knowledge" "Coin of Power" "Coin of Skill"
     SetTextColor 255 255 255 255
     SetBorderColor 160 230 255 255
     SetBackgroundColor 0 40 65 225
@@ -903,7 +1046,7 @@ Show
 # Currency baixa: aparece, mas discreta e sem som
 Show
     Class "Stackable Currency"
-    BaseType "Scroll of Wisdom" "Portal Scroll" "Scroll Fragment" "Transmutation Shard" "Alteration Shard" "Alchemy Shard" "Armourer's Scrap" "Blacksmith's Whetstone" "Orb of Transmutation" "Orb of Augmentation"
+    BaseType "Scroll of Wisdom" "Portal Scroll" "Scroll Fragment" "Transmutation Shard" "Alteration Shard" "Alchemy Shard" "Chaos Shard" "Regal Shard" "Exalted Shard" "Annulment Shard" "Fracturing Shard" "Armourer's Scrap" "Blacksmith's Whetstone" "Orb of Transmutation" "Orb of Augmentation" "Jeweller's Orb" "Orb of Binding" "Rogue's Marker"
     SetTextColor 170 170 170 210
     SetBorderColor 100 100 100 120
     SetBackgroundColor 20 20 20 80
