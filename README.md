@@ -1169,7 +1169,7 @@ HasInfluence
 
 Observacao: `EnchantmentPassiveNode` so deve ser usado quando o texto exato ja foi validado dentro do jogo/parser. Para dados importados do mercado, o filtro usa apenas `EnchantmentPassiveNum` nos clusters.
 
-`HasExplicitMod` não foi usado como regra obrigatória para rares, porque a maior parte dos rares cai não identificada e o filtro não deve depender de mods que o chão ainda não expõe.
+`HasExplicitMod` não é usado nas regras de produção. Além de a maior parte dos rares cair não identificada, o parser não aceita fragmentos genéricos como `to Accuracy Rating`; ele precisa de nomes de mods exatamente reconhecidos.
 
 ### Triagem manual de rares identificados
 
@@ -1179,10 +1179,10 @@ Há um fluxo útil dentro do jogo:
 1. Pegue apenas bases que o filtro marcou como potencial.
 2. Identifique o item.
 3. Jogue o item no chão novamente.
-4. Observe se o filtro destaca o item com alerta mais forte.
+4. Use o destaque moderado do filtro para separar bases identificadas que merecem checagem manual/PoE Overlay.
 ```
 
-Se o item acender depois de identificado, ele entrou em uma regra de triagem por mods explícitos. Isso não garante venda imediata, mas indica que o item tem uma combinação que merece inspeção manual ou checagem no trade.
+Se o item continuar destacado depois de identificado, ele ainda pertence a uma base útil para build/craft/venda. A decisão de valor passa para inspeção manual ou PoE Overlay, sem depender de `HasExplicitMod`.
 
 O filtro agora usa essa lógica para:
 
@@ -1222,7 +1222,7 @@ Jewels e Abyss Jewels:
 - Resistências
 ```
 
-Limitação importante: o filtro consegue ler `HasExplicitMod` somente quando o item está identificado ou quando o jogo já expõe os mods daquele item no chão. Por isso a regra não substitui trade macro/PoE Overlay; ela serve como uma segunda peneira rápida depois da identificação.
+Limitação importante: `HasExplicitMod` só deve ser usado depois de validar o nome exato do mod no parser. Para evitar novos erros de carregamento, a versão atual não usa `HasExplicitMod` nas regras ativas de rares identificados.
 
 Recomendação prática:
 
@@ -1231,5 +1231,5 @@ Pegue bases boas marcadas pelo filtro.
 Identifique em lote no fim do mapa ou em um canto seguro.
 Jogue no chão.
 Se continuar apagado/discreto, venda no NPC ou ignore.
-Se acender forte, compare no trade.
+Se continuar destacado e a base for boa, compare no trade/PoE Overlay.
 ```

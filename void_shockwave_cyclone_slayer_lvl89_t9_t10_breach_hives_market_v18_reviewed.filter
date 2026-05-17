@@ -39,6 +39,8 @@
 #        usar regras estruturais como Class/Rarity quando o parser nao aceita o nome de mercado.
 # - v20-dev safety 2: removido EnchantmentPassiveNode automatico dos clusters; manter
 #        BaseType + EnchantmentPassiveNum para evitar erro de texto de enchant nao reconhecido.
+# - v20-dev safety 3: removido HasExplicitMod automatico da bancada de triagem; o parser
+#        nao aceita fragmentos genericos de mod como "to Accuracy Rating".
 # =====================================================================
 
 # ---------------------------------------------------------------------
@@ -68,6 +70,8 @@ Show
 # - FracturedItem/SynthesisedItem sao confiaveis e aparecem mais abaixo nas bases.
 # - HasExplicitMod existe, mas a maioria dos rares cai nao identificada; por isso
 #   explicit mods nao devem ser a unica forma de mostrar um item valioso.
+# - HasExplicitMod tambem exige nomes de mods aceitos pelo parser; evitar substrings
+#   genericas como "to Accuracy Rating" em regras de producao.
 # ---------------------------------------------------------------------
 
 # Mercado T0 - gemas premium por nivel/qualidade/corrupcao.
@@ -1583,58 +1587,51 @@ Show
 
 # Bancada de triagem in-game:
 # pegue uma base com potencial, identifique, jogue no chao e deixe o filtro reavaliar.
-# Se acender aqui, o item tem combinacao real de mods para build/venda.
-# Regra conservadora: exige 2-3 mods relevantes para reduzir falsos positivos.
+# O filtro de producao nao usa HasExplicitMod aqui, porque o parser nao aceita
+# fragmentos genericos de mods. Esta camada apenas separa bases identificadas
+# que merecem inspecao manual/PoE Overlay.
 Show
     BaseType "Precursor Gauntlets" "Leviathan Gauntlets" "Titan Gauntlets" "Slink Gloves"
     Rarity Rare
     Identified True
-    HasExplicitMod >=2 "to Accuracy Rating" "to maximum Life" "increased Attack Speed" "increased Damage while Leeching" "to Fire Resistance" "to Cold Resistance" "to Lightning Resistance" "to Chaos Resistance" "to Strength" "to Dexterity"
     SetTextColor 255 255 255 255
     SetBorderColor 80 255 230 255
-    SetBackgroundColor 0 60 55 240
-    SetFontSize 43
-    PlayAlertSound 5 250
-    MinimapIcon 1 Cyan Star
+    SetBackgroundColor 0 45 45 220
+    SetFontSize 39
+    MinimapIcon 2 Cyan Star
     PlayEffect Cyan Temp
 
 Show
     BaseType "Judgement Staff" "Foul Staff" "Ezomyte Staff"
     Rarity Rare
     Identified True
-    HasExplicitMod >=2 "increased Physical Damage" "Adds" "to Accuracy Rating" "increased Attack Speed" "to Global Critical Strike Multiplier" "chance to Impale" "increased Critical Strike Chance"
     SetTextColor 255 255 255 255
     SetBorderColor 255 180 0 255
-    SetBackgroundColor 75 35 0 240
-    SetFontSize 42
-    PlayAlertSound 5 230
-    MinimapIcon 1 Orange Star
+    SetBackgroundColor 55 30 0 220
+    SetFontSize 39
+    MinimapIcon 2 Orange Star
     PlayEffect Orange Temp
 
 Show
     BaseType "Stygian Vise" "Rustic Sash" "Amethyst Ring" "Two-Stone Ring" "Lapis Amulet" "Turquoise Amulet" "Citrine Amulet" "Onyx Amulet"
     Rarity Rare
     Identified True
-    HasExplicitMod >=3 "to maximum Life" "to Accuracy Rating" "to all Attributes" "to Strength" "to Dexterity" "to Fire Resistance" "to Cold Resistance" "to Lightning Resistance" "to Chaos Resistance" "Total Mana Cost of Channeling Skills" "increased Global Physical Damage" "to Global Critical Strike Multiplier"
     SetTextColor 255 255 255 255
     SetBorderColor 255 120 255 255
-    SetBackgroundColor 65 0 65 220
-    SetFontSize 40
-    PlayAlertSound 4 220
-    MinimapIcon 1 Purple Diamond
+    SetBackgroundColor 45 0 45 205
+    SetFontSize 38
+    MinimapIcon 2 Purple Diamond
     PlayEffect Purple Temp
 
 Show
     Class "Jewels" "Abyss Jewels"
     Rarity Rare
     Identified True
-    HasExplicitMod >=3 "to maximum Life" "to Accuracy Rating" "increased Physical Damage" "increased Attack Speed" "to Global Critical Strike Multiplier" "to Fire Resistance" "to Cold Resistance" "to Lightning Resistance" "to Chaos Resistance"
     SetTextColor 255 255 255 255
     SetBorderColor 130 130 255 255
-    SetBackgroundColor 20 20 70 230
-    SetFontSize 40
-    PlayAlertSound 4 210
-    MinimapIcon 1 Blue Star
+    SetBackgroundColor 20 20 60 205
+    SetFontSize 38
+    MinimapIcon 2 Blue Star
     PlayEffect Blue Temp
 
 # Staff de endgame: sua staff ja e boa; mostrar so bases realmente relevantes
