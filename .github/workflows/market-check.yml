@@ -1,0 +1,30 @@
+name: PoE market check
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 10 * * *"
+
+jobs:
+  market-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run market toolkit
+        run: python poe_market_filter_toolkit/scripts/run_all.py
+
+      - name: Upload reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: poe-market-reports
+          path: |
+            poe_market_filter_toolkit/market/latest_market.json
+            poe_market_filter_toolkit/market/reports/

@@ -1,0 +1,84 @@
+{
+  "league": "Mirage",
+  "request_delay_seconds": 0.7,
+  "timeout_seconds": 30,
+  "user_agent": "poe-market-filter-toolkit/1.0 (+personal loot filter project)",
+  "tier_thresholds_chaos": {
+    "T0_JACKPOT": 100,
+    "T1_MUITO_ALTO": 50,
+    "T2_ALTO": 20,
+    "T3_VISIVEL": 5,
+    "T4_BAIXO": 1
+  },
+  "categories": {
+    "exchange": [
+      "Currency",
+      "Fragment",
+      "Scarab",
+      "Fossil",
+      "Resonator",
+      "Essence",
+      "DivinationCard",
+      "Oil",
+      "DeliriumOrb",
+      "Omen",
+      "Tattoo",
+      "Runegraft",
+      "AllflameEmber"
+    ],
+    "stash": [
+      "Map",
+      "UniqueMap",
+      "SkillGem",
+      "ClusterJewel",
+      "Invitation",
+      "Memory",
+      "Beast"
+    ]
+  },
+  "priority_categories": [
+    "Currency",
+    "Fragment",
+    "Scarab",
+    "DivinationCard",
+    "Essence",
+    "Fossil",
+    "Resonator",
+    "Oil",
+    "DeliriumOrb",
+    "Omen",
+    "Tattoo",
+    "Runegraft",
+    "AllflameEmber",
+    "Map",
+    "UniqueMap"
+  ],
+  "always_watch_names": [
+    "Hivebrain Gland",
+    "Lavish Wombgift",
+    "Mysterious Wombgift",
+    "Ancient Wombgift",
+    "Provisioning Wombgift",
+    "Breach Scarab of the Hive",
+    "Breach Scarab of Resonant Cascade",
+    "Divine Orb",
+    "Exalted Orb",
+    "Ancient Orb",
+    "Stacked Deck",
+    "Prime Chaotic Resonator",
+    "Faceted Fossil",
+    "Hollow Fossil",
+    "Sanctified Fossil",
+    "Fractured Fossil"
+  ],
+  "known_removed_or_risky_base_types": [
+    "Cartographer's Chisel",
+    "The Tinker's Table",
+    "Bower's Dream"
+  ],
+  "notes": {
+    "editing_policy": "Scripts generate suggestions only. Do not auto-edit the .filter unless manually reviewed.",
+    "filter_folder": "filters/current plus repository root",
+    "reports_folder": "market/reports"
+  }
+}

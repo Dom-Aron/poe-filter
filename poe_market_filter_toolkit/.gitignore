@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Generated market history
+market/snapshots/*.json
+
+# OS
+.DS_Store
+Thumbs.db
