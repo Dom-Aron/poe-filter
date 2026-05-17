@@ -1,0 +1,1878 @@
+tier,name,category,requested_category,chaos_value,divine_value,listing_count,change_percent,source_endpoint,source
+T0_JACKPOT,Mirror of Kalandra,Currency,Currency,593455.0,,28485850,3.77,exchange,poe.ninja
+T0_JACKPOT,Awakened Empower Support,SkillGem,SkillGem,593455.0,1211,3,0,stash,poe.ninja
+T0_JACKPOT,Item Rarity Support,SkillGem,SkillGem,489510.0,999.0,18,0,stash,poe.ninja
+T0_JACKPOT,Awakened Enlighten Support,SkillGem,SkillGem,397831.0,811.9,33,-1.66,stash,poe.ninja
+T0_JACKPOT,Damnation,Cards,DivinationCard,246541.0,,24078843,-40.54,exchange,poe.ninja
+T0_JACKPOT,Awakened Enhance Support,SkillGem,SkillGem,210798.0,430.2,19,137.4,stash,poe.ninja
+T0_JACKPOT,Vaal Arc,SkillGem,SkillGem,196000.0,400.0,1,0,stash,poe.ninja
+T0_JACKPOT,Vaal Reave,SkillGem,SkillGem,161700.0,330.0,2,0,stash,poe.ninja
+T0_JACKPOT,Vaal Blight,SkillGem,SkillGem,158270.0,323.0,2,0,stash,poe.ninja
+T0_JACKPOT,Charged Dash of Projection,SkillGem,SkillGem,134750.0,275.0,18,0,stash,poe.ninja
+T0_JACKPOT,Hinekora's Lock,Currency,Currency,125649.0,,4041723,6.91,exchange,poe.ninja
+T0_JACKPOT,Summon Reaper of Eviscerating,SkillGem,SkillGem,105350.0,215.0,23,0.84,stash,poe.ninja
+T0_JACKPOT,Concentrated Effect Support,SkillGem,SkillGem,98000.0,200.0,1,0,stash,poe.ninja
+T0_JACKPOT,Precision,SkillGem,SkillGem,98000.0,200.0,1,0,stash,poe.ninja
+T0_JACKPOT,Sniper's Mark,SkillGem,SkillGem,98000.0,200.0,1,0,stash,poe.ninja
+T0_JACKPOT,Less Duration Support,SkillGem,SkillGem,88200.0,180.0,1,0,stash,poe.ninja
+T0_JACKPOT,Trinity Support,SkillGem,SkillGem,82810.0,169.0,1,0,stash,poe.ninja
+T0_JACKPOT,Companionship Support,SkillGem,SkillGem,75411.0,153.9,7,76.56,stash,poe.ninja
+T0_JACKPOT,House of Mirrors,Cards,DivinationCard,70138.0,,18750174,-4.64,exchange,poe.ninja
+T0_JACKPOT,Flame Surge of Combusting,SkillGem,SkillGem,61250.0,125.0,6,47.61,stash,poe.ninja
+T0_JACKPOT,Bladefall of Trarthus,SkillGem,SkillGem,60515.0,123.5,31,67.51,stash,poe.ninja
+T0_JACKPOT,Eclipse Support,SkillGem,SkillGem,58016.0,118.4,19,16.15,stash,poe.ninja
+T0_JACKPOT,History,Cards,DivinationCard,49774.0,,655355,4.68,exchange,poe.ninja
+T0_JACKPOT,Faster Attacks Support,SkillGem,SkillGem,49000.0,100.0,1,0,stash,poe.ninja
+T0_JACKPOT,Close Combat Support,SkillGem,SkillGem,48510.0,99.0,1,0,stash,poe.ninja
+T0_JACKPOT,Greater Multistrike Support,SkillGem,SkillGem,44100.0,90.0,17,8.71,stash,poe.ninja
+T0_JACKPOT,Vaal Venom Gyre,SkillGem,SkillGem,41650.0,85.0,2,0,stash,poe.ninja
+T0_JACKPOT,Greater Spell Echo Support,SkillGem,SkillGem,36260.0,74.0,13,5.04,stash,poe.ninja
+T0_JACKPOT,Unrequited Love,Cards,DivinationCard,35426.0,,4192067,4.03,exchange,poe.ninja
+T0_JACKPOT,Galvanic Field,SkillGem,SkillGem,34300.0,70.0,8,0,stash,poe.ninja
+T0_JACKPOT,Vaal Summon Skeletons,SkillGem,SkillGem,34300.0,70.0,4,0,stash,poe.ninja
+T0_JACKPOT,Cast On Critical Strike Support,SkillGem,SkillGem,31850.0,65.0,1,0,stash,poe.ninja
+T0_JACKPOT,Mirror Shard,Currency,Currency,29699.0,,841468,3.38,exchange,poe.ninja
+T0_JACKPOT,Expert Retaliation Support,SkillGem,SkillGem,29400.0,60.0,1,0,stash,poe.ninja
+T0_JACKPOT,Summon Ice Golem,SkillGem,SkillGem,29400.0,60.0,2,0,stash,poe.ninja
+T0_JACKPOT,More Duration Support,SkillGem,SkillGem,27195.0,55.5,2,0,stash,poe.ninja
+T0_JACKPOT,Increased Critical Damage Support,SkillGem,SkillGem,27097.0,55.3,6,0,stash,poe.ninja
+T0_JACKPOT,Reflecting Mist,Currency,Currency,25515.0,,642125,1.32,exchange,poe.ninja
+T0_JACKPOT,Runegraft of the Angler,Runegrafts,Runegraft,25479.0,,4247,1.46,exchange,poe.ninja
+T0_JACKPOT,Cooldown Recovery Support,SkillGem,SkillGem,25382.0,51.8,20,43.0,stash,poe.ninja
+T0_JACKPOT,The Slumbering Beast,Cards,DivinationCard,24994.0,,470712,5.56,exchange,poe.ninja
+T0_JACKPOT,Inspiration Support,SkillGem,SkillGem,24500.0,50.0,4,0,stash,poe.ninja
+T0_JACKPOT,Vaal Double Strike,SkillGem,SkillGem,24500.0,50.0,1,0,stash,poe.ninja
+T0_JACKPOT,Essence Drain of Wickedness,SkillGem,SkillGem,24010.0,49.0,4,0,stash,poe.ninja
+T0_JACKPOT,Minion Life Support,SkillGem,SkillGem,23765.0,48.5,15,28.06,stash,poe.ninja
+T0_JACKPOT,Vaal Domination,SkillGem,SkillGem,21756.0,44.4,5,0,stash,poe.ninja
+T0_JACKPOT,Herald of Ash,SkillGem,SkillGem,21560.0,44.0,2,0.6,stash,poe.ninja
+T0_JACKPOT,Vaal Arctic Armour,SkillGem,SkillGem,21560.0,44.0,2,0,stash,poe.ninja
+T0_JACKPOT,Doryani's Machinarium,UniqueMap,UniqueMap,21413.0,43.7,46,7.42,stash,poe.ninja
+T0_JACKPOT,Vaal Flicker Strike,SkillGem,SkillGem,21070.0,43.0,3,0,stash,poe.ninja
+T0_JACKPOT,Cast on Ward Break Support,SkillGem,SkillGem,20090.0,41.0,18,-0.15,stash,poe.ninja
+T0_JACKPOT,Contagion of Subsiding,SkillGem,SkillGem,19845.0,40.5,5,0,stash,poe.ninja
+T0_JACKPOT,Summon Flame Golem,SkillGem,SkillGem,19110.0,39.0,11,-11.31,stash,poe.ninja
+T0_JACKPOT,Congregation Support,SkillGem,SkillGem,19012.0,38.8,8,30.28,stash,poe.ninja
+T0_JACKPOT,Vaal Righteous Fire,SkillGem,SkillGem,19012.0,38.8,8,0,stash,poe.ninja
+T0_JACKPOT,Vaal Spark,SkillGem,SkillGem,17885.0,36.5,4,0,stash,poe.ninja
+T0_JACKPOT,Tempest Shield,SkillGem,SkillGem,17640.0,36.0,4,55.41,stash,poe.ninja
+T0_JACKPOT,Vaal Fireball,SkillGem,SkillGem,17150.0,35.0,1,0,stash,poe.ninja
+T0_JACKPOT,Vaal Temptation Support,SkillGem,SkillGem,17150.0,35.0,3,0,stash,poe.ninja
+T0_JACKPOT,Father's Love,Cards,DivinationCard,16589.0,,19354,-35.98,exchange,poe.ninja
+T0_JACKPOT,Invert the Rules Support,SkillGem,SkillGem,16170.0,33.0,14,39.04,stash,poe.ninja
+T0_JACKPOT,Herald of Ice,SkillGem,SkillGem,15092.0,30.8,16,-52.9,stash,poe.ninja
+T0_JACKPOT,Volatile Dead,SkillGem,SkillGem,14945.0,30.5,2,0,stash,poe.ninja
+T0_JACKPOT,Vaal Ice Nova,SkillGem,SkillGem,14700.0,30.0,5,0,stash,poe.ninja
+T0_JACKPOT,Vaal Haste,SkillGem,SkillGem,14210.0,29.0,17,71.08,stash,poe.ninja
+T0_JACKPOT,Greater Unleash Support,SkillGem,SkillGem,14014.0,28.6,8,0.85,stash,poe.ninja
+T0_JACKPOT,Purity of Elements,SkillGem,SkillGem,13916.0,28.4,3,-43.23,stash,poe.ninja
+T0_JACKPOT,Raise Spectre,SkillGem,SkillGem,13818.0,28.2,6,-12.25,stash,poe.ninja
+T0_JACKPOT,Vaal Lightning Strike,SkillGem,SkillGem,13720.0,28.0,5,0,stash,poe.ninja
+T0_JACKPOT,Veiled Exalted Orb,Currency,Currency,13269.0,,272023,-0.65,exchange,poe.ninja
+T0_JACKPOT,Summon Stone Golem,SkillGem,SkillGem,13230.0,27.0,5,0,stash,poe.ninja
+T0_JACKPOT,Herald of Thunder,SkillGem,SkillGem,12544.0,25.6,9,23.75,stash,poe.ninja
+T0_JACKPOT,Arctic Armour,SkillGem,SkillGem,12250.0,25.0,4,0,stash,poe.ninja
+T0_JACKPOT,Vaal Discipline,SkillGem,SkillGem,12250.0,25.0,12,20.27,stash,poe.ninja
+T0_JACKPOT,Vaal Grace,SkillGem,SkillGem,12250.0,25.0,14,-21.21,stash,poe.ninja
+T0_JACKPOT,Minion Pact Support,SkillGem,SkillGem,12103.0,24.7,20,21.57,stash,poe.ninja
+T0_JACKPOT,Vaal Molten Shell,SkillGem,SkillGem,11956.0,24.4,9,53.13,stash,poe.ninja
+T0_JACKPOT,Immortal Call,SkillGem,SkillGem,11760.0,24.0,15,-54.92,stash,poe.ninja
+T0_JACKPOT,Vaal Absolution,SkillGem,SkillGem,11466.0,23.4,10,2.92,stash,poe.ninja
+T0_JACKPOT,Vaal Smite,SkillGem,SkillGem,11221.0,22.9,30,1.07,stash,poe.ninja
+T0_JACKPOT,Frostblink of Wintry Blast,SkillGem,SkillGem,10780.0,22.0,1,0,stash,poe.ninja
+T0_JACKPOT,Shield Charge,SkillGem,SkillGem,10633.0,21.7,11,-29.67,stash,poe.ninja
+T0_JACKPOT,Vaal Reap,SkillGem,SkillGem,10290.0,21.0,14,-11.91,stash,poe.ninja
+T0_JACKPOT,Phase Run,SkillGem,SkillGem,10143.0,20.7,10,30.68,stash,poe.ninja
+T0_JACKPOT,Temporal Chains,SkillGem,SkillGem,10094.0,20.6,4,0,stash,poe.ninja
+T0_JACKPOT,Malevolence,SkillGem,SkillGem,10045.0,20.5,7,16.17,stash,poe.ninja
+T0_JACKPOT,Zealotry,SkillGem,SkillGem,9898.0,20.2,20,-25.23,stash,poe.ninja
+T0_JACKPOT,Enfeeble,SkillGem,SkillGem,9800.0,20.0,1,0,stash,poe.ninja
+T0_JACKPOT,Omen of Fortune,Ancestor,Omen,9460.0,,40995,6.53,exchange,poe.ninja
+T0_JACKPOT,Vitality,SkillGem,SkillGem,8820.0,18.0,5,0,stash,poe.ninja
+T0_JACKPOT,Greater Spell Cascade Support,SkillGem,SkillGem,8379.0,17.1,12,15.46,stash,poe.ninja
+T0_JACKPOT,Anger,SkillGem,SkillGem,8330.0,17.0,4,0,stash,poe.ninja
+T0_JACKPOT,Lightning Spire Trap of Zapping,SkillGem,SkillGem,8330.0,17.0,21,0,stash,poe.ninja
+T0_JACKPOT,Pride,SkillGem,SkillGem,8330.0,17.0,4,0,stash,poe.ninja
+T0_JACKPOT,Storm Rain,SkillGem,SkillGem,8330.0,17.0,2,0,stash,poe.ninja
+T0_JACKPOT,The Price of Devotion,Cards,DivinationCard,8197.0,,50550,-34.95,exchange,poe.ninja
+T0_JACKPOT,Cold Snap of Power,SkillGem,SkillGem,7921.0,16.17,114,0,stash,poe.ninja
+T0_JACKPOT,Vaal Detonate Dead,SkillGem,SkillGem,7840.0,16.0,2,0,stash,poe.ninja
+T0_JACKPOT,Greater Fork Support,SkillGem,SkillGem,7742.0,15.8,8,-6.9,stash,poe.ninja
+T0_JACKPOT,The Eye of Terror,Cards,DivinationCard,7607.0,,50713,13.67,exchange,poe.ninja
+T0_JACKPOT,Frost Bomb of Instability,SkillGem,SkillGem,7448.0,15.2,17,0,stash,poe.ninja
+T0_JACKPOT,Herald of Purity,SkillGem,SkillGem,7399.0,15.1,6,-32.47,stash,poe.ninja
+T0_JACKPOT,Galvanic Arrow of Energy,SkillGem,SkillGem,7368.0,15.04,15,0,stash,poe.ninja
+T0_JACKPOT,Ice Crash of Cadence,SkillGem,SkillGem,7359.0,15.02,6,0,stash,poe.ninja
+T0_JACKPOT,Flame Dash of Return,SkillGem,SkillGem,7350.0,15.0,1,0,stash,poe.ninja
+T0_JACKPOT,Molten Shell,SkillGem,SkillGem,7350.0,15.0,6,-2.8,stash,poe.ninja
+T0_JACKPOT,Unholy Trinity Support,SkillGem,SkillGem,7350.0,15.0,20,60.89,stash,poe.ninja
+T0_JACKPOT,Vaal Blade Vortex,SkillGem,SkillGem,7350.0,15.0,16,-40.81,stash,poe.ninja
+T0_JACKPOT,Vaal Cyclone,SkillGem,SkillGem,7350.0,15.0,2,0,stash,poe.ninja
+T0_JACKPOT,Automation,SkillGem,SkillGem,7252.0,14.8,12,-42.71,stash,poe.ninja
+T0_JACKPOT,The Immortal,Cards,DivinationCard,7185.0,,975968,-2.54,exchange,poe.ninja
+T0_JACKPOT,Berserk,SkillGem,SkillGem,7105.0,14.5,7,-19.15,stash,poe.ninja
+T0_JACKPOT,The Apothecary,Cards,DivinationCard,7078.0,,583899,-1.81,exchange,poe.ninja
+T0_JACKPOT,Cyclone of Tumult,SkillGem,SkillGem,7056.0,14.4,8,0,stash,poe.ninja
+T0_JACKPOT,Steelskin,SkillGem,SkillGem,7007.0,14.3,8,-8.08,stash,poe.ninja
+T0_JACKPOT,Summon Lightning Golem,SkillGem,SkillGem,6909.0,14.1,2,-16.5,stash,poe.ninja
+T0_JACKPOT,Grace,SkillGem,SkillGem,6860.0,14.0,2,0,stash,poe.ninja
+T0_JACKPOT,Void Manipulation Support,SkillGem,SkillGem,6468.0,13.2,7,66.89,stash,poe.ninja
+T0_JACKPOT,Outfoxed,Cards,DivinationCard,5880.0,,3920,-1.37,exchange,poe.ninja
+T0_JACKPOT,Summon Ice Golem of Shattering,SkillGem,SkillGem,5880.0,12.0,9,0,stash,poe.ninja
+T0_JACKPOT,Vaal Lightning Arrow,SkillGem,SkillGem,5880.0,12.0,4,0,stash,poe.ninja
+T0_JACKPOT,Void Shockwave Support,SkillGem,SkillGem,5880.0,12.0,12,-28.49,stash,poe.ninja
+T0_JACKPOT,Detonate Dead of Scavenging,SkillGem,SkillGem,5684.0,11.6,5,16.33,stash,poe.ninja
+T0_JACKPOT,Greater Devour Support,SkillGem,SkillGem,5684.0,11.6,17,38.43,stash,poe.ninja
+T0_JACKPOT,Animate Guardian,SkillGem,SkillGem,5390.0,11.0,9,-20.09,stash,poe.ninja
+T0_JACKPOT,Elemental Penetration Support,SkillGem,SkillGem,5390.0,11.0,28,29.79,stash,poe.ninja
+T0_JACKPOT,Greater Ancestral Call Support,SkillGem,SkillGem,5390.0,11.0,24,-10.58,stash,poe.ninja
+T0_JACKPOT,Petrified Blood,SkillGem,SkillGem,5145.0,10.5,9,-16.93,stash,poe.ninja
+T0_JACKPOT,Scornful Herald Support,SkillGem,SkillGem,4998.0,10.2,7,20.35,stash,poe.ninja
+T0_JACKPOT,Siphoning Trap of Pain,SkillGem,SkillGem,4954.0,10.11,4,0,stash,poe.ninja
+T0_JACKPOT,Annihilation Support,SkillGem,SkillGem,4900.0,10.0,12,-4.94,stash,poe.ninja
+T0_JACKPOT,Assassin's Mark,SkillGem,SkillGem,4900.0,10.0,12,-3.14,stash,poe.ninja
+T0_JACKPOT,Eldritch Blasphemy Support,SkillGem,SkillGem,4900.0,10.0,14,17.85,stash,poe.ninja
+T0_JACKPOT,Greater Chain Support,SkillGem,SkillGem,4900.0,10.0,17,17.42,stash,poe.ninja
+T0_JACKPOT,Icicle Mine of Fanning,SkillGem,SkillGem,4900.0,10.0,30,0,stash,poe.ninja
+T0_JACKPOT,Shield of Light,SkillGem,SkillGem,4900.0,10.0,1,0,stash,poe.ninja
+T0_JACKPOT,Lucky Bastion,Cards,DivinationCard,4573.0,,2287,-34.08,exchange,poe.ninja
+T0_JACKPOT,Wave of Conviction of Trarthus,SkillGem,SkillGem,4557.0,9.3,8,38.74,stash,poe.ninja
+T0_JACKPOT,Battlemage's Cry,SkillGem,SkillGem,4410.0,9.0,7,-1.83,stash,poe.ninja
+T0_JACKPOT,Explosive Concoction of Destruction,SkillGem,SkillGem,4410.0,9.0,3,0,stash,poe.ninja
+T0_JACKPOT,Holy Hammers,SkillGem,SkillGem,4410.0,9.0,5,0,stash,poe.ninja
+T0_JACKPOT,Overloaded Intensity Support,SkillGem,SkillGem,4410.0,9.0,25,7.17,stash,poe.ninja
+T0_JACKPOT,Purity of Lightning,SkillGem,SkillGem,4410.0,9.0,6,4.07,stash,poe.ninja
+T0_JACKPOT,Transfusion Support,SkillGem,SkillGem,4410.0,9.0,6,37.3,stash,poe.ninja
+T0_JACKPOT,Crackling Lance of Disintegration,SkillGem,SkillGem,4361.0,8.9,7,0,stash,poe.ninja
+T0_JACKPOT,Journey Tattoo of the Mind,Ancestor,Tattoo,4247.0,,6370,-27.1,exchange,poe.ninja
+T0_JACKPOT,Flame Dash,SkillGem,SkillGem,4214.0,8.6,5,-3.18,stash,poe.ninja
+T0_JACKPOT,Sunder,SkillGem,SkillGem,4214.0,8.6,6,0,stash,poe.ninja
+T0_JACKPOT,12% increased Physical Damage,ClusterJewel,ClusterJewel,4165.0,8.5,30,905.3,stash,poe.ninja
+T0_JACKPOT,Ethereal Knives of the Massacre,SkillGem,SkillGem,4116.0,8.4,3,0,stash,poe.ninja
+T0_JACKPOT,Spellslinger,SkillGem,SkillGem,4018.0,8.2,5,163.0,stash,poe.ninja
+T0_JACKPOT,Hexpass Support,SkillGem,SkillGem,3920.0,8.0,12,16.8,stash,poe.ninja
+T0_JACKPOT,Shield Crush,SkillGem,SkillGem,3920.0,8.0,2,0,stash,poe.ninja
+T0_JACKPOT,Spectral Shield Throw of Trarthus,SkillGem,SkillGem,3920.0,8.0,2,0,stash,poe.ninja
+T0_JACKPOT,Arcane Cloak,SkillGem,SkillGem,3577.0,7.3,16,-4.3,stash,poe.ninja
+T0_JACKPOT,War Banner,SkillGem,SkillGem,3528.0,7.2,9,0,stash,poe.ninja
+T0_JACKPOT,Flammability,SkillGem,SkillGem,3479.0,7.1,5,0,stash,poe.ninja
+T0_JACKPOT,Frost Bomb,SkillGem,SkillGem,3479.0,7.1,17,-75.72,stash,poe.ninja
+T0_JACKPOT,Frostmage Support,SkillGem,SkillGem,3479.0,7.1,14,-5.26,stash,poe.ninja
+T0_JACKPOT,Vaal Impurity of Ice,SkillGem,SkillGem,3479.0,7.1,4,0,stash,poe.ninja
+T0_JACKPOT,Animate Guardian of Smiting,SkillGem,SkillGem,3430.0,7.0,10,282.1,stash,poe.ninja
+T0_JACKPOT,Enlighten Support,SkillGem,SkillGem,3430.0,7.0,574,22.5,stash,poe.ninja
+T0_JACKPOT,Eviscerate,SkillGem,SkillGem,3430.0,7.0,8,-61.3,stash,poe.ninja
+T0_JACKPOT,Kinetic Blast of Clustering,SkillGem,SkillGem,3430.0,7.0,76,20.3,stash,poe.ninja
+T0_JACKPOT,Righteous Fire,SkillGem,SkillGem,3430.0,7.0,13,2.83,stash,poe.ninja
+T0_JACKPOT,Vaal Impurity of Fire,SkillGem,SkillGem,3430.0,7.0,13,1.65,stash,poe.ninja
+T0_JACKPOT,Wrath,SkillGem,SkillGem,3430.0,7.0,6,18.2,stash,poe.ninja
+T0_JACKPOT,Orb of Dominance,Currency,Currency,3403.0,,104367,7.06,exchange,poe.ninja
+T0_JACKPOT,Ball Lightning of Static,SkillGem,SkillGem,3332.0,6.8,9,100.6,stash,poe.ninja
+T0_JACKPOT,Reave of Refraction,SkillGem,SkillGem,3234.0,6.6,25,0,stash,poe.ninja
+T0_JACKPOT,Frostblink,SkillGem,SkillGem,3184.0,6.5,8,2.65,stash,poe.ninja
+T0_JACKPOT,Smoke Mine,SkillGem,SkillGem,3087.0,6.3,4,0,stash,poe.ninja
+T0_JACKPOT,Unearth,SkillGem,SkillGem,3087.0,6.3,4,48.72,stash,poe.ninja
+T0_JACKPOT,Infernal Cry,SkillGem,SkillGem,2989.0,6.1,6,0,stash,poe.ninja
+T0_JACKPOT,Summon Stone Golem of Safeguarding,SkillGem,SkillGem,2989.0,6.1,4,0,stash,poe.ninja
+T0_JACKPOT,Ice Spear of Splitting,SkillGem,SkillGem,2980.0,6.08,18,0,stash,poe.ninja
+T0_JACKPOT,The Lake,Cards,DivinationCard,2959.0,,25643,6.49,exchange,poe.ninja
+T0_JACKPOT,Awakener's Orb,Currency,Currency,2942.0,,122578,47.87,exchange,poe.ninja
+T0_JACKPOT,Essence Drain of Desperation,SkillGem,SkillGem,2940.0,6.0,6,0,stash,poe.ninja
+T0_JACKPOT,Punishment,SkillGem,SkillGem,2940.0,6.0,5,2.7,stash,poe.ninja
+T0_JACKPOT,Tornado Shot of Cloudburst,SkillGem,SkillGem,2940.0,6.0,20,7250,stash,poe.ninja
+T0_JACKPOT,Syndicate Medallion,Fragments,Fragment,2864.0,,204324,-13.23,exchange,poe.ninja
+T0_JACKPOT,Blood Rage,SkillGem,SkillGem,2842.0,5.8,3,0,stash,poe.ninja
+T0_JACKPOT,Hextoad Support,SkillGem,SkillGem,2842.0,5.8,7,10.67,stash,poe.ninja
+T0_JACKPOT,Empower Support,SkillGem,SkillGem,2800.0,5.71,410,12.37,stash,poe.ninja
+T0_JACKPOT,The Insane Cat,Cards,DivinationCard,2657.0,,88116,42.12,exchange,poe.ninja
+T0_JACKPOT,12% increased Damage with Two Handed Weapons,ClusterJewel,ClusterJewel,2646.0,5.4,16,115.9,stash,poe.ninja
+T0_JACKPOT,Bone Offering,SkillGem,SkillGem,2646.0,5.4,10,0,stash,poe.ninja
+T0_JACKPOT,Choking Guilt,Cards,DivinationCard,2613.0,,1307,-31.62,exchange,poe.ninja
+T0_JACKPOT,Divine Ire of Holy Lightning,SkillGem,SkillGem,2548.0,5.2,6,0,stash,poe.ninja
+T0_JACKPOT,Crushing Fist,SkillGem,SkillGem,2499.0,5.1,5,0,stash,poe.ninja
+T0_JACKPOT,Elemental Damage with Attacks Support,SkillGem,SkillGem,2499.0,5.1,19,49.78,stash,poe.ninja
+T0_JACKPOT,Wand Attacks deal 12% increased Damage with Hits and Ailments,ClusterJewel,ClusterJewel,2450.0,5.0,7,3.81,stash,poe.ninja
+T0_JACKPOT,Blade Blast of Dagger Detonation,SkillGem,SkillGem,2450.0,5.0,57,434.0,stash,poe.ninja
+T0_JACKPOT,Divine Sentinel Support,SkillGem,SkillGem,2450.0,5.0,2,-1.57,stash,poe.ninja
+T0_JACKPOT,Enduring Cry,SkillGem,SkillGem,2450.0,5.0,10,-17.87,stash,poe.ninja
+T0_JACKPOT,Heavy Strike of Trarthus,SkillGem,SkillGem,2450.0,5.0,4,0,stash,poe.ninja
+T0_JACKPOT,Ice Crash,SkillGem,SkillGem,2450.0,5.0,11,0,stash,poe.ninja
+T0_JACKPOT,Intimidating Cry,SkillGem,SkillGem,2450.0,5.0,3,0,stash,poe.ninja
+T0_JACKPOT,Mark On Hit Support,SkillGem,SkillGem,2450.0,5.0,23,104.2,stash,poe.ninja
+T0_JACKPOT,Poacher's Mark,SkillGem,SkillGem,2450.0,5.0,13,17.99,stash,poe.ninja
+T0_JACKPOT,Pulverise Support,SkillGem,SkillGem,2450.0,5.0,19,96.91,stash,poe.ninja
+T0_JACKPOT,Purity of Fire,SkillGem,SkillGem,2450.0,5.0,51,63.36,stash,poe.ninja
+T0_JACKPOT,Seismic Cry,SkillGem,SkillGem,2450.0,5.0,15,10.26,stash,poe.ninja
+T0_JACKPOT,Spark of the Nova,SkillGem,SkillGem,2450.0,5.0,302,17.46,stash,poe.ninja
+T0_JACKPOT,Storm Rain of the Conduit,SkillGem,SkillGem,2450.0,5.0,2,0,stash,poe.ninja
+T0_JACKPOT,Tectonic Slam,SkillGem,SkillGem,2450.0,5.0,3,0,stash,poe.ninja
+T0_JACKPOT,Viper Strike of the Mamba,SkillGem,SkillGem,2450.0,5.0,8,78.83,stash,poe.ninja
+T0_JACKPOT,Wild Strike of Extremes,SkillGem,SkillGem,2450.0,5.0,19,0,stash,poe.ninja
+T0_JACKPOT,Eternal Blessing Support,SkillGem,SkillGem,2427.0,4.95,24,114.0,stash,poe.ninja
+T0_JACKPOT,Static Strike of Gathering Lightning,SkillGem,SkillGem,2400.0,4.9,32,-1.23,stash,poe.ninja
+T0_JACKPOT,Brother's Gift,Cards,DivinationCard,2287.0,,5716,-6.67,exchange,poe.ninja
+T0_JACKPOT,Seven Years Bad Luck,Cards,DivinationCard,2234.0,,225230,1.51,exchange,poe.ninja
+T0_JACKPOT,Foulborn Exalted Orb,Keepers,Currency,2224.0,,81174,13.11,exchange,poe.ninja
+T0_JACKPOT,The Demon,Cards,DivinationCard,2170.0,,5063,16.59,exchange,poe.ninja
+T0_JACKPOT,Flame Link,SkillGem,SkillGem,2156.0,4.4,9,-19.85,stash,poe.ninja
+T0_JACKPOT,Tainted Divine Teardrop,Currency,Currency,2115.0,,22213,-5.67,exchange,poe.ninja
+T0_JACKPOT,Arrogance Support,SkillGem,SkillGem,2107.0,4.3,15,52.54,stash,poe.ninja
+T0_JACKPOT,Dominating Blow,SkillGem,SkillGem,2009.0,4.1,6,0,stash,poe.ninja
+T0_JACKPOT,Perforate,SkillGem,SkillGem,2009.0,4.1,9,0,stash,poe.ninja
+T0_JACKPOT,Added Fire Damage Support,SkillGem,SkillGem,1960.0,4.0,34,57.32,stash,poe.ninja
+T0_JACKPOT,Ancestral Cry,SkillGem,SkillGem,1960.0,4.0,4,-7.54,stash,poe.ninja
+T0_JACKPOT,Cleave,SkillGem,SkillGem,1960.0,4.0,7,0,stash,poe.ninja
+T0_JACKPOT,Critical Strike Affliction Support,SkillGem,SkillGem,1960.0,4.0,11,0,stash,poe.ninja
+T0_JACKPOT,Cull the Weak Support,SkillGem,SkillGem,1960.0,4.0,25,136.0,stash,poe.ninja
+T0_JACKPOT,Cyclone,SkillGem,SkillGem,1960.0,4.0,6,0,stash,poe.ninja
+T0_JACKPOT,Divine Blast,SkillGem,SkillGem,1960.0,4.0,3,0,stash,poe.ninja
+T0_JACKPOT,Dread Banner,SkillGem,SkillGem,1960.0,4.0,12,0,stash,poe.ninja
+T0_JACKPOT,Elemental Weakness,SkillGem,SkillGem,1960.0,4.0,7,0.12,stash,poe.ninja
+T0_JACKPOT,Exsanguinate,SkillGem,SkillGem,1960.0,4.0,8,0,stash,poe.ninja
+T0_JACKPOT,Firestorm,SkillGem,SkillGem,1960.0,4.0,6,0,stash,poe.ninja
+T0_JACKPOT,Infused Channelling Support,SkillGem,SkillGem,1960.0,4.0,20,96.08,stash,poe.ninja
+T0_JACKPOT,Lifetap Support,SkillGem,SkillGem,1960.0,4.0,48,226.7,stash,poe.ninja
+T0_JACKPOT,Lightning Penetration Support,SkillGem,SkillGem,1960.0,4.0,10,29.6,stash,poe.ninja
+T0_JACKPOT,Melee Physical Damage Support,SkillGem,SkillGem,1960.0,4.0,6,-6.7,stash,poe.ninja
+T0_JACKPOT,Molten Strike,SkillGem,SkillGem,1960.0,4.0,2,0,stash,poe.ninja
+T0_JACKPOT,Rejuvenation Totem,SkillGem,SkillGem,1960.0,4.0,4,0,stash,poe.ninja
+T0_JACKPOT,Searing Bond,SkillGem,SkillGem,1960.0,4.0,5,0,stash,poe.ninja
+T0_JACKPOT,Shockwave Totem,SkillGem,SkillGem,1960.0,4.0,6,-1.82,stash,poe.ninja
+T0_JACKPOT,Swift Affliction Support,SkillGem,SkillGem,1960.0,4.0,47,19.08,stash,poe.ninja
+T0_JACKPOT,Vengeful Cry,SkillGem,SkillGem,1960.0,4.0,9,0,stash,poe.ninja
+T0_JACKPOT,Warlord's Mark,SkillGem,SkillGem,1960.0,4.0,5,0,stash,poe.ninja
+T0_JACKPOT,Untainted Paradise,UniqueMap,UniqueMap,1960.0,4.0,13,149.8,stash,poe.ninja
+T0_JACKPOT,Vivid Vulture,Beast,Beast,1935.0,3.95,7006,16.12,stash,poe.ninja
+T0_JACKPOT,Elemental Focus Support,SkillGem,SkillGem,1918.0,3.91,40,53.94,stash,poe.ninja
+T0_JACKPOT,Energy Blade,SkillGem,SkillGem,1884.0,3.84,19,4.95,stash,poe.ninja
+T0_JACKPOT,Arcane Surge Support,SkillGem,SkillGem,1840.0,3.76,37,130,stash,poe.ninja
+T0_JACKPOT,Flameblast of Celerity,SkillGem,SkillGem,1788.0,3.65,52,-91.41,stash,poe.ninja
+T0_JACKPOT,Tainted Oil,Oils,Oil,1787.0,,20253,-23.51,exchange,poe.ninja
+T0_JACKPOT,Frostbite,SkillGem,SkillGem,1764.0,3.6,12,-9.25,stash,poe.ninja
+T0_JACKPOT,Gift to the Goddess,Fragments,Fragment,1732.0,,12413,2.07,exchange,poe.ninja
+T0_JACKPOT,Firestorm of Pelting,SkillGem,SkillGem,1715.0,3.5,13,36.08,stash,poe.ninja
+T0_JACKPOT,Unbound Ailments Support,SkillGem,SkillGem,1646.0,3.36,22,-0.63,stash,poe.ninja
+T0_JACKPOT,Artillery Ballista of Focus Fire,SkillGem,SkillGem,1635.0,3.34,24,0,stash,poe.ninja
+T0_JACKPOT,Whirling Blades,SkillGem,SkillGem,1617.0,3.3,5,7.66,stash,poe.ninja
+T0_JACKPOT,Volatile Vaal Orb,Currency,Currency,1616.0,,408076,37.25,exchange,poe.ninja
+T0_JACKPOT,Discipline,SkillGem,SkillGem,1568.0,3.2,7,0,stash,poe.ninja
+T0_JACKPOT,Galvanic Field of Intensity,SkillGem,SkillGem,1568.0,3.2,21,0,stash,poe.ninja
+T0_JACKPOT,Volatility Support,SkillGem,SkillGem,1530.0,3.12,54,20.17,stash,poe.ninja
+T0_JACKPOT,Bane of Condemnation,SkillGem,SkillGem,1519.0,3.1,29,2497,stash,poe.ninja
+T0_JACKPOT,Boneshatter,SkillGem,SkillGem,1519.0,3.1,6,0,stash,poe.ninja
+T0_JACKPOT,Spirit Offering,SkillGem,SkillGem,1519.0,3.1,14,-53.73,stash,poe.ninja
+T0_JACKPOT,Love Through Ice,Cards,DivinationCard,1481.0,,11106,-4.86,exchange,poe.ninja
+T0_JACKPOT,Ambush,SkillGem,SkillGem,1470.0,3.0,6,-0.74,stash,poe.ninja
+T0_JACKPOT,Bladestorm,SkillGem,SkillGem,1470.0,3.0,2,0,stash,poe.ninja
+T0_JACKPOT,Corrupting Fever,SkillGem,SkillGem,1470.0,3.0,9,0,stash,poe.ninja
+T0_JACKPOT,Decoy Totem,SkillGem,SkillGem,1470.0,3.0,1,0,stash,poe.ninja
+T0_JACKPOT,Defiance Banner,SkillGem,SkillGem,1470.0,3.0,7,0,stash,poe.ninja
+T0_JACKPOT,Earthquake,SkillGem,SkillGem,1470.0,3.0,4,0,stash,poe.ninja
+T0_JACKPOT,Flesh and Stone,SkillGem,SkillGem,1470.0,3.0,43,-1.93,stash,poe.ninja
+T0_JACKPOT,Frost Bomb of Forthcoming,SkillGem,SkillGem,1470.0,3.0,1,0,stash,poe.ninja
+T0_JACKPOT,Glacial Hammer,SkillGem,SkillGem,1470.0,3.0,6,0,stash,poe.ninja
+T0_JACKPOT,Greater Volley Support,SkillGem,SkillGem,1470.0,3.0,49,17.96,stash,poe.ninja
+T0_JACKPOT,Holy Strike,SkillGem,SkillGem,1470.0,3.0,5,0,stash,poe.ninja
+T0_JACKPOT,Infernal Blow,SkillGem,SkillGem,1470.0,3.0,3,0,stash,poe.ninja
+T0_JACKPOT,Machinations Support,SkillGem,SkillGem,1470.0,3.0,21,1.97,stash,poe.ninja
+T0_JACKPOT,Meat Shield Support,SkillGem,SkillGem,1470.0,3.0,58,-11.51,stash,poe.ninja
+T0_JACKPOT,Rage Vortex,SkillGem,SkillGem,1470.0,3.0,14,0,stash,poe.ninja
+T0_JACKPOT,Rallying Cry,SkillGem,SkillGem,1470.0,3.0,4,0,stash,poe.ninja
+T0_JACKPOT,Shattering Steel of Ammunition,SkillGem,SkillGem,1470.0,3.0,9,0,stash,poe.ninja
+T0_JACKPOT,Smite,SkillGem,SkillGem,1470.0,3.0,7,25.07,stash,poe.ninja
+T0_JACKPOT,Spectral Throw of Trarthus,SkillGem,SkillGem,1470.0,3.0,2,0,stash,poe.ninja
+T0_JACKPOT,Vaal Cold Snap,SkillGem,SkillGem,1470.0,3.0,6,0,stash,poe.ninja
+T0_JACKPOT,Vaal Sacrifice Support,SkillGem,SkillGem,1470.0,3.0,15,79.09,stash,poe.ninja
+T0_JACKPOT,Void Sphere of Rending,SkillGem,SkillGem,1470.0,3.0,6,0,stash,poe.ninja
+T0_JACKPOT,Volatile Dead of Seething,SkillGem,SkillGem,1470.0,3.0,12,41.82,stash,poe.ninja
+T0_JACKPOT,Vulnerability,SkillGem,SkillGem,1470.0,3.0,8,-25.64,stash,poe.ninja
+T0_JACKPOT,Cruelty Support,SkillGem,SkillGem,1463.0,2.99,40,9.26,stash,poe.ninja
+T0_JACKPOT,Hypothermia Support,SkillGem,SkillGem,1389.0,2.83,40,-13.32,stash,poe.ninja
+T0_JACKPOT,Determination,SkillGem,SkillGem,1379.0,2.81,33,2.15,stash,poe.ninja
+T0_JACKPOT,The Progeny of Lunaris,Cards,DivinationCard,1347.0,,898.3,14.06,exchange,poe.ninja
+T0_JACKPOT,Tempering Orb,Currency,Currency,1313.0,,236336,-0.73,exchange,poe.ninja
+T0_JACKPOT,Tattoo of the Arohongui Shaman,Ancestor,Tattoo,1308.0,,38382,-31.54,exchange,poe.ninja
+T0_JACKPOT,Divine Justice,Cards,DivinationCard,1274.0,,2123,7.39,exchange,poe.ninja
+T0_JACKPOT,Controlled Destruction Support,SkillGem,SkillGem,1249.0,2.55,26,0.65,stash,poe.ninja
+T0_JACKPOT,Allflame Ember of the Gilded,AllflameEmbers,AllflameEmber,1232.0,,65086,-26.46,exchange,poe.ninja
+T0_JACKPOT,12% increased Fire Damage,ClusterJewel,ClusterJewel,1225.0,2.5,29,203.6,stash,poe.ninja
+T0_JACKPOT,Bladefall of Volleys,SkillGem,SkillGem,1225.0,2.5,5,0,stash,poe.ninja
+T0_JACKPOT,Damage on Full Life Support,SkillGem,SkillGem,1200.0,2.45,35,-3.72,stash,poe.ninja
+T0_JACKPOT,Minion Damage Support,SkillGem,SkillGem,1168.0,2.38,56,-2.67,stash,poe.ninja
+T0_JACKPOT,Absolution,SkillGem,SkillGem,1141.0,2.33,6,29.18,stash,poe.ninja
+T0_JACKPOT,Penance Brand of Dissipation,SkillGem,SkillGem,1127.0,2.3,4,-36.48,stash,poe.ninja
+T0_JACKPOT,The Black Barya,Fragments,Fragment,1095.0,,1078130,-12.77,exchange,poe.ninja
+T0_JACKPOT,Blast Rain of Trarthus,SkillGem,SkillGem,1078.0,2.2,67,-12.51,stash,poe.ninja
+T0_JACKPOT,Block Chance Reduction Support,SkillGem,SkillGem,1046.0,2.13,20,59.32,stash,poe.ninja
+T0_JACKPOT,Storm Rain of the Fence,SkillGem,SkillGem,1044.0,2.13,27,-16.36,stash,poe.ninja
+T0_JACKPOT,Sacred Wisps Support,SkillGem,SkillGem,1000.0,2.04,41,25,stash,poe.ninja
+T0_JACKPOT,Shield Crush of the Chieftain,SkillGem,SkillGem,999.0,2.04,11,0,stash,poe.ninja
+T0_JACKPOT,Frost Blades of Katabasis,SkillGem,SkillGem,998.0,2.04,11,0,stash,poe.ninja
+T0_JACKPOT,Blade Vortex of the Scythe,SkillGem,SkillGem,982.0,2.0,19,0,stash,poe.ninja
+T0_JACKPOT,12% increased Attack Damage while holding a Shield,ClusterJewel,ClusterJewel,980.0,2.0,44,151.2,stash,poe.ninja
+T0_JACKPOT,Minions deal 10% increased Damage,ClusterJewel,ClusterJewel,980.0,2.0,2128,96.26,stash,poe.ninja
+T0_JACKPOT,Artillery Ballista of Cross Strafe,SkillGem,SkillGem,980.0,2.0,11,0,stash,poe.ninja
+T0_JACKPOT,Bladefall of Impaling,SkillGem,SkillGem,980.0,2.0,6,0,stash,poe.ninja
+T0_JACKPOT,Blazing Salvo,SkillGem,SkillGem,980.0,2.0,6,134.5,stash,poe.ninja
+T0_JACKPOT,Bloodsoaked Banner Support,SkillGem,SkillGem,980.0,2.0,38,17.99,stash,poe.ninja
+T0_JACKPOT,Detonate Dead,SkillGem,SkillGem,980.0,2.0,4,0,stash,poe.ninja
+T0_JACKPOT,Flesh Offering,SkillGem,SkillGem,980.0,2.0,9,-0.1,stash,poe.ninja
+T0_JACKPOT,Lightning Spire Trap,SkillGem,SkillGem,980.0,2.0,45,-93.45,stash,poe.ninja
+T0_JACKPOT,Multiple Totems Support,SkillGem,SkillGem,980.0,2.0,2,410,stash,poe.ninja
+T0_JACKPOT,Prismatic Burst Support,SkillGem,SkillGem,980.0,2.0,9,0,stash,poe.ninja
+T0_JACKPOT,Rage Vortex of Berserking,SkillGem,SkillGem,980.0,2.0,4,72.22,stash,poe.ninja
+T0_JACKPOT,Rain of Arrows,SkillGem,SkillGem,980.0,2.0,7,2.6,stash,poe.ninja
+T0_JACKPOT,Shock Nova of Procession,SkillGem,SkillGem,980.0,2.0,51,263.0,stash,poe.ninja
+T0_JACKPOT,Shrapnel Ballista of Steel,SkillGem,SkillGem,980.0,2.0,17,0,stash,poe.ninja
+T0_JACKPOT,Soulrend of the Spiral,SkillGem,SkillGem,980.0,2.0,24,393.0,stash,poe.ninja
+T0_JACKPOT,Spellblade Support,SkillGem,SkillGem,980.0,2.0,16,0,stash,poe.ninja
+T0_JACKPOT,Summon Holy Relic of Conviction,SkillGem,SkillGem,980.0,2.0,27,-41.01,stash,poe.ninja
+T0_JACKPOT,Summon Stone Golem of Hordes,SkillGem,SkillGem,980.0,2.0,29,17.99,stash,poe.ninja
+T0_JACKPOT,Tornado Shot,SkillGem,SkillGem,980.0,2.0,6,0,stash,poe.ninja
+T0_JACKPOT,Toxic Rain of Withering,SkillGem,SkillGem,980.0,2.0,3,0,stash,poe.ninja
+T0_JACKPOT,Urgent Orders Support,SkillGem,SkillGem,980.0,2.0,7,14.29,stash,poe.ninja
+T0_JACKPOT,Vaal Impurity of Lightning,SkillGem,SkillGem,980.0,2.0,2,0,stash,poe.ninja
+T0_JACKPOT,Hexblast of Contradiction,SkillGem,SkillGem,974.0,1.99,22,-97.3,stash,poe.ninja
+T0_JACKPOT,Temperance,Cards,DivinationCard,968.0,,52918,97.56,exchange,poe.ninja
+T0_JACKPOT,6% increased Mana Reservation Efficiency of Skills,ClusterJewel,ClusterJewel,964.0,1.97,2249,15.95,stash,poe.ninja
+T0_JACKPOT,"Staff Attacks deal 12% increased Damage with Hits and Ailments, Mace or Sceptre Attacks deal 12% increased Damage with Hits and Ailments",ClusterJewel,ClusterJewel,931.0,1.9,51,-83.12,stash,poe.ninja
+T0_JACKPOT,Luminous Trove,Cards,DivinationCard,929.2,,20906,-23.12,exchange,poe.ninja
+T0_JACKPOT,Tailoring Orb,Currency,Currency,927.9,,193626,22.27,exchange,poe.ninja
+T0_JACKPOT,Reap,SkillGem,SkillGem,920.0,1.88,9,-3.16,stash,poe.ninja
+T0_JACKPOT,Tornado,SkillGem,SkillGem,920.0,1.88,10,0,stash,poe.ninja
+T0_JACKPOT,Horned Scarab of Preservation,Fragments,Scarab,919.4,,64515,80.83,exchange,poe.ninja
+T0_JACKPOT,Greater Multiple Projectiles Support,SkillGem,SkillGem,914.0,1.87,66,21.43,stash,poe.ninja
+T0_JACKPOT,Ruthless Support,SkillGem,SkillGem,890.0,1.82,20,9.42,stash,poe.ninja
+T0_JACKPOT,Bodyswap of Sacrifice,SkillGem,SkillGem,873.5,1.78,15,20.72,stash,poe.ninja
+T0_JACKPOT,Efficacy Support,SkillGem,SkillGem,850.0,1.73,19,13.33,stash,poe.ninja
+T0_JACKPOT,Desecrated Virtue,Cards,DivinationCard,826.6,,49733,-1.15,exchange,poe.ninja
+T0_JACKPOT,Brutality Support,SkillGem,SkillGem,800.0,1.63,40,-5.62,stash,poe.ninja
+T0_JACKPOT,Tattoo of the Ramako Shaman,Ancestor,Tattoo,792.5,,15190,-9.77,exchange,poe.ninja
+T0_JACKPOT,Pierce Support,SkillGem,SkillGem,780.0,1.59,54,-0.57,stash,poe.ninja
+T0_JACKPOT,Glacial Cascade of the Fissure,SkillGem,SkillGem,779.2,1.59,42,123.1,stash,poe.ninja
+T0_JACKPOT,Scourge Arrow of Menace,SkillGem,SkillGem,748.5,1.53,56,0,stash,poe.ninja
+T0_JACKPOT,Searing Bond of Detonation,SkillGem,SkillGem,740.0,1.51,18,-39.72,stash,poe.ninja
+T0_JACKPOT,Elemental Hit of the Spectrum,SkillGem,SkillGem,720.0,1.47,55,-11.05,stash,poe.ninja
+T0_JACKPOT,Shock Nova,SkillGem,SkillGem,715.0,1.46,28,-8.75,stash,poe.ninja
+T0_JACKPOT,Elemental Army Support,SkillGem,SkillGem,711.0,1.45,69,62.7,stash,poe.ninja
+T0_JACKPOT,Toxic Rain of Sporeburst,SkillGem,SkillGem,700.0,1.43,4,0,stash,poe.ninja
+T0_JACKPOT,Faster Casting Support,SkillGem,SkillGem,699.4,1.43,46,30.24,stash,poe.ninja
+T0_JACKPOT,Orb of Conflict,Currency,Currency,695.2,,128376,9.68,exchange,poe.ninja
+T0_JACKPOT,Voidborn Reliquary Key,Fragments,Fragment,689.8,,137849,-2.47,exchange,poe.ninja
+T0_JACKPOT,Seismic Trap of Swells,SkillGem,SkillGem,686.0,1.4,38,156.0,stash,poe.ninja
+T0_JACKPOT,Tattoo of the Valako Shieldbearer,Ancestor,Tattoo,678.7,,16288,8.65,exchange,poe.ninja
+T0_JACKPOT,Tectonic Slam of Cataclysm,SkillGem,SkillGem,676.0,1.38,3,0,stash,poe.ninja
+T0_JACKPOT,Cast when Stunned Support,SkillGem,SkillGem,674.0,1.38,22,195.6,stash,poe.ninja
+T0_JACKPOT,Prime Chaotic Resonator,Delve,Resonator,670.4,,26704,-2.77,exchange,poe.ninja
+T0_JACKPOT,Orb of Storms of Squalls,SkillGem,SkillGem,668.0,1.36,109,78.8,stash,poe.ninja
+T0_JACKPOT,Lightning Strike of Arcing,SkillGem,SkillGem,666.0,1.36,15,-2.7,stash,poe.ninja
+T0_JACKPOT,Horned Scarab of Bloodlines,Fragments,Scarab,658.3,,464342,34.29,exchange,poe.ninja
+T0_JACKPOT,Runegraft of the Warp,Runegrafts,Runegraft,655.8,,5574,-33.99,exchange,poe.ninja
+T0_JACKPOT,Spark of Unpredictability,SkillGem,SkillGem,655.5,1.34,19,0,stash,poe.ninja
+T0_JACKPOT,Faceted Fossil,Delve,Fossil,651.9,,12821,2.53,exchange,poe.ninja
+T0_JACKPOT,Omen of Connections,Ancestor,Omen,651.4,,9228,-15.8,exchange,poe.ninja
+T0_JACKPOT,Armageddon Brand of Volatility,SkillGem,SkillGem,637.0,1.3,26,17.87,stash,poe.ninja
+T0_JACKPOT,Summon Flame Golem of Hordes,SkillGem,SkillGem,633.0,1.29,6,0,stash,poe.ninja
+T0_JACKPOT,Increased Area of Effect Support,SkillGem,SkillGem,630.0,1.29,56,18.37,stash,poe.ninja
+T0_JACKPOT,Deadly Ailments Support,SkillGem,SkillGem,624.0,1.27,42,11.43,stash,poe.ninja
+T0_JACKPOT,Burning Damage Support,SkillGem,SkillGem,600.0,1.22,12,-32.12,stash,poe.ninja
+T0_JACKPOT,Gluttony Support,SkillGem,SkillGem,593.0,1.21,8,0,stash,poe.ninja
+T0_JACKPOT,Storm Burst,SkillGem,SkillGem,593.0,1.21,6,-7.81,stash,poe.ninja
+T0_JACKPOT,Molten Strike of the Zenith,SkillGem,SkillGem,590.0,1.2,44,36.57,stash,poe.ninja
+T0_JACKPOT,Earthquake of Amplification,SkillGem,SkillGem,588.0,1.2,3,0,stash,poe.ninja
+T0_JACKPOT,Eye of Winter of Transience,SkillGem,SkillGem,588.0,1.2,19,180.5,stash,poe.ninja
+T0_JACKPOT,Lightning Strike,SkillGem,SkillGem,588.0,1.2,43,26.98,stash,poe.ninja
+T0_JACKPOT,Volatile Dead of Confinement,SkillGem,SkillGem,588.0,1.2,13,0,stash,poe.ninja
+T0_JACKPOT,Poisonous Concoction of Bouncing,SkillGem,SkillGem,584.0,1.19,29,489.9,stash,poe.ninja
+T0_JACKPOT,Summon Skeletons,SkillGem,SkillGem,583.0,1.19,18,-64.94,stash,poe.ninja
+T0_JACKPOT,Ice Spear,SkillGem,SkillGem,580.0,1.18,18,-23.13,stash,poe.ninja
+T0_JACKPOT,Ice Trap of Hollowness,SkillGem,SkillGem,580.0,1.18,4,0,stash,poe.ninja
+T0_JACKPOT,Increased Critical Strikes Support,SkillGem,SkillGem,553.0,1.13,46,1.73,stash,poe.ninja
+T0_JACKPOT,Animate Weapon of Ranged Arms,SkillGem,SkillGem,550.0,1.12,37,12.7,stash,poe.ninja
+T0_JACKPOT,Bonechill Support,SkillGem,SkillGem,550.0,1.12,37,27.95,stash,poe.ninja
+T0_JACKPOT,Flame Surge,SkillGem,SkillGem,550.0,1.12,14,-6.14,stash,poe.ninja
+T0_JACKPOT,Forbidden Rite of Soul Sacrifice,SkillGem,SkillGem,547.0,1.12,36,-34.14,stash,poe.ninja
+T0_JACKPOT,Clarity,SkillGem,SkillGem,540.0,1.1,8,3.85,stash,poe.ninja
+T0_JACKPOT,Ground Slam of Earthshaking,SkillGem,SkillGem,516.0,1.05,2,0,stash,poe.ninja
+T0_JACKPOT,Cast when Damage Taken Support,SkillGem,SkillGem,498.3,1.02,73,7.9,stash,poe.ninja
+T0_JACKPOT,Purity of Ice,SkillGem,SkillGem,495.0,1.01,27,12.78,stash,poe.ninja
+T0_JACKPOT,Raise Zombie of Slamming,SkillGem,SkillGem,494.0,1.01,29,0,stash,poe.ninja
+T0_JACKPOT,Pyre Support,SkillGem,SkillGem,492.0,1.0,21,-10.23,stash,poe.ninja
+T0_JACKPOT,Auspicious Ambitions,Cards,DivinationCard,490.0,,81.66,0,exchange,poe.ninja
+T0_JACKPOT,Squandered Prosperity,Cards,DivinationCard,490.0,,2940,100,exchange,poe.ninja
+T0_JACKPOT,10% increased Effect of Non-Damaging Ailments,ClusterJewel,ClusterJewel,490.0,1.0,51,0,stash,poe.ninja
+T0_JACKPOT,12% increased Chaos Damage over Time,ClusterJewel,ClusterJewel,490.0,1.0,15,0,stash,poe.ninja
+T0_JACKPOT,"12% increased Damage with Bows, 12% increased Damage Over Time with Bow Skills",ClusterJewel,ClusterJewel,490.0,1.0,807,260.8,stash,poe.ninja
+T0_JACKPOT,Divine Orb,Currency,Currency,490.0,,3788891,20.27,exchange,poe.ninja
+T0_JACKPOT,Animate Weapon of Self Reflection,SkillGem,SkillGem,490.0,1.0,17,0,stash,poe.ninja
+T0_JACKPOT,Arc of Surging,SkillGem,SkillGem,490.0,1.0,72,188.2,stash,poe.ninja
+T0_JACKPOT,Blade Blast of Unloading,SkillGem,SkillGem,490.0,1.0,5,0,stash,poe.ninja
+T0_JACKPOT,Caustic Arrow of Poison,SkillGem,SkillGem,490.0,1.0,3,0,stash,poe.ninja
+T0_JACKPOT,Chain Hook of Trarthus,SkillGem,SkillGem,490.0,1.0,5,0,stash,poe.ninja
+T0_JACKPOT,Cleave of Rage,SkillGem,SkillGem,490.0,1.0,16,145.6,stash,poe.ninja
+T0_JACKPOT,Consecrated Path of Endurance,SkillGem,SkillGem,490.0,1.0,19,99.19,stash,poe.ninja
+T0_JACKPOT,Divine Ire of Disintegration,SkillGem,SkillGem,490.0,1.0,12,0,stash,poe.ninja
+T0_JACKPOT,Double Strike of Momentum,SkillGem,SkillGem,490.0,1.0,32,-37.97,stash,poe.ninja
+T0_JACKPOT,Earthshatter of Prominence,SkillGem,SkillGem,490.0,1.0,9,0,stash,poe.ninja
+T0_JACKPOT,Fissure Support,SkillGem,SkillGem,490.0,1.0,3,0,stash,poe.ninja
+T0_JACKPOT,Greater Kinetic Instability Support,SkillGem,SkillGem,490.0,1.0,38,68.97,stash,poe.ninja
+T0_JACKPOT,Hiveborn Support,SkillGem,SkillGem,490.0,1.0,16,0,stash,poe.ninja
+T0_JACKPOT,Holy Flame Totem of Ire,SkillGem,SkillGem,490.0,1.0,3,0,stash,poe.ninja
+T0_JACKPOT,Icicle Mine of Sabotage,SkillGem,SkillGem,490.0,1.0,7,0,stash,poe.ninja
+T0_JACKPOT,Incinerate of Expanse,SkillGem,SkillGem,490.0,1.0,14,0,stash,poe.ninja
+T0_JACKPOT,Lacerate of Haemorrhage,SkillGem,SkillGem,490.0,1.0,2,0,stash,poe.ninja
+T0_JACKPOT,Lethal Dose Support,SkillGem,SkillGem,490.0,1.0,2,0,stash,poe.ninja
+T0_JACKPOT,Lightning Tendrils of Eccentricity,SkillGem,SkillGem,490.0,1.0,2,0,stash,poe.ninja
+T0_JACKPOT,Perforate of Duality,SkillGem,SkillGem,490.0,1.0,6,0,stash,poe.ninja
+T0_JACKPOT,Smite of Divine Judgement,SkillGem,SkillGem,490.0,1.0,11,0,stash,poe.ninja
+T0_JACKPOT,Soul Link,SkillGem,SkillGem,490.0,1.0,11,0,stash,poe.ninja
+T0_JACKPOT,Storm Call of Trarthus,SkillGem,SkillGem,490.0,1.0,6,0,stash,poe.ninja
+T0_JACKPOT,Summon Carrion Golem of Hordes,SkillGem,SkillGem,490.0,1.0,2,0,stash,poe.ninja
+T0_JACKPOT,Summon Flame Golem of the Meteor,SkillGem,SkillGem,490.0,1.0,13,78.83,stash,poe.ninja
+T0_JACKPOT,Summon Lightning Golem of Hordes,SkillGem,SkillGem,490.0,1.0,32,17.99,stash,poe.ninja
+T0_JACKPOT,Sunder of Earthbreaking,SkillGem,SkillGem,490.0,1.0,19,17.99,stash,poe.ninja
+T0_JACKPOT,Temporal Rift,SkillGem,SkillGem,490.0,1.0,13,0,stash,poe.ninja
+T0_JACKPOT,Volcanic Fissure of Snaking,SkillGem,SkillGem,490.0,1.0,20,32.87,stash,poe.ninja
+T0_JACKPOT,Wave of Conviction,SkillGem,SkillGem,490.0,1.0,7,-9.36,stash,poe.ninja
+T0_JACKPOT,Flicker Strike,SkillGem,SkillGem,480.0,0.98,9,-0.3,stash,poe.ninja
+T0_JACKPOT,Lacerate of Butchering,SkillGem,SkillGem,480.0,0.98,48,15.94,stash,poe.ninja
+T0_JACKPOT,Scorching Ray,SkillGem,SkillGem,480.0,0.98,12,0.69,stash,poe.ninja
+T0_JACKPOT,Glacial Hammer of Shattering,SkillGem,SkillGem,475.0,0.97,15,11.5,stash,poe.ninja
+T0_JACKPOT,Bladestorm of Uncertainty,SkillGem,SkillGem,470.0,0.96,14,141.0,stash,poe.ninja
+T0_JACKPOT,Infernal Blow of Immolation,SkillGem,SkillGem,470.0,0.96,14,487.5,stash,poe.ninja
+T0_JACKPOT,Absolution of Inspiring,SkillGem,SkillGem,466.0,0.95,12,0,stash,poe.ninja
+T0_JACKPOT,Vaal Clarity,SkillGem,SkillGem,459.0,0.94,21,10.52,stash,poe.ninja
+T0_JACKPOT,10% increased Projectile Damage,ClusterJewel,ClusterJewel,458.0,0.93,29,-31.58,stash,poe.ninja
+T0_JACKPOT,Cold Snap,SkillGem,SkillGem,451.0,0.92,15,-26.67,stash,poe.ninja
+T0_JACKPOT,Divine Ire,SkillGem,SkillGem,449.9,0.92,24,-23.49,stash,poe.ninja
+T0_JACKPOT,Elemental Hit,SkillGem,SkillGem,449.4,0.92,15,-3.25,stash,poe.ninja
+T0_JACKPOT,Ice Bite Support,SkillGem,SkillGem,448.0,0.91,28,-10.4,stash,poe.ninja
+T0_JACKPOT,Trap and Mine Damage Support,SkillGem,SkillGem,445.6,0.91,25,3.94,stash,poe.ninja
+T0_JACKPOT,Vaal Firestorm,SkillGem,SkillGem,445.0,0.91,17,-60.25,stash,poe.ninja
+T0_JACKPOT,Leap Slam of Groundbreaking,SkillGem,SkillGem,438.4,0.89,4,0,stash,poe.ninja
+T0_JACKPOT,Dominating Blow of Inspiring,SkillGem,SkillGem,438.0,0.89,14,21.67,stash,poe.ninja
+T0_JACKPOT,Boneshatter of Complex Trauma,SkillGem,SkillGem,436.0,0.89,9,14.06,stash,poe.ninja
+T0_JACKPOT,Frost Shield,SkillGem,SkillGem,432.0,0.88,6,0,stash,poe.ninja
+T0_JACKPOT,Runegraft of the Fortress,Runegrafts,Runegraft,430.6,,6818,-11.37,exchange,poe.ninja
+T0_JACKPOT,Burning Arrow of Vigour,SkillGem,SkillGem,424.0,0.87,3,0,stash,poe.ninja
+T0_JACKPOT,Storm Brand of Indecision,SkillGem,SkillGem,424.0,0.87,71,341.7,stash,poe.ninja
+T0_JACKPOT,Echo of Reverence,Fragments,Fragment,417.5,,12177,31.8,exchange,poe.ninja
+T0_JACKPOT,One Last Score,Cards,DivinationCard,411.0,,2123,-16.13,exchange,poe.ninja
+T0_JACKPOT,Broken Promises,Cards,DivinationCard,404.6,,65740,22.73,exchange,poe.ninja
+T0_JACKPOT,Earthshatter of Fragility,SkillGem,SkillGem,404.5,0.83,7,0,stash,poe.ninja
+T0_JACKPOT,Echo of Trauma,Fragments,Fragment,403.9,,17231,-5.11,exchange,poe.ninja
+T0_JACKPOT,Golden Oil,Oils,Oil,402.8,,13023,5.92,exchange,poe.ninja
+T0_JACKPOT,Explosive Trap of Magnitude,SkillGem,SkillGem,400.0,0.82,10,0,stash,poe.ninja
+T0_JACKPOT,Fortify Support,SkillGem,SkillGem,400.0,0.82,39,-4.28,stash,poe.ninja
+T0_JACKPOT,Infested Ursa,Beast,Beast,399.0,0.81,23,0,stash,poe.ninja
+T0_JACKPOT,Vaal Ground Slam,SkillGem,SkillGem,395.0,0.81,16,79.55,stash,poe.ninja
+T0_JACKPOT,Spell Echo Support,SkillGem,SkillGem,394.7,0.81,70,-12.29,stash,poe.ninja
+T0_JACKPOT,Summon Reaper,SkillGem,SkillGem,393.6,0.8,23,0,stash,poe.ninja
+T0_JACKPOT,6% increased Flask Effect Duration,ClusterJewel,ClusterJewel,392.0,0.8,932,-4.06,stash,poe.ninja
+T0_JACKPOT,Frenzy of Onslaught,SkillGem,SkillGem,390.5,0.8,5,0,stash,poe.ninja
+T0_JACKPOT,Hallow Support,SkillGem,SkillGem,390.0,0.8,4,0,stash,poe.ninja
+T0_JACKPOT,Ball Lightning of Orbiting,SkillGem,SkillGem,389.2,0.79,17,0,stash,poe.ninja
+T0_JACKPOT,The Sephirot,Cards,DivinationCard,386.1,,19949,13.67,exchange,poe.ninja
+T0_JACKPOT,Allflame Ember of the Ethereal,AllflameEmbers,AllflameEmber,383.6,,6138,40.38,exchange,poe.ninja
+T0_JACKPOT,Exceptional Eldritch Ember,Currency,Currency,380.7,,43527,39.48,exchange,poe.ninja
+T0_JACKPOT,Cremation of the Volcano,SkillGem,SkillGem,380.0,0.78,10,0,stash,poe.ninja
+T0_JACKPOT,Shockwave Totem of Authority,SkillGem,SkillGem,378.5,0.77,13,6.62,stash,poe.ninja
+T0_JACKPOT,Exsanguinate of Transmission,SkillGem,SkillGem,375.0,0.77,13,-0.79,stash,poe.ninja
+T0_JACKPOT,Penance Brand,SkillGem,SkillGem,375.0,0.77,7,-54.04,stash,poe.ninja
+T0_JACKPOT,Discharge,SkillGem,SkillGem,365.0,0.74,18,-1.45,stash,poe.ninja
+T0_JACKPOT,Boneshatter of Carnage,SkillGem,SkillGem,362.0,0.74,9,4.17,stash,poe.ninja
+T0_JACKPOT,Kinetic Fusillade of Detonation,SkillGem,SkillGem,357.0,0.73,29,3.02,stash,poe.ninja
+T0_JACKPOT,Crusader's Exalted Orb,Currency,Currency,356.5,,1426,44.71,exchange,poe.ninja
+T0_JACKPOT,Conductivity,SkillGem,SkillGem,350.0,0.71,13,-12.5,stash,poe.ninja
+T0_JACKPOT,Kinetic Blast,SkillGem,SkillGem,349.0,0.71,20,0.83,stash,poe.ninja
+T0_JACKPOT,Runegraft of Gemcraft,Runegrafts,Runegraft,348.7,,1220,151.3,exchange,poe.ninja
+T0_JACKPOT,Spell Cascade Support,SkillGem,SkillGem,341.0,0.7,3,0,stash,poe.ninja
+T0_JACKPOT,Frozen Legion of Rallying,SkillGem,SkillGem,325.3,0.66,18,-16.63,stash,poe.ninja
+T0_JACKPOT,Somatic Shell,SkillGem,SkillGem,322.5,0.66,16,-76.89,stash,poe.ninja
+T0_JACKPOT,Valdo's Puzzle Box,Fragments,Fragment,316.4,,805127,1.07,exchange,poe.ninja
+T0_JACKPOT,Armageddon Brand of Recall,SkillGem,SkillGem,316.0,0.64,45,-19.44,stash,poe.ninja
+T0_JACKPOT,Frostbolt,SkillGem,SkillGem,310.0,0.63,10,1.64,stash,poe.ninja
+T0_JACKPOT,Brand Recall,SkillGem,SkillGem,307.6,0.63,37,-55.93,stash,poe.ninja
+T0_JACKPOT,Split Arrow of Splitting,SkillGem,SkillGem,306.0,0.62,25,1175,stash,poe.ninja
+T0_JACKPOT,Cremation of Exhuming,SkillGem,SkillGem,300.0,0.61,44,2.58,stash,poe.ninja
+T0_JACKPOT,Hatred,SkillGem,SkillGem,300.0,0.61,57,-21.05,stash,poe.ninja
+T0_JACKPOT,Lightning Warp,SkillGem,SkillGem,300.0,0.61,6,0,stash,poe.ninja
+T0_JACKPOT,Returning Projectiles Support,SkillGem,SkillGem,300.0,0.61,85,-25,stash,poe.ninja
+T0_JACKPOT,Summon Chaos Golem of Hordes,SkillGem,SkillGem,300.0,0.61,115,258.8,stash,poe.ninja
+T0_JACKPOT,Crypt Ambusher,Beast,Beast,299.1,0.61,5,0,stash,poe.ninja
+T0_JACKPOT,Fire Penetration Support,SkillGem,SkillGem,298.6,0.61,58,-0.47,stash,poe.ninja
+T0_JACKPOT,Flicker Strike of Power,SkillGem,SkillGem,298.0,0.61,23,-5,stash,poe.ninja
+T0_JACKPOT,Lancing Steel of Spraying,SkillGem,SkillGem,296.8,0.61,59,-56.71,stash,poe.ninja
+T0_JACKPOT,Succor of the Sinless,Cards,DivinationCard,295.1,,3443,4.62,exchange,poe.ninja
+T0_JACKPOT,Flame Wall,SkillGem,SkillGem,293.0,0.6,7,-23.6,stash,poe.ninja
+T0_JACKPOT,Hollow Fossil,Delve,Fossil,286.8,,8652,49.76,exchange,poe.ninja
+T0_JACKPOT,Summon Reaper of Revenants,SkillGem,SkillGem,286.0,0.58,13,0,stash,poe.ninja
+T0_JACKPOT,Exceptional Eldritch Ichor,Currency,Currency,282.8,,94730,29.69,exchange,poe.ninja
+T0_JACKPOT,Reality Fragment,Fragments,Fragment,281.0,,244503,5.63,exchange,poe.ninja
+T0_JACKPOT,Enhance Support,SkillGem,SkillGem,279.7,0.57,564,11.88,stash,poe.ninja
+T0_JACKPOT,Summon Carrion Golem,SkillGem,SkillGem,278.0,0.57,16,-5.05,stash,poe.ninja
+T0_JACKPOT,Sigil of Power,SkillGem,SkillGem,274.0,0.56,12,-2.14,stash,poe.ninja
+T0_JACKPOT,Arc,SkillGem,SkillGem,271.5,0.55,35,-6.51,stash,poe.ninja
+T0_JACKPOT,Eye of Winter of Finality,SkillGem,SkillGem,270.1,0.55,10,-5.95,stash,poe.ninja
+T0_JACKPOT,Blade Vortex,SkillGem,SkillGem,270.0,0.55,33,0,stash,poe.ninja
+T0_JACKPOT,Freezing Pulse,SkillGem,SkillGem,270.0,0.55,16,-2.5,stash,poe.ninja
+T0_JACKPOT,Power Siphon,SkillGem,SkillGem,270.0,0.55,53,6329,stash,poe.ninja
+T0_JACKPOT,Raise Zombie,SkillGem,SkillGem,269.0,0.55,13,0,stash,poe.ninja
+T0_JACKPOT,Divine Beauty,Cards,DivinationCard,268.6,,25878,26.97,exchange,poe.ninja
+T0_JACKPOT,Hunter's Exalted Orb,Currency,Currency,266.1,,1818,-8.55,exchange,poe.ninja
+T0_JACKPOT,Raise Zombie of Falling,SkillGem,SkillGem,266.0,0.54,78,10.17,stash,poe.ninja
+T0_JACKPOT,Unrelenting Timeless Maraketh Emblem,Fragments,Fragment,262.3,,1137,41.77,exchange,poe.ninja
+T0_JACKPOT,Arc of Oscillating,SkillGem,SkillGem,258.0,0.53,16,-21.94,stash,poe.ninja
+T0_JACKPOT,Intensify Support,SkillGem,SkillGem,256.0,0.52,34,-1.7,stash,poe.ninja
+T0_JACKPOT,Voidstorm Support,SkillGem,SkillGem,256.0,0.52,31,-13.41,stash,poe.ninja
+T0_JACKPOT,Icicle Mine,SkillGem,SkillGem,254.0,0.52,21,-16.45,stash,poe.ninja
+T0_JACKPOT,Tattoo of the Ngamahu Firewalker,Ancestor,Tattoo,253.4,,25049,35.2,exchange,poe.ninja
+T0_JACKPOT,Haste,SkillGem,SkillGem,252.5,0.52,21,13,stash,poe.ninja
+T0_JACKPOT,Spectral Shield Throw of Shattering,SkillGem,SkillGem,252.0,0.51,6,0,stash,poe.ninja
+T0_JACKPOT,Animate Weapon,SkillGem,SkillGem,250.0,0.51,12,0,stash,poe.ninja
+T0_JACKPOT,Armageddon Brand,SkillGem,SkillGem,250.0,0.51,16,30,stash,poe.ninja
+T0_JACKPOT,Power Charge On Critical Support,SkillGem,SkillGem,250.0,0.51,43,-28.77,stash,poe.ninja
+T0_JACKPOT,Reverent Fragment,Fragments,Fragment,249.7,,32215,-5.7,exchange,poe.ninja
+T0_JACKPOT,"Claw Attacks deal 12% increased Damage with Hits and Ailments, Dagger Attacks deal 12% increased Damage with Hits and Ailments",ClusterJewel,ClusterJewel,247.5,0.51,48,-39.16,stash,poe.ninja
+T0_JACKPOT,Journey Tattoo of the Soul,Ancestor,Tattoo,245.0,,245.0,-55,exchange,poe.ninja
+T0_JACKPOT,Discharge of Misery,SkillGem,SkillGem,244.0,0.5,14,0,stash,poe.ninja
+T0_JACKPOT,Ice Nova,SkillGem,SkillGem,243.0,0.5,12,-11.31,stash,poe.ninja
+T0_JACKPOT,Artillery Ballista,SkillGem,SkillGem,242.0,0.49,18,-26.67,stash,poe.ninja
+T0_JACKPOT,Wealth and Power,Cards,DivinationCard,241.8,,9469,6.68,exchange,poe.ninja
+T0_JACKPOT,Unrelenting Timeless Eternal Emblem,Fragments,Fragment,240.7,,882.5,68.97,exchange,poe.ninja
+T0_JACKPOT,Ice Nova of Frostbolts,SkillGem,SkillGem,240.0,0.49,15,-3.77,stash,poe.ninja
+T0_JACKPOT,Flameblast of Contraction,SkillGem,SkillGem,238.0,0.49,19,0,stash,poe.ninja
+T0_JACKPOT,Purifying Flame of Revelations,SkillGem,SkillGem,234.0,0.48,19,-0.8,stash,poe.ninja
+T0_JACKPOT,Decaying Fragment,Fragments,Fragment,229.5,,186929,-5.74,exchange,poe.ninja
+T0_JACKPOT,Fireball,SkillGem,SkillGem,229.0,0.47,5,0,stash,poe.ninja
+T0_JACKPOT,Redeemer's Exalted Orb,Currency,Currency,227.6,,1593,159.6,exchange,poe.ninja
+T0_JACKPOT,Tattoo of the Ramako Fleetfoot,Ancestor,Tattoo,220.7,,2833,-25.05,exchange,poe.ninja
+T0_JACKPOT,Overheat Support,SkillGem,SkillGem,220.4,0.45,31,6.99,stash,poe.ninja
+T0_JACKPOT,Crackling Lance of Branching,SkillGem,SkillGem,220.0,0.45,13,-20,stash,poe.ninja
+T0_JACKPOT,Spectral Throw,SkillGem,SkillGem,220.0,0.45,3,0,stash,poe.ninja
+T0_JACKPOT,Summon Holy Relic,SkillGem,SkillGem,220.0,0.45,8,10,stash,poe.ninja
+T0_JACKPOT,Blink Arrow of Prismatic Clones,SkillGem,SkillGem,218.0,0.44,8,0,stash,poe.ninja
+T0_JACKPOT,Siege Ballista of Splintering,SkillGem,SkillGem,217.0,0.44,19,0,stash,poe.ninja
+T0_JACKPOT,Craicic Chimeral,Beast,Beast,214.8,0.44,5688,20.27,stash,poe.ninja
+T0_JACKPOT,Omen of Amelioration,Ancestor,Omen,212.2,,33783,3.47,exchange,poe.ninja
+T0_JACKPOT,Fragment of Knowledge,Fragments,Fragment,211.8,,3812,19.6,exchange,poe.ninja
+T0_JACKPOT,Summon Ice Golem of Hordes,SkillGem,SkillGem,208.0,0.42,151,23.81,stash,poe.ninja
+T0_JACKPOT,Blade Flurry,SkillGem,SkillGem,206.0,0.42,6,0,stash,poe.ninja
+T0_JACKPOT,Ethereal Knives of Lingering Blades,SkillGem,SkillGem,206.0,0.42,94,598.3,stash,poe.ninja
+T0_JACKPOT,Lightning Tendrils,SkillGem,SkillGem,206.0,0.42,14,-19.22,stash,poe.ninja
+T0_JACKPOT,Ambush Scarab of Containment,Fragments,Scarab,205.3,,97520,-36.21,exchange,poe.ninja
+T0_JACKPOT,Bonespire Support,SkillGem,SkillGem,203.0,0.41,15,10,stash,poe.ninja
+T0_JACKPOT,Double Strike of Impaling,SkillGem,SkillGem,202.0,0.41,48,0,stash,poe.ninja
+T0_JACKPOT,Warlord's Exalted Orb,Currency,Currency,200.0,,1466,-29.54,exchange,poe.ninja
+T0_JACKPOT,Advanced Traps Support,SkillGem,SkillGem,200.0,0.41,20,0,stash,poe.ninja
+T0_JACKPOT,Eye of Winter,SkillGem,SkillGem,200.0,0.41,12,-34.43,stash,poe.ninja
+T0_JACKPOT,Fist of War Support,SkillGem,SkillGem,200.0,0.41,46,-51.69,stash,poe.ninja
+T0_JACKPOT,Infernal Legion Support,SkillGem,SkillGem,200.0,0.41,6,0,stash,poe.ninja
+T0_JACKPOT,Siphoning Trap,SkillGem,SkillGem,200.0,0.41,68,1900,stash,poe.ninja
+T0_JACKPOT,Summon Skeletons of Mages,SkillGem,SkillGem,200.0,0.41,25,0,stash,poe.ninja
+T0_JACKPOT,Swiftbrand Support,SkillGem,SkillGem,200.0,0.41,50,-53.61,stash,poe.ninja
+T0_JACKPOT,"12% increased Trap Damage, 12% increased Mine Damage",ClusterJewel,ClusterJewel,198.0,0.4,19,-56.13,stash,poe.ninja
+T0_JACKPOT,Runegraft of Stability,Runegrafts,Runegraft,197.2,,427.2,585.2,exchange,poe.ninja
+T0_JACKPOT,Winter Orb,SkillGem,SkillGem,197.2,0.4,11,0,stash,poe.ninja
+T0_JACKPOT,Veiled Chaos Orb,Currency,Currency,196.2,,18577,9.91,exchange,poe.ninja
+T0_JACKPOT,Herald of Agony,SkillGem,SkillGem,196.0,0.4,87,-49.59,stash,poe.ninja
+T0_JACKPOT,The Samurai's Eye,Cards,DivinationCard,195.0,,649.8,-4.53,exchange,poe.ninja
+T0_JACKPOT,Blazing Fragment,Fragments,Fragment,195.0,,22948,-1.69,exchange,poe.ninja
+T0_JACKPOT,Unrelenting Timeless Vaal Emblem,Fragments,Fragment,194.1,,550.0,23.55,exchange,poe.ninja
+T0_JACKPOT,Devouring Fragment,Fragments,Fragment,190.7,,26704,-0.37,exchange,poe.ninja
+T0_JACKPOT,Fragment of Shape,Fragments,Fragment,189.2,,2964,15.54,exchange,poe.ninja
+T0_JACKPOT,Dual Strike of Ambidexterity,SkillGem,SkillGem,189.2,0.39,60,-52.34,stash,poe.ninja
+T0_JACKPOT,Dextral Catalyst,Catalysts,Currency,189.0,,28664,-9.67,exchange,poe.ninja
+T0_JACKPOT,Despair,SkillGem,SkillGem,186.4,0.38,37,-1.38,stash,poe.ninja
+T0_JACKPOT,Pacifism Support,SkillGem,SkillGem,184.0,0.38,41,-3.5,stash,poe.ninja
+T0_JACKPOT,Glacial Cascade,SkillGem,SkillGem,183.0,0.37,6,0,stash,poe.ninja
+T0_JACKPOT,Summon Raging Spirit of Enormity,SkillGem,SkillGem,183.0,0.37,29,-32.22,stash,poe.ninja
+T0_JACKPOT,Omen of Blanching,Ancestor,Omen,181.7,,17378,-2.63,exchange,poe.ninja
+T0_JACKPOT,Foulgrasp Support,SkillGem,SkillGem,180.0,0.37,49,11.56,stash,poe.ninja
+T0_JACKPOT,Siege Ballista,SkillGem,SkillGem,180.0,0.37,3,0,stash,poe.ninja
+T0_JACKPOT,Tribute to the Goddess,Fragments,Fragment,178.8,,1073,162.5,exchange,poe.ninja
+T0_JACKPOT,Black Mórrigan,Beast,Beast,178.0,0.36,5749,11.95,stash,poe.ninja
+T0_JACKPOT,Rain of Arrows of Saturation,SkillGem,SkillGem,178.0,0.36,5,-16.22,stash,poe.ninja
+T0_JACKPOT,Prismatic Oil,Oils,Oil,174.3,,2354,64.85,exchange,poe.ninja
+T0_JACKPOT,Explosive Concoction,SkillGem,SkillGem,172.0,0.35,32,65.07,stash,poe.ninja
+T0_JACKPOT,Shrapnel Ballista,SkillGem,SkillGem,171.0,0.35,21,0.29,stash,poe.ninja
+T0_JACKPOT,The Dragon's Heart,Cards,DivinationCard,170.6,,7166,8.68,exchange,poe.ninja
+T0_JACKPOT,Shaper's Exalted Orb,Currency,Currency,170.6,,3838,54.97,exchange,poe.ninja
+T0_JACKPOT,12% increased Lightning Damage,ClusterJewel,ClusterJewel,170.0,0.35,1334,-54.36,stash,poe.ninja
+T0_JACKPOT,Divine Retribution,SkillGem,SkillGem,170.0,0.35,7,0,stash,poe.ninja
+T0_JACKPOT,Generosity Support,SkillGem,SkillGem,170.0,0.35,38,4.29,stash,poe.ninja
+T0_JACKPOT,Split Arrow,SkillGem,SkillGem,170.0,0.35,62,0,stash,poe.ninja
+T0_JACKPOT,Vicious Projectiles Support,SkillGem,SkillGem,170.0,0.35,28,-5.24,stash,poe.ninja
+T0_JACKPOT,Tornado of Elemental Turbulence,SkillGem,SkillGem,167.6,0.34,14,0.95,stash,poe.ninja
+T0_JACKPOT,The Mad King,Cards,DivinationCard,167.3,,724.8,1.22,exchange,poe.ninja
+T0_JACKPOT,Vaal Rejuvenation Totem,SkillGem,SkillGem,166.0,0.34,18,0,stash,poe.ninja
+T0_JACKPOT,Pyroclast Mine,SkillGem,SkillGem,160.0,0.33,19,0,stash,poe.ninja
+T0_JACKPOT,Summon Skeletons of Archers,SkillGem,SkillGem,160.0,0.33,12,-19.8,stash,poe.ninja
+T0_JACKPOT,Sunder of Trarthus,SkillGem,SkillGem,160.0,0.33,44,-17.95,stash,poe.ninja
+T0_JACKPOT,Summon Carrion Golem of Scavenging,SkillGem,SkillGem,159.0,0.32,9,0,stash,poe.ninja
+T0_JACKPOT,The Doctor,Cards,DivinationCard,156.5,,3103,22.01,exchange,poe.ninja
+T0_JACKPOT,The Journey,Cards,DivinationCard,156.2,,208.3,73.64,exchange,poe.ninja
+T0_JACKPOT,Exerted Attacks deal 20% increased Damage,ClusterJewel,ClusterJewel,155.0,0.32,20,0,stash,poe.ninja
+T0_JACKPOT,Mirror Arrow of Bombarding Clones,SkillGem,SkillGem,155.0,0.32,1,0,stash,poe.ninja
+T0_JACKPOT,Ethereal Knives,SkillGem,SkillGem,152.5,0.31,14,13.38,stash,poe.ninja
+T0_JACKPOT,Nightblade Support,SkillGem,SkillGem,152.0,0.31,65,-45.71,stash,poe.ninja
+T0_JACKPOT,Dark Pact of Trarthus,SkillGem,SkillGem,151.5,0.31,15,0,stash,poe.ninja
+T0_JACKPOT,Dark Pact,SkillGem,SkillGem,150.0,0.31,20,0,stash,poe.ninja
+T0_JACKPOT,Frost Wall,SkillGem,SkillGem,150.0,0.31,7,-6.25,stash,poe.ninja
+T0_JACKPOT,Kinetic Bolt,SkillGem,SkillGem,150.0,0.31,1,0,stash,poe.ninja
+T0_JACKPOT,Lightning Arrow,SkillGem,SkillGem,150.0,0.31,89,-15.01,stash,poe.ninja
+T0_JACKPOT,Lightning Conduit,SkillGem,SkillGem,150.0,0.31,2,0,stash,poe.ninja
+T0_JACKPOT,Righteous Fire of Arcane Devotion,SkillGem,SkillGem,150.0,0.31,9,0,stash,poe.ninja
+T0_JACKPOT,Spectral Helix,SkillGem,SkillGem,150.0,0.31,1,0,stash,poe.ninja
+T0_JACKPOT,Vaal Earthquake,SkillGem,SkillGem,150.0,0.31,14,-18.7,stash,poe.ninja
+T0_JACKPOT,Vaal Ice Shot,SkillGem,SkillGem,150.0,0.31,8,-0.33,stash,poe.ninja
+T0_JACKPOT,Echo of Loneliness,Fragments,Fragment,147.5,,2139,40.87,exchange,poe.ninja
+T0_JACKPOT,Unrelenting Timeless Karui Emblem,Fragments,Fragment,147.4,,442.3,41.66,exchange,poe.ninja
+T0_JACKPOT,Overexertion Support,SkillGem,SkillGem,147.2,0.3,10,22.67,stash,poe.ninja
+T0_JACKPOT,Pinpoint Support,SkillGem,SkillGem,145.6,0.3,88,-2.93,stash,poe.ninja
+T0_JACKPOT,Barrage of Volley Fire,SkillGem,SkillGem,145.0,0.3,5,0,stash,poe.ninja
+T0_JACKPOT,Silver Oil,Oils,Oil,144.9,,9446,-3.77,exchange,poe.ninja
+T0_JACKPOT,The Gulf,Cards,DivinationCard,144.5,,1566,38.98,exchange,poe.ninja
+T0_JACKPOT,Added Chaos Damage Support,SkillGem,SkillGem,144.5,0.29,16,48.21,stash,poe.ninja
+T0_JACKPOT,Fracturing Orb,Currency,Currency,144.3,,50305,2.79,exchange,poe.ninja
+T0_JACKPOT,Blight of Contagion,SkillGem,SkillGem,143.2,0.29,15,0,stash,poe.ninja
+T0_JACKPOT,Archmage Support,SkillGem,SkillGem,143.0,0.29,73,88.16,stash,poe.ninja
+T0_JACKPOT,Elder's Exalted Orb,Currency,Currency,142.0,,4308,61.0,exchange,poe.ninja
+T0_JACKPOT,Orb of Storms,SkillGem,SkillGem,142.0,0.29,5,37.32,stash,poe.ninja
+T0_JACKPOT,Tainted Exalted Orb,Currency,Currency,141.6,,2123,-20.56,exchange,poe.ninja
+T0_JACKPOT,Combustion Support,SkillGem,SkillGem,141.0,0.29,10,22.61,stash,poe.ninja
+T0_JACKPOT,Stormbind,SkillGem,SkillGem,141.0,0.29,3,0,stash,poe.ninja
+T0_JACKPOT,Dedication to the Goddess,Fragments,Fragment,140.3,,724.8,55.67,exchange,poe.ninja
+T0_JACKPOT,Galvanic Arrow,SkillGem,SkillGem,140.0,0.29,11,-25.13,stash,poe.ninja
+T0_JACKPOT,Leap Slam,SkillGem,SkillGem,139.7,0.29,90,-2.38,stash,poe.ninja
+T0_JACKPOT,Incandescent Invitation,Invitation,Invitation,139.6,0.28,7021,55.11,stash,poe.ninja
+T0_JACKPOT,Feeding Frenzy Support,SkillGem,SkillGem,139.5,0.28,41,-25.99,stash,poe.ninja
+T0_JACKPOT,Cremation,SkillGem,SkillGem,139.0,0.28,102,379.3,stash,poe.ninja
+T0_JACKPOT,Desecrate,SkillGem,SkillGem,138.6,0.28,34,-16,stash,poe.ninja
+T0_JACKPOT,Kinetic Rain of Impact,SkillGem,SkillGem,138.0,0.28,70,360,stash,poe.ninja
+T0_JACKPOT,The Admirer,Cards,DivinationCard,135.7,,158.3,4381,exchange,poe.ninja
+T0_JACKPOT,Incinerate of Venting,SkillGem,SkillGem,134.0,0.27,16,0,stash,poe.ninja
+T0_JACKPOT,Creeping Frost of Floes,SkillGem,SkillGem,133.0,0.27,8,-10.98,stash,poe.ninja
+T0_JACKPOT,Soulrend of Reaping,SkillGem,SkillGem,132.0,0.27,10,120,stash,poe.ninja
+T0_JACKPOT,Refracting Fog,Currency,Currency,131.7,,39843,-11.31,exchange,poe.ninja
+T0_JACKPOT,Detonate Dead of Chain Reaction,SkillGem,SkillGem,131.0,0.27,16,0,stash,poe.ninja
+T0_JACKPOT,Sacrifice Support,SkillGem,SkillGem,130.6,0.27,7,47.14,stash,poe.ninja
+T0_JACKPOT,Withering Step,SkillGem,SkillGem,130.5,0.27,69,-18.64,stash,poe.ninja
+T0_JACKPOT,Wild Bristle Matron,Beast,Beast,130.0,0.27,1241,8.33,stash,poe.ninja
+T0_JACKPOT,Minions deal 10% increased Damage while you are affected by a Herald,ClusterJewel,ClusterJewel,130.0,0.27,56,0,stash,poe.ninja
+T0_JACKPOT,Baran Vaal Temple Map,Map,Map,130.0,0.27,7,0,stash,poe.ninja
+T0_JACKPOT,Spectral Helix of Trarthus,SkillGem,SkillGem,130.0,0.27,23,0,stash,poe.ninja
+T0_JACKPOT,Sacred Crystallised Lifeforce,Currency,Currency,128.1,,14326,31.42,exchange,poe.ninja
+T0_JACKPOT,Flamethrower Trap of Stability,SkillGem,SkillGem,126.0,0.26,49,0,stash,poe.ninja
+T0_JACKPOT,Harvest Scarab of Cornucopia,Fragments,Scarab,125.8,,59120,71.52,exchange,poe.ninja
+T0_JACKPOT,"Axe Attacks deal 12% increased Damage with Hits and Ailments, Sword Attacks deal 12% increased Damage with Hits and Ailments",ClusterJewel,ClusterJewel,125.0,0.26,47,-24.24,stash,poe.ninja
+T0_JACKPOT,Toxic Rain,SkillGem,SkillGem,125.0,0.26,75,-16.11,stash,poe.ninja
+T0_JACKPOT,Vigilant Strike,SkillGem,SkillGem,125.0,0.26,18,-37.5,stash,poe.ninja
+T0_JACKPOT,Tattoo of the Ngamahu Warmonger,Ancestor,Tattoo,124.4,,2820,26.25,exchange,poe.ninja
+T0_JACKPOT,Flesh of Xesht,Currency,Currency,122.2,,2403,47.11,exchange,poe.ninja
+T0_JACKPOT,The Destination,Cards,DivinationCard,121.8,,345.2,52.48,exchange,poe.ninja
+T0_JACKPOT,Summon Chaos Golem of the Maelström,SkillGem,SkillGem,121.2,0.25,10,-4.58,stash,poe.ninja
+T0_JACKPOT,Maven's Chisel of Avarice,Currency,Currency,120.9,,58048,2.45,exchange,poe.ninja
+T0_JACKPOT,The Everlasting,Cards,DivinationCard,120.7,,301.7,89.13,exchange,poe.ninja
+T0_JACKPOT,Siege Ballista of Trarthus,SkillGem,SkillGem,120.0,0.24,28,-12.73,stash,poe.ninja
+T0_JACKPOT,Unrelenting Timeless Templar Emblem,Fragments,Fragment,119.4,,517.3,-23.68,exchange,poe.ninja
+T0_JACKPOT,Wild Strike,SkillGem,SkillGem,118.9,0.24,6,0,stash,poe.ninja
+T0_JACKPOT,Manaforged Arrows Support,SkillGem,SkillGem,117.5,0.24,65,17.5,stash,poe.ninja
+T0_JACKPOT,Consecrated Path,SkillGem,SkillGem,116.0,0.24,158,582.4,stash,poe.ninja
+T0_JACKPOT,Dash,SkillGem,SkillGem,116.0,0.24,80,-22.67,stash,poe.ninja
+T0_JACKPOT,Remembrance,Cards,DivinationCard,115.7,,424.3,230.6,exchange,poe.ninja
+T0_JACKPOT,Lightning Tendrils of Escalation,SkillGem,SkillGem,114.4,0.23,28,52.53,stash,poe.ninja
+T0_JACKPOT,Minions have 12% increased maximum Life,ClusterJewel,ClusterJewel,113.0,0.23,42,0,stash,poe.ninja
+T0_JACKPOT,Life Gain on Hit Support,SkillGem,SkillGem,112.4,0.23,4,-3.33,stash,poe.ninja
+T0_JACKPOT,Cursed Ground Support,SkillGem,SkillGem,111.5,0.23,7,3.45,stash,poe.ninja
+T0_JACKPOT,Ice Trap,SkillGem,SkillGem,111.5,0.23,31,17.99,stash,poe.ninja
+T0_JACKPOT,Horned Scarab of Pandemonium,Fragments,Scarab,110.6,,68750,-43.4,exchange,poe.ninja
+T0_JACKPOT,Explosive Trap of Shrapnel,SkillGem,SkillGem,110.0,0.22,81,-59.26,stash,poe.ninja
+T0_JACKPOT,Kinetic Fusillade,SkillGem,SkillGem,110.0,0.22,103,-31.25,stash,poe.ninja
+T0_JACKPOT,Vampiric Link,SkillGem,SkillGem,110.0,0.22,8,-17.29,stash,poe.ninja
+T0_JACKPOT,Essence of Desolation,Essences,Essence,109.6,,5847,22.36,exchange,poe.ninja
+T0_JACKPOT,Power Siphon of the Archmage,SkillGem,SkillGem,109.5,0.22,25,56.43,stash,poe.ninja
+T0_JACKPOT,10% increased Damage while affected by a Herald,ClusterJewel,ClusterJewel,106.6,0.22,1215,-33.25,stash,poe.ninja
+T0_JACKPOT,12% increased Cold Damage,ClusterJewel,ClusterJewel,104.0,0.21,131,37.57,stash,poe.ninja
+T0_JACKPOT,Multistrike Support,SkillGem,SkillGem,103.5,0.21,50,15,stash,poe.ninja
+T0_JACKPOT,Summon Skitterbots,SkillGem,SkillGem,103.2,0.21,38,-3.19,stash,poe.ninja
+T0_JACKPOT,Al-Hezmin Vaal Temple Map,Map,Map,102.0,0.21,7,0,stash,poe.ninja
+T0_JACKPOT,"Fenumus, First of the Night",Beast,Beast,100.0,0.2,136,53.85,stash,poe.ninja
+T0_JACKPOT,10% increased Area Damage,ClusterJewel,ClusterJewel,100.0,0.2,1253,0,stash,poe.ninja
+T0_JACKPOT,10% increased Elemental Damage,ClusterJewel,ClusterJewel,100.0,0.2,867,66.81,stash,poe.ninja
+T0_JACKPOT,10% increased Spell Damage,ClusterJewel,ClusterJewel,100.0,0.2,3478,-41.18,stash,poe.ninja
+T0_JACKPOT,12% increased Chaos Damage,ClusterJewel,ClusterJewel,100.0,0.2,1015,25.79,stash,poe.ninja
+T0_JACKPOT,Autoexertion,SkillGem,SkillGem,100.0,0.2,18,27.5,stash,poe.ninja
+T0_JACKPOT,Charged Dash,SkillGem,SkillGem,100.0,0.2,19,0,stash,poe.ninja
+T0_JACKPOT,Cold Penetration Support,SkillGem,SkillGem,100.0,0.2,30,5.26,stash,poe.ninja
+T0_JACKPOT,Fire Trap of Blasting,SkillGem,SkillGem,100.0,0.2,6,-28.92,stash,poe.ninja
+T0_JACKPOT,Firestorm of Meteors,SkillGem,SkillGem,100.0,0.2,19,0,stash,poe.ninja
+T0_JACKPOT,Hexblast of Havoc,SkillGem,SkillGem,100.0,0.2,12,0,stash,poe.ninja
+T0_JACKPOT,Lightning Spire Trap of Overloading,SkillGem,SkillGem,100.0,0.2,7,0,stash,poe.ninja
+T0_JACKPOT,Storm Call,SkillGem,SkillGem,100.0,0.2,18,233.3,stash,poe.ninja
+T0_JACKPOT,Stormbind of Teleportation,SkillGem,SkillGem,100.0,0.2,2,0,stash,poe.ninja
+T0_JACKPOT,Vaal Caustic Arrow,SkillGem,SkillGem,100.0,0.2,8,-50.62,stash,poe.ninja
+T0_JACKPOT,Vaal Flameblast,SkillGem,SkillGem,100.0,0.2,13,0,stash,poe.ninja
+T0_JACKPOT,Vaal Volcanic Fissure,SkillGem,SkillGem,100.0,0.2,12,0,stash,poe.ninja
+T0_JACKPOT,Wall of Force,SkillGem,SkillGem,100.0,0.2,15,0,stash,poe.ninja
+T1_MUITO_ALTO,Guardian's Blessing Support,SkillGem,SkillGem,99.9,0.2,41,1.22,stash,poe.ninja
+T1_MUITO_ALTO,Spectral Throw of Materialising,SkillGem,SkillGem,99.6,0.2,15,61.95,stash,poe.ninja
+T1_MUITO_ALTO,Destructive Link,SkillGem,SkillGem,99.0,0.2,8,0,stash,poe.ninja
+T1_MUITO_ALTO,Kinetic Bolt of Fragmentation,SkillGem,SkillGem,98.8,0.2,7,-0.2,stash,poe.ninja
+T1_MUITO_ALTO,Puncture of Shanking,SkillGem,SkillGem,98.8,0.2,18,64.67,stash,poe.ninja
+T1_MUITO_ALTO,Added Cold Damage Support,SkillGem,SkillGem,98.6,0.2,38,0,stash,poe.ninja
+T1_MUITO_ALTO,Slower Projectiles Support,SkillGem,SkillGem,98.1,0.2,50,-18.25,stash,poe.ninja
+T1_MUITO_ALTO,Drox Vaal Temple Map,Map,Map,97.0,0.2,8,0,stash,poe.ninja
+T1_MUITO_ALTO,High-Impact Mine Support,SkillGem,SkillGem,95.4,0.19,11,0,stash,poe.ninja
+T1_MUITO_ALTO,Charged Mines Support,SkillGem,SkillGem,95.0,0.19,15,30.85,stash,poe.ninja
+T1_MUITO_ALTO,Spark,SkillGem,SkillGem,95.0,0.19,19,1.21,stash,poe.ninja
+T1_MUITO_ALTO,Frost Blades,SkillGem,SkillGem,94.8,0.19,33,11.53,stash,poe.ninja
+T1_MUITO_ALTO,I See Brothers,Cards,DivinationCard,94.63,,646.7,12.18,exchange,poe.ninja
+T1_MUITO_ALTO,Blink Arrow,SkillGem,SkillGem,94.5,0.19,45,278,stash,poe.ninja
+T1_MUITO_ALTO,Screaming Invitation,Invitation,Invitation,94.0,0.19,5611,4.44,stash,poe.ninja
+T1_MUITO_ALTO,Lightning Arrow of Electrocution,SkillGem,SkillGem,94.0,0.19,12,0,stash,poe.ninja
+T1_MUITO_ALTO,Heavy Strike,SkillGem,SkillGem,92.8,0.19,52,-17.14,stash,poe.ninja
+T1_MUITO_ALTO,Ballista Totem Support,SkillGem,SkillGem,90.8,0.19,19,20.69,stash,poe.ninja
+T1_MUITO_ALTO,Frenzy,SkillGem,SkillGem,90.0,0.18,76,-27.54,stash,poe.ninja
+T1_MUITO_ALTO,Invention Support,SkillGem,SkillGem,90.0,0.18,5,0,stash,poe.ninja
+T1_MUITO_ALTO,Replica Poorjoy's Asylum,UniqueMap,UniqueMap,90.0,0.18,29,-78.01,stash,poe.ninja
+T1_MUITO_ALTO,Culling Strike Support,SkillGem,SkillGem,89.7,0.18,78,-18.45,stash,poe.ninja
+T1_MUITO_ALTO,Blade Trap,SkillGem,SkillGem,89.0,0.18,84,69.52,stash,poe.ninja
+T1_MUITO_ALTO,Multiple Projectiles Support,SkillGem,SkillGem,88.5,0.18,9,2358,stash,poe.ninja
+T1_MUITO_ALTO,Cartography Scarab of Risk,Fragments,Scarab,87.74,,89271,-18.64,exchange,poe.ninja
+T1_MUITO_ALTO,Forbidden Rite,SkillGem,SkillGem,87.0,0.18,78,5.77,stash,poe.ninja
+T1_MUITO_ALTO,Breach Scarab of Resonant Cascade,Fragments,Scarab,86.78,,27236,85.99,exchange,poe.ninja
+T1_MUITO_ALTO,Burning Arrow,SkillGem,SkillGem,85.0,0.17,7,0,stash,poe.ninja
+T1_MUITO_ALTO,Rolling Magma,SkillGem,SkillGem,84.0,0.17,25,33.33,stash,poe.ninja
+T1_MUITO_ALTO,Ice Nova of Deep Freeze,SkillGem,SkillGem,83.2,0.17,92,-36,stash,poe.ninja
+T1_MUITO_ALTO,The Dapper Prodigy,Cards,DivinationCard,81.31,,176.2,8031,exchange,poe.ninja
+T1_MUITO_ALTO,Runegraft of the Soulwick,Runegrafts,Runegraft,80.91,,148.3,-18.9,exchange,poe.ninja
+T1_MUITO_ALTO,The Mayor,Cards,DivinationCard,80.51,,657.5,34.18,exchange,poe.ninja
+T1_MUITO_ALTO,Fire Trap,SkillGem,SkillGem,80.5,0.16,82,-51.21,stash,poe.ninja
+T1_MUITO_ALTO,Ice Shot,SkillGem,SkillGem,80.4,0.16,73,2878,stash,poe.ninja
+T1_MUITO_ALTO,Avian Pursuit,Cards,DivinationCard,80.23,,2300,80.89,exchange,poe.ninja
+T1_MUITO_ALTO,Ensnaring Arrow,SkillGem,SkillGem,80.0,0.16,51,27.39,stash,poe.ninja
+T1_MUITO_ALTO,Melee Splash Support,SkillGem,SkillGem,80.0,0.16,12,-28.57,stash,poe.ninja
+T1_MUITO_ALTO,Penance Brand of Conduction,SkillGem,SkillGem,80.0,0.16,11,64.57,stash,poe.ninja
+T1_MUITO_ALTO,Raise Spectre of Transience,SkillGem,SkillGem,80.0,0.16,45,-27.27,stash,poe.ninja
+T1_MUITO_ALTO,Static Strike,SkillGem,SkillGem,80.0,0.16,65,-33.0,stash,poe.ninja
+T1_MUITO_ALTO,Withering Touch Support,SkillGem,SkillGem,78.7,0.16,32,15.74,stash,poe.ninja
+T1_MUITO_ALTO,Spectral Shield Throw,SkillGem,SkillGem,78.3,0.16,47,-39.77,stash,poe.ninja
+T1_MUITO_ALTO,Storm Burst of Repulsion,SkillGem,SkillGem,78.1,0.16,44,-60.75,stash,poe.ninja
+T1_MUITO_ALTO,Blade Blast,SkillGem,SkillGem,77.5,0.16,10,77.13,stash,poe.ninja
+T1_MUITO_ALTO,Lightning Trap of Sparking,SkillGem,SkillGem,77.0,0.16,19,-45,stash,poe.ninja
+T1_MUITO_ALTO,Reflection of the Heart,Cards,DivinationCard,76.06,,215.5,12.13,exchange,poe.ninja
+T1_MUITO_ALTO,Sacred Blossom,Fragments,Fragment,75.34,,9605,19.08,exchange,poe.ninja
+T1_MUITO_ALTO,Vaal Lightning Trap,SkillGem,SkillGem,75.0,0.15,13,0,stash,poe.ninja
+T1_MUITO_ALTO,Physical to Lightning Support,SkillGem,SkillGem,74.8,0.15,60,-37.67,stash,poe.ninja
+T1_MUITO_ALTO,"Farrul, First of the Plains",Beast,Beast,74.0,0.15,101,-7.5,stash,poe.ninja
+T1_MUITO_ALTO,Wild Hellion Alpha,Beast,Beast,74.0,0.15,606,76.19,stash,poe.ninja
+T1_MUITO_ALTO,Momentum Support,SkillGem,SkillGem,74.0,0.15,45,-23.71,stash,poe.ninja
+T1_MUITO_ALTO,The Forbidden Fruit,Cards,DivinationCard,73.56,,4230,-12.26,exchange,poe.ninja
+T1_MUITO_ALTO,Maven's Chisel of Proliferation,Currency,Currency,73.18,,31200,25.36,exchange,poe.ninja
+T1_MUITO_ALTO,Tattoo of the Rongokurai Turtle,Ancestor,Tattoo,73.17,,3061,-10.12,exchange,poe.ninja
+T1_MUITO_ALTO,Impale Support,SkillGem,SkillGem,73.0,0.15,28,21.67,stash,poe.ninja
+T1_MUITO_ALTO,Orb of Remembrance,Currency,Currency,72.31,,4556,-20.61,exchange,poe.ninja
+T1_MUITO_ALTO,The Fortunate,Cards,DivinationCard,72.23,,18444,13.55,exchange,poe.ninja
+T1_MUITO_ALTO,Venom Gyre,SkillGem,SkillGem,72.0,0.15,14,140,stash,poe.ninja
+T1_MUITO_ALTO,Barrage Support,SkillGem,SkillGem,71.2,0.15,41,0,stash,poe.ninja
+T1_MUITO_ALTO,Vaal Molten Strike,SkillGem,SkillGem,71.2,0.15,13,1.71,stash,poe.ninja
+T1_MUITO_ALTO,Bloodthirst Support,SkillGem,SkillGem,71.0,0.14,67,91.89,stash,poe.ninja
+T1_MUITO_ALTO,Infested Serpent,Beast,Beast,70.0,0.14,50,-9.68,stash,poe.ninja
+T1_MUITO_ALTO,"10% increased Life Recovery from Flasks, 10% increased Mana Recovery from Flasks",ClusterJewel,ClusterJewel,70.0,0.14,208,-30,stash,poe.ninja
+T1_MUITO_ALTO,Added Lightning Damage Support,SkillGem,SkillGem,70.0,0.14,25,16.67,stash,poe.ninja
+T1_MUITO_ALTO,Bane,SkillGem,SkillGem,70.0,0.14,23,102.3,stash,poe.ninja
+T1_MUITO_ALTO,Blast Rain,SkillGem,SkillGem,70.0,0.14,9,0,stash,poe.ninja
+T1_MUITO_ALTO,Lightning Conduit of the Heavens,SkillGem,SkillGem,70.0,0.14,75,-38.76,stash,poe.ninja
+T1_MUITO_ALTO,Minefield Support,SkillGem,SkillGem,70.0,0.14,48,75,stash,poe.ninja
+T1_MUITO_ALTO,Mirror Arrow,SkillGem,SkillGem,70.0,0.14,24,-1.96,stash,poe.ninja
+T1_MUITO_ALTO,Plague Bearer,SkillGem,SkillGem,70.0,0.14,16,250,stash,poe.ninja
+T1_MUITO_ALTO,Monochrome,Cards,DivinationCard,69.34,,5559,0.73,exchange,poe.ninja
+T1_MUITO_ALTO,Diviner's Delirium Orb,DeliriumOrbs,DeliriumOrb,68.12,,93135,-23.04,exchange,poe.ninja
+T1_MUITO_ALTO,Chain Hook,SkillGem,SkillGem,67.8,0.14,37,-0.88,stash,poe.ninja
+T1_MUITO_ALTO,15% increased Critical Strike Chance,ClusterJewel,ClusterJewel,67.0,0.14,42,-62.78,stash,poe.ninja
+T1_MUITO_ALTO,Vaal Storm Call,SkillGem,SkillGem,67.0,0.14,17,7.2,stash,poe.ninja
+T1_MUITO_ALTO,Sanctified Fossil,Delve,Fossil,65.84,,2787,40.21,exchange,poe.ninja
+T1_MUITO_ALTO,Charged Traps Support,SkillGem,SkillGem,65.8,0.13,24,23.15,stash,poe.ninja
+T1_MUITO_ALTO,Replica Cortex,UniqueMap,UniqueMap,65.0,0.13,271,-20.73,stash,poe.ninja
+T1_MUITO_ALTO,Sacred Orb,Currency,Currency,64.64,,9718,0.74,exchange,poe.ninja
+T1_MUITO_ALTO,Vortex of Projection,SkillGem,SkillGem,64.5,0.13,24,10.07,stash,poe.ninja
+T1_MUITO_ALTO,Horned Scarab of Awakening,Fragments,Scarab,64.47,,36985,9.24,exchange,poe.ninja
+T1_MUITO_ALTO,Blight,SkillGem,SkillGem,62.0,0.13,55,55,stash,poe.ninja
+T1_MUITO_ALTO,Summon Chaos Golem,SkillGem,SkillGem,62.0,0.13,32,-16.22,stash,poe.ninja
+T1_MUITO_ALTO,Voltaxic Burst,SkillGem,SkillGem,62.0,0.13,249,65.33,stash,poe.ninja
+T1_MUITO_ALTO,Fractured Fossil,Delve,Fossil,61.56,,1293,-35.08,exchange,poe.ninja
+T1_MUITO_ALTO,Tattoo of the Hinekora Warmonger,Ancestor,Tattoo,61.07,,1506,-9.17,exchange,poe.ninja
+T1_MUITO_ALTO,"Craiceann, First of the Deep",Beast,Beast,61.0,0.12,147,-12.86,stash,poe.ninja
+T1_MUITO_ALTO,Splitting Steel of Ammunition,SkillGem,SkillGem,60.8,0.12,13,268.5,stash,poe.ninja
+T1_MUITO_ALTO,Blade Trap of Laceration,SkillGem,SkillGem,60.0,0.12,3,0,stash,poe.ninja
+T1_MUITO_ALTO,Ball Lightning,SkillGem,SkillGem,59.2,0.12,56,87.94,stash,poe.ninja
+T1_MUITO_ALTO,Storm Brand,SkillGem,SkillGem,58.4,0.12,40,-41.13,stash,poe.ninja
+T1_MUITO_ALTO,Imperfect Memories,Cards,DivinationCard,58.36,,2899,-61.82,exchange,poe.ninja
+T1_MUITO_ALTO,Blight of Atrophy,SkillGem,SkillGem,58.2,0.12,18,38.9,stash,poe.ninja
+T1_MUITO_ALTO,Frozen Legion,SkillGem,SkillGem,58.0,0.12,88,1161,stash,poe.ninja
+T1_MUITO_ALTO,Essence Drain,SkillGem,SkillGem,57.5,0.12,39,109.8,stash,poe.ninja
+T1_MUITO_ALTO,Contagion of Transference,SkillGem,SkillGem,55.5,0.11,10,0,stash,poe.ninja
+T1_MUITO_ALTO,Runegraft of Rotblood,Runegrafts,Runegraft,55.14,,64.33,325.1,exchange,poe.ninja
+T1_MUITO_ALTO,Fateful Meeting,Cards,DivinationCard,55.0,,27.5,10,exchange,poe.ninja
+T1_MUITO_ALTO,2% increased Effect of your Curses,ClusterJewel,ClusterJewel,55.0,0.11,20,0,stash,poe.ninja
+T1_MUITO_ALTO,Additional Accuracy Support,SkillGem,SkillGem,55.0,0.11,19,-42.11,stash,poe.ninja
+T1_MUITO_ALTO,Conflagration,SkillGem,SkillGem,55.0,0.11,7,0,stash,poe.ninja
+T1_MUITO_ALTO,Pestilent Strike,SkillGem,SkillGem,55.0,0.11,25,0,stash,poe.ninja
+T1_MUITO_ALTO,Summon Raging Spirit,SkillGem,SkillGem,55.0,0.11,133,-45,stash,poe.ninja
+T1_MUITO_ALTO,Vaal Glacial Hammer,SkillGem,SkillGem,55.0,0.11,4,0,stash,poe.ninja
+T1_MUITO_ALTO,Double Strike,SkillGem,SkillGem,54.2,0.11,16,-23.55,stash,poe.ninja
+T1_MUITO_ALTO,Rage Support,SkillGem,SkillGem,54.0,0.11,37,-10,stash,poe.ninja
+T1_MUITO_ALTO,Pyroclast Mine of Sabotage,SkillGem,SkillGem,53.5,0.11,22,16.23,stash,poe.ninja
+T1_MUITO_ALTO,The Siren,Cards,DivinationCard,53.33,,26.67,0,exchange,poe.ninja
+T1_MUITO_ALTO,Fresh Meat Support,SkillGem,SkillGem,52.4,0.11,18,0,stash,poe.ninja
+T1_MUITO_ALTO,The Hunger,Cards,DivinationCard,52.0,,17.33,225,exchange,poe.ninja
+T1_MUITO_ALTO,Vaal Spectral Throw,SkillGem,SkillGem,52.0,0.11,8,0,stash,poe.ninja
+T1_MUITO_ALTO,Vaal Burning Arrow,SkillGem,SkillGem,51.8,0.11,25,14.56,stash,poe.ninja
+T1_MUITO_ALTO,Scorching Ray of Immolation,SkillGem,SkillGem,51.5,0.11,46,-11.11,stash,poe.ninja
+T1_MUITO_ALTO,10% increased Attack Damage,ClusterJewel,ClusterJewel,51.0,0.1,144,-0.97,stash,poe.ninja
+T1_MUITO_ALTO,Blink Arrow of Bombarding Clones,SkillGem,SkillGem,51.0,0.1,9,0,stash,poe.ninja
+T1_MUITO_ALTO,Blastchain Mine Support,SkillGem,SkillGem,50.8,0.1,11,0,stash,poe.ninja
+T1_MUITO_ALTO,The Side Quest,Cards,DivinationCard,50.3,,3034,20.57,exchange,poe.ninja
+T1_MUITO_ALTO,Opalescent Oil,Oils,Oil,50.01,,4492,1.46,exchange,poe.ninja
+T1_MUITO_ALTO,Lethean Temptation,Cards,DivinationCard,50.0,,16.67,100,exchange,poe.ninja
+T1_MUITO_ALTO,The Polymath,Cards,DivinationCard,50.0,,25.0,740.3,exchange,poe.ninja
+T1_MUITO_ALTO,12% increased Brand Damage,ClusterJewel,ClusterJewel,50.0,0.1,43,0,stash,poe.ninja
+T1_MUITO_ALTO,12% increased Burning Damage,ClusterJewel,ClusterJewel,50.0,0.1,22,0,stash,poe.ninja
+T1_MUITO_ALTO,Bear Trap of Skewers,SkillGem,SkillGem,50.0,0.1,10,0,stash,poe.ninja
+T1_MUITO_ALTO,Blasphemy Support,SkillGem,SkillGem,50.0,0.1,25,0,stash,poe.ninja
+T1_MUITO_ALTO,Iron Grip Support,SkillGem,SkillGem,50.0,0.1,5,0,stash,poe.ninja
+T1_MUITO_ALTO,Perforate of Bloodshed,SkillGem,SkillGem,50.0,0.1,1,0,stash,poe.ninja
+T1_MUITO_ALTO,Purifying Flame,SkillGem,SkillGem,50.0,0.1,12,0,stash,poe.ninja
+T1_MUITO_ALTO,Seismic Trap,SkillGem,SkillGem,50.0,0.1,25,-9.75,stash,poe.ninja
+T1_MUITO_ALTO,Splitting Steel,SkillGem,SkillGem,50.0,0.1,7,0,stash,poe.ninja
+T1_MUITO_ALTO,Vaal Rain of Arrows,SkillGem,SkillGem,50.0,0.1,21,-29.08,stash,poe.ninja
+T1_MUITO_ALTO,Void Sphere,SkillGem,SkillGem,50.0,0.1,117,23.46,stash,poe.ninja
+T1_MUITO_ALTO,Wither,SkillGem,SkillGem,50.0,0.1,124,400,stash,poe.ninja
+T1_MUITO_ALTO,The Coward's Trial,UniqueMap,UniqueMap,50.0,0.1,318,13.38,stash,poe.ninja
+T2_ALTO,Mirror Arrow of Prismatic Clones,SkillGem,SkillGem,49.2,0.1,47,0,stash,poe.ninja
+T2_ALTO,Ice Shot of Penetration,SkillGem,SkillGem,48.8,0.1,72,-8.96,stash,poe.ninja
+T2_ALTO,Magnum Opus,Cards,DivinationCard,48.72,,1299,32.55,exchange,poe.ninja
+T2_ALTO,Cosmic Fragment,Fragments,Fragment,47.93,,4178,-35.98,exchange,poe.ninja
+T2_ALTO,Hexblast,SkillGem,SkillGem,47.1,0.1,60,62.41,stash,poe.ninja
+T2_ALTO,Skittering Delirium Orb,DeliriumOrbs,DeliriumOrb,46.47,,2943,-7.72,exchange,poe.ninja
+T2_ALTO,The Enslaver Vaal Temple Map,Map,Map,46.0,0.09,6,0,stash,poe.ninja
+T2_ALTO,Wild Brambleback,Beast,Beast,45.8,0.09,268,108.2,stash,poe.ninja
+T2_ALTO,Flameblast,SkillGem,SkillGem,45.8,0.09,14,70.26,stash,poe.ninja
+T2_ALTO,Unleash Support,SkillGem,SkillGem,45.5,0.09,22,25,stash,poe.ninja
+T2_ALTO,Arcanist Brand,SkillGem,SkillGem,45.0,0.09,38,12.5,stash,poe.ninja
+T2_ALTO,Exemplar Support,SkillGem,SkillGem,45.0,0.09,20,-53.85,stash,poe.ninja
+T2_ALTO,Manabond,SkillGem,SkillGem,45.0,0.09,37,-35.16,stash,poe.ninja
+T2_ALTO,Simulacrum,Fragments,Fragment,44.86,,29236,-12.85,exchange,poe.ninja
+T2_ALTO,Essence of Insanity,Essences,Essence,44.73,,17639,8.0,exchange,poe.ninja
+T2_ALTO,Spell Totem Support,SkillGem,SkillGem,44.7,0.09,36,60.22,stash,poe.ninja
+T2_ALTO,The Prince of Darkness,Cards,DivinationCard,44.52,,7279,44.85,exchange,poe.ninja
+T2_ALTO,Incinerate,SkillGem,SkillGem,43.6,0.09,6,15.06,stash,poe.ninja
+T2_ALTO,Point Blank Support,SkillGem,SkillGem,43.4,0.09,50,0,stash,poe.ninja
+T2_ALTO,Fine Delirium Orb,DeliriumOrbs,DeliriumOrb,42.33,,162593,-23.95,exchange,poe.ninja
+T2_ALTO,Ultimatum Scarab of Catalysing,Fragments,Scarab,42.11,,23504,202.4,exchange,poe.ninja
+T2_ALTO,The Endless Darkness,Cards,DivinationCard,42.0,,14.0,-74.72,exchange,poe.ninja
+T2_ALTO,Mirage Archer Support,SkillGem,SkillGem,41.5,0.08,7,0,stash,poe.ninja
+T2_ALTO,Tunnelfiend,Beast,Beast,41.0,0.08,7,-6.67,stash,poe.ninja
+T2_ALTO,Vanity,Cards,DivinationCard,41.0,,13.67,193.4,exchange,poe.ninja
+T2_ALTO,Rain of Arrows of Artillery,SkillGem,SkillGem,40.9,0.08,14,4.07,stash,poe.ninja
+T2_ALTO,The Constrictor Vaal Temple Map,Map,Map,40.6,0.08,10,0,stash,poe.ninja
+T2_ALTO,Assassin's Gift,Cards,DivinationCard,40.0,,100.0,-62.3,exchange,poe.ninja
+T2_ALTO,Nightmare Map,Map,Map,40.0,0.08,55635,-6.54,stash,poe.ninja
+T2_ALTO,Bladefall,SkillGem,SkillGem,40.0,0.08,51,48.15,stash,poe.ninja
+T2_ALTO,Bodyswap,SkillGem,SkillGem,40.0,0.08,20,60,stash,poe.ninja
+T2_ALTO,Caustic Arrow,SkillGem,SkillGem,40.0,0.08,28,33.33,stash,poe.ninja
+T2_ALTO,Creeping Frost,SkillGem,SkillGem,40.0,0.08,34,44.93,stash,poe.ninja
+T2_ALTO,Energy Leech Support,SkillGem,SkillGem,40.0,0.08,67,4.44,stash,poe.ninja
+T2_ALTO,Faster Projectiles Support,SkillGem,SkillGem,40.0,0.08,65,42.86,stash,poe.ninja
+T2_ALTO,Reave,SkillGem,SkillGem,40.0,0.08,23,-47.71,stash,poe.ninja
+T2_ALTO,Soulrend,SkillGem,SkillGem,40.0,0.08,21,25.79,stash,poe.ninja
+T2_ALTO,Stormblast Mine,SkillGem,SkillGem,40.0,0.08,33,35.14,stash,poe.ninja
+T2_ALTO,Vaal Power Siphon,SkillGem,SkillGem,40.0,0.08,21,0,stash,poe.ninja
+T2_ALTO,Vortex,SkillGem,SkillGem,40.0,0.08,39,3.36,stash,poe.ninja
+T2_ALTO,Convocation,SkillGem,SkillGem,39.96,0.08,55,99.8,stash,poe.ninja
+T2_ALTO,Lacerate,SkillGem,SkillGem,39.8,0.08,49,40.14,stash,poe.ninja
+T2_ALTO,Lightning Trap,SkillGem,SkillGem,39.8,0.08,18,70.09,stash,poe.ninja
+T2_ALTO,Swift Assembly Support,SkillGem,SkillGem,39.6,0.08,27,-6.6,stash,poe.ninja
+T2_ALTO,Conversion Trap,SkillGem,SkillGem,39.5,0.08,38,29.08,stash,poe.ninja
+T2_ALTO,Essence of Horror,Essences,Essence,39.42,,17231,-19.35,exchange,poe.ninja
+T2_ALTO,Cobra Lash,SkillGem,SkillGem,39.4,0.08,45,-20.4,stash,poe.ninja
+T2_ALTO,Kalguuran Scarab of Refinement,Fragments,Scarab,39.26,,10338,48.06,exchange,poe.ninja
+T2_ALTO,Fragment of Emptiness,Fragments,Fragment,39.23,,752.0,4.19,exchange,poe.ninja
+T2_ALTO,Summon Phantasm Support,SkillGem,SkillGem,39.2,0.08,57,2.89,stash,poe.ninja
+T2_ALTO,Darker Half,Cards,DivinationCard,39.11,,3318,48.03,exchange,poe.ninja
+T2_ALTO,Blade Flurry of Incision,SkillGem,SkillGem,38.5,0.08,19,0,stash,poe.ninja
+T2_ALTO,Gilded Fossil,Delve,Fossil,38.29,,785.0,211.8,exchange,poe.ninja
+T2_ALTO,Blade Trap of Greatswords,SkillGem,SkillGem,38.2,0.08,11,0,stash,poe.ninja
+T2_ALTO,Contagion,SkillGem,SkillGem,38.1,0.08,44,53.01,stash,poe.ninja
+T2_ALTO,Fragment of Terror,Fragments,Fragment,38.06,,742.2,1.68,exchange,poe.ninja
+T2_ALTO,General's Cry,SkillGem,SkillGem,38.0,0.08,59,7.65,stash,poe.ninja
+T2_ALTO,Overcharge Support,SkillGem,SkillGem,38.0,0.08,32,3700,stash,poe.ninja
+T2_ALTO,Cortex,UniqueMap,UniqueMap,38.0,0.08,1309,-24,stash,poe.ninja
+T2_ALTO,Shuddering Fossil,Delve,Fossil,37.77,,5251,43.59,exchange,poe.ninja
+T2_ALTO,The Fathomless Depths,Cards,DivinationCard,37.75,,25.17,40.86,exchange,poe.ninja
+T2_ALTO,Wintertide Brand,SkillGem,SkillGem,37.6,0.08,21,4.44,stash,poe.ninja
+T2_ALTO,The Fiend,Cards,DivinationCard,37.49,,381.2,-24.75,exchange,poe.ninja
+T2_ALTO,Crackling Lance,SkillGem,SkillGem,37.4,0.08,32,33.57,stash,poe.ninja
+T2_ALTO,Kinetic Rain,SkillGem,SkillGem,37.4,0.08,19,24.67,stash,poe.ninja
+T2_ALTO,12% increased Attack Damage while Dual Wielding,ClusterJewel,ClusterJewel,37.0,0.08,84,1.37,stash,poe.ninja
+T2_ALTO,Journey Tattoo of the Body,Ancestor,Tattoo,36.86,,43.0,40.22,exchange,poe.ninja
+T2_ALTO,Vaal Blade Flurry,SkillGem,SkillGem,36.0,0.07,14,20,stash,poe.ninja
+T2_ALTO,Shattering Steel,SkillGem,SkillGem,35.9,0.07,56,398.6,stash,poe.ninja
+T2_ALTO,Second Wind Support,SkillGem,SkillGem,35.0,0.07,42,-12.5,stash,poe.ninja
+T2_ALTO,Vaults of Atziri,UniqueMap,UniqueMap,35.0,0.07,155,75,stash,poe.ninja
+T2_ALTO,Essence of Hysteria,Essences,Essence,34.67,,6860,13.69,exchange,poe.ninja
+T2_ALTO,Eldritch Chaos Orb,Currency,Currency,34.55,,37729,22.24,exchange,poe.ninja
+T2_ALTO,Lonely Fragment,Fragments,Fragment,34.51,,4981,18.88,exchange,poe.ninja
+T2_ALTO,The Eternal War,Cards,DivinationCard,34.49,,994.3,37.27,exchange,poe.ninja
+T2_ALTO,Endurance Charge on Melee Stun Support,SkillGem,SkillGem,34.3,0.07,50,-14.25,stash,poe.ninja
+T2_ALTO,The Eradicator Vaal Temple Map,Map,Map,34.0,0.07,18,0,stash,poe.ninja
+T2_ALTO,The Shieldbearer,Cards,DivinationCard,33.99,,600.5,69.7,exchange,poe.ninja
+T2_ALTO,Reflective Oil,Oils,Oil,33.71,,292.2,-31.14,exchange,poe.ninja
+T2_ALTO,The Silly Boy,Cards,DivinationCard,33.19,,2534,7.57,exchange,poe.ninja
+T2_ALTO,Timeless Templar Emblem,Fragments,Fragment,33.19,,2146,-14.21,exchange,poe.ninja
+T2_ALTO,Timeless Maraketh Emblem,Fragments,Fragment,33.0,,2464,67.58,exchange,poe.ninja
+T2_ALTO,Puncture,SkillGem,SkillGem,33.0,0.07,55,13.79,stash,poe.ninja
+T2_ALTO,Bowyer's Dream,Cards,DivinationCard,32.0,,192,44.95,exchange,poe.ninja
+T2_ALTO,Galvanic Arrow of Surging,SkillGem,SkillGem,32.0,0.07,31,5,stash,poe.ninja
+T2_ALTO,Essence of Delirium,Essences,Essence,31.87,,8983,-4.78,exchange,poe.ninja
+T2_ALTO,Minion Speed Support,SkillGem,SkillGem,31.7,0.06,18,-1.33,stash,poe.ninja
+T2_ALTO,Dual Strike,SkillGem,SkillGem,30.8,0.06,58,48.08,stash,poe.ninja
+T2_ALTO,Domination Scarab of Terrors,Fragments,Scarab,30.62,,19063,-11.03,exchange,poe.ninja
+T2_ALTO,Cast while Channelling Support,SkillGem,SkillGem,30.5,0.06,6,0,stash,poe.ninja
+T2_ALTO,Tattoo of the Hinekora Storyteller,Ancestor,Tattoo,30.37,,1240,79.63,exchange,poe.ninja
+T2_ALTO,A Chilling Wind,Cards,DivinationCard,30.2,,25.17,2920,exchange,poe.ninja
+T2_ALTO,The Life Thief,Cards,DivinationCard,30.2,,25.17,43.81,exchange,poe.ninja
+T2_ALTO,Enraptured Crab,Beast,Beast,30.0,0.06,27,-57.14,stash,poe.ninja
+T2_ALTO,Parasite,Beast,Beast,30.0,0.06,11,0,stash,poe.ninja
+T2_ALTO,The Lion,Cards,DivinationCard,30.0,,20.0,328.6,exchange,poe.ninja
+T2_ALTO,Bloodlust Support,SkillGem,SkillGem,30.0,0.06,3,0,stash,poe.ninja
+T2_ALTO,Cast on Death Support,SkillGem,SkillGem,30.0,0.06,4,0,stash,poe.ninja
+T2_ALTO,Earthshatter,SkillGem,SkillGem,30.0,0.06,44,-33.33,stash,poe.ninja
+T2_ALTO,Focused Ballista Support,SkillGem,SkillGem,30.0,0.06,8,0,stash,poe.ninja
+T2_ALTO,Hextouch Support,SkillGem,SkillGem,30.0,0.06,50,52.28,stash,poe.ninja
+T2_ALTO,Immolate Support,SkillGem,SkillGem,30.0,0.06,19,0,stash,poe.ninja
+T2_ALTO,Iron Will Support,SkillGem,SkillGem,30.0,0.06,48,0,stash,poe.ninja
+T2_ALTO,Multiple Traps Support,SkillGem,SkillGem,30.0,0.06,6,0,stash,poe.ninja
+T2_ALTO,Vaal Animate Weapon,SkillGem,SkillGem,30.0,0.06,12,0,stash,poe.ninja
+T2_ALTO,Windburst Support,SkillGem,SkillGem,30.0,0.06,6,0,stash,poe.ninja
+T2_ALTO,The Vinktar Square,UniqueMap,UniqueMap,30.0,0.06,334,1.18,stash,poe.ninja
+T2_ALTO,Blighted Delirium Orb,DeliriumOrbs,DeliriumOrb,29.59,,2456,-22.09,exchange,poe.ninja
+T2_ALTO,Bear Trap,SkillGem,SkillGem,29.5,0.06,26,-3.5,stash,poe.ninja
+T2_ALTO,Timeless Delirium Orb,DeliriumOrbs,DeliriumOrb,29.47,,1699,-19.96,exchange,poe.ninja
+T2_ALTO,Sinistral Catalyst,Catalysts,Currency,29.34,,5183,3.85,exchange,poe.ninja
+T2_ALTO,An Audience With The King,Fragments,Fragment,29.2,,3547,-11.81,exchange,poe.ninja
+T2_ALTO,Glyphic Fossil,Delve,Fossil,29.18,,369.7,-20.63,exchange,poe.ninja
+T2_ALTO,Singular Delirium Orb,DeliriumOrbs,DeliriumOrb,29.16,,1608,-16.99,exchange,poe.ninja
+T2_ALTO,Traumatic Fragment,Fragments,Fragment,29.15,,3546,-9.69,exchange,poe.ninja
+T2_ALTO,Infested Vulture,Beast,Beast,29.0,0.06,30,-6.45,stash,poe.ninja
+T2_ALTO,Fragmented Delirium Orb,DeliriumOrbs,DeliriumOrb,28.84,,1206,-23.34,exchange,poe.ninja
+T2_ALTO,Abyssal Delirium Orb,DeliriumOrbs,DeliriumOrb,28.7,,1134,-24.81,exchange,poe.ninja
+T2_ALTO,Armoursmith's Delirium Orb,DeliriumOrbs,DeliriumOrb,28.7,,46205,-28.5,exchange,poe.ninja
+T2_ALTO,"Saqawal, First of the Sky",Beast,Beast,28.6,0.06,133,-28.5,stash,poe.ninja
+T2_ALTO,Blacksmith's Delirium Orb,DeliriumOrbs,DeliriumOrb,28.46,,48416,-29.66,exchange,poe.ninja
+T2_ALTO,Jeweller's Delirium Orb,DeliriumOrbs,DeliriumOrb,28.46,,48885,-26.97,exchange,poe.ninja
+T2_ALTO,Barrage,SkillGem,SkillGem,28.4,0.06,44,0,stash,poe.ninja
+T2_ALTO,Deafening Essence of Scorn,Essences,Essence,28.24,,80521,-20.67,exchange,poe.ninja
+T2_ALTO,Hydrosphere,SkillGem,SkillGem,28.2,0.06,17,0.71,stash,poe.ninja
+T2_ALTO,Ignite Proliferation Support,SkillGem,SkillGem,28.2,0.06,30,-19.43,stash,poe.ninja
+T2_ALTO,Cartographer's Delirium Orb,DeliriumOrbs,DeliriumOrb,28.12,,4167,-27.59,exchange,poe.ninja
+T2_ALTO,A Dusty Memory,Cards,DivinationCard,28.0,,14.0,607.0,exchange,poe.ninja
+T2_ALTO,Lonely Warrior,Cards,DivinationCard,27.36,,250.8,-68.63,exchange,poe.ninja
+T2_ALTO,Eldritch Orb of Annulment,Currency,Currency,27.09,,14302,47.68,exchange,poe.ninja
+T2_ALTO,Broken Truce,Cards,DivinationCard,27.0,,4.5,671.4,exchange,poe.ninja
+T2_ALTO,Thaumaturge's Delirium Orb,DeliriumOrbs,DeliriumOrb,26.29,,1490,-29.33,exchange,poe.ninja
+T2_ALTO,Explosive Arrow,SkillGem,SkillGem,26.2,0.05,23,0,stash,poe.ninja
+T2_ALTO,Vile Toxins Support,SkillGem,SkillGem,26.0,0.05,36,-11.11,stash,poe.ninja
+T2_ALTO,Whispering Delirium Orb,DeliriumOrbs,DeliriumOrb,25.76,,2881,-29.85,exchange,poe.ninja
+T2_ALTO,Allflame Ember of Kulemak,AllflameEmbers,AllflameEmber,25.0,,254.2,3.56,exchange,poe.ninja
+T2_ALTO,A Modest Request,Cards,DivinationCard,25.0,,20.83,-35.78,exchange,poe.ninja
+T2_ALTO,Ground Slam,SkillGem,SkillGem,25.0,0.05,41,-29.58,stash,poe.ninja
+T2_ALTO,Holy Flame Totem,SkillGem,SkillGem,25.0,0.05,26,25,stash,poe.ninja
+T2_ALTO,Snipe,SkillGem,SkillGem,25.0,0.05,26,-7.5,stash,poe.ninja
+T2_ALTO,Maven's Chisel of Divination,Currency,Currency,24.85,,7064,-62.51,exchange,poe.ninja
+T2_ALTO,Keeper's Corruption,Cards,DivinationCard,24.75,,16.5,725.0,exchange,poe.ninja
+T2_ALTO,Crescent Splinter,Fragments,Fragment,24.63,,665.0,299.1,exchange,poe.ninja
+T2_ALTO,Lancing Steel,SkillGem,SkillGem,24.5,0.05,191,124.8,stash,poe.ninja
+T2_ALTO,Azyran's Reward,Cards,DivinationCard,24.42,,105.8,248.9,exchange,poe.ninja
+T2_ALTO,Harvest Scarab of Doubling,Fragments,Scarab,24.11,,66393,97.47,exchange,poe.ninja
+T2_ALTO,The Harvester,Cards,DivinationCard,24.0,,4.0,4700,exchange,poe.ninja
+T2_ALTO,Toxic Tidings,Cards,DivinationCard,24.0,,416.0,339.1,exchange,poe.ninja
+T2_ALTO,Vaal Temple Map,Map,Map,24.0,0.05,2164,-46.67,stash,poe.ninja
+T2_ALTO,The Enlightened,Cards,DivinationCard,23.61,,1684,-17.4,exchange,poe.ninja
+T2_ALTO,Baran's Crest,Fragments,Fragment,23.54,,2401,149.6,exchange,poe.ninja
+T2_ALTO,Thunderstorm,SkillGem,SkillGem,23.5,0.05,98,-44.71,stash,poe.ninja
+T2_ALTO,Doryani's Epiphany,Cards,DivinationCard,23.48,,3718,192.8,exchange,poe.ninja
+T2_ALTO,Aetheric Fossil,Delve,Fossil,23.33,,490.0,9.52,exchange,poe.ninja
+T2_ALTO,Cold to Fire Support,SkillGem,SkillGem,23.3,0.05,70,-41.75,stash,poe.ninja
+T2_ALTO,Stygian Silverback,Beast,Beast,23.0,0.05,16,6.98,stash,poe.ninja
+T2_ALTO,Dying Light,Cards,DivinationCard,23.0,,3.83,0,exchange,poe.ninja
+T2_ALTO,The Cataclysm,Cards,DivinationCard,23.0,,99.67,2200,exchange,poe.ninja
+T2_ALTO,Lachrymal Necrosis,Cards,DivinationCard,22.76,,6428,31.71,exchange,poe.ninja
+T2_ALTO,Corroded Fossil,Delve,Fossil,22.65,,4209,48.78,exchange,poe.ninja
+T2_ALTO,2% Chance to Block Spell Damage,ClusterJewel,ClusterJewel,22.6,0.05,59,25.56,stash,poe.ninja
+T2_ALTO,Alivia's Grace,Cards,DivinationCard,22.33,,11.17,-4.29,exchange,poe.ninja
+T2_ALTO,The Soul,Cards,DivinationCard,22.04,,393.0,11.85,exchange,poe.ninja
+T2_ALTO,Barrow Ape,Beast,Beast,22.0,0.04,6,25.87,stash,poe.ninja
+T2_ALTO,Predator Support,SkillGem,SkillGem,21.8,0.04,48,14.74,stash,poe.ninja
+T2_ALTO,Chasing Risk,Cards,DivinationCard,21.67,,32.5,85.71,exchange,poe.ninja
+T2_ALTO,Tattoo of the Ramako Archer,Ancestor,Tattoo,21.65,,1151,-13.67,exchange,poe.ninja
+T2_ALTO,Legion Scarab of Eternal Conflict,Fragments,Scarab,21.64,,2308,124.5,exchange,poe.ninja
+T2_ALTO,Tattoo of the Ramako Sniper,Ancestor,Tattoo,21.63,,1586,-32.44,exchange,poe.ninja
+T2_ALTO,Tainted Catalyst,Catalysts,Currency,21.62,,6860,45.06,exchange,poe.ninja
+T2_ALTO,Elemental Proliferation Support,SkillGem,SkillGem,20.9,0.04,13,0,stash,poe.ninja
+T2_ALTO,Devouring Totem,SkillGem,SkillGem,20.6,0.04,31,-45.36,stash,poe.ninja
+T2_ALTO,Runegraft of Time,Runegrafts,Runegraft,20.41,,57.83,47.19,exchange,poe.ninja
+T2_ALTO,Sand Serpent,Beast,Beast,20.0,0.04,9,0,stash,poe.ninja
+T2_ALTO,Blind Venture,Cards,DivinationCard,20.0,,6.67,103.4,exchange,poe.ninja
+T2_ALTO,The Eldritch Decay,Cards,DivinationCard,20.0,,50.0,18.96,exchange,poe.ninja
+T2_ALTO,Winter's Embrace,Cards,DivinationCard,20.0,,6.67,-80,exchange,poe.ninja
+T2_ALTO,+4% chance to Suppress Spell Damage,ClusterJewel,ClusterJewel,20.0,0.04,1436,-33.33,stash,poe.ninja
+T2_ALTO,15% increased Armour,ClusterJewel,ClusterJewel,20.0,0.04,2700,0,stash,poe.ninja
+T2_ALTO,Alchemist's Mark,SkillGem,SkillGem,20.0,0.04,40,-60.4,stash,poe.ninja
+T2_ALTO,Behead Support,SkillGem,SkillGem,20.0,0.04,34,0,stash,poe.ninja
+T2_ALTO,Decay Support,SkillGem,SkillGem,20.0,0.04,23,0,stash,poe.ninja
+T2_ALTO,Explosive Trap,SkillGem,SkillGem,20.0,0.04,19,2.56,stash,poe.ninja
+T2_ALTO,Glacial Shield Swipe,SkillGem,SkillGem,20.0,0.04,25,0,stash,poe.ninja
+T2_ALTO,Maim Support,SkillGem,SkillGem,20.0,0.04,51,0,stash,poe.ninja
+T2_ALTO,Poisonous Concoction,SkillGem,SkillGem,20.0,0.04,34,0,stash,poe.ninja
+T2_ALTO,Sadism Support,SkillGem,SkillGem,20.0,0.04,20,6.38,stash,poe.ninja
+T2_ALTO,Scourge Arrow,SkillGem,SkillGem,20.0,0.04,47,-33.33,stash,poe.ninja
+T2_ALTO,Swordstorm,SkillGem,SkillGem,20.0,0.04,142,14.29,stash,poe.ninja
+T2_ALTO,Viper Strike,SkillGem,SkillGem,20.0,0.04,52,-32.66,stash,poe.ninja
+T2_ALTO,Volcanic Fissure,SkillGem,SkillGem,20.0,0.04,39,-21.57,stash,poe.ninja
+T3_VISIVEL,Tattoo of the Hinekora Warrior,Ancestor,Tattoo,19.92,,2430,-4.66,exchange,poe.ninja
+T3_VISIVEL,Weeping Essence of Contempt,Essences,Essence,19.87,,99.33,9833,exchange,poe.ninja
+T3_VISIVEL,The Void,Cards,DivinationCard,19.86,,1225,-41.01,exchange,poe.ninja
+T3_VISIVEL,Dementophobia,Cards,DivinationCard,19.75,,829.5,-24.9,exchange,poe.ninja
+T3_VISIVEL,Prismatic Catalyst,Catalysts,Currency,19.66,,8747,11.14,exchange,poe.ninja
+T3_VISIVEL,Flamethrower Trap,SkillGem,SkillGem,19.6,0.04,52,0.51,stash,poe.ninja
+T3_VISIVEL,Holy Sweep,SkillGem,SkillGem,19.6,0.04,33,0,stash,poe.ninja
+T3_VISIVEL,Fragment of Eradication,Fragments,Fragment,19.34,,902.7,-22.22,exchange,poe.ninja
+T3_VISIVEL,The Bones,Cards,DivinationCard,19.28,,205.7,97.55,exchange,poe.ninja
+T3_VISIVEL,Fenumal Plagued Arachnid,Beast,Beast,19.2,0.04,2744,28,stash,poe.ninja
+T3_VISIVEL,Intuitive Link,SkillGem,SkillGem,19.2,0.04,23,0,stash,poe.ninja
+T3_VISIVEL,Protective Link,SkillGem,SkillGem,19.0,0.04,28,-5,stash,poe.ninja
+T3_VISIVEL,Vaal Cleave,SkillGem,SkillGem,19.0,0.04,9,0,stash,poe.ninja
+T3_VISIVEL,Dense Fossil,Delve,Fossil,18.88,,5390,-32.33,exchange,poe.ninja
+T3_VISIVEL,Al-Hezmin's Crest,Fragments,Fragment,18.5,,2223,41.87,exchange,poe.ninja
+T3_VISIVEL,Flamewood Support,SkillGem,SkillGem,18.5,0.04,23,32.14,stash,poe.ninja
+T3_VISIVEL,The Dreamland,Cards,DivinationCard,18.0,,441.0,-10,exchange,poe.ninja
+T3_VISIVEL,When Currents Blaze,Cards,DivinationCard,18.0,,3.0,1700,exchange,poe.ninja
+T3_VISIVEL,The Price of Loyalty,Cards,DivinationCard,17.83,,68.33,-76.11,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Tasalio Scout,Ancestor,Tattoo,17.8,,267.0,51.68,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Valako Stormrider,Ancestor,Tattoo,17.07,,1408,-5.47,exchange,poe.ninja
+T3_VISIVEL,Goatman Fire-raiser,Beast,Beast,17.0,0.03,16,-5.03,stash,poe.ninja
+T3_VISIVEL,Rebirth,Cards,DivinationCard,17.0,,2.83,-34.3,exchange,poe.ninja
+T3_VISIVEL,Fragment of Purification,Fragments,Fragment,17.0,,733.8,-33.07,exchange,poe.ninja
+T3_VISIVEL,Deft Fossil,Delve,Fossil,16.96,,749.0,29.73,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Ramako Scout,Ancestor,Tattoo,16.87,,1133,-19.73,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Valako Scout,Ancestor,Tattoo,16.86,,1927,-2.36,exchange,poe.ninja
+T3_VISIVEL,Abandoned Wealth,Cards,DivinationCard,16.6,,13.83,6011,exchange,poe.ninja
+T3_VISIVEL,Chance to Poison Support,SkillGem,SkillGem,16.2,0.03,22,-1.22,stash,poe.ninja
+T3_VISIVEL,Astral Protection,Cards,DivinationCard,16.0,,10.67,1500,exchange,poe.ninja
+T3_VISIVEL,The Magma Crab,Cards,DivinationCard,16.0,,5.33,212.2,exchange,poe.ninja
+T3_VISIVEL,The World Eater,Cards,DivinationCard,16.0,,5.33,-67.4,exchange,poe.ninja
+T3_VISIVEL,Mana Leech Support,SkillGem,SkillGem,16.0,0.03,16,10.29,stash,poe.ninja
+T3_VISIVEL,Weeping Essence of Doubt,Essences,Essence,15.93,,39.83,47.3,exchange,poe.ninja
+T3_VISIVEL,Fragment of Constriction,Fragments,Fragment,15.86,,1776,-25.31,exchange,poe.ninja
+T3_VISIVEL,Omen of Brilliance,Ancestor,Omen,15.6,,1287,-36.12,exchange,poe.ninja
+T3_VISIVEL,Divination Scarab of Pilfering,Fragments,Scarab,15.46,,11299,39.24,exchange,poe.ninja
+T3_VISIVEL,Orb of Annulment,Currency,Currency,15.42,,36620,34.73,exchange,poe.ninja
+T3_VISIVEL,Divination Scarab of The Cloister,Fragments,Scarab,15.2,,236064,25.79,exchange,poe.ninja
+T3_VISIVEL,Allflame Ember of Propagation,AllflameEmbers,AllflameEmber,15.0,,90,0,exchange,poe.ninja
+T3_VISIVEL,Apocalypse,Cards,DivinationCard,15.0,,135,-66.17,exchange,poe.ninja
+T3_VISIVEL,Ancestral Call Support,SkillGem,SkillGem,15.0,0.03,27,0,stash,poe.ninja
+T3_VISIVEL,Chance to Bleed Support,SkillGem,SkillGem,15.0,0.03,39,37.61,stash,poe.ninja
+T3_VISIVEL,Devour Support,SkillGem,SkillGem,15.0,0.03,12,50,stash,poe.ninja
+T3_VISIVEL,Excommunicate Support,SkillGem,SkillGem,15.0,0.03,30,0,stash,poe.ninja
+T3_VISIVEL,Knockback Support,SkillGem,SkillGem,15.0,0.03,19,0,stash,poe.ninja
+T3_VISIVEL,Trauma Support,SkillGem,SkillGem,15.0,0.03,7,0,stash,poe.ninja
+T3_VISIVEL,Tattoo of the Valako Warrior,Ancestor,Tattoo,14.89,,1506,-14.99,exchange,poe.ninja
+T3_VISIVEL,The Last Supper,Cards,DivinationCard,14.86,,208.0,35.06,exchange,poe.ninja
+T3_VISIVEL,Veritania's Crest,Fragments,Fragment,14.83,,1735,34.61,exchange,poe.ninja
+T3_VISIVEL,Jagged Fossil,Delve,Fossil,14.55,,1406,10.93,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Kitava Warrior,Ancestor,Tattoo,14.15,,540.2,92.54,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Valako Shaman,Ancestor,Tattoo,14.13,,216.7,-18.46,exchange,poe.ninja
+T3_VISIVEL,Synthesising Fragment,Fragments,Fragment,14.05,,3793,-32.62,exchange,poe.ninja
+T3_VISIVEL,Fertile Catalyst,Catalysts,Currency,14.04,,6120,18.44,exchange,poe.ninja
+T3_VISIVEL,Grave Knowledge,Cards,DivinationCard,14.0,,11.67,0,exchange,poe.ninja
+T3_VISIVEL,Runegraft of Fury,Runegrafts,Runegraft,14.0,,2.33,34.94,exchange,poe.ninja
+T3_VISIVEL,Hex Bloom Support,SkillGem,SkillGem,14.0,0.03,33,-30,stash,poe.ninja
+T3_VISIVEL,The Putrid Cloister,UniqueMap,UniqueMap,14.0,0.03,224,40,stash,poe.ninja
+T3_VISIVEL,The Nurse,Cards,DivinationCard,13.99,,207.5,18.87,exchange,poe.ninja
+T3_VISIVEL,Scavenging Vulture,Beast,Beast,13.9,0.03,19,-27.59,stash,poe.ninja
+T3_VISIVEL,The Fishmonger,Cards,DivinationCard,13.83,,472.5,-32.75,exchange,poe.ninja
+T3_VISIVEL,Runegraft of Treachery,Runegrafts,Runegraft,13.72,,349.8,-26.52,exchange,poe.ninja
+T3_VISIVEL,Mortal Ignorance,Fragments,Fragment,13.67,,5416,163.0,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Tukohama Warcaller,Ancestor,Tattoo,13.64,,193.2,-50.72,exchange,poe.ninja
+T3_VISIVEL,Memory of Trauma,Fragments,Fragment,13.6,,997.5,15.99,exchange,poe.ninja
+T3_VISIVEL,Blight Scarab of Blooming,Fragments,Scarab,13.57,,3202,55.89,exchange,poe.ninja
+T3_VISIVEL,Pristine Fossil,Delve,Fossil,13.51,,1411,38.75,exchange,poe.ninja
+T3_VISIVEL,Channelling Skills deal 12% increased Damage,ClusterJewel,ClusterJewel,13.5,0.03,37,-90.34,stash,poe.ninja
+T3_VISIVEL,Black Oil,Oils,Oil,13.42,,1845,31.19,exchange,poe.ninja
+T3_VISIVEL,Something Dark,Cards,DivinationCard,13.39,,5255,-6.53,exchange,poe.ninja
+T3_VISIVEL,The Hook,Cards,DivinationCard,13.38,,2456,43.01,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Tukohama Shaman,Ancestor,Tattoo,13.33,,1249,15.58,exchange,poe.ninja
+T3_VISIVEL,Metallic Fossil,Delve,Fossil,13.23,,1738,1.92,exchange,poe.ninja
+T3_VISIVEL,Delirium Scarab of Paranoia,Fragments,Scarab,13.15,,45055,-54.97,exchange,poe.ninja
+T3_VISIVEL,Goatman Stomper,Beast,Beast,13.0,0.03,12,0,stash,poe.ninja
+T3_VISIVEL,The Deceiver,Cards,DivinationCard,13.0,,6.5,67.74,exchange,poe.ninja
+T3_VISIVEL,12% increased Totem Damage,ClusterJewel,ClusterJewel,13.0,0.03,66,-70.59,stash,poe.ninja
+T3_VISIVEL,Chain Support,SkillGem,SkillGem,13.0,0.03,18,13.04,stash,poe.ninja
+T3_VISIVEL,Woods Ursa,Beast,Beast,12.9,0.03,7,0,stash,poe.ninja
+T3_VISIVEL,Mortal Hope,Fragments,Fragment,12.41,,4582,100.6,exchange,poe.ninja
+T3_VISIVEL,Drox's Crest,Fragments,Fragment,12.36,,1421,9.82,exchange,poe.ninja
+T3_VISIVEL,Bound Fossil,Delve,Fossil,12.35,,1524,3.31,exchange,poe.ninja
+T3_VISIVEL,Feral Fowl,Beast,Beast,12.0,0.02,33,0,stash,poe.ninja
+T3_VISIVEL,Ravenous Parasite,Beast,Beast,12.0,0.02,16,0,stash,poe.ninja
+T3_VISIVEL,Vaal Recluse,Beast,Beast,12.0,0.02,12,0,stash,poe.ninja
+T3_VISIVEL,Vicious Hound,Beast,Beast,12.0,0.02,14,0,stash,poe.ninja
+T3_VISIVEL,Mortal Rage,Fragments,Fragment,12.0,,5464,79.23,exchange,poe.ninja
+T3_VISIVEL,Foulborn Regal Orb,Keepers,Currency,12.0,,582.0,52.74,exchange,poe.ninja
+T3_VISIVEL,Runegraft of the Witchmark,Runegrafts,Runegraft,12.0,,8.0,7.24,exchange,poe.ninja
+T3_VISIVEL,Blind Support,SkillGem,SkillGem,12.0,0.02,8,0,stash,poe.ninja
+T3_VISIVEL,The Catch,Cards,DivinationCard,11.97,,255.3,-20.73,exchange,poe.ninja
+T3_VISIVEL,Shrieking Essence of Scorn,Essences,Essence,11.91,,635.0,53.63,exchange,poe.ninja
+T3_VISIVEL,Blessed Call Support,SkillGem,SkillGem,11.3,0.02,11,-0.88,stash,poe.ninja
+T3_VISIVEL,Rebirth and Renewal,Cards,DivinationCard,11.23,,718.5,38.3,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Ngamahu Woodcarver,Ancestor,Tattoo,11.0,,36.67,-32.09,exchange,poe.ninja
+T3_VISIVEL,War Hound,Beast,Beast,11.0,0.02,14,0,stash,poe.ninja
+T3_VISIVEL,The Leviathan,Cards,DivinationCard,11.0,,7.33,-45,exchange,poe.ninja
+T3_VISIVEL,4% increased maximum Life,ClusterJewel,ClusterJewel,11.0,0.02,2810,-26.67,stash,poe.ninja
+T3_VISIVEL,Arrow Nova Support,SkillGem,SkillGem,11.0,0.02,5,0,stash,poe.ninja
+T3_VISIVEL,Fork Support,SkillGem,SkillGem,10.96,0.02,51,0,stash,poe.ninja
+T3_VISIVEL,Fragment of the Chimera,Fragments,Fragment,10.79,,422.5,74.56,exchange,poe.ninja
+T3_VISIVEL,The Formless Sea,Cards,DivinationCard,10.74,,146.8,21.54,exchange,poe.ninja
+T3_VISIVEL,Gemcutter's Mercy,Cards,DivinationCard,10.7,,834.7,-12.7,exchange,poe.ninja
+T3_VISIVEL,The Maven's Writ,Fragments,Fragment,10.69,,2567,178.8,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Arohongui Moonwarden,Ancestor,Tattoo,10.65,,609.0,-79.27,exchange,poe.ninja
+T3_VISIVEL,Peaceful Moments,Cards,DivinationCard,10.64,,1797,-34.03,exchange,poe.ninja
+T3_VISIVEL,Fundamental Fossil,Delve,Fossil,10.64,,977.3,-24.4,exchange,poe.ninja
+T3_VISIVEL,The Strategist,Cards,DivinationCard,10.55,,19.33,-53.82,exchange,poe.ninja
+T3_VISIVEL,Dialla's Subjugation,Cards,DivinationCard,10.37,,140.0,107.4,exchange,poe.ninja
+T3_VISIVEL,Mortal Grief,Fragments,Fragment,10.19,,5080,69.01,exchange,poe.ninja
+T3_VISIVEL,Impending Doom Support,SkillGem,SkillGem,10.1,0.02,24,0,stash,poe.ninja
+T3_VISIVEL,Tattoo of the Rongokurai Guard,Ancestor,Tattoo,10.0,,85.0,-33.59,exchange,poe.ninja
+T3_VISIVEL,Craicic Vassal,Beast,Beast,10.0,0.02,251,42.86,stash,poe.ninja
+T3_VISIVEL,Escaped Rhex,Beast,Beast,10.0,0.02,23,-26.47,stash,poe.ninja
+T3_VISIVEL,Farric Tiger Alpha,Beast,Beast,10.0,0.02,268,25,stash,poe.ninja
+T3_VISIVEL,Primal Cystcaller,Beast,Beast,10.0,0.02,653,-37.5,stash,poe.ninja
+T3_VISIVEL,Rooster Demon,Beast,Beast,10.0,0.02,19,-50,stash,poe.ninja
+T3_VISIVEL,Ruins Hellion,Beast,Beast,10.0,0.02,17,0,stash,poe.ninja
+T3_VISIVEL,Sand Scorpion,Beast,Beast,10.0,0.02,19,-31.03,stash,poe.ninja
+T3_VISIVEL,Terrible Secret of Space,Cards,DivinationCard,10.0,,1.67,-92.86,exchange,poe.ninja
+T3_VISIVEL,The Chosen,Cards,DivinationCard,10.0,,1.67,-37.11,exchange,poe.ninja
+T3_VISIVEL,The Dungeon Master,Cards,DivinationCard,10.0,,11.67,0,exchange,poe.ninja
+T3_VISIVEL,The Last One Standing,Cards,DivinationCard,10.0,,1.67,900,exchange,poe.ninja
+T3_VISIVEL,The Wedding Gift,Cards,DivinationCard,10.0,,1.67,401.6,exchange,poe.ninja
+T3_VISIVEL,Treasure Hunter,Cards,DivinationCard,10.0,,13.33,-66.44,exchange,poe.ninja
+T3_VISIVEL,Who Asked,Cards,DivinationCard,10.0,,90,-3.06,exchange,poe.ninja
+T3_VISIVEL,+2% Chance to Block Attack Damage,ClusterJewel,ClusterJewel,10.0,0.02,188,163.2,stash,poe.ninja
+T3_VISIVEL,6% increased maximum Mana,ClusterJewel,ClusterJewel,10.0,0.02,785,0,stash,poe.ninja
+T3_VISIVEL,Weeping Essence of Woe,Essences,Essence,10.0,,16.67,-47.4,exchange,poe.ninja
+T3_VISIVEL,Al-Hezmin Map (Tier 16),Map,Map,10.0,0.02,1886,0,stash,poe.ninja
+T3_VISIVEL,Baran Map (Tier 16),Map,Map,10.0,0.02,2057,-9.09,stash,poe.ninja
+T3_VISIVEL,Drox Map (Tier 16),Map,Map,10.0,0.02,1885,0,stash,poe.ninja
+T3_VISIVEL,Veritania Map (Tier 16),Map,Map,10.0,0.02,1657,0,stash,poe.ninja
+T3_VISIVEL,Blood and Sand,SkillGem,SkillGem,10.0,0.02,88,-5.66,stash,poe.ninja
+T3_VISIVEL,Locus Mine Support,SkillGem,SkillGem,10.0,0.02,34,0,stash,poe.ninja
+T3_VISIVEL,Shockwave Support,SkillGem,SkillGem,10.0,0.02,45,-16.67,stash,poe.ninja
+T3_VISIVEL,Stun Support,SkillGem,SkillGem,10.0,0.02,11,0,stash,poe.ninja
+T3_VISIVEL,Trap Support,SkillGem,SkillGem,10.0,0.02,14,0,stash,poe.ninja
+T3_VISIVEL,Replica Pillars of Arun,UniqueMap,UniqueMap,10.0,0.02,36,35.14,stash,poe.ninja
+T3_VISIVEL,The Twilight Temple,UniqueMap,UniqueMap,10.0,0.02,228,25,stash,poe.ninja
+T3_VISIVEL,Tattoo of the Ngamahu Warrior,Ancestor,Tattoo,9.98,,637.3,-36.14,exchange,poe.ninja
+T3_VISIVEL,Opulent Fossil,Delve,Fossil,9.94,,802.0,-1.2,exchange,poe.ninja
+T3_VISIVEL,Bloodstained Fossil,Delve,Fossil,9.88,,69.17,41.4,exchange,poe.ninja
+T3_VISIVEL,Innervate Support,SkillGem,SkillGem,9.8,0.02,30,8.89,stash,poe.ninja
+T3_VISIVEL,Memory of Reverence,Fragments,Fragment,9.79,,310.0,-7.31,exchange,poe.ninja
+T3_VISIVEL,+12% to Chaos Resistance,ClusterJewel,ClusterJewel,9.7,0.02,59,18.18,stash,poe.ninja
+T3_VISIVEL,Rotting Vulture,Beast,Beast,9.6,0.02,26,-12.73,stash,poe.ninja
+T3_VISIVEL,The Shepherd's Sandals,Cards,DivinationCard,9.49,,68.0,137.2,exchange,poe.ninja
+T3_VISIVEL,The Artist,Cards,DivinationCard,9.29,,216.7,-10.41,exchange,poe.ninja
+T3_VISIVEL,Home,Cards,DivinationCard,9.2,,489.2,-17.43,exchange,poe.ninja
+T3_VISIVEL,Corrupting Cry Support,SkillGem,SkillGem,9.2,0.02,20,-2.86,stash,poe.ninja
+T3_VISIVEL,Fragment of Enslavement,Fragments,Fragment,9.18,,472.7,-54.21,exchange,poe.ninja
+T3_VISIVEL,Fragment of the Phoenix,Fragments,Fragment,9.18,,405.5,8.51,exchange,poe.ninja
+T3_VISIVEL,A Dab of Ink,Cards,DivinationCard,9.17,,9.17,816.7,exchange,poe.ninja
+T3_VISIVEL,Costly Curio,Cards,DivinationCard,9.14,,105.2,-2.87,exchange,poe.ninja
+T3_VISIVEL,Cast on Melee Kill Support,SkillGem,SkillGem,9.1,0.02,31,-47.33,stash,poe.ninja
+T3_VISIVEL,Blood Ape,Beast,Beast,9.0,0.02,188,12.5,stash,poe.ninja
+T3_VISIVEL,Bramble Cobra,Beast,Beast,9.0,0.02,158,12.5,stash,poe.ninja
+T3_VISIVEL,Carrion Queen,Beast,Beast,9.0,0.02,97,12.5,stash,poe.ninja
+T3_VISIVEL,Cave Skitterer,Beast,Beast,9.0,0.02,355,12.5,stash,poe.ninja
+T3_VISIVEL,Elder-Blessed Hellion,Beast,Beast,9.0,0.02,51,12.5,stash,poe.ninja
+T3_VISIVEL,Enraptured Arachnid,Beast,Beast,9.0,0.02,224,12.5,stash,poe.ninja
+T3_VISIVEL,Grazing Taurus,Beast,Beast,9.0,0.02,145,12.5,stash,poe.ninja
+T3_VISIVEL,Ink Spinner,Beast,Beast,9.0,0.02,174,12.5,stash,poe.ninja
+T3_VISIVEL,Leaping Spider,Beast,Beast,9.0,0.02,155,12.5,stash,poe.ninja
+T3_VISIVEL,Noxious Tarantula,Beast,Beast,9.0,0.02,276,12.5,stash,poe.ninja
+T3_VISIVEL,Plagued Arachnid,Beast,Beast,9.0,0.02,256,12.5,stash,poe.ninja
+T3_VISIVEL,Plumed Chimeral,Beast,Beast,9.0,0.02,103,12.5,stash,poe.ninja
+T3_VISIVEL,Shaggy Monstrosity,Beast,Beast,9.0,0.02,84,12.5,stash,poe.ninja
+T3_VISIVEL,Webbed Spider,Beast,Beast,9.0,0.02,179,12.5,stash,poe.ninja
+T3_VISIVEL,The Academic,Cards,DivinationCard,9.0,,3.0,21.62,exchange,poe.ninja
+T3_VISIVEL,The Mind's Eyes,Cards,DivinationCard,9.0,,9,140,exchange,poe.ninja
+T3_VISIVEL,Cluster Traps Support,SkillGem,SkillGem,9.0,0.02,25,0,stash,poe.ninja
+T3_VISIVEL,Focused Channelling Support,SkillGem,SkillGem,9.0,0.02,27,15.38,stash,poe.ninja
+T3_VISIVEL,The Porcupine,Cards,DivinationCard,8.97,,230.3,965.7,exchange,poe.ninja
+T3_VISIVEL,Corrupted Arach,Beast,Beast,8.9,0.02,269,11.25,stash,poe.ninja
+T3_VISIVEL,Host Adder,Beast,Beast,8.9,0.02,163,11.25,stash,poe.ninja
+T3_VISIVEL,Vaulting Croaker,Beast,Beast,8.9,0.02,64,11.25,stash,poe.ninja
+T3_VISIVEL,Echoes of Love,Cards,DivinationCard,8.86,,62.0,-30.35,exchange,poe.ninja
+T3_VISIVEL,Maven's Chisel of Scarabs,Currency,Currency,8.81,,3432,66.0,exchange,poe.ninja
+T3_VISIVEL,Wailing Essence of Rage,Essences,Essence,8.77,,32.17,1655,exchange,poe.ninja
+T3_VISIVEL,The Enthusiasts,Cards,DivinationCard,8.74,,51.0,9.29,exchange,poe.ninja
+T3_VISIVEL,The Summoner,Cards,DivinationCard,8.69,,50.67,161.8,exchange,poe.ninja
+T3_VISIVEL,Deafening Essence of Woe,Essences,Essence,8.65,,11841,36.5,exchange,poe.ninja
+T3_VISIVEL,Infested Ape,Beast,Beast,8.6,0.02,43,7.5,stash,poe.ninja
+T3_VISIVEL,Deafening Essence of Loathing,Essences,Essence,8.52,,5145,-4.78,exchange,poe.ninja
+T3_VISIVEL,Mountain Hellion,Beast,Beast,8.4,0.02,69,5,stash,poe.ninja
+T3_VISIVEL,Deafening Essence of Contempt,Essences,Essence,8.32,,20743,2.87,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Arohongui Scout,Ancestor,Tattoo,8.3,,471.5,-83.41,exchange,poe.ninja
+T3_VISIVEL,Corrupted Beast,Beast,Beast,8.3,0.02,88,3.75,stash,poe.ninja
+T3_VISIVEL,Essence Scarab of Calcification,Fragments,Scarab,8.23,,5049,34.86,exchange,poe.ninja
+T3_VISIVEL,Host Chieftain,Beast,Beast,8.2,0.02,33,2.5,stash,poe.ninja
+T3_VISIVEL,Volley Support,SkillGem,SkillGem,8.2,0.02,33,-18,stash,poe.ninja
+T3_VISIVEL,The Eye of the Dragon,Cards,DivinationCard,8.12,,366.7,-37.15,exchange,poe.ninja
+T3_VISIVEL,Thicket Hulk,Beast,Beast,8.1,0.02,54,1.25,stash,poe.ninja
+T3_VISIVEL,Acid Slitherer,Beast,Beast,8.0,0.02,263,0,stash,poe.ninja
+T3_VISIVEL,Adolescent Rhex,Beast,Beast,8.0,0.02,390,0,stash,poe.ninja
+T3_VISIVEL,Alpine Devil,Beast,Beast,8.0,0.02,268,0,stash,poe.ninja
+T3_VISIVEL,Alpine Shaman,Beast,Beast,8.0,0.02,103,0,stash,poe.ninja
+T3_VISIVEL,Arakaali's Daughter,Beast,Beast,8.0,0.02,121,0,stash,poe.ninja
+T3_VISIVEL,Armour Cruncher,Beast,Beast,8.0,0.02,160,0,stash,poe.ninja
+T3_VISIVEL,Avalanche Rider,Beast,Beast,8.0,0.02,144,0,stash,poe.ninja
+T3_VISIVEL,Avian Retch,Beast,Beast,8.0,0.02,662,0,stash,poe.ninja
+T3_VISIVEL,Bearded Devil,Beast,Beast,8.0,0.02,565,0,stash,poe.ninja
+T3_VISIVEL,Bearded Shaman,Beast,Beast,8.0,0.02,174,0,stash,poe.ninja
+T3_VISIVEL,Bearded Skycaller,Beast,Beast,8.0,0.02,269,0,stash,poe.ninja
+T3_VISIVEL,Black Scorpion,Beast,Beast,8.0,0.02,107,0,stash,poe.ninja
+T3_VISIVEL,Bleached Crawler,Beast,Beast,8.0,0.02,238,0,stash,poe.ninja
+T3_VISIVEL,Blood Chieftain,Beast,Beast,8.0,0.02,181,0,stash,poe.ninja
+T3_VISIVEL,Bone Cruncher,Beast,Beast,8.0,0.02,150,0,stash,poe.ninja
+T3_VISIVEL,Bone Rhoa,Beast,Beast,8.0,0.02,602,0,stash,poe.ninja
+T3_VISIVEL,Brine Vassal,Beast,Beast,8.0,0.02,123,0,stash,poe.ninja
+T3_VISIVEL,Carnage Ape,Beast,Beast,8.0,0.02,187,0,stash,poe.ninja
+T3_VISIVEL,Carnage Chieftain,Beast,Beast,8.0,0.02,173,0,stash,poe.ninja
+T3_VISIVEL,Carrion Burrower,Beast,Beast,8.0,0.02,184,0,stash,poe.ninja
+T3_VISIVEL,Carrion Swarmer,Beast,Beast,8.0,0.02,349,0,stash,poe.ninja
+T3_VISIVEL,Cave Beast,Beast,Beast,8.0,0.02,73,0,stash,poe.ninja
+T3_VISIVEL,Chimeric Croaker,Beast,Beast,8.0,0.02,308,0,stash,poe.ninja
+T3_VISIVEL,Chrome-infused Chimeral,Beast,Beast,8.0,0.02,133,0,stash,poe.ninja
+T3_VISIVEL,Chrome-infused Croaker,Beast,Beast,8.0,0.02,85,0,stash,poe.ninja
+T3_VISIVEL,Chrome-infused Goliath,Beast,Beast,8.0,0.02,277,0,stash,poe.ninja
+T3_VISIVEL,Chrome-touched Chimeral,Beast,Beast,8.0,0.02,327,0,stash,poe.ninja
+T3_VISIVEL,Chrome-touched Croaker,Beast,Beast,8.0,0.02,241,0,stash,poe.ninja
+T3_VISIVEL,Chrome-touched Goliath,Beast,Beast,8.0,0.02,270,0,stash,poe.ninja
+T3_VISIVEL,Colossus Crusher,Beast,Beast,8.0,0.02,79,0,stash,poe.ninja
+T3_VISIVEL,Corrupted Rhoa,Beast,Beast,8.0,0.02,138,0,stash,poe.ninja
+T3_VISIVEL,Crustacean Sniper,Beast,Beast,8.0,0.02,178,0,stash,poe.ninja
+T3_VISIVEL,Cursed Spawn,Beast,Beast,8.0,0.02,209,0,stash,poe.ninja
+T3_VISIVEL,Devourer,Beast,Beast,8.0,0.02,262,0,stash,poe.ninja
+T3_VISIVEL,Dirt Scrabbler,Beast,Beast,8.0,0.02,205,0,stash,poe.ninja
+T3_VISIVEL,Dread Primate,Beast,Beast,8.0,0.02,250,0,stash,poe.ninja
+T3_VISIVEL,Dune Hellion,Beast,Beast,8.0,0.02,333,0,stash,poe.ninja
+T3_VISIVEL,Dust Scrabbler,Beast,Beast,8.0,0.02,418,0,stash,poe.ninja
+T3_VISIVEL,Elder-Blessed Cobra,Beast,Beast,8.0,0.02,76,0,stash,poe.ninja
+T3_VISIVEL,Elder-Blessed Goatman,Beast,Beast,8.0,0.02,43,0,stash,poe.ninja
+T3_VISIVEL,Elder-Blessed Retch,Beast,Beast,8.0,0.02,209,0,stash,poe.ninja
+T3_VISIVEL,Elder-Blessed Rhoa,Beast,Beast,8.0,0.02,62,0,stash,poe.ninja
+T3_VISIVEL,Enraptured Beast,Beast,Beast,8.0,0.02,102,0,stash,poe.ninja
+T3_VISIVEL,Enslaved Hellion,Beast,Beast,8.0,0.02,305,0,stash,poe.ninja
+T3_VISIVEL,Feral Chimeral,Beast,Beast,8.0,0.02,59,0,stash,poe.ninja
+T3_VISIVEL,Fetid Maw,Beast,Beast,8.0,0.02,205,0,stash,poe.ninja
+T3_VISIVEL,Fighting Bull,Beast,Beast,8.0,0.02,248,0,stash,poe.ninja
+T3_VISIVEL,Filth Maw,Beast,Beast,8.0,0.02,215,0,stash,poe.ninja
+T3_VISIVEL,Flame Hellion,Beast,Beast,8.0,0.02,662,0,stash,poe.ninja
+T3_VISIVEL,Forest Beast,Beast,Beast,8.0,0.02,30,0,stash,poe.ninja
+T3_VISIVEL,Freezing Wolf,Beast,Beast,8.0,0.02,61,0,stash,poe.ninja
+T3_VISIVEL,Fury Hound,Beast,Beast,8.0,0.02,49,-1.23,stash,poe.ninja
+T3_VISIVEL,Glade Mamba,Beast,Beast,8.0,0.02,187,0,stash,poe.ninja
+T3_VISIVEL,Gluttonous Gull,Beast,Beast,8.0,0.02,440,0,stash,poe.ninja
+T3_VISIVEL,Goatman,Beast,Beast,8.0,0.02,458,0,stash,poe.ninja
+T3_VISIVEL,Goatman Shaman,Beast,Beast,8.0,0.02,294,0,stash,poe.ninja
+T3_VISIVEL,Granite Eater,Beast,Beast,8.0,0.02,504,0,stash,poe.ninja
+T3_VISIVEL,Hairy Bonecruncher,Beast,Beast,8.0,0.02,38,0,stash,poe.ninja
+T3_VISIVEL,Hill Devil,Beast,Beast,8.0,0.02,275,0,stash,poe.ninja
+T3_VISIVEL,Host Cobra,Beast,Beast,8.0,0.02,136,0,stash,poe.ninja
+T3_VISIVEL,Hybrid Arachnid,Beast,Beast,8.0,0.02,135,0,stash,poe.ninja
+T3_VISIVEL,Infested Crab,Beast,Beast,8.0,0.02,172,0,stash,poe.ninja
+T3_VISIVEL,Infested Crawler,Beast,Beast,8.0,0.02,200,0,stash,poe.ninja
+T3_VISIVEL,Infested Maw,Beast,Beast,8.0,0.02,189,0,stash,poe.ninja
+T3_VISIVEL,Infested Rhoa,Beast,Beast,8.0,0.02,137,0,stash,poe.ninja
+T3_VISIVEL,Infested Skitterer,Beast,Beast,8.0,0.02,177,0,stash,poe.ninja
+T3_VISIVEL,Infested Tunnelfiend,Beast,Beast,8.0,0.02,186,0,stash,poe.ninja
+T3_VISIVEL,Maternal Rhex,Beast,Beast,8.0,0.02,304,0,stash,poe.ninja
+T3_VISIVEL,Merveil's Attendant,Beast,Beast,8.0,0.02,100,0,stash,poe.ninja
+T3_VISIVEL,Merveil's Blessed,Beast,Beast,8.0,0.02,98,0,stash,poe.ninja
+T3_VISIVEL,Merveil's Chosen,Beast,Beast,8.0,0.02,167,0,stash,poe.ninja
+T3_VISIVEL,Merveil's Favoured,Beast,Beast,8.0,0.02,217,0,stash,poe.ninja
+T3_VISIVEL,Merveil's Retainer,Beast,Beast,8.0,0.02,196,0,stash,poe.ninja
+T3_VISIVEL,Mindless Scavenger,Beast,Beast,8.0,0.02,301,0,stash,poe.ninja
+T3_VISIVEL,Mountain Hellion Alpha,Beast,Beast,8.0,0.02,113,0,stash,poe.ninja
+T3_VISIVEL,Mountain Lynx,Beast,Beast,8.0,0.02,192,0,stash,poe.ninja
+T3_VISIVEL,Murk Runner,Beast,Beast,8.0,0.02,122,0,stash,poe.ninja
+T3_VISIVEL,Night Adder,Beast,Beast,8.0,0.02,226,0,stash,poe.ninja
+T3_VISIVEL,Obsidian Eater,Beast,Beast,8.0,0.02,423,0,stash,poe.ninja
+T3_VISIVEL,Pitbull Demon,Beast,Beast,8.0,0.02,277,0,stash,poe.ninja
+T3_VISIVEL,Plated Parasite,Beast,Beast,8.0,0.02,85,0,stash,poe.ninja
+T3_VISIVEL,Plummeting Ursa,Beast,Beast,8.0,0.02,214,0,stash,poe.ninja
+T3_VISIVEL,Porcupine Goliath,Beast,Beast,8.0,0.02,448,0,stash,poe.ninja
+T3_VISIVEL,Predatory Scorpion,Beast,Beast,8.0,0.02,73,0,stash,poe.ninja
+T3_VISIVEL,Purge Hound,Beast,Beast,8.0,0.02,347,0,stash,poe.ninja
+T3_VISIVEL,Rhoa Mare,Beast,Beast,8.0,0.02,242,0,stash,poe.ninja
+T3_VISIVEL,Rooster Fiend,Beast,Beast,8.0,0.02,193,0,stash,poe.ninja
+T3_VISIVEL,Sand Leaper,Beast,Beast,8.0,0.02,328,0,stash,poe.ninja
+T3_VISIVEL,Savage Crab,Beast,Beast,8.0,0.02,174,0,stash,poe.ninja
+T3_VISIVEL,Scalding Arachnid,Beast,Beast,8.0,0.02,81,0,stash,poe.ninja
+T3_VISIVEL,Scum Crawler,Beast,Beast,8.0,0.02,189,0,stash,poe.ninja
+T3_VISIVEL,Sewage Crawler,Beast,Beast,8.0,0.02,153,0,stash,poe.ninja
+T3_VISIVEL,Shackled Hellion,Beast,Beast,8.0,0.02,256,0,stash,poe.ninja
+T3_VISIVEL,Singing Siren,Beast,Beast,8.0,0.02,194,0,stash,poe.ninja
+T3_VISIVEL,Skeletal Beast,Beast,Beast,8.0,0.02,128,0,stash,poe.ninja
+T3_VISIVEL,Slimy Nemesis,Beast,Beast,8.0,0.02,123,0,stash,poe.ninja
+T3_VISIVEL,Snow Wolf,Beast,Beast,8.0,0.02,69,0,stash,poe.ninja
+T3_VISIVEL,Soulless Watcher,Beast,Beast,8.0,0.02,140,0,stash,poe.ninja
+T3_VISIVEL,Spindle Spider,Beast,Beast,8.0,0.02,457,0,stash,poe.ninja
+T3_VISIVEL,Spine Serpent,Beast,Beast,8.0,0.02,271,0,stash,poe.ninja
+T3_VISIVEL,Spitting Parasite,Beast,Beast,8.0,0.02,47,0,stash,poe.ninja
+T3_VISIVEL,Stygian Ape,Beast,Beast,8.0,0.02,215,0,stash,poe.ninja
+T3_VISIVEL,Sulphuric Scorpion,Beast,Beast,8.0,0.02,277,0,stash,poe.ninja
+T3_VISIVEL,Sulphurspawn,Beast,Beast,8.0,0.02,140,0,stash,poe.ninja
+T3_VISIVEL,Swarthy Mollusc,Beast,Beast,8.0,0.02,94,0,stash,poe.ninja
+T3_VISIVEL,Talon Archer,Beast,Beast,8.0,0.02,105,0,stash,poe.ninja
+T3_VISIVEL,Tercel Rhoa,Beast,Beast,8.0,0.02,89,0,stash,poe.ninja
+T3_VISIVEL,Venomous Spawn,Beast,Beast,8.0,0.02,103,0,stash,poe.ninja
+T3_VISIVEL,Vicious Parasite,Beast,Beast,8.0,0.02,63,0,stash,poe.ninja
+T3_VISIVEL,Virulent Spider,Beast,Beast,8.0,0.02,183,0,stash,poe.ninja
+T3_VISIVEL,Vivid Watcher,Beast,Beast,8.0,0.02,371,23.08,stash,poe.ninja
+T3_VISIVEL,Waste Lurcher,Beast,Beast,8.0,0.02,89,0,stash,poe.ninja
+T3_VISIVEL,Wild Rhex,Beast,Beast,8.0,0.02,628,0,stash,poe.ninja
+T3_VISIVEL,Tranquillity,Cards,DivinationCard,8.0,,58.67,-68,exchange,poe.ninja
+T3_VISIVEL,Muttering Essence of Torment,Essences,Essence,8.0,,1.33,500.0,exchange,poe.ninja
+T3_VISIVEL,Life Leech Support,SkillGem,SkillGem,8.0,0.02,29,6.67,stash,poe.ninja
+T3_VISIVEL,Wailing Essence of Doubt,Essences,Essence,7.85,,290.5,118.2,exchange,poe.ninja
+T3_VISIVEL,Deafening Essence of Spite,Essences,Essence,7.75,,22539,-6.46,exchange,poe.ninja
+T3_VISIVEL,Omen of the Jeweller,Ancestor,Omen,7.73,,258.8,-16.81,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Arohongui Warrior,Ancestor,Tattoo,7.73,,388.0,-84.23,exchange,poe.ninja
+T3_VISIVEL,Deafening Essence of Rage,Essences,Essence,7.71,,16088,-16.76,exchange,poe.ninja
+T3_VISIVEL,Shrieking Essence of Spite,Essences,Essence,7.69,,330.5,399.6,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Rongokurai Warrior,Ancestor,Tattoo,7.64,,467.5,73.57,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Arohongui Warmonger,Ancestor,Tattoo,7.62,,80.0,-84.76,exchange,poe.ninja
+T3_VISIVEL,Aberrant Fossil,Delve,Fossil,7.6,,1412,-19.48,exchange,poe.ninja
+T3_VISIVEL,Chance to Flee Support,SkillGem,SkillGem,7.6,0.02,17,12,stash,poe.ninja
+T3_VISIVEL,Lucent Fossil,Delve,Fossil,7.52,,414.7,-9.51,exchange,poe.ninja
+T3_VISIVEL,Tainted Mythic Orb,Currency,Currency,7.49,,601.3,15.72,exchange,poe.ninja
+T3_VISIVEL,Unchained,Cards,DivinationCard,7.45,,127.8,196.9,exchange,poe.ninja
+T3_VISIVEL,Deafening Essence of Zeal,Essences,Essence,7.31,,10290,7.52,exchange,poe.ninja
+T3_VISIVEL,The Pact,Cards,DivinationCard,7.25,,24.17,81.25,exchange,poe.ninja
+T3_VISIVEL,Incursion Scarab of Timelines,Fragments,Scarab,7.19,,4456,66.91,exchange,poe.ninja
+T3_VISIVEL,Grand Eldritch Ember,Currency,Currency,7.1,,17580,34.25,exchange,poe.ninja
+T3_VISIVEL,Shrieking Essence of Zeal,Essences,Essence,7.1,,81.66,-7.25,exchange,poe.ninja
+T3_VISIVEL,Primal Crushclaw,Beast,Beast,7.0,0.01,366,133.3,stash,poe.ninja
+T3_VISIVEL,The One With All,Cards,DivinationCard,7.0,,1.17,250,exchange,poe.ninja
+T3_VISIVEL,The Scout,Cards,DivinationCard,7.0,,1.17,154.6,exchange,poe.ninja
+T3_VISIVEL,The Constrictor Map (Tier 16),Map,Map,7.0,0.01,3107,16.67,stash,poe.ninja
+T3_VISIVEL,The Enslaver Map (Tier 16),Map,Map,7.0,0.01,2911,40,stash,poe.ninja
+T3_VISIVEL,The Eradicator Map (Tier 16),Map,Map,7.0,0.01,3191,40,stash,poe.ninja
+T3_VISIVEL,The Purifier Map (Tier 16),Map,Map,7.0,0.01,3035,40,stash,poe.ninja
+T3_VISIVEL,Omen of Death's Door,Ancestor,Omen,6.82,,12.5,41.41,exchange,poe.ninja
+T3_VISIVEL,Fracturing Shard,Currency,Currency,6.8,,5.67,17.24,exchange,poe.ninja
+T3_VISIVEL,Horned Scarab of Glittering,Fragments,Scarab,6.73,,4279,137.3,exchange,poe.ninja
+T3_VISIVEL,The Jeweller's Boon,Cards,DivinationCard,6.63,,21.0,215.8,exchange,poe.ninja
+T3_VISIVEL,Emperor of Purity,Cards,DivinationCard,6.6,,66.0,230.0,exchange,poe.ninja
+T3_VISIVEL,Deafening Essence of Envy,Essences,Essence,6.6,,9065,-4.3,exchange,poe.ninja
+T3_VISIVEL,Fragment of the Hydra,Fragments,Fragment,6.58,,304.0,3.99,exchange,poe.ninja
+T3_VISIVEL,Stacked Deck,Currency,Currency,6.56,,2243233,1.0,exchange,poe.ninja
+T3_VISIVEL,Timeless Vaal Emblem,Fragments,Fragment,6.54,,747.5,-5.3,exchange,poe.ninja
+T3_VISIVEL,Fragment of the Minotaur,Fragments,Fragment,6.47,,252.2,-29.93,exchange,poe.ninja
+T3_VISIVEL,Deafening Essence of Wrath,Essences,Essence,6.37,,3757,-11.61,exchange,poe.ninja
+T3_VISIVEL,Maven's Chisel of Procurement,Currency,Currency,6.28,,4593,23.91,exchange,poe.ninja
+T3_VISIVEL,Omen of Return,Ancestor,Omen,6.21,,87.0,227.1,exchange,poe.ninja
+T3_VISIVEL,Tangled Fossil,Delve,Fossil,6.17,,29.83,124.4,exchange,poe.ninja
+T3_VISIVEL,Tattoo of the Ngamahu Shaman,Ancestor,Tattoo,6.05,,306.5,-66.69,exchange,poe.ninja
+T3_VISIVEL,Serrated Fossil,Delve,Fossil,6.01,,161.2,-57.07,exchange,poe.ninja
+T3_VISIVEL,Earth Drinker,Cards,DivinationCard,6.0,,4.0,860.3,exchange,poe.ninja
+T3_VISIVEL,Runegraft of Bellows,Runegrafts,Runegraft,6.0,,91.0,1.93,exchange,poe.ninja
+T3_VISIVEL,Controlled Blaze Support,SkillGem,SkillGem,6.0,0.01,44,0,stash,poe.ninja
+T3_VISIVEL,Frigid Bond Support,SkillGem,SkillGem,6.0,0.01,29,0,stash,poe.ninja
+T3_VISIVEL,Kinetic Instability Support,SkillGem,SkillGem,6.0,0.01,37,0,stash,poe.ninja
+T3_VISIVEL,Living Lightning Support,SkillGem,SkillGem,6.0,0.01,19,0,stash,poe.ninja
+T3_VISIVEL,Rupture Support,SkillGem,SkillGem,6.0,0.01,25,0,stash,poe.ninja
+T3_VISIVEL,Mawr Blaidd,Cards,DivinationCard,5.87,,233.0,-51.97,exchange,poe.ninja
+T3_VISIVEL,Blight Scarab of Invigoration,Fragments,Scarab,5.87,,884.5,11.09,exchange,poe.ninja
+T3_VISIVEL,Omen of Death-dancing,Ancestor,Omen,5.85,,46.83,-34.18,exchange,poe.ninja
+T3_VISIVEL,The Aspirant,Cards,DivinationCard,5.75,,152.3,-47.55,exchange,poe.ninja
+T3_VISIVEL,Shrieking Essence of Dread,Essences,Essence,5.75,,101.7,22.01,exchange,poe.ninja
+T3_VISIVEL,The Shortcut,Cards,DivinationCard,5.72,,287.8,86.48,exchange,poe.ninja
+T3_VISIVEL,Scorched Fossil,Delve,Fossil,5.63,,651.3,-37.09,exchange,poe.ninja
+T3_VISIVEL,12% increased Physical Damage over Time,ClusterJewel,ClusterJewel,5.5,0.01,62,0,stash,poe.ninja
+T3_VISIVEL,Crystallised Rancour,Currency,Currency,5.41,,5454,27.45,exchange,poe.ninja
+T3_VISIVEL,Deafening Essence of Sorrow,Essences,Essence,5.39,,3185,0.58,exchange,poe.ninja
+T3_VISIVEL,Shrieking Essence of Envy,Essences,Essence,5.37,,112.7,21.58,exchange,poe.ninja
+T3_VISIVEL,Tainted Orb of Fusing,Currency,Currency,5.17,,1271,25.08,exchange,poe.ninja
+T3_VISIVEL,Deafening Essence of Fear,Essences,Essence,5.14,,6696,-7.67,exchange,poe.ninja
+T3_VISIVEL,Deafening Essence of Misery,Essences,Essence,5.14,,2738,18.27,exchange,poe.ninja
+T3_VISIVEL,Timeless Karui Emblem,Fragments,Fragment,5.14,,526.5,50.74,exchange,poe.ninja
+T3_VISIVEL,Runegraft of the Imbued,Runegrafts,Runegraft,5.14,,179.0,9.96,exchange,poe.ninja
+T3_VISIVEL,Runegraft of Rallying,Runegrafts,Runegraft,5.13,,19.67,60.33,exchange,poe.ninja
+T3_VISIVEL,Eternal Bonds,Cards,DivinationCard,5.12,,116.0,430.0,exchange,poe.ninja
+T3_VISIVEL,Deafening Essence of Greed,Essences,Essence,5.11,,2052,29.56,exchange,poe.ninja
+T3_VISIVEL,Eldritch Perfection,Cards,DivinationCard,5.05,,16.0,1.05,exchange,poe.ninja
+T3_VISIVEL,Allflame Ember of Resplendence,AllflameEmbers,AllflameEmber,5.0,,9.17,-27.91,exchange,poe.ninja
+T3_VISIVEL,Anarchy's Price,Cards,DivinationCard,5.0,,31.67,-50,exchange,poe.ninja
+T3_VISIVEL,Checkmate,Cards,DivinationCard,5.0,,0.8333,-53.13,exchange,poe.ninja
+T3_VISIVEL,The Chains that Bind,Cards,DivinationCard,5.0,,180,-64.51,exchange,poe.ninja
+T3_VISIVEL,The Vast,Cards,DivinationCard,5.0,,22.5,0,exchange,poe.ninja
+T3_VISIVEL,+15% to Fire Resistance,ClusterJewel,ClusterJewel,5.0,0.01,1218,0,stash,poe.ninja
+T3_VISIVEL,Rewritten Distant Memory,UniqueMap,UniqueMap,5.0,0.01,691,0,stash,poe.ninja
+T4_BAIXO,Gift of Asenath,Cards,DivinationCard,4.96,,57.83,-11.87,exchange,poe.ninja
+T4_BAIXO,Orb of Unravelling,Currency,Currency,4.94,,56.0,-65.04,exchange,poe.ninja
+T4_BAIXO,+15% to Lightning Resistance,ClusterJewel,ClusterJewel,4.9,0.01,1091,48.48,stash,poe.ninja
+T4_BAIXO,Prismatic Fossil,Delve,Fossil,4.8,,416.7,-54.31,exchange,poe.ninja
+T4_BAIXO,Deafening Essence of Anger,Essences,Essence,4.79,,5063,-29.17,exchange,poe.ninja
+T4_BAIXO,Frigid Fossil,Delve,Fossil,4.77,,493.2,-50.01,exchange,poe.ninja
+T4_BAIXO,Deafening Essence of Hatred,Essences,Essence,4.73,,2407,3.27,exchange,poe.ninja
+T4_BAIXO,6% increased maximum Energy Shield,ClusterJewel,ClusterJewel,4.6,0.01,1785,-8,stash,poe.ninja
+T4_BAIXO,Deafening Essence of Torment,Essences,Essence,4.58,,1960,-25.61,exchange,poe.ninja
+T4_BAIXO,The Patient,Cards,DivinationCard,4.56,,12.17,126.7,exchange,poe.ninja
+T4_BAIXO,Deafening Essence of Dread,Essences,Essence,4.49,,1208,6.97,exchange,poe.ninja
+T4_BAIXO,Essence Scarab of Adaptation,Fragments,Scarab,4.48,,2361,49.69,exchange,poe.ninja
+T4_BAIXO,Deafening Essence of Anguish,Essences,Essence,4.41,,3757,-10.0,exchange,poe.ninja
+T4_BAIXO,12% increased Cold Damage over Time,ClusterJewel,ClusterJewel,4.4,0.01,427,120,stash,poe.ninja
+T4_BAIXO,Dying Anguish,Cards,DivinationCard,4.34,,4578,-35.43,exchange,poe.ninja
+T4_BAIXO,Kalguuran Scarab of Enriching,Fragments,Scarab,4.18,,631.7,190.1,exchange,poe.ninja
+T4_BAIXO,Tattoo of the Tasalio Tideshifter,Ancestor,Tattoo,4.13,,304.7,-50.89,exchange,poe.ninja
+T4_BAIXO,Tattoo of the Tasalio Warrior,Ancestor,Tattoo,4.12,,55.0,-13.99,exchange,poe.ninja
+T4_BAIXO,The Dreamer,Cards,DivinationCard,4.12,,379.7,-12.72,exchange,poe.ninja
+T4_BAIXO,Crimson Oil,Oils,Oil,4.12,,270.3,4.75,exchange,poe.ninja
+T4_BAIXO,Deafening Essence of Suffering,Essences,Essence,4.08,,3920,-6.54,exchange,poe.ninja
+T4_BAIXO,Screaming Essence of Contempt,Essences,Essence,4.04,,395.5,694.4,exchange,poe.ninja
+T4_BAIXO,Runegraft of Resurgence,Runegrafts,Runegraft,4.02,,40.17,-56.41,exchange,poe.ninja
+T4_BAIXO,Deafening Essence of Doubt,Essences,Essence,4.01,,7431,-15.69,exchange,poe.ninja
+T4_BAIXO,Lucky Deck,Cards,DivinationCard,4.0,,6.0,0,exchange,poe.ninja
+T4_BAIXO,Prometheus' Armoury,Cards,DivinationCard,4.0,,0.6667,300,exchange,poe.ninja
+T4_BAIXO,The Enforcer,Cards,DivinationCard,4.0,,2.0,23.08,exchange,poe.ninja
+T4_BAIXO,The Lord of Celebration,Cards,DivinationCard,4.0,,2.0,-22.29,exchange,poe.ninja
+T4_BAIXO,The Oath,Cards,DivinationCard,4.0,,1.33,-96,exchange,poe.ninja
+T4_BAIXO,The Tinkerer's Table,Cards,DivinationCard,4.0,,133.3,-33.45,exchange,poe.ninja
+T4_BAIXO,Shrieking Essence of Misery,Essences,Essence,4.0,,3.33,35.26,exchange,poe.ninja
+T4_BAIXO,Altered Distant Memory,UniqueMap,UniqueMap,4.0,0.01,453,-60,stash,poe.ninja
+T4_BAIXO,Twisted Distant Memory,UniqueMap,UniqueMap,4.0,0.01,597,-20,stash,poe.ninja
+T4_BAIXO,Wailing Essence of Contempt,Essences,Essence,3.92,,56.17,-21.63,exchange,poe.ninja
+T4_BAIXO,Tattoo of the Tawhoa Shaman,Ancestor,Tattoo,3.89,,61.0,-10.68,exchange,poe.ninja
+T4_BAIXO,Shrieking Essence of Anger,Essences,Essence,3.6,,104.5,331.7,exchange,poe.ninja
+T4_BAIXO,A Stone Perfected,Cards,DivinationCard,3.54,,211.7,-4.32,exchange,poe.ninja
+T4_BAIXO,The Dark Mage,Cards,DivinationCard,3.51,,28.67,18.23,exchange,poe.ninja
+T4_BAIXO,Screaming Essence of Wrath,Essences,Essence,3.51,,24.0,92.85,exchange,poe.ninja
+T4_BAIXO,Eldritch Exalted Orb,Currency,Currency,3.48,,982.7,48.66,exchange,poe.ninja
+T4_BAIXO,Ritual Scarab of Selectiveness,Fragments,Scarab,3.42,,849.3,701.8,exchange,poe.ninja
+T4_BAIXO,Awakening Fragment,Fragments,Fragment,3.41,,1812,59.38,exchange,poe.ninja
+T4_BAIXO,Runegraft of Blasphemy,Runegrafts,Runegraft,3.33,,97.67,-47.89,exchange,poe.ninja
+T4_BAIXO,Bestiary Scarab of Duplicating,Fragments,Scarab,3.28,,19428,72.01,exchange,poe.ninja
+T4_BAIXO,Legion Scarab of Treasures,Fragments,Scarab,3.25,,499.8,224.0,exchange,poe.ninja
+T4_BAIXO,Chaotic Disposition,Cards,DivinationCard,3.24,,993.5,-19.03,exchange,poe.ninja
+T4_BAIXO,Hivebrain Gland,Fragments,Fragment,3.2,,416.5,-22.05,exchange,poe.ninja
+T4_BAIXO,Ancient Orb,Currency,Currency,3.19,,8223,14.14,exchange,poe.ninja
+T4_BAIXO,Horned Scarab of Tradition,Fragments,Scarab,3.14,,53.83,527.2,exchange,poe.ninja
+T4_BAIXO,Exalted Orb,Currency,Currency,3.13,,28262,31.48,exchange,poe.ninja
+T4_BAIXO,Bestiary Scarab of the Herd,Fragments,Scarab,3.11,,27862,205.6,exchange,poe.ninja
+T4_BAIXO,+15% to Cold Resistance,ClusterJewel,ClusterJewel,3.1,0.01,1105,-22.5,stash,poe.ninja
+T4_BAIXO,Shrieking Essence of Woe,Essences,Essence,3.08,,49.33,-61.46,exchange,poe.ninja
+T4_BAIXO,Breach Scarab of Instability,Fragments,Scarab,3.07,,12672,155.5,exchange,poe.ninja
+T4_BAIXO,Craicic Maw,Beast,Beast,3.0,0.01,311,200,stash,poe.ninja
+T4_BAIXO,Akil's Prophecy,Cards,DivinationCard,3.0,,232.5,-83.61,exchange,poe.ninja
+T4_BAIXO,Hunter's Reward,Cards,DivinationCard,3.0,,315,-60.83,exchange,poe.ninja
+T4_BAIXO,Mitts,Cards,DivinationCard,3.0,,6,200,exchange,poe.ninja
+T4_BAIXO,Pride Before the Fall,Cards,DivinationCard,3.0,,0.5,0,exchange,poe.ninja
+T4_BAIXO,The Avenger,Cards,DivinationCard,3.0,,37.5,-21.05,exchange,poe.ninja
+T4_BAIXO,The Awakened,Cards,DivinationCard,3.0,,13.0,20,exchange,poe.ninja
+T4_BAIXO,The Conduit,Cards,DivinationCard,3.0,,0.5,-45.45,exchange,poe.ninja
+T4_BAIXO,The Rite of Elements,Cards,DivinationCard,3.0,,27.5,11.83,exchange,poe.ninja
+T4_BAIXO,The Spark and the Flame,Cards,DivinationCard,3.0,,7.0,0,exchange,poe.ninja
+T4_BAIXO,Thirst for Knowledge,Cards,DivinationCard,3.0,,0.5,200,exchange,poe.ninja
+T4_BAIXO,15% increased Evasion Rating,ClusterJewel,ClusterJewel,3.0,0.01,1139,-40,stash,poe.ninja
+T4_BAIXO,Ambush Scarab of Discernment,Fragments,Scarab,3.0,,6275,155.4,exchange,poe.ninja
+T4_BAIXO,Runegraft of the Jeweller,Runegrafts,Runegraft,3.0,,20.0,-50.27,exchange,poe.ninja
+T4_BAIXO,Portal,SkillGem,SkillGem,3.0,0.01,1008,0,stash,poe.ninja
+T4_BAIXO,The Bitter Blossom,Cards,DivinationCard,2.99,,1178,-0.66,exchange,poe.ninja
+T4_BAIXO,Tattoo of the Tawhoa Herbalist,Ancestor,Tattoo,2.97,,37.67,-18.26,exchange,poe.ninja
+T4_BAIXO,Tainted Chaos Orb,Currency,Currency,2.95,,10.33,-46.54,exchange,poe.ninja
+T4_BAIXO,Tainted Armourer's Scrap,Currency,Currency,2.91,,652.8,160.0,exchange,poe.ninja
+T4_BAIXO,Farric Wolf Alpha,Beast,Beast,2.9,0.01,448,190,stash,poe.ninja
+T4_BAIXO,The Forward Gaze,Cards,DivinationCard,2.86,,1058,21.77,exchange,poe.ninja
+T4_BAIXO,Ambush Scarab,Fragments,Scarab,2.83,,22577,665.5,exchange,poe.ninja
+T4_BAIXO,Memory of Loneliness,Fragments,Fragment,2.77,,133.8,192.2,exchange,poe.ninja
+T4_BAIXO,Runegraft of the Agile,Runegrafts,Runegraft,2.77,,40.17,-60.13,exchange,poe.ninja
+T4_BAIXO,A Fate Worse Than Death,Cards,DivinationCard,2.75,,121.7,-83.41,exchange,poe.ninja
+T4_BAIXO,Tattoo of the Kitava Shaman,Ancestor,Tattoo,2.65,,19.0,-66.06,exchange,poe.ninja
+T4_BAIXO,Titanic Scarab of Legend,Fragments,Scarab,2.61,,5574,447.1,exchange,poe.ninja
+T4_BAIXO,10% increased Damage over Time,ClusterJewel,ClusterJewel,2.6,0.01,123,160,stash,poe.ninja
+T4_BAIXO,Delirium Scarab of Mania,Fragments,Scarab,2.58,,3905,-46.67,exchange,poe.ninja
+T4_BAIXO,Allflame Ember of Flesh,AllflameEmbers,AllflameEmber,2.57,,12.0,28.57,exchange,poe.ninja
+T4_BAIXO,The Wind,Cards,DivinationCard,2.55,,34.0,-80.17,exchange,poe.ninja
+T4_BAIXO,Ritual Scarab of Abundance,Fragments,Scarab,2.54,,2006,40.52,exchange,poe.ninja
+T4_BAIXO,Runegraft of Connection,Runegrafts,Runegraft,2.52,,51.33,-32.54,exchange,poe.ninja
+T4_BAIXO,Timeless Maraketh Splinter,Fragments,Fragment,2.51,,63.67,1769,exchange,poe.ninja
+T4_BAIXO,Screaming Essence of Anger,Essences,Essence,2.5,,8.33,6.86,exchange,poe.ninja
+T4_BAIXO,Abyss Scarab of Edifice,Fragments,Scarab,2.47,,112.2,459.3,exchange,poe.ninja
+T4_BAIXO,Unstable Catalyst,Catalysts,Currency,2.31,,310.8,27.68,exchange,poe.ninja
+T4_BAIXO,Foulborn Orb of Augmentation,Keepers,Currency,2.28,,140.5,-49.25,exchange,poe.ninja
+T4_BAIXO,Runegraft of Refraction,Runegrafts,Runegraft,2.23,,27.5,-29.62,exchange,poe.ninja
+T4_BAIXO,Runegraft of the Bound,Runegrafts,Runegraft,2.22,,35.5,-17.26,exchange,poe.ninja
+T4_BAIXO,The Tireless Extractor,Cards,DivinationCard,2.19,,2044,269.8,exchange,poe.ninja
+T4_BAIXO,Runegraft of the Sinistral,Runegrafts,Runegraft,2.19,,44.5,-49.52,exchange,poe.ninja
+T4_BAIXO,The Last Laugh,Cards,DivinationCard,2.17,,12.67,-56.78,exchange,poe.ninja
+T4_BAIXO,Screaming Essence of Scorn,Essences,Essence,2.17,,21.67,-22.47,exchange,poe.ninja
+T4_BAIXO,Breach Scarab of the Incensed Swarm,Fragments,Scarab,2.13,,1168,4.49,exchange,poe.ninja
+T4_BAIXO,Tattoo of the Hinekora Deathwarden,Ancestor,Tattoo,2.12,,98.5,67.33,exchange,poe.ninja
+T4_BAIXO,Arrogance of the Vaal,Cards,DivinationCard,2.12,,716.5,-48.28,exchange,poe.ninja
+T4_BAIXO,Disdain,Cards,DivinationCard,2.12,,42.5,-57.5,exchange,poe.ninja
+T4_BAIXO,Runegraft of Consecration,Runegrafts,Runegraft,2.12,,17.33,-40.76,exchange,poe.ninja
+T4_BAIXO,Divination Scarab of Plenty,Fragments,Scarab,2.1,,9317,137.7,exchange,poe.ninja
+T4_BAIXO,The Finishing Touch,Cards,DivinationCard,2.09,,200.3,-30.42,exchange,poe.ninja
+T4_BAIXO,Timeless Eternal Emblem,Fragments,Fragment,2.09,,176.2,-51.41,exchange,poe.ninja
+T4_BAIXO,Powerful Chaotic Resonator,Delve,Resonator,2.05,,548.5,36.67,exchange,poe.ninja
+T4_BAIXO,Scarab of Wisps,Fragments,Scarab,2.02,,9033,107.7,exchange,poe.ninja
+T4_BAIXO,Farric Lynx Alpha,Beast,Beast,2.0,,918,100,stash,poe.ninja
+T4_BAIXO,Saqawine Blood Viper,Beast,Beast,2.0,,447,100,stash,poe.ninja
+T4_BAIXO,Altered Perception,Cards,DivinationCard,2.0,,12.33,-80.95,exchange,poe.ninja
+T4_BAIXO,Lysah's Respite,Cards,DivinationCard,2.0,,1.0,100,exchange,poe.ninja
+T4_BAIXO,Sambodhi's Vow,Cards,DivinationCard,2.0,,110.3,71.45,exchange,poe.ninja
+T4_BAIXO,The Endurance,Cards,DivinationCard,2.0,,663.5,299.7,exchange,poe.ninja
+T4_BAIXO,The Escape,Cards,DivinationCard,2.0,,36.67,100,exchange,poe.ninja
+T4_BAIXO,The Road to Power,Cards,DivinationCard,2.0,,3.33,-57.88,exchange,poe.ninja
+T4_BAIXO,The Whiteout,Cards,DivinationCard,2.0,,0.3333,500.0,exchange,poe.ninja
+T4_BAIXO,Underground Forest,Cards,DivinationCard,2.0,,72,-79.48,exchange,poe.ninja
+T4_BAIXO,Wailing Essence of Woe,Essences,Essence,2.0,,1.0,900,exchange,poe.ninja
+T4_BAIXO,Map (Tier 14),Map,Map,2.0,,1235,0,stash,poe.ninja
+T4_BAIXO,Shaper Guardian Map,Map,Map,2.0,,14464,0,stash,poe.ninja
+T4_BAIXO,Augmented Distant Memory,UniqueMap,UniqueMap,2.0,,4261,0,stash,poe.ninja
+T4_BAIXO,Poorjoy's Asylum,UniqueMap,UniqueMap,2.0,,998,-33.33,stash,poe.ninja
+T4_BAIXO,Gemcutter's Prism,Currency,Currency,1.99,,17127,4.14,exchange,poe.ninja
+T4_BAIXO,Ultimatum Scarab of Dueling,Fragments,Scarab,1.98,,1311,-39.0,exchange,poe.ninja
+T4_BAIXO,The Deep Ones,Cards,DivinationCard,1.95,,100.3,-34.85,exchange,poe.ninja
+T4_BAIXO,Screaming Essence of Doubt,Essences,Essence,1.95,,42.5,3793,exchange,poe.ninja
+T4_BAIXO,Tattoo of the Kitava Blood Drinker,Ancestor,Tattoo,1.9,,37.0,120.1,exchange,poe.ninja
+T4_BAIXO,Delirium Scarab of Neuroses,Fragments,Scarab,1.85,,1079,21.09,exchange,poe.ninja
+T4_BAIXO,Brother's Stash,Cards,DivinationCard,1.83,,160.7,45.92,exchange,poe.ninja
+T4_BAIXO,The Garish Power,Cards,DivinationCard,1.81,,57.5,80.63,exchange,poe.ninja
+T4_BAIXO,Tattoo of the Tukohama Warmonger,Ancestor,Tattoo,1.8,,6.0,-66.48,exchange,poe.ninja
+T4_BAIXO,The Union,Cards,DivinationCard,1.8,,7.5,77.64,exchange,poe.ninja
+T4_BAIXO,Screaming Essence of Hatred,Essences,Essence,1.8,,21.0,249.9,exchange,poe.ninja
+T4_BAIXO,Map (Tier 16),Map,Map,1.8,,286541,-64,stash,poe.ninja
+T4_BAIXO,Incursion Scarab of Champions,Fragments,Scarab,1.75,,1026,642.4,exchange,poe.ninja
+T4_BAIXO,Screaming Essence of Suffering,Essences,Essence,1.69,,24.0,21.88,exchange,poe.ninja
+T4_BAIXO,Shrieking Essence of Wrath,Essences,Essence,1.66,,42.83,65.81,exchange,poe.ninja
+T4_BAIXO,Screaming Essence of Spite,Essences,Essence,1.65,,8.5,87.59,exchange,poe.ninja
+T4_BAIXO,Lingering Remnants,Cards,DivinationCard,1.63,,245.0,0,exchange,poe.ninja
+T4_BAIXO,Violet Oil,Oils,Oil,1.62,,111.7,-0.23,exchange,poe.ninja
+T4_BAIXO,Screaming Essence of Torment,Essences,Essence,1.6,,18.17,112.6,exchange,poe.ninja
+T4_BAIXO,Tainted Chromatic Orb,Currency,Currency,1.56,,2069,-30.86,exchange,poe.ninja
+T4_BAIXO,Ritual Scarab of Corpses,Fragments,Scarab,1.56,,430.5,227.1,exchange,poe.ninja
+T4_BAIXO,Tattoo of the Kitava Heart Eater,Ancestor,Tattoo,1.53,,24.17,32.47,exchange,poe.ninja
+T4_BAIXO,Scarab of the Sinistral,Fragments,Scarab,1.53,,2663,66.23,exchange,poe.ninja
+T4_BAIXO,Breach Scarab of the Marshal,Fragments,Scarab,1.51,,670.0,-7.35,exchange,poe.ninja
+T4_BAIXO,Sacrifice at Midnight,Fragments,Fragment,1.51,,885.3,217.3,exchange,poe.ninja
+T4_BAIXO,Ritual Scarab of Wisps,Fragments,Scarab,1.49,,717.2,212.8,exchange,poe.ninja
+T4_BAIXO,Betrayal Scarab of Unbreaking,Fragments,Scarab,1.46,,948.2,230.8,exchange,poe.ninja
+T4_BAIXO,Anarchy Scarab of Partnership,Fragments,Scarab,1.33,,10.67,840.1,exchange,poe.ninja
+T4_BAIXO,Alluring Bounty,Cards,DivinationCard,1.25,,398.2,-18.38,exchange,poe.ninja
+T4_BAIXO,Grand Eldritch Ichor,Currency,Currency,1.23,,4536,5.59,exchange,poe.ninja
+T4_BAIXO,Runegraft of Quaffing,Runegrafts,Runegraft,1.23,,25.33,-66.82,exchange,poe.ninja
+T4_BAIXO,Screaming Essence of Greed,Essences,Essence,1.22,,33.17,-4.97,exchange,poe.ninja
+T4_BAIXO,Tempering Catalyst,Catalysts,Currency,1.13,,431.2,-49.74,exchange,poe.ninja
+T4_BAIXO,Delirium Scarab of Delusions,Fragments,Scarab,1.11,,166.5,-65.71,exchange,poe.ninja
+T4_BAIXO,Sacrifice at Noon,Fragments,Fragment,1.11,,863.7,178.0,exchange,poe.ninja
+T4_BAIXO,Ritual Vessel,Fragments,Fragment,1.1,,288.7,-61.77,exchange,poe.ninja
+T4_BAIXO,Runegraft of the Novamark,Runegrafts,Runegraft,1.1,,9.0,-70.04,exchange,poe.ninja
+T4_BAIXO,Tattoo of the Hinekora Shaman,Ancestor,Tattoo,1.06,,48.83,-10.22,exchange,poe.ninja
+T4_BAIXO,Cartography Scarab of Corruption,Fragments,Scarab,1.06,,3501,28.68,exchange,poe.ninja
+T4_BAIXO,The Breach,Cards,DivinationCard,1.05,,69.33,4.79,exchange,poe.ninja
+T4_BAIXO,The Seeker,Cards,DivinationCard,1.05,,140.0,-19.55,exchange,poe.ninja
+T4_BAIXO,Tattoo of the Tukohama Brawler,Ancestor,Tattoo,1.03,,59.17,12.87,exchange,poe.ninja
+T4_BAIXO,Shrieking Essence of Fear,Essences,Essence,1.02,,9.83,-80.09,exchange,poe.ninja
+T4_BAIXO,Abyss Scarab of Profound Depth,Fragments,Scarab,1.02,,181.0,-26.79,exchange,poe.ninja
+T4_BAIXO,Sacrifice at Dusk,Fragments,Fragment,1.02,,889.7,351.5,exchange,poe.ninja
+T4_BAIXO,The Wilted Rose,Cards,DivinationCard,1.01,,622.7,0.54,exchange,poe.ninja
+T4_BAIXO,Omen of Refreshment,Ancestor,Omen,1.0,,0.1667,0,exchange,poe.ninja
+T4_BAIXO,Tattoo of the Rongokurai Brute,Ancestor,Tattoo,1.0,,52.33,0,exchange,poe.ninja
+T4_BAIXO,Tattoo of the Rongokurai Goliath,Ancestor,Tattoo,1.0,,62.67,0,exchange,poe.ninja
+T4_BAIXO,Tattoo of the Tasalio Bladedancer,Ancestor,Tattoo,1.0,,0.3333,143.5,exchange,poe.ninja
+T4_BAIXO,Craicic Sand Spitter,Beast,Beast,1.0,,1681,0,stash,poe.ninja
+T4_BAIXO,Craicic Savage Crab,Beast,Beast,1.0,,2140,0,stash,poe.ninja
+T4_BAIXO,Craicic Shield Crab,Beast,Beast,1.0,,2114,0,stash,poe.ninja
+T4_BAIXO,Craicic Spider Crab,Beast,Beast,1.0,,307,0,stash,poe.ninja
+T4_BAIXO,Craicic Squid,Beast,Beast,1.0,,2149,0,stash,poe.ninja
+T4_BAIXO,Craicic Watcher,Beast,Beast,1.0,,1570,0,stash,poe.ninja
+T4_BAIXO,Farric Ape,Beast,Beast,1.0,,1051,0,stash,poe.ninja
+T4_BAIXO,Farric Flame Hellion Alpha,Beast,Beast,1.0,,2701,0,stash,poe.ninja
+T4_BAIXO,Farric Frost Hellion Alpha,Beast,Beast,1.0,,753,0,stash,poe.ninja
+T4_BAIXO,Farric Goliath,Beast,Beast,1.0,,2536,0,stash,poe.ninja
+T4_BAIXO,Farric Magma Hound,Beast,Beast,1.0,,1645,0,stash,poe.ninja
+T4_BAIXO,Farric Taurus,Beast,Beast,1.0,,2580,0,stash,poe.ninja
+T4_BAIXO,Fenumal Devourer,Beast,Beast,1.0,,1017,0,stash,poe.ninja
+T4_BAIXO,Fenumal Hybrid Arachnid,Beast,Beast,1.0,,107,-50,stash,poe.ninja
+T4_BAIXO,Fenumal Scorpion,Beast,Beast,1.0,,590,0,stash,poe.ninja
+T4_BAIXO,Fenumal Scrabbler,Beast,Beast,1.0,,1097,0,stash,poe.ninja
+T4_BAIXO,Fenumal Widow,Beast,Beast,1.0,,1434,0,stash,poe.ninja
+T4_BAIXO,Primal Rhex Matriarch,Beast,Beast,1.0,,639,0,stash,poe.ninja
+T4_BAIXO,Saqawine Cobra,Beast,Beast,1.0,,2116,0,stash,poe.ninja
+T4_BAIXO,Saqawine Retch,Beast,Beast,1.0,,1831,0,stash,poe.ninja
+T4_BAIXO,Saqawine Rhex,Beast,Beast,1.0,,319,0,stash,poe.ninja
+T4_BAIXO,Saqawine Rhoa,Beast,Beast,1.0,,1713,0,stash,poe.ninja
+T4_BAIXO,Saqawine Vulture,Beast,Beast,1.0,,308,0,stash,poe.ninja
+T4_BAIXO,Vivid Abberarach,Beast,Beast,1.0,,179,0,stash,poe.ninja
+T4_BAIXO,A Sea of Blue,Cards,DivinationCard,1.0,,0.5,900,exchange,poe.ninja
+T4_BAIXO,Bijoux,Cards,DivinationCard,1.0,,56.83,-79.9,exchange,poe.ninja
+T4_BAIXO,"Brush, Paint and Palette",Cards,DivinationCard,1.0,,154.7,-50,exchange,poe.ninja
+T4_BAIXO,Council of Cats,Cards,DivinationCard,1.0,,0.3333,-50,exchange,poe.ninja
+T4_BAIXO,Gemcutter's Promise,Cards,DivinationCard,1.0,,0.3333,172.9,exchange,poe.ninja
+T4_BAIXO,Gift of the Gemling Queen,Cards,DivinationCard,1.0,,6.33,-85.71,exchange,poe.ninja
+T4_BAIXO,Immortal Resolve,Cards,DivinationCard,1.0,,17.67,-89.86,exchange,poe.ninja
+T4_BAIXO,Last Hope,Cards,DivinationCard,1.0,,75.5,62.58,exchange,poe.ninja
+T4_BAIXO,Runic Luck,Cards,DivinationCard,1.0,,134.2,-20,exchange,poe.ninja
+T4_BAIXO,The Adventuring Spirit,Cards,DivinationCard,1.0,,0.1667,26500,exchange,poe.ninja
+T4_BAIXO,The Card Sharp,Cards,DivinationCard,1.0,,20.83,-33.33,exchange,poe.ninja
+T4_BAIXO,The Ethereal,Cards,DivinationCard,1.0,,2.17,0,exchange,poe.ninja
+T4_BAIXO,The Feast,Cards,DivinationCard,1.0,,0.1667,0,exchange,poe.ninja
+T4_BAIXO,The Flora's Gift,Cards,DivinationCard,1.0,,0.8333,1900,exchange,poe.ninja
+T4_BAIXO,The Hive of Knowledge,Cards,DivinationCard,1.0,,15,0,exchange,poe.ninja
+T4_BAIXO,The Journalist,Cards,DivinationCard,1.0,,1,0,exchange,poe.ninja
+T4_BAIXO,The King's Heart,Cards,DivinationCard,1.0,,0.1667,100,exchange,poe.ninja
+T4_BAIXO,The Mountain,Cards,DivinationCard,1.0,,0.1667,0,exchange,poe.ninja
+T4_BAIXO,The Primordial,Cards,DivinationCard,1.0,,6.33,33.33,exchange,poe.ninja
+T4_BAIXO,The Realm,Cards,DivinationCard,1.0,,0.1667,0,exchange,poe.ninja
+T4_BAIXO,The Surgeon,Cards,DivinationCard,1.0,,0.1667,0,exchange,poe.ninja
+T4_BAIXO,Time-Lost Relic,Cards,DivinationCard,1.0,,5,-85.51,exchange,poe.ninja
+T4_BAIXO,Vinia's Token,Cards,DivinationCard,1.0,,6.17,1.01,exchange,poe.ninja
+T4_BAIXO,Volatile Power,Cards,DivinationCard,1.0,,3.5,-85.71,exchange,poe.ninja
+T4_BAIXO,Chaos Orb,Currency,Currency,1.0,,3788891,-16.86,exchange,poe.ninja
+T4_BAIXO,Enkindling Orb,Currency,Currency,1.0,,1170,105.2,exchange,poe.ninja
+T4_BAIXO,Transmutation Shard,Currency,Currency,1.0,,0.1667,0,exchange,poe.ninja
+T4_BAIXO,Muttering Essence of Contempt,Essences,Essence,1.0,,0.8333,0,exchange,poe.ninja
+T4_BAIXO,Muttering Essence of Greed,Essences,Essence,1.0,,0.1667,-92.86,exchange,poe.ninja
+T4_BAIXO,Muttering Essence of Woe,Essences,Essence,1.0,,2,0,exchange,poe.ninja
+T4_BAIXO,Screaming Essence of Dread,Essences,Essence,1.0,,1.33,195.4,exchange,poe.ninja
+T4_BAIXO,Screaming Essence of Fear,Essences,Essence,1.0,,71.83,1.69,exchange,poe.ninja
+T4_BAIXO,Screaming Essence of Misery,Essences,Essence,1.0,,55.17,0,exchange,poe.ninja
+T4_BAIXO,Screaming Essence of Sorrow,Essences,Essence,1.0,,14,69.35,exchange,poe.ninja
+T4_BAIXO,Wailing Essence of Anger,Essences,Essence,1.0,,1.83,-87.73,exchange,poe.ninja
+T4_BAIXO,Wailing Essence of Fear,Essences,Essence,1.0,,0.1667,100,exchange,poe.ninja
+T4_BAIXO,Wailing Essence of Hatred,Essences,Essence,1.0,,0.5,16.67,exchange,poe.ninja
+T4_BAIXO,Weeping Essence of Rage,Essences,Essence,1.0,,0.3333,0,exchange,poe.ninja
+T4_BAIXO,Whispering Essence of Woe,Essences,Essence,1.0,,0.1667,-93.33,exchange,poe.ninja
+T4_BAIXO,Polaric Invitation,Invitation,Invitation,1.0,,1744,-66.67,stash,poe.ninja
+T4_BAIXO,Writhing Invitation,Invitation,Invitation,1.0,,3256,0,stash,poe.ninja
+T4_BAIXO,Map (Tier 1),Map,Map,1.0,,538,0,stash,poe.ninja
+T4_BAIXO,Map (Tier 10),Map,Map,1.0,,1018,0,stash,poe.ninja
+T4_BAIXO,Map (Tier 11),Map,Map,1.0,,3250,0,stash,poe.ninja
+T4_BAIXO,Map (Tier 12),Map,Map,1.0,,3375,0,stash,poe.ninja
+T4_BAIXO,Map (Tier 13),Map,Map,1.0,,2380,0,stash,poe.ninja
+T4_BAIXO,Map (Tier 15),Map,Map,1.0,,2417,0,stash,poe.ninja
+T4_BAIXO,Map (Tier 4),Map,Map,1.0,,6381,0,stash,poe.ninja
+T4_BAIXO,Map (Tier 5),Map,Map,1.0,,602,0,stash,poe.ninja
+T4_BAIXO,Map (Tier 6),Map,Map,1.0,,838,0,stash,poe.ninja
+T4_BAIXO,Map (Tier 7),Map,Map,1.0,,874,0,stash,poe.ninja
+T4_BAIXO,Map (Tier 8),Map,Map,1.0,,1800,0,stash,poe.ninja
+T4_BAIXO,Map (Tier 9),Map,Map,1.0,,2191,0,stash,poe.ninja
+T4_BAIXO,Runegraft of Loyalty,Runegrafts,Runegraft,1.0,,9.5,-71.66,exchange,poe.ninja
+T4_BAIXO,Runegraft of Suffering,Runegrafts,Runegraft,1.0,,0.6667,-72.91,exchange,poe.ninja
+T4_BAIXO,Runegraft of the Spellbound,Runegrafts,Runegraft,1.0,,2,-87.34,exchange,poe.ninja
+T4_BAIXO,Detonate Mines,SkillGem,SkillGem,1.0,,450,0,stash,poe.ninja
+T4_BAIXO,"Caer Blaidd, Wolfpack's Den",UniqueMap,UniqueMap,1.0,,1551,0,stash,poe.ninja
+T4_BAIXO,Death and Taxes,UniqueMap,UniqueMap,1.0,,3705,0,stash,poe.ninja
+T4_BAIXO,Hall of Grandmasters,UniqueMap,UniqueMap,1.0,,1333,0,stash,poe.ninja
+T4_BAIXO,Hallowed Ground,UniqueMap,UniqueMap,1.0,,2142,0,stash,poe.ninja
+T4_BAIXO,Mao Kun,UniqueMap,UniqueMap,1.0,,2045,0,stash,poe.ninja
+T5_MICRO,Screaming Essence of Rage,Essences,Essence,0.9988,,139.8,162.0,exchange,poe.ninja
+T5_MICRO,Screaming Essence of Envy,Essences,Essence,0.9934,,25.0,139.5,exchange,poe.ninja
+T5_MICRO,Screaming Essence of Woe,Essences,Essence,0.9883,,547.0,196.5,exchange,poe.ninja
+T5_MICRO,Farric Pit Hound,Beast,Beast,0.98,,937,-2,stash,poe.ninja
+T5_MICRO,Scarab of Adversaries,Fragments,Scarab,0.9713,,1343,263.6,exchange,poe.ninja
+T5_MICRO,Farric Chieftain,Beast,Beast,0.96,,4065,-4,stash,poe.ninja
+T5_MICRO,The Skeleton,Cards,DivinationCard,0.9583,,15.33,-68.06,exchange,poe.ninja
+T5_MICRO,Fenumal Queen,Beast,Beast,0.95,,1207,-5,stash,poe.ninja
+T5_MICRO,The Fox,Cards,DivinationCard,0.9362,,73.33,-53.19,exchange,poe.ninja
+T5_MICRO,Beyond Scarab of Resurgence,Fragments,Scarab,0.8838,,675.7,-10.83,exchange,poe.ninja
+T5_MICRO,Scarab of the Dextral,Fragments,Scarab,0.8795,,1845,-52.22,exchange,poe.ninja
+T5_MICRO,Merciless Armament,Cards,DivinationCard,0.877,,63.0,-76.85,exchange,poe.ninja
+T5_MICRO,Cartography Scarab of Escalation,Fragments,Scarab,0.8746,,1815,181.4,exchange,poe.ninja
+T5_MICRO,Timeless Karui Splinter,Fragments,Fragment,0.8698,,24.5,45.28,exchange,poe.ninja
+T5_MICRO,The Heroic Shot,Cards,DivinationCard,0.8647,,49.0,-78.38,exchange,poe.ninja
+T5_MICRO,Orb of Scouring,Currency,Currency,0.8621,,25099,0.51,exchange,poe.ninja
+T5_MICRO,Map (Tier 3),Map,Map,0.86,,6966,-14,stash,poe.ninja
+T5_MICRO,Maelström of Chaos,UniqueMap,UniqueMap,0.86,,5549,-14,stash,poe.ninja
+T5_MICRO,Oba's Cursed Trove,UniqueMap,UniqueMap,0.86,,6503,207.1,stash,poe.ninja
+T5_MICRO,Whakawairua Tuahu,UniqueMap,UniqueMap,0.86,,7054,-14,stash,poe.ninja
+T5_MICRO,Legion Scarab of Officers,Fragments,Scarab,0.8491,,120.0,-69.08,exchange,poe.ninja
+T5_MICRO,Tattoo of the Kitava Rebel,Ancestor,Tattoo,0.8377,,21.5,-37.54,exchange,poe.ninja
+T5_MICRO,Blight Scarab of the Blightheart,Fragments,Scarab,0.8326,,150.0,67.73,exchange,poe.ninja
+T5_MICRO,Expedition Scarab of Infusion,Fragments,Scarab,0.8314,,241.7,71.29,exchange,poe.ninja
+T5_MICRO,Potent Chaotic Resonator,Delve,Resonator,0.8246,,245.2,75.93,exchange,poe.ninja
+T5_MICRO,Shrieking Essence of Sorrow,Essences,Essence,0.8243,,10.17,-83.51,exchange,poe.ninja
+T5_MICRO,Farric Ursa,Beast,Beast,0.81,,3289,-19,stash,poe.ninja
+T5_MICRO,Saqawine Chimeral,Beast,Beast,0.79,,1724,-21,stash,poe.ninja
+T5_MICRO,The Professor,Cards,DivinationCard,0.75,,16.5,-25.0,exchange,poe.ninja
+T5_MICRO,Essence Scarab of Ascent,Fragments,Scarab,0.7414,,908.5,-57.03,exchange,poe.ninja
+T5_MICRO,Torment Scarab of Possession,Fragments,Scarab,0.7347,,54.0,151.2,exchange,poe.ninja
+T5_MICRO,Farric Goatman,Beast,Beast,0.73,,3837,-27,stash,poe.ninja
+T5_MICRO,Map (Tier 2),Map,Map,0.72,,4829,-28,stash,poe.ninja
+T5_MICRO,Kalguuran Scarab,Fragments,Scarab,0.717,,1278,-1.74,exchange,poe.ninja
+T5_MICRO,Abyss Scarab,Fragments,Scarab,0.7031,,71.83,50.02,exchange,poe.ninja
+T5_MICRO,Baited Expectations,Cards,DivinationCard,0.6981,,43.17,-80.6,exchange,poe.ninja
+T5_MICRO,Orb of Intention,Currency,Currency,0.6875,,1.83,-45.0,exchange,poe.ninja
+T5_MICRO,Sacrifice at Dawn,Fragments,Fragment,0.6821,,689.8,114.1,exchange,poe.ninja
+T5_MICRO,Titanic Scarab of Treasures,Fragments,Scarab,0.6634,,68.67,276.9,exchange,poe.ninja
+T5_MICRO,Scarab of Monstrous Lineage,Fragments,Scarab,0.6578,,5275,-3.14,exchange,poe.ninja
+T5_MICRO,Accelerating Catalyst,Catalysts,Currency,0.652,,84.0,48.71,exchange,poe.ninja
+T5_MICRO,Scarab of Radiant Storms,Fragments,Scarab,0.6434,,30.67,21.17,exchange,poe.ninja
+T5_MICRO,Farric Gargantuan,Beast,Beast,0.64,,3349,-36,stash,poe.ninja
+T5_MICRO,Abyss Scarab of Descending,Fragments,Scarab,0.6291,,47.5,-70.02,exchange,poe.ninja
+T5_MICRO,Beyond Scarab of the Invasion,Fragments,Scarab,0.6255,,845.2,54.22,exchange,poe.ninja
+T5_MICRO,Runegraft of Restitching,Runegrafts,Runegraft,0.625,,0.8333,-81.6,exchange,poe.ninja
+T5_MICRO,Indigo Oil,Oils,Oil,0.6091,,20.0,-19.85,exchange,poe.ninja
+T5_MICRO,Emperor's Luck,Cards,DivinationCard,0.5998,,2247,-44.73,exchange,poe.ninja
+T5_MICRO,Kalguuran Scarab of Guarded Riches,Fragments,Scarab,0.592,,351.8,93.99,exchange,poe.ninja
+T5_MICRO,Primitive Chaotic Resonator,Delve,Resonator,0.5904,,766.2,-12.25,exchange,poe.ninja
+T5_MICRO,Cartography Scarab of the Multitude,Fragments,Scarab,0.5877,,508.7,54.51,exchange,poe.ninja
+T5_MICRO,Tattoo of the Tawhoa Naturalist,Ancestor,Tattoo,0.5636,,5.17,-41.75,exchange,poe.ninja
+T5_MICRO,Shrieking Essence of Greed,Essences,Essence,0.5349,,3.83,-85.37,exchange,poe.ninja
+T5_MICRO,Offering to the Goddess,Fragments,Fragment,0.5212,,125.0,-29.17,exchange,poe.ninja
+T5_MICRO,Ritual Splinter,Fragments,Fragment,0.5161,,2.67,67.74,exchange,poe.ninja
+T5_MICRO,Shrieking Essence of Contempt,Essences,Essence,0.5152,,2.83,-58.91,exchange,poe.ninja
+T5_MICRO,Tattoo of the Tukohama Warrior,Ancestor,Tattoo,0.5093,,18.17,44.41,exchange,poe.ninja
+T5_MICRO,No Traces,Cards,DivinationCard,0.5047,,44.5,0.95,exchange,poe.ninja
+T5_MICRO,Legion Scarab,Fragments,Scarab,0.5016,,130.7,40.26,exchange,poe.ninja
+T5_MICRO,Harvest Scarab,Fragments,Scarab,0.5001,,612.2,70.54,exchange,poe.ninja
+T5_MICRO,Justified Ambition,Cards,DivinationCard,0.5,,10.33,0,exchange,poe.ninja
+T5_MICRO,The Gambler,Cards,DivinationCard,0.5,,88.33,-49.93,exchange,poe.ninja
+T5_MICRO,The Risk,Cards,DivinationCard,0.5,,2.83,-50.0,exchange,poe.ninja
+T5_MICRO,Screaming Essence of Anguish,Essences,Essence,0.5,,1.17,-72.58,exchange,poe.ninja
+T5_MICRO,Expedition Scarab of Archaeology,Fragments,Scarab,0.5,,51.33,-30.02,exchange,poe.ninja
+T5_MICRO,Ultimatum Scarab of Bribing,Fragments,Scarab,0.4957,,434.8,-26.72,exchange,poe.ninja
+T5_MICRO,Timeless Eternal Empire Splinter,Fragments,Fragment,0.4881,,6.83,-46.54,exchange,poe.ninja
+T5_MICRO,Abyss Scarab of Multitudes,Fragments,Scarab,0.4739,,199.5,48.35,exchange,poe.ninja
+T5_MICRO,Ultimatum Scarab of Inscription,Fragments,Scarab,0.4688,,255.5,48.36,exchange,poe.ninja
+T5_MICRO,Intrinsic Catalyst,Catalysts,Currency,0.462,,508.8,50.47,exchange,poe.ninja
+T5_MICRO,Timeless Vaal Splinter,Fragments,Fragment,0.4605,,11.67,-10.72,exchange,poe.ninja
+T5_MICRO,Delirium Scarab,Fragments,Scarab,0.4577,,143.3,74.16,exchange,poe.ninja
+T5_MICRO,Blessed Orb,Currency,Currency,0.456,,446.3,180.8,exchange,poe.ninja
+T5_MICRO,Essence Scarab of Stability,Fragments,Scarab,0.4468,,2510,109.8,exchange,poe.ninja
+T5_MICRO,Runegraft of the Combatant,Runegrafts,Runegraft,0.4444,,0.6667,-89.16,exchange,poe.ninja
+T5_MICRO,Demigod's Wager,Cards,DivinationCard,0.4413,,36.33,32.39,exchange,poe.ninja
+T5_MICRO,Sambodhi's Wisdom,Cards,DivinationCard,0.4375,,7.0,-92.89,exchange,poe.ninja
+T5_MICRO,Incursion Scarab,Fragments,Scarab,0.4354,,188.0,149.0,exchange,poe.ninja
+T5_MICRO,Tainted Blacksmith's Whetstone,Currency,Currency,0.4254,,61.33,-26.52,exchange,poe.ninja
+T5_MICRO,Ambush Scarab of Potency,Fragments,Scarab,0.4218,,1485,60.21,exchange,poe.ninja
+T5_MICRO,Expedition Scarab of Verisium Powder,Fragments,Scarab,0.4197,,56.17,5.89,exchange,poe.ninja
+T5_MICRO,Shard of Fate,Cards,DivinationCard,0.4167,,33.33,-16.67,exchange,poe.ninja
+T5_MICRO,Orb of Regret,Currency,Currency,0.4119,,2771,31.05,exchange,poe.ninja
+T5_MICRO,Expedition Scarab of Runefinding,Fragments,Scarab,0.3959,,196.8,-24.43,exchange,poe.ninja
+T5_MICRO,Expedition Scarab,Fragments,Scarab,0.3956,,389.2,65.28,exchange,poe.ninja
+T5_MICRO,Beyond Scarab of Haemophilia,Fragments,Scarab,0.3627,,372.3,100.3,exchange,poe.ninja
+T5_MICRO,Teal Oil,Oils,Oil,0.3618,,36.0,60.33,exchange,poe.ninja
+T5_MICRO,Tattoo of the Tawhoa Scout,Ancestor,Tattoo,0.36,,4.5,2.6,exchange,poe.ninja
+T5_MICRO,Influencing Scarab of Hordes,Fragments,Scarab,0.3578,,493.0,1.57,exchange,poe.ninja
+T5_MICRO,Beyond Scarab,Fragments,Scarab,0.3569,,162.2,130.5,exchange,poe.ninja
+T5_MICRO,Betrayal Scarab of the Allflame,Fragments,Scarab,0.3431,,177.3,-18.51,exchange,poe.ninja
+T5_MICRO,Domination Scarab of Evolution,Fragments,Scarab,0.3415,,111.2,64.3,exchange,poe.ninja
+T5_MICRO,Domination Scarab,Fragments,Scarab,0.3392,,1552,22.89,exchange,poe.ninja
+T5_MICRO,Sulphite Scarab,Fragments,Scarab,0.3368,,1630,-26.17,exchange,poe.ninja
+T5_MICRO,Weeping Essence of Wrath,Essences,Essence,0.3333,,0.1667,-66.67,exchange,poe.ninja
+T5_MICRO,Runegraft of the River,Runegrafts,Runegraft,0.3333,,0.1667,-92.48,exchange,poe.ninja
+T5_MICRO,Acton's Nightmare,UniqueMap,UniqueMap,0.33,,7664,-65.98,stash,poe.ninja
+T5_MICRO,Olmec's Sanctum,UniqueMap,UniqueMap,0.33,,7754,-61.85,stash,poe.ninja
+T5_MICRO,Pillars of Arun,UniqueMap,UniqueMap,0.33,,6874,17.86,stash,poe.ninja
+T5_MICRO,Vaal Orb,Currency,Currency,0.328,,5046,-10.48,exchange,poe.ninja
+T5_MICRO,Anarchy Scarab,Fragments,Scarab,0.3241,,400.5,121.2,exchange,poe.ninja
+T5_MICRO,The Watcher,Cards,DivinationCard,0.3219,,93.5,-67.81,exchange,poe.ninja
+T5_MICRO,Turbulent Catalyst,Catalysts,Currency,0.3092,,116.2,62.34,exchange,poe.ninja
+T5_MICRO,Blight Scarab,Fragments,Scarab,0.3058,,21.0,43.64,exchange,poe.ninja
+T5_MICRO,Betrayal Scarab of Reinforcements,Fragments,Scarab,0.302,,456.8,-41.11,exchange,poe.ninja
+T5_MICRO,Incursion Scarab of Invasion,Fragments,Scarab,0.3012,,53.17,0.77,exchange,poe.ninja
+T5_MICRO,Azure Oil,Oils,Oil,0.2893,,15.33,46.15,exchange,poe.ninja
+T5_MICRO,Influencing Scarab of the Shaper,Fragments,Scarab,0.285,,680.2,-7.18,exchange,poe.ninja
+T5_MICRO,Tainted Jeweller's Orb,Currency,Currency,0.2812,,148.5,-3.15,exchange,poe.ninja
+T5_MICRO,Essence Scarab,Fragments,Scarab,0.2784,,359.0,74.33,exchange,poe.ninja
+T5_MICRO,Influencing Scarab of the Elder,Fragments,Scarab,0.2769,,185.8,-18.03,exchange,poe.ninja
+T5_MICRO,Anarchy Scarab of the Exceptional,Fragments,Scarab,0.2758,,189.5,59.41,exchange,poe.ninja
+T5_MICRO,Glassblower's Bauble,Currency,Currency,0.2757,,615.5,55.39,exchange,poe.ninja
+T5_MICRO,Orb of Alchemy,Currency,Currency,0.2721,,8417,-17.79,exchange,poe.ninja
+T5_MICRO,Shrieking Essence of Anguish,Essences,Essence,0.2719,,5.17,-94.56,exchange,poe.ninja
+T5_MICRO,Scarab of Stability,Fragments,Scarab,0.2699,,304.7,-10.63,exchange,poe.ninja
+T5_MICRO,Bestiary Scarab,Fragments,Scarab,0.2669,,451.2,0.07,exchange,poe.ninja
+T5_MICRO,Domination Scarab of Apparitions,Fragments,Scarab,0.2667,,135.7,121.5,exchange,poe.ninja
+T5_MICRO,Ultimatum Scarab,Fragments,Scarab,0.2627,,146.3,27.56,exchange,poe.ninja
+T5_MICRO,Tattoo of the Tawhoa Warrior,Ancestor,Tattoo,0.2583,,5.17,-83.03,exchange,poe.ninja
+T5_MICRO,Abrasive Catalyst,Catalysts,Currency,0.2576,,119.5,136.2,exchange,poe.ninja
+T5_MICRO,Ambush Scarab of Hidden Compartments,Fragments,Scarab,0.2548,,463.3,65.0,exchange,poe.ninja
+T5_MICRO,Bound by Flame,Cards,DivinationCard,0.25,,0.8333,-75.0,exchange,poe.ninja
+T5_MICRO,Breach Scarab of the Hive,Fragments,Scarab,0.2436,,118.0,-0.6,exchange,poe.ninja
+T5_MICRO,Vivid Crystallised Lifeforce,Currency,Currency,0.2335,,4102481,63.73,exchange,poe.ninja
+T5_MICRO,Acclimatisation,Cards,DivinationCard,0.2253,,88.83,236.0,exchange,poe.ninja
+T5_MICRO,More is Never Enough,Cards,DivinationCard,0.2247,,521.0,46.02,exchange,poe.ninja
+T5_MICRO,Noxious Catalyst,Catalysts,Currency,0.2186,,60.33,-21.45,exchange,poe.ninja
+T5_MICRO,Betrayal Scarab,Fragments,Scarab,0.2112,,215.0,-40.74,exchange,poe.ninja
+T5_MICRO,The Saint's Treasure,Cards,DivinationCard,0.2042,,4.83,-3.26,exchange,poe.ninja
+T5_MICRO,Society's Remorse,Cards,DivinationCard,0.2038,,51.5,69.02,exchange,poe.ninja
+T5_MICRO,The Jester,Cards,DivinationCard,0.2,,13.33,-20,exchange,poe.ninja
+T5_MICRO,The Metalsmith's Gift,Cards,DivinationCard,0.2,,16.67,0,exchange,poe.ninja
+T5_MICRO,The Wretched,Cards,DivinationCard,0.2,,103.0,-80.0,exchange,poe.ninja
+T5_MICRO,Shrieking Essence of Torment,Essences,Essence,0.2,,2.33,-94.61,exchange,poe.ninja
+T5_MICRO,Weeping Essence of Suffering,Essences,Essence,0.2,,0.1667,0,exchange,poe.ninja
+T5_MICRO,Tattoo of the Tasalio Shaman,Ancestor,Tattoo,0.1828,,2.83,-17.74,exchange,poe.ninja
+T5_MICRO,Horned Scarab of Nemeses,Fragments,Scarab,0.1826,,86.33,-53.47,exchange,poe.ninja
+T5_MICRO,Influencing Scarab of Interference,Fragments,Scarab,0.1605,,187.3,-79.56,exchange,poe.ninja
+T5_MICRO,Orb of Unmaking,Currency,Currency,0.1547,,1110,-29.62,exchange,poe.ninja
+T5_MICRO,Torment Scarab of Peculiarity,Fragments,Scarab,0.1521,,114.0,18.71,exchange,poe.ninja
+T5_MICRO,Orb of Fusing,Currency,Currency,0.1519,,8344,14.37,exchange,poe.ninja
+T5_MICRO,Verdant Oil,Oils,Oil,0.1503,,7.17,-22.58,exchange,poe.ninja
+T5_MICRO,Instilling Orb,Currency,Currency,0.1489,,211.3,32.73,exchange,poe.ninja
+T5_MICRO,The Wrath,Cards,DivinationCard,0.1481,,4.0,-86.46,exchange,poe.ninja
+T5_MICRO,Divine Vessel,Fragments,Fragment,0.1436,,8.83,30.29,exchange,poe.ninja
+T5_MICRO,Shrieking Essence of Doubt,Essences,Essence,0.1429,,1.0,-49.3,exchange,poe.ninja
+T5_MICRO,The Doppelganger,Cards,DivinationCard,0.1418,,57.5,-73.44,exchange,poe.ninja
+T5_MICRO,Titanic Scarab,Fragments,Scarab,0.1416,,508.5,-58.71,exchange,poe.ninja
+T5_MICRO,Imbued Catalyst,Catalysts,Currency,0.1314,,53.0,13.55,exchange,poe.ninja
+T5_MICRO,Lesser Eldritch Ichor,Currency,Currency,0.1302,,218.2,519.3,exchange,poe.ninja
+T5_MICRO,Scarab of Divinity,Fragments,Scarab,0.125,,29.83,0.68,exchange,poe.ninja
+T5_MICRO,Regal Orb,Currency,Currency,0.1238,,159.2,22.92,exchange,poe.ninja
+T5_MICRO,Orb of Chance,Currency,Currency,0.1214,,8664,4.97,exchange,poe.ninja
+T5_MICRO,Greater Eldritch Ichor,Currency,Currency,0.1195,,153.2,103.8,exchange,poe.ninja
+T5_MICRO,Anarchy Scarab of Gigantification,Fragments,Scarab,0.1171,,181.5,1.66,exchange,poe.ninja
+T5_MICRO,Torment Scarab,Fragments,Scarab,0.1055,,74.0,-69.03,exchange,poe.ninja
+T5_MICRO,Timeless Templar Splinter,Fragments,Fragment,0.1034,,2.0,4.27,exchange,poe.ninja
+T5_MICRO,Three Faces in the Dark,Cards,DivinationCard,0.1,,28.67,-45.24,exchange,poe.ninja
+T5_MICRO,Orb of Alteration,Currency,Currency,0.09913,,10132,1.43,exchange,poe.ninja
+T5_MICRO,Greater Eldritch Ember,Currency,Currency,0.09422,,252.8,-42.27,exchange,poe.ninja
+T5_MICRO,Rain of Chaos,Cards,DivinationCard,0.08884,,434.2,179.2,exchange,poe.ninja
+T5_MICRO,Chromatic Orb,Currency,Currency,0.08661,,5275,38.39,exchange,poe.ninja
+T5_MICRO,Orb of Augmentation,Currency,Currency,0.07745,,1771,8.64,exchange,poe.ninja
+T5_MICRO,Sulphite Scarab of Fumes,Fragments,Scarab,0.06844,,126.2,-75.91,exchange,poe.ninja
+T5_MICRO,Simulacrum Splinter,Fragments,Fragment,0.05296,,35.67,-31.22,exchange,poe.ninja
+T5_MICRO,Lesser Eldritch Ember,Currency,Currency,0.04464,,68.0,38.16,exchange,poe.ninja
+T5_MICRO,Armourer's Scrap,Currency,Currency,0.0411,,319.5,-66.11,exchange,poe.ninja
+T5_MICRO,Primal Crystallised Lifeforce,Currency,Currency,0.03906,,124946,15.36,exchange,poe.ninja
+T5_MICRO,Three Voices,Cards,DivinationCard,0.03682,,12.33,-57.08,exchange,poe.ninja
+T5_MICRO,Portal Scroll,Currency,Currency,0.02847,,997.3,-29.03,exchange,poe.ninja
+T5_MICRO,Blacksmith's Whetstone,Currency,Currency,0.0243,,122.2,-56.46,exchange,poe.ninja
+T5_MICRO,Orb of Binding,Currency,Currency,0.02399,,7.5,111.8,exchange,poe.ninja
+T5_MICRO,Wild Crystallised Lifeforce,Currency,Currency,0.02359,,61330,17.45,exchange,poe.ninja
+T5_MICRO,The Battle Born,Cards,DivinationCard,0.02115,,1.83,957.7,exchange,poe.ninja
+T5_MICRO,The Master Artisan,Cards,DivinationCard,0.02,,0.3333,-98.0,exchange,poe.ninja
+T5_MICRO,Jeweller's Orb,Currency,Currency,0.01931,,832.3,-16.26,exchange,poe.ninja
+T5_MICRO,Amber Oil,Oils,Oil,0.01426,,5.67,-92.29,exchange,poe.ninja
+T5_MICRO,Sepia Oil,Oils,Oil,0.01157,,5.0,-80.13,exchange,poe.ninja
+T5_MICRO,Doedre's Madness,Cards,DivinationCard,0.01111,,0.5,-4.98,exchange,poe.ninja
+T5_MICRO,Cameria's Cut,Cards,DivinationCard,0.01,,6.67,-55.56,exchange,poe.ninja
+T5_MICRO,Clear Oil,Oils,Oil,0.007157,,3.5,-79.25,exchange,poe.ninja
+T5_MICRO,Orb of Transmutation,Currency,Currency,0.004755,,131.3,1.04,exchange,poe.ninja
+T5_MICRO,Scroll of Wisdom,Currency,Currency,0.004708,,84.17,0.24,exchange,poe.ninja
+T5_MICRO,The Opulent,Cards,DivinationCard,0.002,,0.3333,-22.11,exchange,poe.ninja
+T5_MICRO,Dark Temptation,Cards,DivinationCard,0.001361,,0.1667,-98.56,exchange,poe.ninja
+T5_MICRO,The Scholar,Cards,DivinationCard,0.001149,,0.1667,-83.26,exchange,poe.ninja
+T5_MICRO,Rogue's Marker,Currency,Currency,0.001038,,4023,-14.43,exchange,poe.ninja
+T5_MICRO,Destined to Crumble,Cards,DivinationCard,0.0009132,,0.3333,0.46,exchange,poe.ninja
