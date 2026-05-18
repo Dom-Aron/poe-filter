@@ -1,6 +1,6 @@
 # Path of Exile — Shockwave Cyclone / General's Cry Slayer Loot Filter
 
-Repositório para documentar e versionar o filtro de loot usado na build **Ronarray Shockwave Cyclone / General's Cry Slayer**, com foco em **Path of Exile 1 — 3.28 Mirage**, mapas **T9/T10** e estratégia de Atlas voltada para **Breach Hives / Wombgifts**.
+Repositório para documentar e versionar o filtro de loot usado na build **Ronarray Shockwave Cyclone / General's Cry Slayer**, com foco em **Path of Exile 1 — 3.28 Mirage**, mapas **T9/T10** e estratégia de Atlas voltada para **Breach Hives / Wombgifts + Delirium**.
 
 Build de referência:
 
@@ -40,7 +40,7 @@ O filtro foi ajustado para:
 Classe: Slayer
 Build: Shockwave Cyclone / General's Cry Slayer
 Conteúdo atual: mapas T9/T10
-Atlas: foco em Breach Hives
+Atlas: foco em Breach Hives + Delirium
 Estratégia: farmar Wombgifts/Hives e vender itens de alto valor
 Tipo de dano: físico
 Arma: staff
@@ -347,6 +347,11 @@ Breach Hives
 Wombgifts
 Hivebrain Gland
 Breach Scarabs
+Delirium
+Delirium Orbs
+Simulacrum Splinters
+Cluster Jewels
+Refracting Fog
 ```
 
 Prioridade de Wombgifts:
@@ -377,6 +382,33 @@ Breach Scarab of the Marshal           -> útil
 Breach Scarab of Resonant Cascade      -> caro; vender ou usar só com estratégia clara
 ```
 
+Mecânica secundária recomendada:
+
+```text
+Delirium -> melhor combo com Breach pela densidade.
+```
+
+Motivos:
+
+```text
+Breach coloca muitos monstros no mapa.
+Delirium paga melhor quando você mata muitos monstros rapidamente.
+Mirage pode copiar Delirium/Delirium Orbs e aumentar o progresso de rewards.
+Refracting Fog, Delirium Orbs, Simulacrum e Cluster Jewels têm bom valor.
+Cyclone limpa bem packs densos quando a defesa aguenta.
+```
+
+Prioridade de Delirium no filtro:
+
+```text
+1. Refracting Fog
+2. Diviner's Delirium Orb
+3. Fine/Skittering/valuable Delirium Orbs e Simulacrum
+4. Simulacrum Splinter
+5. Delirium Scarabs para sustentar o combo
+6. Cluster Jewels para venda/craft
+```
+
 ---
 
 ## 7. Filosofia do filtro
@@ -387,6 +419,7 @@ O filtro segue a lógica:
 Currency: aberta, mas hierarquizada
 Gear raro: estrito
 Breach/Hives: destacado
+Delirium: destacado como mecânica secundária do Atlas
 Itens caros de mercado: override no topo
 Itens de ligas antigas: visíveis quando têm valor ou bulk
 Bases da build: visíveis, mas sem poluir

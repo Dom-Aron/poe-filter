@@ -8,7 +8,8 @@
 # - Cinto Stygian + Abyss Jewel comprados: mostrar joias boas continua importante.
 # - Rumi's Concoction 12/4 comprado: flasks continuam visiveis, mas sem exagero.
 # - Gargalo atual: accuracy/chance to hit e luvas Precursor/accuracy/damage while leeching.
-# - Atlas: Breach Hives; Lavish e Mysterious Wombgifts recebem destaque maximo.
+# - Atlas: Breach Hives + Delirium; Lavish/Mysterious Wombgifts e drops de Delirium
+#   recebem destaque para aproveitar densidade, Mirage e Simulacrum/Cluster/Fog.
 # - Economia atualizada pelo print do PoE Overlay: tiers por valor em Chaos; currency baixa ainda visivel, mas sem poluir.
 # - Scarabs calibrados pelo print atual: Breach/Hive para uso; scarabs caros para vender/precificar.
 # - Divination Cards calibradas pelos prints atuais do PoE Overlay: cartas caras com alerta; cartas baixas visiveis e discretas.
@@ -41,6 +42,8 @@
 #        BaseType + EnchantmentPassiveNum para evitar erro de texto de enchant nao reconhecido.
 # - v20-dev safety 3: removido HasExplicitMod automatico da bancada de triagem; o parser
 #        nao aceita fragmentos genericos de mod como "to Accuracy Rating".
+# - v21-dev: Delirium promovido a mecanica secundaria do Atlas junto com Breach Hives;
+#        scarabs/orbs/splinters/clusters reforcados para o combo de densidade.
 # =====================================================================
 
 # ---------------------------------------------------------------------
@@ -333,7 +336,7 @@ Show
     MinimapIcon 0 Purple Diamond
     PlayEffect Purple Temp
 
-# Delirium T2 - orbs e Simulacrum com bom retorno por slot: ~20c-40c.
+# Delirium T2 - orbs e Simulacrum com bom retorno por slot: ~20c-45c.
 Show
     BaseType "Fine Delirium Orb" "Skittering Delirium Orb" "Simulacrum" "Singular Delirium Orb" "Whispering Delirium Orb" "Timeless Delirium Orb" "Cartographer's Delirium Orb" "Abyssal Delirium Orb" "Blacksmith's Delirium Orb" "Fragmented Delirium Orb" "Armoursmith's Delirium Orb" "Jeweller's Delirium Orb" "Blighted Delirium Orb" "Thaumaturge's Delirium Orb"
     SetTextColor 255 255 255 255
@@ -344,15 +347,17 @@ Show
     MinimapIcon 1 Orange Star
     PlayEffect Orange Temp
 
-# Delirium T3 - splinters.
+# Delirium T3 - splinters. Com Breach + Delirium, juntar splinters vira retorno
+# consistente por densidade; manter mais visivel que currency pequena.
 Show
     BaseType "Simulacrum Splinter"
     SetTextColor 255 245 210 255
-    SetBorderColor 230 180 80 255
-    SetBackgroundColor 55 35 0 225
-    SetFontSize 38
-    PlayAlertSound 4 190
-    MinimapIcon 2 Yellow Star
+    SetBorderColor 255 180 80 255
+    SetBackgroundColor 60 35 0 230
+    SetFontSize 40
+    PlayAlertSound 4 210
+    MinimapIcon 1 Yellow Star
+    PlayEffect Yellow Temp
 
 # Delirium T4 - sem historico estavel, mas nomes confirmados no print.
 Show
@@ -1013,6 +1018,19 @@ Show
     PlayAlertSound 4 220
     MinimapIcon 1 Cyan Diamond
     PlayEffect Cyan Temp
+
+# Delirium + Breach - scarabs que habilitam/empurram a mecanica secundaria.
+# Ficam antes dos scarabs globais para nao cair em tiers genericos.
+Show
+    Class "Map Fragments"
+    BaseType "Delirium Scarab of Paranoia" "Delirium Scarab of Neuroses" "Delirium Scarab of Mania" "Delirium Scarab of Delusions" "Delirium Scarab"
+    SetTextColor 255 255 255 255
+    SetBorderColor 190 90 255 255
+    SetBackgroundColor 45 0 80 235
+    SetFontSize 40
+    PlayAlertSound 4 220
+    MinimapIcon 1 Purple Diamond
+    PlayEffect Purple Temp
 
 # Scarabs globais T0 - jackpot / valor muito alto no print atual: 100c+.
 Show
@@ -1677,7 +1695,8 @@ Show
     SetBackgroundColor 40 0 40 170
     SetFontSize 34
 
-# Cluster jewels: foco em Large Physical 8 passivas via trade, mas mostrar todos para venda/craft
+# Cluster jewels: Delirium passa a ser alvo junto de Breach. Mostrar clusters
+# para venda/craft, sem usar EnchantmentPassiveNode para nao quebrar parser.
 Show
     BaseType "Large Cluster Jewel"
     ItemLevel >= 75
