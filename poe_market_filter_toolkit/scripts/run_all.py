@@ -3,15 +3,18 @@
 run_all.py
 
 Runs the full toolkit flow:
-1. update_market.py
-2. market_report.py
-3. suggest_filter_tiers.py
-4. filter_audit.py
-5. plan_upgrade_path.py (optional)
+1. fetch_character.py / parse_character.py (optional)
+2. update_market.py
+3. market_report.py
+4. suggest_filter_tiers.py
+5. filter_audit.py
+6. compare_current_to_target.py (optional)
+7. plan_upgrade_path.py (optional)
 
 Usage:
     python scripts/run_all.py
     python scripts/run_all.py --skip-update
+    python scripts/run_all.py --fetch-character --parse-character --compare-build
     python scripts/run_all.py --upgrade-plan
     python scripts/run_all.py --upgrade-plan --budget 251c
 """
@@ -44,6 +47,10 @@ def run_script(script_name: str, *args: str) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run all PoE market toolkit scripts.")
     parser.add_argument("--skip-update", action="store_true", help="Do not fetch the market; use market/latest_market.json.")
+    parser.add_argument("--fetch-character", action="store_true", help="Fetch authenticated character from official GGG API.")
+    parser.add_argument("--parse-character", action="store_true", help="Parse data/raw/character_api_raw.json into normalized current files.")
+    parser.add_argument("--update-builds", action="store_true", help="When parsing character, also copy player_items/player_stats into builds/ with backups.")
+    parser.add_argument("--compare-build", action="store_true", help="Generate data/generated/gap_analysis from current/build target files.")
     parser.add_argument("--upgrade-plan", action="store_true", help="Also run plan_upgrade_path.py after market/filter reports.")
     parser.add_argument("--budget", help="Budget passed to plan_upgrade_path.py, e.g. 251c or 1d. If omitted, planner shows top 3 cheapest safe upgrades.")
     parser.add_argument("--profiles", help="Profiles passed to plan_upgrade_path.py, e.g. rumi_uncorrupted or ring_vulnerability,jewel_damage.")
@@ -52,12 +59,22 @@ def main() -> int:
     parser.add_argument("--max-combo-size", type=int, help="Max combo size passed to plan_upgrade_path.py.")
     args = parser.parse_args()
 
+    if args.fetch_character:
+        run_script("fetch_character.py")
+
+    if args.parse_character or args.fetch_character:
+        parse_args = ["--update-builds"] if args.update_builds else []
+        run_script("parse_character.py", *parse_args)
+
     if not args.skip_update:
         run_script("update_market.py")
 
     run_script("market_report.py")
     run_script("suggest_filter_tiers.py")
     run_script("filter_audit.py")
+
+    if args.compare_build:
+        run_script("compare_current_to_target.py")
 
     if args.upgrade_plan:
         planner_args: list[str] = []
@@ -79,6 +96,9 @@ def main() -> int:
     print("- market/reports/market_report.md")
     print("- market/reports/filter_suggestions.md")
     print("- market/reports/filter_audit.md")
+    if args.compare_build:
+        print("- data/generated/gap_analysis.md")
+        print("- data/generated/gap_analysis.json")
     if args.upgrade_plan:
         print("- market/reports/upgrade_plan.md")
         print("- market/reports/upgrade_plan.html")

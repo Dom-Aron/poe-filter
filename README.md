@@ -96,6 +96,18 @@ Rodar mercado, auditoria e planejador de uma vez:
 python poe_market_filter_toolkit\scripts\run_all.py --upgrade-plan --budget 251c
 ```
 
+Capturar personagem pela API oficial da GGG, parsear e gerar analise de gaps:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_all.py --fetch-character --compare-build
+```
+
+Para permitir que o parser atualize os arquivos usados pelo planejador:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_all.py --fetch-character --compare-build --update-builds
+```
+
 Perfis disponiveis no buscador de upgrades:
 
 ```text
@@ -224,6 +236,47 @@ poe_market_filter_toolkit/builds/player_stats.json
 poe_market_filter_toolkit/builds/target_build_items.json
 poe_market_filter_toolkit/builds/target_build_stats.json
 poe_market_filter_toolkit/builds/upgrade_rules.json
+```
+
+### `fetch_character.py`
+
+Busca o personagem autenticado na API oficial do Path of Exile.
+
+Precisa de:
+
+```text
+poe_market_filter_toolkit/config/account_config.json
+POE_OAUTH_TOKEN ou poe_market_filter_toolkit/secrets/tokens.json
+```
+
+Saida:
+
+```text
+poe_market_filter_toolkit/data/raw/character_api_raw.json
+```
+
+### `parse_character.py`
+
+Converte o JSON cru da API oficial em arquivos normalizados:
+
+```text
+poe_market_filter_toolkit/data/current/player_items.json
+poe_market_filter_toolkit/data/current/player_stats.json
+poe_market_filter_toolkit/data/current/player_passives.json
+poe_market_filter_toolkit/data/current/player_skills.json
+```
+
+Use `--update-builds` para copiar `player_items.json` e `player_stats.json` para `poe_market_filter_toolkit/builds/`, criando backup `.bak` antes.
+
+### `compare_current_to_target.py`
+
+Compara o estado atual com as metas da build alvo.
+
+Gera:
+
+```text
+poe_market_filter_toolkit/data/generated/gap_analysis.json
+poe_market_filter_toolkit/data/generated/gap_analysis.md
 ```
 
 ## Fluxo Recomendado

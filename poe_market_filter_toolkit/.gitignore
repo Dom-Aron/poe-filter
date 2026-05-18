@@ -11,6 +11,15 @@ market/reports/upgrade_deals.md
 market/reports/upgrade_plan.md
 market/reports/upgrade_plan.html
 
+# Account/API secrets and raw character exports
+secrets/*
+!secrets/README_SECRETS.md
+config/account_config.json
+data/raw/
+data/generated/
+*.log
+.env
+
 # Optional local filter copies for toolkit experiments
 filters/current/*.filter
 

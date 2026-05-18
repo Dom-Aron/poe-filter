@@ -1,0 +1,18 @@
+{
+  "build_name": "Ronarray Shockwave Cyclone / General's Cry Slayer",
+  "guide_url": "https://mobalytics.gg/poe/builds/ronarray-shockwave-cyclone-generals-cry-slayer",
+  "target_variant": "Lvl 92+ Endgame",
+  "pob_source_priority": [
+    "3.28 Updated Guide POB Separately",
+    "Lvl 92+ Endgame"
+  ],
+  "avoid_as_primary_target": [
+    "Lvl 96 - UBER",
+    "Final - MB"
+  ],
+  "notes": [
+    "Use a variante 92+ Endgame como alvo intermediario.",
+    "Nao usar Progenesis, Forbidden Flame/Flesh e Mageblood como metas imediatas.",
+    "A versao Uber serve como referencia final, nao como objetivo de compra atual."
+  ]
+}

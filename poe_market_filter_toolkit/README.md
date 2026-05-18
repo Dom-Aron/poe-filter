@@ -100,6 +100,53 @@ Tambem funciona sem budget:
 python poe_market_filter_toolkit\scripts\run_all.py --upgrade-plan
 ```
 
+## Capturar personagem pela API oficial
+
+Crie `config/account_config.json` a partir de `config/account_config.example.json`:
+
+```json
+{
+  "account_name": "ACCOUNT#0000",
+  "character_name": "NOME_DO_PERSONAGEM",
+  "realm": "pc",
+  "league": "Mirage"
+}
+```
+
+Forneca o token OAuth por variavel de ambiente:
+
+```powershell
+$env:POE_OAUTH_TOKEN="SEU_TOKEN"
+```
+
+Ou crie `secrets/tokens.json`:
+
+```json
+{
+  "access_token": "SEU_TOKEN"
+}
+```
+
+Rodar captura + parse + analise:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_all.py --fetch-character --compare-build
+```
+
+Para atualizar tambem os arquivos usados pelo planejador:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_all.py --fetch-character --compare-build --update-builds
+```
+
+Scripts envolvidos:
+
+```text
+fetch_character.py            -> salva data/raw/character_api_raw.json
+parse_character.py            -> gera data/current/player_*.json
+compare_current_to_target.py  -> gera data/generated/gap_analysis.*
+```
+
 Limitacoes importantes:
 
 ```text
