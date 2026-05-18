@@ -78,6 +78,12 @@ Buscar apenas alguns tipos de upgrade:
 python poe_market_filter_toolkit\scripts\find_upgrade_deals.py --budget 251c --profiles ring_vulnerability,jewel_damage,large_cluster
 ```
 
+Planejar compras 1x1, 2x2 e 3x3 dentro do budget:
+
+```powershell
+python poe_market_filter_toolkit\scripts\plan_upgrade_path.py --budget 251c
+```
+
 Perfis disponiveis no buscador de upgrades:
 
 ```text
@@ -171,6 +177,40 @@ poe_market_filter_toolkit/market/reports/upgrade_deals.md
 
 Esse relatorio e ignorado pelo Git porque os resultados mudam rapidamente.
 
+### `plan_upgrade_path.py`
+
+Le arquivos estruturados em `poe_market_filter_toolkit/builds/`, busca candidatos no trade e testa combinacoes de compra:
+
+```text
+1 item por 1 item
+2 itens por 2 itens
+3 itens por 3 itens
+```
+
+Ele considera:
+
+- budget informado pelo usuario;
+- slots travados, como peitoral e luvas atuais;
+- pisos minimos da build, como resistencias, vida e chance de acerto;
+- metas da build alvo, como Impale, Chaos Resistance, Spell Block e Vulnerability on Hit;
+- possibilidade real de existir menos que top 10 ofertas seguras.
+
+Gera:
+
+```text
+poe_market_filter_toolkit/market/reports/upgrade_plan.md
+```
+
+Arquivos de entrada:
+
+```text
+poe_market_filter_toolkit/builds/player_items.json
+poe_market_filter_toolkit/builds/player_stats.json
+poe_market_filter_toolkit/builds/target_build_items.json
+poe_market_filter_toolkit/builds/target_build_stats.json
+poe_market_filter_toolkit/builds/upgrade_rules.json
+```
+
 ## Fluxo Recomendado
 
 1. Atualize os precos:
@@ -195,7 +235,13 @@ poe_market_filter_toolkit/market/reports/filter_audit.md
 python poe_market_filter_toolkit\scripts\find_upgrade_deals.py --budget 251c
 ```
 
-5. Antes de comprar, confira no trade, no PoE Overlay e, se for item de equipamento, no PoB.
+5. Planeje combos quando quiser saber se duas ou tres compras juntas resolvem melhor o personagem:
+
+```powershell
+python poe_market_filter_toolkit\scripts\plan_upgrade_path.py --budget 251c
+```
+
+6. Antes de comprar, confira no trade, no PoE Overlay e, se for item de equipamento, no PoB.
 
 ## Cuidados Importantes
 
@@ -232,6 +278,7 @@ poe_market_filter_toolkit/market/latest_market.json
 poe_market_filter_toolkit/market/snapshots/*.json
 poe_market_filter_toolkit/market/trade_stats_cache.json
 poe_market_filter_toolkit/market/reports/upgrade_deals.md
+poe_market_filter_toolkit/market/reports/upgrade_plan.md
 poe_market_filter_toolkit/filters/current/*.filter
 ```
 

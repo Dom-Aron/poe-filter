@@ -55,6 +55,32 @@ poe_market_filter_toolkit/market/reports/upgrade_deals.md
 
 O script consulta o trade oficial (`/api/trade/search` e `/api/trade/fetch`), aplica o budget em chaos/divines, ranqueia por score heuristico e imprime os melhores achados. Sempre confirme manualmente antes de comprar.
 
+Para planejar compras combinadas dentro do budget:
+
+```powershell
+python poe_market_filter_toolkit\scripts\plan_upgrade_path.py --budget 251c
+```
+
+Esse planejador le os arquivos em `poe_market_filter_toolkit/builds/`, testa trocas 1x1, 2x2 e 3x3, e rejeita combinacoes que derrubem pisos minimos como vida, resistencias e chance de acerto.
+
+Arquivos de entrada:
+
+```text
+builds/player_items.json
+builds/player_stats.json
+builds/target_build_items.json
+builds/target_build_stats.json
+builds/upgrade_rules.json
+```
+
+Relatorio:
+
+```text
+poe_market_filter_toolkit/market/reports/upgrade_plan.md
+```
+
+Se o relatorio mostrar menos que o top pedido, isso nao e erro: pode nao existir oferta suficiente, o budget pode estar baixo, ou a build atual pode ja estar boa nos slots pesquisados.
+
 Limitacoes importantes:
 
 ```text
@@ -75,6 +101,7 @@ poe_market_filter_toolkit/market/reports/market_report.csv
 poe_market_filter_toolkit/market/reports/filter_suggestions.md
 poe_market_filter_toolkit/market/reports/filter_audit.md
 poe_market_filter_toolkit/market/reports/upgrade_deals.md
+poe_market_filter_toolkit/market/reports/upgrade_plan.md
 ```
 
 ## API usada
