@@ -16,6 +16,7 @@ says so instead of pretending there are ten good options.
 from __future__ import annotations
 
 import argparse
+import html
 import itertools
 import json
 import math
@@ -38,6 +39,8 @@ TARGET_ITEMS = BUILDS_DIR / "target_build_items.json"
 TARGET_STATS = BUILDS_DIR / "target_build_stats.json"
 UPGRADE_RULES = BUILDS_DIR / "upgrade_rules.json"
 REPORT_FILE = ROOT / "market" / "reports" / "upgrade_plan.md"
+REPORT_HTML = ROOT / "market" / "reports" / "upgrade_plan.html"
+NO_BUDGET_SEARCH_LIMIT_CHAOS = math.inf
 
 
 @dataclass(frozen=True)
@@ -306,6 +309,7 @@ def make_plans(
     target_stats: dict[str, Any],
     rules: dict[str, Any],
     max_combo_size: int,
+    cheapest_first: bool = False,
 ) -> tuple[list[Plan], list[str]]:
     base_stats = {key: float(value) for key, value in player_stats.get("stats", {}).items() if isinstance(value, (int, float))}
     plans: list[Plan] = []
@@ -314,7 +318,7 @@ def make_plans(
     for size in range(1, max_combo_size + 1):
         for combo in itertools.combinations(candidates, size):
             total_price = sum(candidate.price_chaos for candidate in combo)
-            if total_price > budget_chaos:
+            if math.isfinite(budget_chaos) and total_price > budget_chaos:
                 continue
             final_stats = final_stats_for_combo(base_stats, combo)
             score, gains, warnings, ok = combo_score(combo, final_stats, target_stats, rules)
@@ -333,7 +337,10 @@ def make_plans(
                 )
             )
 
-    plans.sort(key=lambda plan: (plan.score, plan.value_score), reverse=True)
+    if cheapest_first:
+        plans.sort(key=lambda plan: (plan.price_chaos, -plan.score, -plan.value_score))
+    else:
+        plans.sort(key=lambda plan: (plan.score, plan.value_score), reverse=True)
     return plans, diagnostics
 
 
@@ -376,6 +383,7 @@ def write_report(
     budget_chaos: float,
     league: str,
     top: int,
+    cheapest_first: bool,
 ) -> None:
     REPORT_FILE.parent.mkdir(parents=True, exist_ok=True)
     lines = [
@@ -383,9 +391,10 @@ def write_report(
         "",
         f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
         f"League: `{league}`",
-        f"Budget: `{budget_chaos:.1f} chaos`",
+        f"Budget: `{format_budget_label(budget_chaos)}`",
+        f"Mode: `{'cheapest safe upgrades' if cheapest_first else 'best value inside budget'}`",
         "",
-        "Este relatorio testa compras 1x1, 2x2 e 3x3. Ele pode mostrar menos que o top pedido quando o mercado nao tem ofertas suficientes ou quando as ofertas quebram pisos da build.",
+        "Este relatorio testa compras 1x1, 2x2 e 3x3. Ele pode mostrar menos que o top pedido quando o mercado nao tem ofertas suficientes, quando o budget nao cobre bons upgrades, ou quando as ofertas quebram pisos da build.",
         "",
     ]
 
@@ -398,7 +407,7 @@ def write_report(
                 "",
                 "Possiveis motivos:",
                 "",
-                "- budget insuficiente;",
+                "- budget insuficiente ou nao informado para uma busca mais ampla;",
                 "- mercado sem ofertas online para a liga atual;",
                 "- build atual ja esta boa nos slots pesquisados;",
                 "- filtros conservadores rejeitaram itens que seriam downgrade.",
@@ -464,14 +473,152 @@ def write_report(
     )
 
     REPORT_FILE.write_text("\n".join(lines), encoding="utf-8")
+    write_html_report(plans, candidates, diagnostics, budget_chaos, league, top, cheapest_first)
+
+
+def format_budget_label(budget_chaos: float) -> str:
+    if not math.isfinite(budget_chaos):
+        return "sem budget informado; mostrando upgrades seguros mais baratos"
+    return f"{budget_chaos:.1f} chaos"
+
+
+def plan_title(plan: Plan) -> str:
+    return " + ".join(candidate.name for candidate in plan.candidates)
+
+
+def html_join(items: list[str], empty: str = "Sem alerta automatico.") -> str:
+    unique = list(dict.fromkeys(items))
+    if not unique:
+        return f"<span class=\"muted\">{html.escape(empty)}</span>"
+    return "<ul>" + "".join(f"<li>{html.escape(item)}</li>" for item in unique[:8]) + "</ul>"
+
+
+def write_html_report(
+    plans: list[Plan],
+    candidates: list[Candidate],
+    diagnostics: list[str],
+    budget_chaos: float,
+    league: str,
+    top: int,
+    cheapest_first: bool,
+) -> None:
+    REPORT_HTML.parent.mkdir(parents=True, exist_ok=True)
+    generated = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    mode = "Top 3 upgrades seguros mais baratos" if cheapest_first else "Melhores planos dentro do budget"
+
+    cards: list[str] = []
+    if plans:
+        for rank, plan in enumerate(plans[:top], start=1):
+            item_links = []
+            for candidate in plan.candidates:
+                item_links.append(
+                    "<div class=\"item-link\">"
+                    f"<a href=\"{html.escape(candidate.trade_url)}\" target=\"_blank\" rel=\"noopener\">"
+                    f"{html.escape(candidate.name)}</a>"
+                    f"<span>{html.escape(candidate.profile_label)} -> {html.escape(candidate.slot)}</span>"
+                    f"<small>{html.escape(candidate.price_text)} | vendedor: {html.escape(candidate.seller or 'n/d')}</small>"
+                    "</div>"
+                )
+            cards.append(
+                "<section class=\"card\">"
+                f"<div class=\"rank\">#{rank}</div>"
+                f"<h2>{html.escape(plan_title(plan))}</h2>"
+                f"<p class=\"price\">{plan.price_chaos:.1f} chaos</p>"
+                f"<p class=\"score\">Score {plan.score:.1f} | Valor {plan.value_score:.2f}</p>"
+                "<div class=\"grid\">"
+                f"<div><h3>Itens</h3>{''.join(item_links)}</div>"
+                f"<div><h3>Melhoras</h3>{html_join(plan.gains, 'Ganho estimado positivo.')}</div>"
+                f"<div><h3>Alertas</h3>{html_join(plan.warnings)}</div>"
+                "</div>"
+                "</section>"
+            )
+    else:
+        cards.append(
+            "<section class=\"card\">"
+            "<h2>Nenhum plano seguro encontrado</h2>"
+            "<p>O budget pode ser insuficiente, o mercado pode nao ter ofertas boas agora, ou os filtros rejeitaram downgrades.</p>"
+            "</section>"
+        )
+
+    candidate_rows = []
+    for candidate in candidates[: max(top * 4, 12)]:
+        candidate_rows.append(
+            "<tr>"
+            f"<td>{html.escape(candidate.profile_label)}</td>"
+            f"<td>{html.escape(candidate.slot)}</td>"
+            f"<td><a href=\"{html.escape(candidate.trade_url)}\" target=\"_blank\" rel=\"noopener\">{html.escape(candidate.name)}</a></td>"
+            f"<td>{html.escape(candidate.price_text)}</td>"
+            f"<td>{html.escape('; '.join(candidate.gains))}</td>"
+            "</tr>"
+        )
+
+    diagnostics_html = ""
+    if diagnostics:
+        diagnostics_html = "<ul>" + "".join(
+            f"<li>{html.escape(note)}</li>" for note in list(dict.fromkeys(diagnostics))[:12]
+        ) + "</ul>"
+
+    content = f"""<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PoE Upgrade Plan</title>
+  <style>
+    body {{ margin: 0; font-family: Segoe UI, Arial, sans-serif; background: #111315; color: #ece7dc; }}
+    header {{ padding: 24px 32px; background: #1c2024; border-bottom: 1px solid #343a40; }}
+    main {{ padding: 24px 32px 48px; max-width: 1200px; margin: 0 auto; }}
+    h1, h2, h3 {{ margin: 0 0 12px; }}
+    .meta {{ color: #b7b0a2; display: flex; gap: 16px; flex-wrap: wrap; }}
+    .card {{ position: relative; background: #1b1e21; border: 1px solid #373d42; border-radius: 8px; padding: 20px; margin-bottom: 18px; }}
+    .rank {{ position: absolute; right: 18px; top: 16px; color: #d9b36a; font-weight: 700; }}
+    .price {{ font-size: 22px; color: #f2c66d; margin: 6px 0; }}
+    .score, .muted {{ color: #b7b0a2; }}
+    .grid {{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }}
+    .item-link {{ display: grid; gap: 4px; margin-bottom: 12px; }}
+    .item-link span, small {{ color: #b7b0a2; }}
+    a {{ color: #8bc5ff; text-decoration: none; }}
+    a:hover {{ text-decoration: underline; }}
+    ul {{ margin: 0; padding-left: 18px; }}
+    li {{ margin-bottom: 6px; }}
+    table {{ width: 100%; border-collapse: collapse; background: #1b1e21; border: 1px solid #373d42; }}
+    th, td {{ padding: 10px 12px; border-bottom: 1px solid #30363b; text-align: left; vertical-align: top; }}
+    th {{ color: #d9b36a; background: #20252a; }}
+    @media (max-width: 900px) {{ .grid {{ grid-template-columns: 1fr; }} main, header {{ padding-left: 16px; padding-right: 16px; }} }}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PoE Upgrade Plan</h1>
+    <div class="meta">
+      <span>Gerado: {html.escape(generated)}</span>
+      <span>Liga: {html.escape(league)}</span>
+      <span>Budget: {html.escape(format_budget_label(budget_chaos))}</span>
+      <span>Modo: {html.escape(mode)}</span>
+    </div>
+  </header>
+  <main>
+    <p class="muted">Abra os links em azul para acessar o trade oficial. Sempre confira no PoE Overlay e no PoB antes de comprar.</p>
+    {''.join(cards)}
+    <h2>Candidatos individuais considerados</h2>
+    <table>
+      <thead><tr><th>Perfil</th><th>Slot</th><th>Item</th><th>Preco</th><th>Leitura</th></tr></thead>
+      <tbody>{''.join(candidate_rows) if candidate_rows else '<tr><td colspan="5">Nenhum candidato individual disponivel.</td></tr>'}</tbody>
+    </table>
+    {'<h2>Por que algumas opcoes foram rejeitadas</h2>' + diagnostics_html if diagnostics_html else ''}
+  </main>
+</body>
+</html>
+"""
+    REPORT_HTML.write_text(content, encoding="utf-8")
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Plan 1x1, 2x2 and 3x3 upgrade purchases for the current build.")
-    parser.add_argument("--budget", required=True, help="Available budget, e.g. 251c, 1d, 1.5div.")
+    parser.add_argument("--budget", help="Available budget, e.g. 251c, 1d, 1.5div. If omitted, shows top 3 cheapest safe upgrades.")
     parser.add_argument("--league", help="League name. Defaults to config/market_config.json.")
     parser.add_argument("--profiles", default="all", help="Comma list or all.")
-    parser.add_argument("--top", type=int, default=10, help="Maximum plans to show.")
+    parser.add_argument("--top", type=int, default=None, help="Maximum plans to show. Defaults to 3 without budget and 10 with budget.")
     parser.add_argument("--max-fetch", type=int, default=30, help="Max trade listings fetched per profile.")
     parser.add_argument("--max-combo-size", type=int, default=None, help="Override max combo size.")
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
@@ -491,14 +638,16 @@ def main(argv: list[str]) -> int:
     timeout = int(config.get("timeout_seconds", 30))
     delay = float(config.get("request_delay_seconds", 0.9))
     divine_price = trade.load_divine_price_chaos()
-    budget_chaos = trade.parse_budget(args.budget, divine_price)
+    cheapest_first = not bool(args.budget)
+    budget_chaos = trade.parse_budget(args.budget, divine_price) if args.budget else NO_BUDGET_SEARCH_LIMIT_CHAOS
+    top = args.top if args.top is not None else (3 if cheapest_first else 10)
 
     player_items = load_json(args.player_items)
     player_stats = load_json(args.player_stats)
     target_items = load_json(args.target_items)
     target_stats = load_json(args.target_stats)
     rules = load_json(args.rules)
-    max_combo_size = args.max_combo_size or int(rules.get("max_combo_size", 3))
+    max_combo_size = args.max_combo_size or (1 if cheapest_first else int(rules.get("max_combo_size", 3)))
     max_combo_size = max(1, min(3, max_combo_size))
 
     profiles = trade.make_profiles()
@@ -512,7 +661,7 @@ def main(argv: list[str]) -> int:
         selected = [profiles[key] for key in keys]
 
     print(f"League: {league}")
-    print(f"Budget: {budget_chaos:.1f} chaos (Divine ~= {divine_price:.1f}c)")
+    print(f"Budget: {format_budget_label(budget_chaos)} (Divine ~= {divine_price:.1f}c)")
     print("Loading trade stat metadata...")
     stats = trade.get_trade_stats(user_agent, timeout)
 
@@ -540,16 +689,19 @@ def main(argv: list[str]) -> int:
 
     candidates = collect_candidates(rows_by_profile, target_items, player_items, rules)
     plans, diagnostics = make_plans(candidates, budget_chaos, player_stats, target_stats, rules, max_combo_size)
-    write_report(plans, candidates, diagnostics, budget_chaos, league, args.top)
+    if cheapest_first:
+        plans = plans[:top]
+    write_report(plans, candidates, diagnostics, budget_chaos, league, top, cheapest_first)
 
     if not plans:
         print("No safe plan found. See report for reasons.")
     else:
         print(f"Safe plans found: {len(plans)}")
-        for rank, plan in enumerate(plans[: args.top], start=1):
+        for rank, plan in enumerate(plans[:top], start=1):
             names = " + ".join(candidate.name for candidate in plan.candidates)
             print(f"{rank}. {names} | {plan.price_chaos:.1f}c | score {plan.score:.1f}")
     print(f"Report saved: {REPORT_FILE}")
+    print(f"HTML report saved: {REPORT_HTML}")
     return 0
 
 
@@ -564,7 +716,7 @@ def evaluate_profile_with_raw_items(
     delay: float,
     max_fetch: int,
 ) -> list[dict[str, Any]]:
-    query_id, ids = trade.search_profile(profile, league, budget_chaos, stats, user_agent, timeout, max_fetch)
+    query_id, ids = search_profile_optional_budget(profile, league, budget_chaos, stats, user_agent, timeout, max_fetch)
     if not query_id or not ids:
         return []
     time.sleep(delay)
@@ -578,7 +730,9 @@ def evaluate_profile_with_raw_items(
         listing = entry.get("listing", {})
         price = listing.get("price")
         price_chaos = trade.price_to_chaos(price, divine_price)
-        if price_chaos is None or not math.isfinite(price_chaos) or price_chaos > budget_chaos:
+        if price_chaos is None or not math.isfinite(price_chaos):
+            continue
+        if math.isfinite(budget_chaos) and price_chaos > budget_chaos:
             continue
 
         score, reasons = trade.score_item(profile, item)
@@ -612,6 +766,30 @@ def evaluate_profile_with_raw_items(
 
     evaluated.sort(key=lambda item: (item["score"], item["value_score"]), reverse=True)
     return evaluated
+
+
+def search_profile_optional_budget(
+    profile: trade.Profile,
+    league: str,
+    budget_chaos: float,
+    stats: list[dict[str, str]],
+    user_agent: str,
+    timeout: int,
+    max_fetch: int,
+) -> tuple[str | None, list[str]]:
+    if math.isfinite(budget_chaos):
+        return trade.search_profile(profile, league, budget_chaos, stats, user_agent, timeout, max_fetch)
+
+    query = trade.with_required_stats(
+        profile.query,
+        stats,
+        profile.required_stat_texts,
+        profile.count_stat_texts,
+        profile.count_min,
+    )
+    payload = {"query": query, "sort": {"price": "asc"}}
+    data = trade.request_json(f"{trade.TRADE_BASE}/api/trade/search/{league}", user_agent, timeout, method="POST", payload=payload)
+    return data.get("id"), list(data.get("result", []))[:max_fetch]
 
 
 if __name__ == "__main__":

@@ -7,7 +7,7 @@ Write-Host " PoE Market Filter Toolkit"
 Write-Host "======================================="
 Write-Host ""
 
-python (Join-Path $ScriptRoot "scripts/run_all.py")
+python (Join-Path $ScriptRoot "scripts/run_all.py") @args
 
 Write-Host ""
 Write-Host "Concluido. Veja os relatorios em market/reports/"

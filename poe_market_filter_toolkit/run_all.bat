@@ -7,7 +7,7 @@ echo  PoE Market Filter Toolkit
 echo =======================================
 echo.
 
-python scripts\run_all.py
+python scripts\run_all.py %*
 
 echo.
 echo Concluido. Veja os relatorios em market\reports\

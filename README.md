@@ -84,6 +84,18 @@ Planejar compras 1x1, 2x2 e 3x3 dentro do budget:
 python poe_market_filter_toolkit\scripts\plan_upgrade_path.py --budget 251c
 ```
 
+Sem budget, o planejador busca os 3 upgrades seguros mais baratos:
+
+```powershell
+python poe_market_filter_toolkit\scripts\plan_upgrade_path.py
+```
+
+Rodar mercado, auditoria e planejador de uma vez:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_all.py --upgrade-plan --budget 251c
+```
+
 Perfis disponiveis no buscador de upgrades:
 
 ```text
@@ -199,7 +211,10 @@ Gera:
 
 ```text
 poe_market_filter_toolkit/market/reports/upgrade_plan.md
+poe_market_filter_toolkit/market/reports/upgrade_plan.html
 ```
+
+Se `--budget` nao for informado, mostra por padrao o top 3 dos upgrades seguros mais baratos encontrados. A versao HTML e melhor para usuario leigo porque abre no navegador e traz links clicaveis para o trade oficial.
 
 Arquivos de entrada:
 
@@ -241,7 +256,13 @@ python poe_market_filter_toolkit\scripts\find_upgrade_deals.py --budget 251c
 python poe_market_filter_toolkit\scripts\plan_upgrade_path.py --budget 251c
 ```
 
-6. Antes de comprar, confira no trade, no PoE Overlay e, se for item de equipamento, no PoB.
+6. Para rodar tudo em uma so chamada:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_all.py --upgrade-plan --budget 251c
+```
+
+7. Antes de comprar, confira no trade, no PoE Overlay e, se for item de equipamento, no PoB.
 
 ## Cuidados Importantes
 
@@ -279,6 +300,7 @@ poe_market_filter_toolkit/market/snapshots/*.json
 poe_market_filter_toolkit/market/trade_stats_cache.json
 poe_market_filter_toolkit/market/reports/upgrade_deals.md
 poe_market_filter_toolkit/market/reports/upgrade_plan.md
+poe_market_filter_toolkit/market/reports/upgrade_plan.html
 poe_market_filter_toolkit/filters/current/*.filter
 ```
 

@@ -9,6 +9,7 @@ market/snapshots/*.json
 market/trade_stats_cache.json
 market/reports/upgrade_deals.md
 market/reports/upgrade_plan.md
+market/reports/upgrade_plan.html
 
 # Optional local filter copies for toolkit experiments
 filters/current/*.filter
