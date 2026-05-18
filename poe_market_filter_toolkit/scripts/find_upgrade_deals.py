@@ -13,7 +13,9 @@ Usage:
 Notes:
     - Uses the public trade endpoints used by the official trade site.
     - Keeps searches small and slow to respect rate limits.
-    - Scores are heuristics. Always inspect the item in trade/PoE Overlay before buying.
+    - Scores are heuristics. The report is written as a triage assistant, not as
+      an automatic buy command. Always inspect the item in trade/PoE Overlay
+      before buying.
 """
 
 from __future__ import annotations
@@ -41,6 +43,39 @@ REPORT_FILE = ROOT / "market" / "reports" / "upgrade_deals.md"
 STATS_CACHE = ROOT / "market" / "trade_stats_cache.json"
 
 TRADE_BASE = "https://www.pathofexile.com"
+
+PROFILE_GUIDANCE = {
+    "ring_vulnerability": {
+        "goal": "Encontrar anel com Vulnerability on Hit sem destruir vida, resistencias, chaos res ou conforto de mana.",
+        "current": "Seus aneis atuais ja sao bons: Doom Knot tem 110 life, res e -mana; Ghoul Grip tem 94 life, attack speed, chaos res e flat phys.",
+        "check": "Antes de comprar, confira se voce nao perde o craft de -mana necessario para Cyclone, se as resistencias continuam capadas e se Chaos Resistance nao cai demais.",
+        "empty": "Nenhum anel passou o filtro conservador. Isso geralmente significa que os baratos seriam downgrade/sidegrade. Aumente o budget ou procure manualmente quando quiser trocar um dos aneis atuais.",
+    },
+    "jewel_damage": {
+        "goal": "Encontrar jewel normal com combinacao de vida, attack speed com staff, dano fisico com staff, crit multi ou chaos res.",
+        "current": "Esse slot costuma ser bom para upgrade barato, mas jewels de 1c podem ser bons apenas no papel.",
+        "check": "Prefira jewels com 3 mods uteis. Evite comprar so porque e barato; compare se o mod realmente funciona com staff/Cyclone.",
+        "empty": "Nenhum jewel normal passou os filtros. Tente aumentar --max-fetch ou procurar com menos perfis.",
+    },
+    "abyss_jewel": {
+        "goal": "Melhorar a Ancient Arbiter no Stygian Vise.",
+        "current": "Sua Abyss atual ja tem 30 life, dexterity e flat physical damage with Staff Attacks.",
+        "check": "So compre se ganhar vida maior, flat phys melhor, blind/intimidate/onslaught ou attack speed. Vida menor com o mesmo flat phys tende a ser sidegrade.",
+        "empty": "Nenhuma Abyss jewel pareceu claramente melhor que a Ancient Arbiter. Isso e normal: a sua atual ja e funcional.",
+    },
+    "large_cluster": {
+        "goal": "Encontrar Large Cluster Jewel fisico/staff com baixo numero de passivas e mod base util.",
+        "current": "Cluster e upgrade de arvore: so vale se voce tiver pontos/passivas para encaixar sem perder defesa demais.",
+        "check": "No trade, abra o item e confira: 8 passivas, base fisica/staff/two-handed e notables realmente uteis. Nao compre cluster elemental/minion.",
+        "empty": "Nenhum cluster passou o corte. Procure manualmente ou aumente --max-fetch; cluster bom depende muito dos notables.",
+    },
+    "rumi_uncorrupted": {
+        "goal": "Trocar seu Rumi's corrompido por um nao corrompido sem perder o roll defensivo.",
+        "current": "Seu Rumi's atual e 12 attack block / 4 spell block. O script rejeita qualquer candidato pior que isso.",
+        "check": "So vale se for nao corrompido e pelo menos 12/4. O motivo da troca e automatizar flask, nao ganhar poder imediato.",
+        "empty": "Nenhum Rumi's nao corrompido dentro do budget bateu seu 12/4 atual. Continue usando o seu.",
+    },
+}
 
 
 @dataclass(frozen=True)
@@ -704,6 +739,42 @@ def format_price(price: dict[str, Any] | None, price_chaos: float) -> str:
     return f"{amount:g} {currency} (~{price_chaos:.1f}c)"
 
 
+def verdict_for(row: dict[str, Any]) -> str:
+    profile = row["profile"]
+    score = float(row["score"])
+    price = float(row["price_chaos"])
+
+    if profile == "ring_vulnerability":
+        return "Comparar com cuidado: curse e pacote defensivo parecem bons, mas anel mexe em mana/resists."
+    if profile == "rumi_uncorrupted":
+        return "Bom candidato se voce quer automatizar flask; nao e upgrade urgente de poder."
+    if profile == "abyss_jewel":
+        if score >= 80 and price <= 15:
+            return "Bom candidato barato; compara com a Ancient Arbiter antes de comprar."
+        return "Comparar manualmente; pode ser upgrade pequeno ou sidegrade."
+    if profile == "jewel_damage":
+        if score >= 80 and price <= 10:
+            return "Bom candidato barato para testar no PoB/tooltip."
+        return "Comparar manualmente; confirme se todos os mods funcionam com staff/Cyclone."
+    if profile == "large_cluster":
+        return "Comparar na arvore/passivas antes de comprar; cluster depende dos notables e dos pontos disponiveis."
+    return "Comparar manualmente antes de comprar."
+
+
+def beginner_reason(row: dict[str, Any]) -> str:
+    reasons = [reason for reason in row.get("reasons", []) if not reason.lower().startswith(("penalty:", "warning:"))]
+    if not reasons:
+        return "Combina com o perfil de busca."
+    return "; ".join(reasons[:4])
+
+
+def risk_notes(row: dict[str, Any]) -> str:
+    notes = [reason for reason in row.get("reasons", []) if reason.lower().startswith(("penalty:", "warning:"))]
+    if not notes:
+        return "Sem alerta automatico; ainda assim confira no trade/PoE Overlay."
+    return "; ".join(notes[:3])
+
+
 def write_report(
     profiles: list[Profile],
     rows_by_profile: dict[str, list[dict[str, Any]]],
@@ -719,7 +790,24 @@ def write_report(
         f"League: `{league}`",
         f"Budget: `{budget_chaos:.1f} chaos`",
         "",
-        "Heuristic score only. Confirm every item manually in trade/PoE Overlay before buying.",
+        "Este relatorio e uma triagem, nao uma ordem automatica de compra.",
+        "",
+        "## Como usar",
+        "",
+        "1. Leia o veredito de cada item.",
+        "2. Abra o link do trade.",
+        "3. Compare com o item atual no personagem.",
+        "4. Confira se vida, resistencias, mana e atributos continuam funcionando.",
+        "5. So compre depois de validar no PoE Overlay/trade/PoB quando possivel.",
+        "",
+        "## Principais limites desta busca",
+        "",
+        "- O script nao calcula DPS real como o Path of Building.",
+        "- O script nao sabe automaticamente qual item voce vai remover, entao usa baselines conservadores.",
+        "- Precos e disponibilidade mudam rapido; uma oferta pode sumir ou estar offline.",
+        "- Alguns mods parecem bons mas nao ajudam sua build, especialmente em jewels e clusters.",
+        "- Cluster jewel depende dos pontos disponiveis na arvore e dos notables, nao apenas do preco.",
+        "- Item barato com um mod forte ainda pode ser downgrade se perder vida, resistencias, chaos res ou mana.",
         "",
     ]
 
@@ -731,28 +819,52 @@ def write_report(
         else:
             label = profile.label
             why = profile.why
+        guidance = PROFILE_GUIDANCE.get(profile.key, {})
         lines.extend([f"## {label}", "", why, ""])
+        if guidance:
+            lines.extend(
+                [
+                    f"Objetivo: {guidance['goal']}",
+                    "",
+                    f"Comparacao atual: {guidance['current']}",
+                    "",
+                    f"Antes de comprar: {guidance['check']}",
+                    "",
+                ]
+            )
         if not rows:
-            lines.extend(["No matching priced online listings within budget.", ""])
+            empty = guidance.get("empty", "Nenhum item passou os filtros conservadores dentro do budget.")
+            lines.extend([f"Conclusao: {empty}", ""])
             continue
-        lines.append("| Rank | Item | Price | Score | Value | Seller | Reasons |")
-        lines.append("| ---: | --- | ---: | ---: | ---: | --- | --- |")
+        lines.append("| Rank | Acao | Item | Preco | Por que apareceu | Alertas | Vendedor |")
+        lines.append("| ---: | --- | --- | ---: | --- | --- | --- |")
         for rank, row in enumerate(rows[:top], start=1):
             name = f"{row['item_name']} {row['type_line']}".strip()
-            reasons = "<br>".join(row["reasons"]) if row["reasons"] else "base/profile match"
             lines.append(
-                "| {rank} | [{name}]({url}) | {price} | {score:.1f} | {value:.2f} | {seller} | {reasons} |".format(
+                "| {rank} | {verdict} | [{name}]({url}) | {price} | {reason} | {risk} | {seller} |".format(
                     rank=rank,
+                    verdict=verdict_for(row).replace("|", "\\|"),
                     name=name.replace("|", "\\|"),
                     url=row["trade_url"],
                     price=format_price(row["price"], row["price_chaos"]),
-                    score=row["score"],
-                    value=row["value_score"],
+                    reason=beginner_reason(row).replace("|", "\\|"),
+                    risk=risk_notes(row).replace("|", "\\|"),
                     seller=str(row["seller"]).replace("|", "\\|"),
-                    reasons=reasons.replace("|", "\\|"),
                 )
             )
-        lines.append("")
+        lines.extend(
+            [
+                "",
+                "<details>",
+                "<summary>Detalhes tecnicos do ranking</summary>",
+                "",
+                "| Rank | Score | Value |",
+                "| ---: | ---: | ---: |",
+            ]
+        )
+        for rank, row in enumerate(rows[:top], start=1):
+            lines.append(f"| {rank} | {row['score']:.1f} | {row['value_score']:.2f} |")
+        lines.extend(["", "</details>", ""])
 
     REPORT_FILE.write_text("\n".join(lines), encoding="utf-8")
 
@@ -762,16 +874,18 @@ def print_summary(profiles: list[Profile], rows_by_profile: dict[str, list[dict[
         rows = rows_by_profile.get(profile.key, [])
         print(f"\n== {rows[0]['profile_label'] if rows else profile.label} ==")
         if not rows:
-            print("No matches.")
+            guidance = PROFILE_GUIDANCE.get(profile.key, {})
+            print(guidance.get("empty", "No matches passed the conservative filters."))
             continue
         for rank, row in enumerate(rows[:top], start=1):
             name = f"{row['item_name']} {row['type_line']}".strip()
             print(
                 f"{rank}. {name} | {format_price(row['price'], row['price_chaos'])} "
-                f"| score {row['score']:.1f} | value {row['value_score']:.2f}"
+                f"| {verdict_for(row)}"
             )
             if row["reasons"]:
-                print(f"   {', '.join(row['reasons'][:3])}")
+                print(f"   Por que apareceu: {beginner_reason(row)}")
+                print(f"   Alertas: {risk_notes(row)}")
             print(f"   {row['trade_url']}")
 
 

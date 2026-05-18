@@ -55,6 +55,16 @@ poe_market_filter_toolkit/market/reports/upgrade_deals.md
 
 O script consulta o trade oficial (`/api/trade/search` e `/api/trade/fetch`), aplica o budget em chaos/divines, ranqueia por score heuristico e imprime os melhores achados. Sempre confirme manualmente antes de comprar.
 
+Limitacoes importantes:
+
+```text
+O script nao substitui Path of Building.
+O script nao compra automaticamente.
+O script nao garante que o vendedor ainda esta online.
+O script usa baselines conservadores do gear atual para evitar downgrades obvios.
+O relatorio prioriza linguagem simples: acao, motivo e alertas.
+```
+
 ## Arquivos gerados
 
 ```text

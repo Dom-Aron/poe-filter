@@ -1235,6 +1235,36 @@ Relatorio: poe_market_filter_toolkit/market/reports/upgrade_deals.md
 
 Importante: o score e heuristico. Use o link gerado, confira o item no trade/PoE Overlay e compare com o equipamento atual antes de comprar. O script usa a API do trade oficial com poucas buscas e pausas para respeitar rate limit.
 
+Problemas principais dessa forma de busca:
+
+```text
+1. O script nao calcula DPS/defesa real como o Path of Building.
+2. O script nao sabe perfeitamente qual item voce vai tirar; ele usa baselines conservadores.
+3. Ofertas do trade mudam rapido: item pode vender, jogador pode sair ou preco pode estar errado.
+4. Um item barato com um mod bom ainda pode ser downgrade se perder vida, resistencias, chaos res, atributos ou mana.
+5. Cluster jewel e especialmente perigoso: precisa conferir notables e pontos disponiveis na arvore.
+6. Jewels podem aparecer bons, mas alguns mods nao funcionam com staff/Cyclone.
+7. Rumi's nao corrompido so vale se nao for pior que o seu 12/4 atual.
+```
+
+Como ler o relatorio novo:
+
+```text
+Acao       -> leitura em portugues do que fazer com o item.
+Por que    -> mods que fizeram o item aparecer.
+Alertas    -> perdas ou pontos que exigem checagem manual.
+Vendedor   -> conta listada no trade.
+Detalhes   -> score tecnico escondido no fim de cada perfil.
+```
+
+Regra simples para usuario leigo:
+
+```text
+Se o relatorio disser "comparar", nao compre automaticamente.
+Abra o link, confira se voce nao perde vida/resistencias/mana, e so entao compre.
+Se estiver em duvida entre dois itens baratos, prefira o que nao derruba defesas.
+```
+
 ### Segurança de BaseType
 
 Os relatorios do poe.ninja misturam itens que funcionam bem como `BaseType` com nomes comerciais que o parser do filtro nao aceita. A regra de manutencao e:
