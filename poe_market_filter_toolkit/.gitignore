@@ -6,6 +6,8 @@ venv/
 
 # Generated market history
 market/snapshots/*.json
+market/trade_stats_cache.json
+market/reports/upgrade_deals.md
 
 # Optional local filter copies for toolkit experiments
 filters/current/*.filter

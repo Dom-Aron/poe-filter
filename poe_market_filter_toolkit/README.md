@@ -23,6 +23,38 @@ Ou pelo PowerShell helper:
 .\poe_market_filter_toolkit\run_all.ps1
 ```
 
+## Buscar upgrades no trade oficial
+
+Para procurar compras com bom custo-beneficio para a build atual:
+
+```powershell
+python poe_market_filter_toolkit\scripts\find_upgrade_deals.py --budget 251c
+```
+
+Tambem aceita budget em divines:
+
+```powershell
+python poe_market_filter_toolkit\scripts\find_upgrade_deals.py --budget 1d
+```
+
+Perfis:
+
+```text
+ring_vulnerability
+jewel_damage
+abyss_jewel
+large_cluster
+rumi_uncorrupted
+```
+
+O relatorio fica em:
+
+```text
+poe_market_filter_toolkit/market/reports/upgrade_deals.md
+```
+
+O script consulta o trade oficial (`/api/trade/search` e `/api/trade/fetch`), aplica o budget em chaos/divines, ranqueia por score heuristico e imprime os melhores achados. Sempre confirme manualmente antes de comprar.
+
 ## Arquivos gerados
 
 ```text
@@ -32,6 +64,7 @@ poe_market_filter_toolkit/market/reports/market_report.md
 poe_market_filter_toolkit/market/reports/market_report.csv
 poe_market_filter_toolkit/market/reports/filter_suggestions.md
 poe_market_filter_toolkit/market/reports/filter_audit.md
+poe_market_filter_toolkit/market/reports/upgrade_deals.md
 ```
 
 ## API usada
