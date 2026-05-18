@@ -133,6 +133,12 @@ Rodar captura + parse + analise:
 python poe_market_filter_toolkit\scripts\run_all.py --fetch-character --compare-build
 ```
 
+Gerar tambem proximas buscas e recomendacoes:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_all.py --fetch-character --compare-build --recommend-next
+```
+
 Para atualizar tambem os arquivos usados pelo planejador:
 
 ```powershell
@@ -145,6 +151,7 @@ Scripts envolvidos:
 fetch_character.py            -> salva data/raw/character_api_raw.json
 parse_character.py            -> gera data/current/player_*.json
 compare_current_to_target.py  -> gera data/generated/gap_analysis.*
+recommend_next_steps.py       -> gera next_searches e upgrade_recommendations
 ```
 
 Limitacoes importantes:

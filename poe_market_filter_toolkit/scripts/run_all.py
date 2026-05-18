@@ -9,7 +9,8 @@ Runs the full toolkit flow:
 4. suggest_filter_tiers.py
 5. filter_audit.py
 6. compare_current_to_target.py (optional)
-7. plan_upgrade_path.py (optional)
+7. recommend_next_steps.py (optional)
+8. plan_upgrade_path.py (optional)
 
 Usage:
     python scripts/run_all.py
@@ -51,6 +52,7 @@ def main() -> int:
     parser.add_argument("--parse-character", action="store_true", help="Parse data/raw/character_api_raw.json into normalized current files.")
     parser.add_argument("--update-builds", action="store_true", help="When parsing character, also copy player_items/player_stats into builds/ with backups.")
     parser.add_argument("--compare-build", action="store_true", help="Generate data/generated/gap_analysis from current/build target files.")
+    parser.add_argument("--recommend-next", action="store_true", help="Generate next_searches and upgrade_recommendations from gap_analysis.")
     parser.add_argument("--upgrade-plan", action="store_true", help="Also run plan_upgrade_path.py after market/filter reports.")
     parser.add_argument("--budget", help="Budget passed to plan_upgrade_path.py, e.g. 251c or 1d. If omitted, planner shows top 3 cheapest safe upgrades.")
     parser.add_argument("--profiles", help="Profiles passed to plan_upgrade_path.py, e.g. rumi_uncorrupted or ring_vulnerability,jewel_damage.")
@@ -76,6 +78,11 @@ def main() -> int:
     if args.compare_build:
         run_script("compare_current_to_target.py")
 
+    if args.recommend_next:
+        if not args.compare_build:
+            print("Note: --recommend-next uses existing data/generated/gap_analysis.json.")
+        run_script("recommend_next_steps.py")
+
     if args.upgrade_plan:
         planner_args: list[str] = []
         if args.budget:
@@ -99,6 +106,10 @@ def main() -> int:
     if args.compare_build:
         print("- data/generated/gap_analysis.md")
         print("- data/generated/gap_analysis.json")
+    if args.recommend_next:
+        print("- data/generated/next_searches.md")
+        print("- data/generated/upgrade_recommendations.md")
+        print("- data/generated/upgrade_report.json")
     if args.upgrade_plan:
         print("- market/reports/upgrade_plan.md")
         print("- market/reports/upgrade_plan.html")

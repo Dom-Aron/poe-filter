@@ -102,6 +102,12 @@ Capturar personagem pela API oficial da GGG, parsear e gerar analise de gaps:
 python poe_market_filter_toolkit\scripts\run_all.py --fetch-character --compare-build
 ```
 
+Gerar proximas buscas e recomendacoes a partir dos gaps:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_all.py --compare-build --recommend-next
+```
+
 Para permitir que o parser atualize os arquivos usados pelo planejador:
 
 ```powershell
@@ -277,6 +283,18 @@ Gera:
 ```text
 poe_market_filter_toolkit/data/generated/gap_analysis.json
 poe_market_filter_toolkit/data/generated/gap_analysis.md
+```
+
+### `recommend_next_steps.py`
+
+Le `gap_analysis.json` e gera uma recomendacao deterministica, sem IA, para servir como MVP do futuro agente local.
+
+Gera:
+
+```text
+poe_market_filter_toolkit/data/generated/next_searches.md
+poe_market_filter_toolkit/data/generated/upgrade_recommendations.md
+poe_market_filter_toolkit/data/generated/upgrade_report.json
 ```
 
 ## Fluxo Recomendado
