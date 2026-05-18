@@ -63,6 +63,7 @@ class Profile:
     count_min: int = 0
     base_score: float = 0.0
     min_score: float = 0.0
+    baseline: dict[str, float] | None = None
 
 
 def load_config(path: Path) -> dict[str, Any]:
@@ -282,7 +283,11 @@ def make_profiles() -> dict[str, Profile]:
                 Weight("Total Mana Cost", points=35),
             ),
             base_score=10,
-            min_score=90,
+            min_score=140,
+            baseline={
+                "life": 94,
+                "chaos_res": 30,
+            },
         ),
         "jewel_damage": Profile(
             key="jewel_damage",
@@ -320,7 +325,7 @@ def make_profiles() -> dict[str, Profile]:
                 Weight("to Chaos Resistance", per_value=1.0, cap=25),
             ),
             base_score=5,
-            min_score=45,
+            min_score=62,
         ),
         "abyss_jewel": Profile(
             key="abyss_jewel",
@@ -357,7 +362,10 @@ def make_profiles() -> dict[str, Profile]:
                 Weight("Onslaught", points=30),
             ),
             base_score=5,
-            min_score=45,
+            min_score=62,
+            baseline={
+                "life": 30,
+            },
         ),
         "large_cluster": Profile(
             key="large_cluster",
@@ -421,7 +429,11 @@ def make_profiles() -> dict[str, Profile]:
                 Weight("Quality", points=10),
             ),
             base_score=20,
-            min_score=60,
+            min_score=105,
+            baseline={
+                "attack_block": 12,
+                "spell_block": 4,
+            },
         ),
     }
 
@@ -431,6 +443,10 @@ def extract_number_near(text: str) -> float | None:
     if not match:
         return None
     return abs(float(match.group(0)))
+
+
+def all_numbers(text: str) -> list[float]:
+    return [abs(float(match.replace(",", "."))) for match in re.findall(r"[-+]?\d+(?:[.,]\d+)?", text)]
 
 
 def item_texts(item: dict[str, Any]) -> list[str]:
@@ -479,6 +495,101 @@ def score_item(profile: Profile, item: dict[str, Any]) -> tuple[float, list[str]
                 break
 
     return score, reasons[:8]
+
+
+def has_text(texts: list[str], needle: str) -> bool:
+    needle = needle.lower()
+    return any(needle in text.lower() for text in texts)
+
+
+def numeric_mod_value(texts: list[str], needle: str, mode: str = "first") -> float:
+    needle = needle.lower()
+    for text in texts:
+        if needle in text.lower():
+            values = all_numbers(text)
+            if not values:
+                return 0.0
+            if mode == "sum":
+                return sum(values)
+            if mode == "max":
+                return max(values)
+            return values[0]
+    return 0.0
+
+
+def baseline_adjustment(profile: Profile, item: dict[str, Any]) -> tuple[float, list[str], bool]:
+    texts = item_texts(item)
+    baseline = profile.baseline or {}
+    adjustment = 0.0
+    notes: list[str] = []
+
+    if profile.key == "ring_vulnerability":
+        life = numeric_mod_value(texts, "to maximum Life")
+        chaos = numeric_mod_value(texts, "to Chaos Resistance")
+        fire = numeric_mod_value(texts, "to Fire Resistance")
+        cold = numeric_mod_value(texts, "to Cold Resistance")
+        lightning = numeric_mod_value(texts, "to Lightning Resistance")
+        all_res = numeric_mod_value(texts, "to all Elemental Resistances")
+        total_res = fire + cold + lightning + chaos + all_res * 3
+        has_flat_phys = has_text(texts, "Physical Damage to Attacks")
+        has_attack_speed = has_text(texts, "increased Attack Speed")
+        has_minus_mana = has_text(texts, "Total Mana Cost")
+
+        if life < baseline.get("life", 0):
+            adjustment -= (baseline["life"] - life) * 0.8
+            notes.append(f"penalty: life below current ring baseline ({life:.0f} < {baseline['life']:.0f})")
+        if chaos < baseline.get("chaos_res", 0):
+            adjustment -= (baseline["chaos_res"] - chaos) * 0.9
+            notes.append(f"penalty: chaos resistance below Ghoul Grip ({chaos:.0f} < {baseline['chaos_res']:.0f})")
+        if total_res < 55:
+            adjustment -= 25
+            notes.append("penalty: weak resistance package versus current rings")
+        if not has_flat_phys:
+            adjustment -= 12
+            notes.append("penalty: no flat physical damage to attacks")
+        if not has_attack_speed:
+            adjustment -= 10
+            notes.append("penalty: no attack speed")
+        if not has_minus_mana:
+            adjustment -= 10
+            notes.append("warning: no -mana channeling craft shown")
+
+        strict = 60 + life * 0.25 + total_res * 0.25 + chaos * 0.6
+        strict += 18 if has_flat_phys else 0
+        strict += 16 if has_attack_speed else 0
+        strict += 20 if has_minus_mana else 0
+        if strict < 95:
+            return adjustment, notes + [f"rejected: too much sidegrade/downgrade risk versus current rings ({strict:.1f})"], False
+
+    elif profile.key == "abyss_jewel":
+        life = numeric_mod_value(texts, "to maximum Life")
+        has_staff_phys = has_text(texts, "Added Physical Damage with Staff Attacks")
+        has_attack_speed = has_text(texts, "Attack Speed if you've Killed Recently")
+        has_utility = has_text(texts, "Onslaught") or has_text(texts, "Blind") or has_text(texts, "Intimidate")
+        if life < baseline.get("life", 0):
+            adjustment -= (baseline["life"] - life) * 0.8
+            notes.append(f"penalty: life below current abyss jewel ({life:.0f} < {baseline['life']:.0f})")
+        if not (has_staff_phys or has_attack_speed or has_utility):
+            return adjustment, notes + ["rejected: lacks staff phys, attack speed, or utility"], False
+        if life <= baseline.get("life", 0) and not (has_attack_speed or has_utility):
+            return adjustment, notes + ["rejected: too close to current Ancient Arbiter"], False
+
+    elif profile.key == "rumi_uncorrupted":
+        attack_block = numeric_mod_value(texts, "Chance to Block Attack Damage during Effect")
+        spell_block = numeric_mod_value(texts, "Chance to Block Spell Damage during Effect")
+        if attack_block < baseline.get("attack_block", 0) or spell_block < baseline.get("spell_block", 0):
+            return (
+                adjustment,
+                notes
+                + [
+                    "rejected: current corrupted Rumi's is 12 attack block / 4 spell block; "
+                    f"candidate is {attack_block:.0f}/{spell_block:.0f}"
+                ],
+                False,
+            )
+        notes.append("passes current Rumi's 12/4 baseline and is uncorrupted")
+
+    return adjustment, notes, True
 
 
 def search_profile(
@@ -554,6 +665,11 @@ def evaluate_profile(
             continue
 
         score, reasons = score_item(profile, item)
+        baseline_delta, baseline_notes, passes_baseline = baseline_adjustment(profile, item)
+        if not passes_baseline:
+            continue
+        score += baseline_delta
+        reasons.extend(baseline_notes)
         if score < profile.min_score:
             continue
         value_score = score / max(price_chaos, 1.0)
