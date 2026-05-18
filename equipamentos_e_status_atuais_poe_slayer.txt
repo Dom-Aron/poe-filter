@@ -1,0 +1,767 @@
+EQUIPAMENTOS E STATUS ATUAIS — PATH OF EXILE
+Build: Ronarray Shockwave Cyclone / General's Cry Slayer
+Classe: Slayer
+Status informado: level 89, mapas tier 9 e 10
+Foco de farm: Breach Hives / Wombgifts
+Data do registro: 2026-05-18
+
+============================================================
+1. EQUIPAMENTOS ATUAIS
+============================================================
+
+------------------------------------------------------------
+1.1 ARMA
+------------------------------------------------------------
+
+Hate Mast
+Ezomyte Staff
+
+Tipo:
+- Staff / Warstaff
+
+Qualidade:
+- +20%
+
+Valores do item:
+- Physical Damage: 311–775
+- Critical Strike Chance: 8.50%
+- Attacks per Second: 1.50
+- Weapon Range: 1.3 metres
+
+Requisitos:
+- Level 70
+- 155 Strength
+- 113 Intelligence
+
+Modificadores:
+- +25% Chance to Block Attack Damage while wielding a Staff
+- 127% increased Physical Damage
+- 21% chance to Impale Enemies on Hit with Attacks
+- 55% increased Physical Damage
+- Adds 39 to 69 Physical Damage
+- +16% to Global Critical Strike Multiplier
+- +130 to Accuracy Rating
+- 20% increased Attack Speed
+
+Avaliação:
+- A arma ainda é funcional para o estágio atual.
+- Entrega dano físico alto, attack speed, chance de Impale, accuracy e block com staff.
+- Não parece ser a prioridade imediata de troca enquanto o personagem ainda está em mapas T9/T10.
+
+------------------------------------------------------------
+1.2 ANEL 1
+------------------------------------------------------------
+
+Doom Knot
+Two-Stone Ring
+
+Qualidade:
+- Physical and Chaos Damage Modifiers: +20%
+
+Implícito:
+- +15% to Cold and Lightning Resistances
+
+Modificadores:
+- Adds 4 to 10 Physical Damage to Attacks
+- +110 to maximum Life
+- +14% to all Elemental Resistances
+- +31% to Cold Resistance
+- Gain 48 Mana per Enemy Killed
+- Channelling Skills have -3 to Total Mana Cost
+
+Avaliação:
+- Excelente anel para a build.
+- O mod “Channelling Skills have -3 to Total Mana Cost” é muito importante para o Cyclone.
+- Também entrega vida alta, resistência e dano físico em ataques.
+- Não trocar sem garantir que o novo anel mantém o conforto de mana do Cyclone.
+
+------------------------------------------------------------
+1.3 CAPACETE
+------------------------------------------------------------
+
+Miracle Visage
+Penitent Mask
+
+Qualidade:
+- +20%
+
+Valores do item:
+- Armour: 560
+- Evasion Rating: 383
+
+Requisitos:
+- Level 75
+- 155 Strength
+- 111 Dexterity
+
+Modificadores:
+- 18% increased Attack Damage
+- 21% reduced Mana Cost of Attacks
+- +91 to Armour
+- 62% increased Armour and Evasion
+- +152 to maximum Life
+- +41% to Fire Resistance
+- +40% to Cold Resistance
+- +44% to Lightning Resistance
+
+Influências:
+- Searing Exarch
+- Eater of Worlds
+
+Avaliação:
+- Capacete muito melhor do que o registrado anteriormente, principalmente por ter +152 de vida.
+- Ajuda bastante nas resistências elementais.
+- O “reduced Mana Cost of Attacks” também combina bem com Cyclone.
+- Não parece prioridade trocar agora.
+
+------------------------------------------------------------
+1.4 AMULETO
+------------------------------------------------------------
+
+Carnage Heart
+Onyx Amulet
+
+Qualidade:
+- Attribute Modifiers: +20%
+
+Requisitos:
+- Level 20
+
+Implícito:
+- +19 to all Attributes
+
+Modificadores:
+- +45 to all Attributes
+- +17% to all Elemental Resistances
+- 1.61% of Physical Attack Damage Leeched as Life
+- 50% increased Total Recovery per second from Life Leech
+- 38% increased Damage while Leeching
+- Extra Gore
+
+Anoint:
+- Forged from the Blood of Countless Wars, its thirst has only begun.
+
+Avaliação:
+- Continua sendo bom para atributos, leech e dano enquanto está leechando.
+- É um item seguro e confortável.
+- Upgrade futuro possível: amuleto raro ofensivo/defensivo melhor, mas não é prioridade antes de resolver curse/jewels/cluster.
+
+------------------------------------------------------------
+1.5 ANEL 2
+------------------------------------------------------------
+
+Ghoul Grip
+Amethyst Ring
+
+Implícito:
+- +23% to Chaos Resistance
+
+Modificadores:
+- +36 to Dexterity
+- 7% increased Attack Speed
+- +94 to maximum Life
+- +29 to maximum Mana
+- +30% to Chaos Resistance
+- Adds 5 to 9 Physical Damage to Attacks
+
+Avaliação:
+- Anel muito bom para o estágio atual.
+- Entrega vida, attack speed, dexterity, flat physical damage e bastante chaos resistance.
+- É uma das peças que ajuda a manter Chaos Resistance positiva.
+- Só trocar por um anel realmente forte, idealmente com Vulnerability on Hit e bons stats.
+
+------------------------------------------------------------
+1.6 PEITORAL
+------------------------------------------------------------
+
+The Brass Dome
+Gladiator Plate
+
+Qualidade:
+- +20%
+
+Valores do item:
+- Armour: 4702
+
+Requisitos:
+- Level 70
+- 177 Strength
+- 98 Dexterity
+- 67 Intelligence
+
+Modificadores:
+- 382% increased Armour
+- +5% to all maximum Elemental Resistances
+- Strength provides no bonus to maximum Life
+- Take no Extra Damage from Critical Strikes
+
+Avaliação:
+- Excelente peça defensiva.
+- Muito boa para reduzir risco de dano crítico e aumentar máximo de resistências elementais.
+- Não trocar com orçamento baixo/médio.
+- A perda de bônus de vida da Strength é compensada pela segurança geral da peça.
+
+------------------------------------------------------------
+1.7 LUVAS
+------------------------------------------------------------
+
+Death Knuckle
+Precursor Gauntlets
+
+Qualidade:
+- +20%
+
+Valores do item:
+- Armour: 515
+
+Requisitos:
+- Level 78
+- 155 Strength
+- 31 Intelligence
+
+Implícitos:
+- 11% increased Global Accuracy Rating
+- Adds 5 to 8 Physical Damage to Attacks
+
+Modificadores:
+- +59 to Dexterity
+- +599 to Accuracy Rating
+- +79 to Armour
+- +113 to maximum Life
+- +34% to Fire Resistance
+- 43% increased Damage while Leeching
+
+Influências:
+- Searing Exarch
+- Eater of Worlds
+
+Avaliação:
+- Luvas atuais são muito boas.
+- Resolvem bem o problema de Accuracy.
+- Entregam vida alta, dexterity, dano físico em ataques, fire resistance e 43% increased Damage while Leeching.
+- Não vale trocar por luvas de 120–200 chaos que sejam apenas “sidegrade”.
+- Próximo upgrade de luvas só deve ser considerado se a nova peça tiver Accuracy alta, vida alta, attack speed forte e/ou mods ofensivos claramente superiores sem destruir resistências.
+
+------------------------------------------------------------
+1.8 BOTAS
+------------------------------------------------------------
+
+Grim Pace
+Titan Greaves
+
+Qualidade:
+- +20%
+
+Valores do item:
+- Armour: 450
+
+Requisitos:
+- Level 70
+- 120 Strength
+- 111 Dexterity
+- 92 Intelligence
+
+Enchant:
+- Memory Strands: 37
+
+Implícitos:
+- 16% chance to Avoid Elemental Ailments
+- 4% increased Action Speed
+
+Modificadores:
+- +50 to Strength
+- +115 to Armour
+- +89 to maximum Life
+- +46% to Lightning Resistance
+- +30% to Chaos Resistance
+- 25% increased Movement Speed
+
+Avaliação:
+- Botas boas para o estágio atual.
+- Entregam movement speed, action speed, strength, vida, lightning resistance e chaos resistance.
+- Ajudam bastante a manter Chaos Resistance positiva.
+- Não são prioridade de troca agora.
+
+------------------------------------------------------------
+1.9 CINTO
+------------------------------------------------------------
+
+Bramble Tether
+Stygian Vise
+
+Requisitos:
+- Level 67
+
+Implícito:
+- Has 1 Abyssal Socket
+
+Modificadores:
+- +35 to Dexterity
+- +96 to maximum Life
+- +46% to Fire Resistance
+- +46% to Lightning Resistance
+
+Avaliação:
+- Bom cinto defensivo.
+- Entrega vida alta, dexterity e duas resistências fortes.
+- O principal valor é permitir uma Abyss Jewel.
+- Upgrade futuro: Stygian Vise com vida alta, resistências, dano/atributos e talvez melhor base/crafts, mas não é prioridade imediata.
+
+------------------------------------------------------------
+1.10 ABYSS JEWEL NO CINTO
+------------------------------------------------------------
+
+Ancient Arbiter
+Murderous Eye Jewel
+
+Requisitos:
+- Level 28
+
+Modificadores:
+- +14 to Dexterity
+- +30 to maximum Life
+- 2 to 3 Added Physical Damage with Staff Attacks
+- Regenerate 0.8% of Life per second while moving
+
+Avaliação:
+- Jewel econômica e funcional.
+- Entrega vida, dexterity, dano físico com staff e regeneração.
+- Pode ser melhorada futuramente por uma abyss jewel com vida alta, flat physical damage melhor, attack speed se matou recentemente, blind/intimidate/onslaught ou outros mods ofensivos úteis.
+
+------------------------------------------------------------
+1.11 FLASK 1
+------------------------------------------------------------
+
+Rumi's Concoction
+Granite Flask
+
+Qualidade:
+- +20%
+
+Duração:
+- Lasts 7.20 seconds
+
+Cargas:
+- Consumes 30 of 60 Charges on use
+- Currently has 60 Charges
+
+Requisitos:
+- Level 68
+
+Efeito base:
+- +1500 to Armour
+
+Modificadores:
+- +12% Chance to Block Attack Damage during Effect
+- +4% Chance to Block Spell Damage during Effect
+
+Observação:
+- Corrupted
+
+Avaliação:
+- Muito importante para a defesa da build.
+- Bom roll para Attack Block.
+- Por estar corrompido, não permite craft/enchant automático como “Used when Charges reach full”.
+- Futuramente vale comprar um Rumi’s não corrompido para automatizar.
+
+------------------------------------------------------------
+1.12 FLASK 2
+------------------------------------------------------------
+
+The Wise Oak
+Bismuth Flask
+
+Duração:
+- Lasts 8.50 seconds
+
+Cargas:
+- Consumes 15 of 40 Charges on use
+- Currently has 40 Charges
+
+Requisitos:
+- Level 8
+
+Efeito base:
+- +35% to all Elemental Resistances
+
+Modificadores:
+- During Effect, 6% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest
+- During Effect, Damage Penetrates 8% Resistance of each Element for which your Uncapped Elemental Resistance is highest
+
+Avaliação:
+- Pode ser boa, mas depende do balanceamento das resistências sem cap.
+- Como a build é física, o lado ofensivo elemental pode não ser tão relevante quanto em builds elementais.
+- Pode ser substituída no futuro por flask utilitário mais específico se necessário.
+
+------------------------------------------------------------
+1.13 FLASK 3
+------------------------------------------------------------
+
+Opaque Divine Life Flask of Sealing
+
+Qualidade:
+- +20%
+
+Recuperação:
+- Recovers 4262 Life over 5.20 seconds
+
+Cargas:
+- Consumes 15 of 45 Charges on use
+- Currently has 45 Charges
+
+Requisitos:
+- Level 60
+
+Modificadores:
+- 48% increased Amount Recovered
+- 33% reduced Recovery Rate
+- Grants Immunity to Bleeding for 6 seconds if used while Bleeding
+- Grants Immunity to Corrupted Blood for 6 seconds if used while affected by Corrupted Blood
+
+Avaliação:
+- Flask de vida bom por cobrir Bleeding e Corrupted Blood.
+- Importante manter enquanto não houver imunidade confiável por jewel/passiva.
+- Pode ser melhorado no futuro com prefixo/sufixo mais ideal, mas está funcional.
+
+------------------------------------------------------------
+1.14 FLASK 4
+------------------------------------------------------------
+
+Opaque Eternal Mana Flask of Grounding
+
+Qualidade:
+- +7%
+
+Recuperação:
+- Recovers 2831 Mana over 10.40 seconds
+
+Cargas:
+- Consumes 8 of 42 Charges on use
+- Currently has 42 Charges
+
+Requisitos:
+- Level 65
+
+Modificadores:
+- 47% increased Amount Recovered
+- 33% reduced Recovery Rate
+- Grants Immunity to Shock for 10 seconds if used while Shocked
+
+Avaliação:
+- Mana flask é um sinal de que o conforto de mana ainda pode ser sensível.
+- Como a build usa Cyclone, manter o craft “Channelling Skills have -3 to Total Mana Cost” no anel é importante.
+- Futuramente, se o sustain de mana ficar estável sem flask, este slot pode virar um flask defensivo/ofensivo melhor.
+
+------------------------------------------------------------
+1.15 FLASK 5
+------------------------------------------------------------
+
+Constant Quicksilver Flask of the Hare
+
+Duração:
+- Lasts 6.00 seconds
+
+Cargas:
+- Consumes 30 of 60 Charges on use
+- Currently has 60 Charges
+
+Requisitos:
+- Level 4
+
+Efeito base:
+- 40% increased Movement Speed
+
+Modificadores:
+- 17% increased Charge Recovery
+- 8% increased Movement Speed during Effect
+
+Avaliação:
+- Flask de mobilidade funcional.
+- Ajuda na velocidade de mapas.
+- Upgrade futuro: flask com enchant automático e mods melhores, como aumento de efeito, duração, charges ou remoção/imunidade útil.
+
+============================================================
+2. STATUS ATUAIS DO PERSONAGEM
+============================================================
+
+------------------------------------------------------------
+2.1 OFENSA
+------------------------------------------------------------
+
+Damage per Second:
+- 8915.1
+
+Main Hand Chance to Hit:
+- 96%
+
+Main Hand Chance to Hit Evasive Monsters:
+- 87%
+
+Attacks per Second:
+- 2.31
+
+Main Hand Total Combined Damage:
+- 1802–4876
+
+Main Hand Physical Damage:
+- 1802–4876
+
+Main Hand Accuracy Rating:
+- 2543
+
+Main Hand Attack Speed Modifier:
+- +54%
+
+Main Hand Critical Strike Chance:
+- 21.25%
+
+Main Hand Critical Strike Multiplier:
+- 196%
+
+Stun Duration Modifier:
+- +65%
+
+Bleeding Damage per Second from Main Hand Hits:
+- 741.6–2007.2
+
+Bleeding Damage per Second from Main Hand Critical Strikes:
+- 1112.4–3010.8
+
+Poison Damage per Second from Main Hand Hits:
+- 317.9–860.2
+
+Poison Damage per Second from Main Hand Critical Strikes:
+- 476.8–1290.3
+
+Chance to Impale with Main Hand Hits:
+- 46%
+
+Leitura:
+- A correção de Accuracy foi bem-sucedida: 96% de chance de acerto é muito melhor que o valor antigo.
+- Contra monstros evasivos, 87% ainda pode melhorar, mas já não é o gargalo extremo de antes.
+- O ponto ofensivo mais fraco agora parece ser a Chance to Impale em 46%, baixa para uma build física.
+- Próximos upgrades ofensivos devem mirar Impale, Vulnerability on Hit, jewels, cluster e dano físico/attack speed.
+
+------------------------------------------------------------
+2.2 DEFESA
+------------------------------------------------------------
+
+Armour:
+- 17934
+
+Estimated Physical Damage Reduction:
+- 74%
+
+Evasion Rating:
+- 915
+
+Life Regeneration per Second:
+- 34.1
+
+Mana Regeneration per Second:
+- 23.6
+
+Fire Resistance:
+- 81% (134%)
+
+Cold Resistance:
+- 80% (91%)
+
+Lightning Resistance:
+- 80% (156%)
+
+Chaos Resistance:
+- 23% (23%)
+
+Chance to Block Attack Damage:
+- 62% (62%)
+
+Chance to Block Spell Damage:
+- 17%
+
+Cannot be Stunned:
+- Yes
+
+Ignite Avoidance:
+- 16%
+
+Chill Avoidance:
+- 16%
+
+Freeze Avoidance:
+- 16%
+
+Shock Avoidance:
+- 16%
+
+Movement Speed Modifier:
+- +25%
+
+Action Speed Modifier:
+- +4%
+
+Leitura:
+- Defesa física está boa para mapas T9/T10.
+- Resistências elementais estão capadas e com alguma sobra.
+- Lightning está com grande sobra; Fire também está confortável.
+- Cold está capada, mas com menos sobra que Fire/Lightning.
+- Chaos Resistance caiu para 23%; ainda está positiva, mas é um ponto de atenção.
+- Attack Block está bom e sobe com Rumi’s Concoction.
+- Spell Block continua baixo e pode ser melhorado futuramente.
+- Ailment avoidance ainda está baixa; há apenas 16% contra ignite/chill/freeze/shock.
+
+------------------------------------------------------------
+2.3 MISC / LEECH
+------------------------------------------------------------
+
+Skill Area of Effect Modifier:
+- +10%
+
+Main Hand Life Leech from Physical Attacks:
+- 3.41%
+
+Base Maximum Recovery per Life Leech:
+- 341 (10%)
+
+Life Leech Total Recovery per Second Modifier:
+- +310%
+
+Maximum Total Life Recovery per Second from Leech:
+- 954.8 (28%)
+
+Base Maximum Recovery per Mana Leech:
+- 89 (10%)
+
+Maximum Total Mana Recovery per Second from Leech:
+- 179.8 (20%)
+
+Base Maximum Recovery per Energy Shield Leech:
+- 0 (10%)
+
+Maximum Total Energy Shield Recovery per Second from Leech:
+- 0 (10%)
+
+Mana gained on Kill:
+- 48
+
+Leitura:
+- Leech está forte e combina bem com Carnage Heart e com as luvas Death Knuckle.
+- “Damage while Leeching” é muito importante nesse personagem, pois o personagem tende a estar leechando durante combate.
+- Mana gained on kill ajuda em mapas, mas bosses podem depender mais do custo reduzido de Cyclone e/ou do mana flask.
+
+------------------------------------------------------------
+2.4 CHARGES
+------------------------------------------------------------
+
+Endurance Charges:
+- 0 / 3
+
+Physical Damage Reduction per Endurance Charge:
+- 4%
+
+Elemental Damage Reduction per Endurance Charge:
+- 4%
+
+Frenzy Charges:
+- 0 / 3
+
+Attack Speed Modifier per Frenzy Charge:
+- +4%
+
+Cast Speed Modifier per Frenzy Charge:
+- +4%
+
+Damage Modifier per Frenzy Charge:
+- 4% more
+
+Power Charges:
+- 0 / 3
+
+Critical Strike Chance Modifier per Power Charge:
+- +50%
+
+Leitura:
+- O personagem não está sustentando charges no estado mostrado.
+- Frenzy charges seriam boas para attack speed e dano.
+- Endurance charges ajudariam bastante na defesa.
+- Power charges melhorariam crítico, mas não parecem prioridade imediata.
+- Se algum upgrade barato gerar Frenzy/Endurance de forma confiável, pode ser interessante.
+
+============================================================
+3. RESUMO GERAL
+============================================================
+
+Pontos fortes atuais:
+- Accuracy corrigida: 2543 Accuracy e 96% Chance to Hit.
+- Luvas Death Knuckle são muito boas e não devem ser trocadas por sidegrade caro.
+- Vida em várias peças está boa.
+- Resistências elementais estão capadas.
+- The Brass Dome dá muita segurança contra críticos.
+- Rumi’s Concoction melhora bastante block durante efeito.
+- Leech está forte e bem alinhado com a build.
+- Doom Knot mantém conforto de mana para Cyclone.
+
+Pontos de atenção:
+- Chance to Impale está em 46%, baixa para build física.
+- Chaos Resistance está positiva, mas apenas 23%.
+- Spell Block continua baixo em 17%.
+- Ailment avoidance está baixo em 16%.
+- Mana flask ainda ocupa um slot, indicando que o sustain de mana pode não estar totalmente resolvido.
+- Charges não estão sendo sustentadas no estado mostrado.
+
+============================================================
+4. PRIORIDADES DE UPGRADE COM O ESTADO ATUAL
+============================================================
+
+Prioridade 1 — não trocar luvas agora:
+- As luvas Death Knuckle já entregam Accuracy, vida, dexterity, flat physical damage e Damage while Leeching.
+- Trocas por luvas de 120–200 chaos provavelmente serão sidegrades, não upgrades claros.
+
+Prioridade 2 — melhorar Impale:
+- Chance to Impale está em 46%.
+- A build física se beneficia muito de Impale mais consistente.
+- Procurar jewels, passivas, cluster ou gear que aumentem Impale pode ser uma boa próxima etapa.
+
+Prioridade 3 — anel com Vulnerability on Hit:
+- Um anel com Vulnerability on Hit pode aumentar bastante o dano real.
+- Só vale se mantiver vida, resistências e conforto de mana.
+- Ideal: Vulnerability on Hit + life + resist + flat phys/accuracy/dex + espaço para craft de -mana cost se necessário.
+
+Prioridade 4 — jewel normal:
+- Procurar jewel com:
+  - % increased maximum Life
+  - Accuracy, se ainda ajudar contra evasivos
+  - Attack Speed with Staves
+  - Physical Damage with Staves
+  - Global Critical Strike Multiplier
+  - Attack Speed
+
+Prioridade 5 — cluster jewel físico/staff:
+- Bom caminho para escalar dano físico, Impale, attack speed ou leech.
+- Não comprar cluster caro sem comparar custo-benefício.
+
+Prioridade 6 — flasks:
+- Comprar Rumi’s não corrompido no futuro para automatizar com enchant.
+- Pensar em remover mana flask apenas quando o sustain de mana ficar confiável.
+- Avaliar se The Wise Oak está realmente ajudando a build física.
+
+Prioridade 7 — Spell Block / Ailment Avoidance:
+- Melhorias defensivas futuras.
+- Importante para mapas mais altos e conteúdo mais perigoso.
+
+============================================================
+5. CONCLUSÃO
+============================================================
+
+Com os status atuais, o personagem avançou bastante em relação ao contexto antigo.
+O antigo gargalo de Accuracy foi em grande parte resolvido.
+
+A prioridade agora deixa de ser “comprar luvas com accuracy” e passa a ser:
+1. Impale.
+2. Vulnerability on Hit.
+3. Jewels/cluster.
+4. Melhorias de flask.
+5. Spell Block e ailment avoidance.
+6. Chaos Resistance, caso comece a morrer para dano chaos.
+
+Para o orçamento atual de 251 chaos, a recomendação principal é evitar gastar em luvas e procurar upgrades mais direcionados em anel com curse, jewels ou cluster.

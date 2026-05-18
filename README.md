@@ -30,6 +30,17 @@ O filtro foi ajustado para:
 - evitar erros de parser causados por `BaseType` inválido, item class removida ou nomes incompletos;
 - acompanhar o estado real do personagem, atualmente em mapas de tier 9 e 10.
 
+Atualizacao mais recente do personagem:
+
+```text
+Data do registro: 2026-05-18
+Arquivo-fonte: equipamentos_e_status_atuais_poe_slayer.txt
+Level: 89
+Conteudo atual: mapas T9/T10
+Atlas: Breach Hives / Wombgifts + Delirium
+Budget citado no registro: 251 chaos
+```
+
 ---
 
 ## 2. Estado atual do personagem
@@ -41,11 +52,11 @@ Classe: Slayer
 Build: Shockwave Cyclone / General's Cry Slayer
 Conteúdo atual: mapas T9/T10
 Atlas: foco em Breach Hives + Delirium
-Estratégia: farmar Wombgifts/Hives e vender itens de alto valor
+Estratégia: farmar Wombgifts/Hives, aproveitar densidade com Delirium e vender itens de alto valor
 Tipo de dano: físico
 Arma: staff
 Defesas principais: armour, block, leech, The Brass Dome
-Gargalos principais: Accuracy, Impale e Spell Block
+Gargalos principais: Impale, Vulnerability on Hit, jewels/cluster, Spell Block, ailment avoidance e Chaos Resistance
 ```
 
 A build gira em torno de:
@@ -330,10 +341,48 @@ Rumi's Concoction: 12/4 comprado
 Próximo foco recomendado:
 
 ```text
-1. Accuracy / luvas
-2. Impale
-3. Jewel normal ou cluster físico
-4. Rumi's não corrompido com enchant automático
+1. Impale
+2. Anel com Vulnerability on Hit sem perder vida/resistência/mana
+3. Jewel normal ou cluster físico/staff
+4. Abyss Jewel melhor para o Stygian Vise
+5. Rumi's não corrompido com enchant automático
+6. Spell Block / ailment avoidance
+7. Chaos Resistance se começar a morrer para dano chaos
+```
+
+### Estado 2026-05-18
+
+O arquivo `equipamentos_e_status_atuais_poe_slayer.txt` atualizou o estado real do personagem.
+
+Pontos fortes atuais:
+
+```text
+Accuracy corrigida: 2543 Accuracy, 96% chance to hit e 87% contra evasivos.
+Luvas Death Knuckle são fortes: accuracy alta, vida, dexterity e damage while leeching.
+Capacete Miracle Visage agora tem +152 life e boas resistências.
+The Brass Dome continua sendo peça defensiva central.
+Doom Knot mantém o conforto de mana do Cyclone com -mana cost.
+Leech está forte e combina com Carnage Heart + luvas.
+Resistências elementais estão capadas.
+```
+
+Pontos de atenção atuais:
+
+```text
+Chance to Impale: 46%, baixa para build física.
+Chaos Resistance: 23%, positiva mas menos confortável que antes.
+Spell Block: 17%, ainda baixo fora do Rumi's.
+Ailment avoidance: 16%, baixo para mapas mais perigosos.
+Mana flask ainda ocupa um slot.
+Charges não estão sendo sustentadas no estado mostrado.
+```
+
+Resumo de compra:
+
+```text
+Não gastar em luvas baratas/médias agora; Death Knuckle já resolveu Accuracy.
+Priorizar Vulnerability on Hit, jewels bons, cluster físico/staff e Impale.
+Rumi's não corrompido é upgrade de qualidade de vida, não emergência.
 ```
 
 ---
@@ -1144,6 +1193,47 @@ poe_market_filter_toolkit/market/reports/filter_audit.md
 ```
 
 O toolkit nao edita o filtro automaticamente. Ele coleta precos, compara com os `BaseType` do filtro ativo na raiz do repositorio e gera sugestoes para revisao.
+
+### Buscador de upgrades no trade
+
+O toolkit agora inclui um script para procurar itens listados por jogadores no trade oficial e ranquear custo-beneficio para esta build.
+
+Rodar com budget em chaos:
+
+```powershell
+python poe_market_filter_toolkit\scripts\find_upgrade_deals.py --budget 251c
+```
+
+Rodar com budget em divines:
+
+```powershell
+python poe_market_filter_toolkit\scripts\find_upgrade_deals.py --budget 1d
+```
+
+Perfis disponiveis:
+
+```text
+ring_vulnerability -> anel raro com Vulnerability on Hit
+jewel_damage       -> jewel raro com life/dano/accuracy/crit/attack speed
+abyss_jewel        -> abyss jewel para o Stygian Vise
+large_cluster      -> Large Cluster Jewel fisico/staff
+rumi_uncorrupted   -> Rumi's Concoction nao corrompido
+```
+
+Exemplo focado:
+
+```powershell
+python poe_market_filter_toolkit\scripts\find_upgrade_deals.py --budget 251c --profiles ring_vulnerability,jewel_damage,large_cluster
+```
+
+Saida:
+
+```text
+Console: melhores achados por perfil
+Relatorio: poe_market_filter_toolkit/market/reports/upgrade_deals.md
+```
+
+Importante: o score e heuristico. Use o link gerado, confira o item no trade/PoE Overlay e compare com o equipamento atual antes de comprar. O script usa a API do trade oficial com poucas buscas e pausas para respeitar rate limit.
 
 ### Segurança de BaseType
 
