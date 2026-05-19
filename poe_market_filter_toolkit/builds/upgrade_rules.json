@@ -4,13 +4,15 @@
   "max_candidates_per_profile": 8,
   "max_candidates_per_slot": 6,
   "hard_reject_if_below_minimum": true,
+  "minimum_plan_score": 50,
+  "minimum_guarded_slot_score": 50,
   "budget": {
     "allow_partial_budget": true,
     "message_when_empty": "O budget pode ser insuficiente ou o mercado pode nao ter ofertas seguras agora."
   },
-  "locked_slots": {
-    "body_armour": "The Brass Dome e peca defensiva central.",
-    "gloves": "Death Knuckle resolve accuracy e vida; nao trocar por sidegrade."
+  "guarded_slots": {
+    "body_armour": "Slot sensivel: trocar apenas se nao quebrar resistencias/defesas e se o ganho passar o minimo configurado.",
+    "gloves": "Slot sensivel: trocar apenas se preservar accuracy/vida/resistencias e entregar melhoria clara."
   },
   "weights": {
     "vulnerability_on_hit": 140,

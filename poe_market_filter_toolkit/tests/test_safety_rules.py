@@ -8,20 +8,21 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import compare_current_to_target as compare
+import generate_dashboard
 import recommend_next_steps as recommend
 
 
 class SafetyRulesTest(unittest.TestCase):
-    def test_locked_slots_are_reported(self):
+    def test_guarded_slots_are_reported(self):
         player_items = json.loads((ROOT / "builds" / "player_items.json").read_text(encoding="utf-8"))
         rules = json.loads((ROOT / "builds" / "upgrade_rules.json").read_text(encoding="utf-8"))
 
-        protected = compare.protected_slots(player_items, rules)
+        guarded = compare.guarded_slots(player_items, rules)
 
-        self.assertIn("body_armour", protected)
-        self.assertIn("gloves", protected)
-        self.assertIn("The Brass Dome", protected["body_armour"])
-        self.assertIn("Death Knuckle", protected["gloves"])
+        self.assertIn("body_armour", guarded)
+        self.assertIn("gloves", guarded)
+        self.assertIn("The Brass Dome", guarded["body_armour"])
+        self.assertIn("Death Knuckle", guarded["gloves"])
 
     def test_strength_is_not_scored_as_life_with_brass_dome(self):
         rules = json.loads((ROOT / "builds" / "upgrade_rules.json").read_text(encoding="utf-8"))
@@ -59,6 +60,15 @@ class SafetyRulesTest(unittest.TestCase):
         entries = recommend.search_entries(gap)
 
         self.assertEqual(entries[0]["priority"], "low")
+
+    def test_dashboard_links_are_relative_to_generated_html(self):
+        output = ROOT / "data" / "generated" / "build_dashboard.html"
+        target = ROOT / "market" / "reports" / "upgrade_plan.html"
+
+        self.assertEqual(
+            generate_dashboard.relative_link(target, output),
+            "../../market/reports/upgrade_plan.html",
+        )
 
 
 if __name__ == "__main__":

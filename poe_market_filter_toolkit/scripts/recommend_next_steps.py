@@ -30,7 +30,7 @@ SEARCH_LIBRARY: dict[str, dict[str, Any]] = {
     "life": {
         "title": "Jewel com maximum life",
         "priority": "alta",
-        "reason": "Vida esta abaixo da meta e jewels permitem melhorar sem trocar slots protegidos.",
+        "reason": "Vida esta abaixo da meta e jewels permitem melhorar sem mexer em slots sensiveis.",
         "trade_terms": [
             "6-7% increased maximum Life",
             "Attack Speed with Staves ou Two Handed Melee Weapons",
@@ -89,7 +89,7 @@ SEARCH_LIBRARY: dict[str, dict[str, Any]] = {
             "flask suffixes uteis",
             "boots/crafts apenas se nao perder vida/resists",
         ],
-        "price_hint": "Tratar como defesa futura; nao trocar botas boas so por esse mod.",
+        "price_hint": "Tratar como defesa futura; so vale trocar botas se o ganho total compensar vida, resists e velocidade.",
         "profiles": [],
     },
     "chance_to_hit": {
@@ -200,7 +200,7 @@ def write_next_searches(path: Path, entries: list[dict[str, Any]]) -> None:
 def write_recommendations(path: Path, gap: dict[str, Any], entries: list[dict[str, Any]]) -> None:
     solved = gap.get("solved", {})
     risks = gap.get("risks", {})
-    protected = gap.get("protected_slots", {})
+    guarded = gap.get("guarded_slots") or gap.get("protected_slots", {})
     lines = [
         "# Recomendacoes de upgrade",
         "",
@@ -227,8 +227,11 @@ def write_recommendations(path: Path, gap: dict[str, Any], entries: list[dict[st
     else:
         lines.append("- Nenhum gargalo detectado.")
 
-    lines.extend(["", "## Slots protegidos", ""])
-    for slot, reason in protected.items():
+    lines.extend(["", "## Slots sensiveis", ""])
+    if guarded:
+        lines.append("Estes slots podem ser trocados, mas so quando a troca preserva os pisos da build e entrega ganho claro.")
+        lines.append("")
+    for slot, reason in guarded.items():
         lines.append(f"- `{slot}`: {reason}")
 
     lines.extend(["", "## Compras recomendadas", ""])
@@ -253,8 +256,9 @@ def write_recommendations(path: Path, gap: dict[str, Any], entries: list[dict[st
         [
             "## Regras de seguranca",
             "",
-            "- Nao trocar The Brass Dome em budget baixo/medio.",
-            "- Nao trocar as luvas atuais por sidegrade.",
+            "- Itens importantes podem ser trocados se a melhora for clara e nao quebrar pisos da build.",
+            "- Evitar sidegrades: gastar pouco para melhorar quase nada geralmente nao compensa.",
+            "- Usar o score minimo configurado antes de considerar uma compra.",
             "- Nao pontuar Strength como vida enquanto The Brass Dome estiver equipada.",
             "- Nao comprar item acima do budget como compra imediata; tratar como monitorar depois.",
             "- Confirmar qualquer compra no trade, PoE Overlay e PoB.",
@@ -270,9 +274,10 @@ def write_report_json(path: Path, gap: dict[str, Any], entries: list[dict[str, A
         "schema_version": 1,
         "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "priorities": gap.get("current_priorities", {}),
-        "protected_slots": gap.get("protected_slots", {}),
+        "guarded_slots": gap.get("guarded_slots") or gap.get("protected_slots", {}),
         "recommended_searches": entries,
-        "locked_slots": rules.get("locked_slots", {}),
+        "guarded_slots_rules": rules.get("guarded_slots", rules.get("locked_slots", {})),
+        "minimum_plan_score": rules.get("minimum_plan_score", 0),
         "notes": [
             "Deterministic recommendation MVP; future run_agent.py can use this as compact context.",
             "No recommendation here is an automatic purchase order.",

@@ -132,6 +132,7 @@ def main() -> int:
     if args.upgrade_plan:
         print("- market/reports/upgrade_plan.md")
         print("- market/reports/upgrade_plan.html")
+        print("- market/reports/upgrade_plan.json")
     if args.dashboard:
         print("- data/generated/build_dashboard.html")
     return 0

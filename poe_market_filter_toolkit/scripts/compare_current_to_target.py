@@ -72,9 +72,11 @@ def compare_stat(current: float | None, minimum: float | None, goal: float | Non
     }
 
 
-def protected_slots(player_items: dict[str, Any], rules: dict[str, Any]) -> dict[str, str]:
+def guarded_slots(player_items: dict[str, Any], rules: dict[str, Any]) -> dict[str, str]:
     out: dict[str, str] = {}
-    rule_slots = rules.get("locked_slots", {}) if isinstance(rules.get("locked_slots"), dict) else {}
+    rule_slots = rules.get("guarded_slots", {}) if isinstance(rules.get("guarded_slots"), dict) else {}
+    if not rule_slots and isinstance(rules.get("locked_slots"), dict):
+        rule_slots = rules.get("locked_slots", {})
     for slot, reason in rule_slots.items():
         item = player_items.get("items", {}).get(slot, {})
         name = item.get("name") or item.get("base") or slot
@@ -130,7 +132,8 @@ def build_gap_analysis(
         "solved": solved,
         "risks": risks,
         "comparison": comparison,
-        "protected_slots": protected_slots(player_items, rules),
+        "guarded_slots": guarded_slots(player_items, rules),
+        "protected_slots": guarded_slots(player_items, rules),
         "current_priorities": priorities_from_gaps(comparison),
         "notes": [
             "Este arquivo usa os stats numericos disponiveis no player_stats.json.",
@@ -172,8 +175,8 @@ def write_markdown(path: Path, analysis: dict[str, Any]) -> None:
     else:
         lines.append("- Nenhum risco detectado.")
 
-    lines.extend(["", "## Slots Protegidos", ""])
-    for slot, reason in analysis["protected_slots"].items():
+    lines.extend(["", "## Slots Sensíveis", ""])
+    for slot, reason in analysis.get("guarded_slots", {}).items():
         lines.append(f"- `{slot}`: {reason}")
 
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")

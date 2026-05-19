@@ -40,6 +40,7 @@ TARGET_STATS = BUILDS_DIR / "target_build_stats.json"
 UPGRADE_RULES = BUILDS_DIR / "upgrade_rules.json"
 REPORT_FILE = ROOT / "market" / "reports" / "upgrade_plan.md"
 REPORT_HTML = ROOT / "market" / "reports" / "upgrade_plan.html"
+REPORT_JSON = ROOT / "market" / "reports" / "upgrade_plan.json"
 NO_BUDGET_SEARCH_LIMIT_CHAOS = math.inf
 
 
@@ -59,6 +60,12 @@ class Candidate:
     warnings: list[str]
     seller: str
     trade_url: str
+    trade_search_url: str
+    trade_fetch_url: str
+    result_id: str
+    query_id: str
+    whisper: str
+    item_mods: list[str]
 
 
 @dataclass(frozen=True)
@@ -169,14 +176,15 @@ def candidate_for_slot(
     for key, value in current.items():
         delta[key] = delta.get(key, 0.0) - value
 
-    locked_slots = rules.get("locked_slots", {})
-    if slot in locked_slots:
-        return None
+    guarded_slots = rules.get("guarded_slots", rules.get("locked_slots", {}))
 
     if slot == "ring_1" and delta.get("mana_cost_channeling", 0.0) >= 0:
         warnings.append("bloqueado: trocar ring_1 remove o -mana cost do Cyclone")
         penalty = float(rules.get("penalties", {}).get("missing_mana_cost_when_replacing_ring_1", 80))
         delta["plan_penalty"] = delta.get("plan_penalty", 0.0) - penalty
+
+    if isinstance(guarded_slots, dict) and slot in guarded_slots:
+        warnings.append(f"slot sensivel: {guarded_slots[slot]}")
 
     gains = describe_effects(delta)
     if not gains:
@@ -197,6 +205,12 @@ def candidate_for_slot(
         warnings=warnings,
         seller=str(row.get("seller", "")),
         trade_url=str(row.get("trade_url", "")),
+        trade_search_url=str(row.get("trade_search_url") or row.get("trade_url", "")),
+        trade_fetch_url=str(row.get("trade_fetch_url", "")),
+        result_id=str(row.get("result_id", "")),
+        query_id=str(row.get("query_id", "")),
+        whisper=str(row.get("whisper", "")),
+        item_mods=[str(mod) for mod in row.get("item_mods", [])],
     )
 
 
@@ -299,6 +313,17 @@ def combo_score(
         warnings.append("rejeitado: ganho estimado nao supera perdas/riscos")
         return score, gains, warnings, False
 
+    minimum_plan_score = float(rules.get("minimum_plan_score", 0))
+    guarded_slots = rules.get("guarded_slots", rules.get("locked_slots", {}))
+    guarded_minimum = float(rules.get("minimum_guarded_slot_score", minimum_plan_score))
+    if score < minimum_plan_score:
+        warnings.append(f"rejeitado: score {score:.1f} abaixo do ganho minimo {minimum_plan_score:.1f}")
+        return score, gains, warnings, False
+    if isinstance(guarded_slots, dict) and any(candidate.slot in guarded_slots for candidate in candidates):
+        if score < guarded_minimum:
+            warnings.append(f"rejeitado: troca em slot sensivel exige score minimo {guarded_minimum:.1f}")
+            return score, gains, warnings, False
+
     return score, gains[:10], warnings[:10], True
 
 
@@ -344,6 +369,25 @@ def make_plans(
     return plans, diagnostics
 
 
+def best_single_purchase_any_budget(
+    candidates: list[Candidate],
+    player_stats: dict[str, Any],
+    target_stats: dict[str, Any],
+    rules: dict[str, Any],
+) -> list[Plan]:
+    plans, _ = make_plans(
+        candidates=candidates,
+        budget_chaos=NO_BUDGET_SEARCH_LIMIT_CHAOS,
+        player_stats=player_stats,
+        target_stats=target_stats,
+        rules=rules,
+        max_combo_size=1,
+        cheapest_first=False,
+    )
+    plans.sort(key=lambda plan: (plan.value_score, plan.score, -plan.price_chaos), reverse=True)
+    return plans[:3]
+
+
 def collect_candidates(
     rows_by_profile: dict[str, list[dict[str, Any]]],
     target_items: dict[str, Any],
@@ -378,6 +422,7 @@ def collect_candidates(
 
 def write_report(
     plans: list[Plan],
+    best_any_budget: list[Plan],
     candidates: list[Candidate],
     diagnostics: list[str],
     budget_chaos: float,
@@ -428,16 +473,36 @@ def write_report(
             [
                 "## Melhores Planos",
                 "",
-                "| Rank | Combo | Custo | Score | O que melhora | Alertas |",
-                "| ---: | --- | ---: | ---: | --- | --- |",
+                "| Rank | Combo | Custo | Score | O que melhora | Alertas | Whisper |",
+                "| ---: | --- | ---: | ---: | --- | --- | --- |",
             ]
         )
         for rank, plan in enumerate(plans[:top], start=1):
-            combo = "<br>".join(f"[{c.name}]({c.trade_url}) -> `{c.slot}`" for c in plan.candidates)
+            combo = "<br>".join(item_markdown_links(c) + f" -> `{c.slot}`" for c in plan.candidates)
             gains = "; ".join(dict.fromkeys(plan.gains)) or "Ganho estimado positivo."
             warnings = "; ".join(dict.fromkeys(plan.warnings[:5])) or "Sem alerta automatico."
+            whispers = "<br>".join(f"`{c.whisper}`" for c in plan.candidates if c.whisper) or "n/d"
             lines.append(
-                f"| {rank} | {combo} | {plan.price_chaos:.1f}c | {plan.score:.1f} | {gains} | {warnings} |"
+                f"| {rank} | {combo} | {plan.price_chaos:.1f}c | {plan.score:.1f} | {gains} | {warnings} | {whispers} |"
+            )
+
+    if best_any_budget:
+        lines.extend(
+            [
+                "",
+                "## Melhor compra barata ignorando o budget",
+                "",
+                "Esta secao procura oportunidade de custo-beneficio mesmo quando voce informou um budget maior.",
+                "",
+                "| Rank | Item | Custo | Score | Valor | O que melhora |",
+                "| ---: | --- | ---: | ---: | ---: | --- |",
+            ]
+        )
+        for rank, plan in enumerate(best_any_budget[:3], start=1):
+            candidate = plan.candidates[0]
+            gains = "; ".join(dict.fromkeys(plan.gains)) or "Ganho estimado positivo."
+            lines.append(
+                f"| {rank} | {item_markdown_links(candidate)} -> `{candidate.slot}` | {plan.price_chaos:.1f}c | {plan.score:.1f} | {plan.value_score:.2f} | {gains} |"
             )
 
     lines.extend(["", "## Candidatos Individuais Considerados", ""])
@@ -447,7 +512,7 @@ def write_report(
         for candidate in candidates[: max(top * 3, 10)]:
             gains = "; ".join(candidate.gains)
             lines.append(
-                f"| {candidate.profile_label} | `{candidate.slot}` | [{candidate.name}]({candidate.trade_url}) | {candidate.price_text} | {gains} |"
+                f"| {candidate.profile_label} | `{candidate.slot}` | {item_markdown_links(candidate)} | {candidate.price_text} | {gains} |"
             )
     else:
         lines.append("Nenhum candidato individual disponivel.")
@@ -473,7 +538,84 @@ def write_report(
     )
 
     REPORT_FILE.write_text("\n".join(lines), encoding="utf-8")
-    write_html_report(plans, candidates, diagnostics, budget_chaos, league, top, cheapest_first)
+    write_json_report(plans, best_any_budget, candidates, diagnostics, budget_chaos, league, top, cheapest_first)
+    write_html_report(plans, best_any_budget, candidates, diagnostics, budget_chaos, league, top, cheapest_first)
+
+
+def item_markdown_links(candidate: Candidate) -> str:
+    links = [f"[{candidate.name}]({candidate.trade_search_url or candidate.trade_url})"]
+    if candidate.trade_fetch_url:
+        links.append(f"[item/API]({candidate.trade_fetch_url})")
+    return " / ".join(links)
+
+
+def candidate_to_dict(candidate: Candidate) -> dict[str, Any]:
+    return {
+        "profile": candidate.profile,
+        "profile_label": candidate.profile_label,
+        "slot": candidate.slot,
+        "name": candidate.name,
+        "type_line": candidate.type_line,
+        "price_chaos": candidate.price_chaos,
+        "price_text": candidate.price_text,
+        "score": candidate.score,
+        "value_score": candidate.value_score,
+        "effects": candidate.effects,
+        "gains": candidate.gains,
+        "warnings": candidate.warnings,
+        "seller": candidate.seller,
+        "trade_url": candidate.trade_search_url or candidate.trade_url,
+        "trade_search_url": candidate.trade_search_url or candidate.trade_url,
+        "trade_fetch_url": candidate.trade_fetch_url,
+        "result_id": candidate.result_id,
+        "query_id": candidate.query_id,
+        "whisper": candidate.whisper,
+        "item_mods": candidate.item_mods,
+    }
+
+
+def plan_to_dict(plan: Plan, rank: int) -> dict[str, Any]:
+    return {
+        "rank": rank,
+        "title": plan_title(plan),
+        "price_chaos": plan.price_chaos,
+        "score": plan.score,
+        "value_score": plan.value_score,
+        "final_stats": plan.final_stats,
+        "gains": plan.gains,
+        "warnings": plan.warnings,
+        "candidates": [candidate_to_dict(candidate) for candidate in plan.candidates],
+    }
+
+
+def write_json_report(
+    plans: list[Plan],
+    best_any_budget: list[Plan],
+    candidates: list[Candidate],
+    diagnostics: list[str],
+    budget_chaos: float,
+    league: str,
+    top: int,
+    cheapest_first: bool,
+) -> None:
+    REPORT_JSON.parent.mkdir(parents=True, exist_ok=True)
+    data = {
+        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "league": league,
+        "budget_label": format_budget_label(budget_chaos),
+        "budget_chaos": None if not math.isfinite(budget_chaos) else budget_chaos,
+        "mode": "cheapest safe upgrades" if cheapest_first else "best value inside budget",
+        "notes": [
+            "trade_search_url abre a busca oficial que produziu o resultado.",
+            "trade_fetch_url aponta para a listagem especifica retornada pela API oficial.",
+            "whisper e o texto de contato mais direto para o item exato.",
+        ],
+        "plans": [plan_to_dict(plan, rank) for rank, plan in enumerate(plans[:top], start=1)],
+        "best_any_budget": [plan_to_dict(plan, rank) for rank, plan in enumerate(best_any_budget[:3], start=1)],
+        "candidates": [candidate_to_dict(candidate) for candidate in candidates],
+        "diagnostics": list(dict.fromkeys(diagnostics))[:30],
+    }
+    REPORT_JSON.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def format_budget_label(budget_chaos: float) -> str:
@@ -493,8 +635,16 @@ def html_join(items: list[str], empty: str = "Sem alerta automatico.") -> str:
     return "<ul>" + "".join(f"<li>{html.escape(item)}</li>" for item in unique[:8]) + "</ul>"
 
 
+def item_mods_html(mods: list[str]) -> str:
+    if not mods:
+        return ""
+    items = "".join(f"<li>{html.escape(mod)}</li>" for mod in mods[:12])
+    return f"<details><summary>Mods lidos do item</summary><ul>{items}</ul></details>"
+
+
 def write_html_report(
     plans: list[Plan],
+    best_any_budget: list[Plan],
     candidates: list[Candidate],
     diagnostics: list[str],
     budget_chaos: float,
@@ -511,12 +661,28 @@ def write_html_report(
         for rank, plan in enumerate(plans[:top], start=1):
             item_links = []
             for candidate in plan.candidates:
+                actions = [
+                    f"<a href=\"{html.escape(candidate.trade_search_url or candidate.trade_url)}\" target=\"_blank\" rel=\"noopener\">Busca no trade</a>"
+                ]
+                if candidate.trade_fetch_url:
+                    actions.append(
+                        f"<a href=\"{html.escape(candidate.trade_fetch_url)}\" target=\"_blank\" rel=\"noopener\">JSON tecnico</a>"
+                    )
+                whisper = ""
+                if candidate.whisper:
+                    whisper = (
+                        "<label>Whisper"
+                        f"<textarea readonly>{html.escape(candidate.whisper)}</textarea>"
+                        "</label>"
+                    )
                 item_links.append(
                     "<div class=\"item-link\">"
-                    f"<a href=\"{html.escape(candidate.trade_url)}\" target=\"_blank\" rel=\"noopener\">"
-                    f"{html.escape(candidate.name)}</a>"
+                    f"<strong>{html.escape(candidate.name)}</strong>"
                     f"<span>{html.escape(candidate.profile_label)} -> {html.escape(candidate.slot)}</span>"
                     f"<small>{html.escape(candidate.price_text)} | vendedor: {html.escape(candidate.seller or 'n/d')}</small>"
+                    f"<div class=\"actions\">{' '.join(actions)}</div>"
+                    f"{item_mods_html(candidate.item_mods)}"
+                    f"{whisper}"
                     "</div>"
                 )
             cards.append(
@@ -540,13 +706,39 @@ def write_html_report(
             "</section>"
         )
 
+    best_cards: list[str] = []
+    for rank, plan in enumerate(best_any_budget[:3], start=1):
+        candidate = plan.candidates[0]
+        actions = [
+            f"<a href=\"{html.escape(candidate.trade_search_url or candidate.trade_url)}\" target=\"_blank\" rel=\"noopener\">Busca no trade</a>"
+        ]
+        if candidate.trade_fetch_url:
+            actions.append(
+                f"<a href=\"{html.escape(candidate.trade_fetch_url)}\" target=\"_blank\" rel=\"noopener\">JSON tecnico</a>"
+            )
+        best_cards.append(
+            "<section class=\"card\">"
+            f"<div class=\"rank\">#{rank}</div>"
+            f"<h2>{html.escape(candidate.name)}</h2>"
+            f"<p class=\"price\">{plan.price_chaos:.1f} chaos</p>"
+            f"<p class=\"score\">Score {plan.score:.1f} | Valor {plan.value_score:.2f}</p>"
+            f"<p class=\"muted\">Compra barata de melhor custo-beneficio, calculada sem limitar pelo budget informado.</p>"
+            f"<div class=\"actions\">{' '.join(actions)}</div>"
+            f"{item_mods_html(candidate.item_mods)}"
+            f"{html_join(plan.gains, 'Ganho estimado positivo.')}"
+            "</section>"
+        )
+
     candidate_rows = []
     for candidate in candidates[: max(top * 4, 12)]:
+        detail_link = ""
+        if candidate.trade_fetch_url:
+            detail_link = f" | <a href=\"{html.escape(candidate.trade_fetch_url)}\" target=\"_blank\" rel=\"noopener\">JSON tecnico</a>"
         candidate_rows.append(
             "<tr>"
             f"<td>{html.escape(candidate.profile_label)}</td>"
             f"<td>{html.escape(candidate.slot)}</td>"
-            f"<td><a href=\"{html.escape(candidate.trade_url)}\" target=\"_blank\" rel=\"noopener\">{html.escape(candidate.name)}</a></td>"
+            f"<td><a href=\"{html.escape(candidate.trade_search_url or candidate.trade_url)}\" target=\"_blank\" rel=\"noopener\">{html.escape(candidate.name)}</a>{detail_link}</td>"
             f"<td>{html.escape(candidate.price_text)}</td>"
             f"<td>{html.escape('; '.join(candidate.gains))}</td>"
             "</tr>"
@@ -570,6 +762,8 @@ def write_html_report(
     main {{ padding: 24px 32px 48px; max-width: 1200px; margin: 0 auto; }}
     h1, h2, h3 {{ margin: 0 0 12px; }}
     .meta {{ color: #b7b0a2; display: flex; gap: 16px; flex-wrap: wrap; }}
+    .quick-links {{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }}
+    .quick-links a {{ padding: 8px 10px; border: 1px solid #38424c; border-radius: 6px; background: #20262c; }}
     .card {{ position: relative; background: #1b1e21; border: 1px solid #373d42; border-radius: 8px; padding: 20px; margin-bottom: 18px; }}
     .rank {{ position: absolute; right: 18px; top: 16px; color: #d9b36a; font-weight: 700; }}
     .price {{ font-size: 22px; color: #f2c66d; margin: 6px 0; }}
@@ -577,6 +771,12 @@ def write_html_report(
     .grid {{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }}
     .item-link {{ display: grid; gap: 4px; margin-bottom: 12px; }}
     .item-link span, small {{ color: #b7b0a2; }}
+    .actions {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }}
+    .actions a {{ padding: 6px 8px; border: 1px solid #3f596e; border-radius: 6px; background: #202a32; }}
+    label {{ display: grid; gap: 4px; color: #b7b0a2; margin-top: 6px; }}
+    details {{ margin-top: 8px; border: 1px solid #30363b; border-radius: 6px; padding: 8px; background: #15191d; }}
+    summary {{ cursor: pointer; color: #d9b36a; }}
+    textarea {{ min-height: 48px; resize: vertical; border: 1px solid #373d42; border-radius: 6px; background: #111315; color: #ece7dc; padding: 8px; font: 12px Consolas, monospace; }}
     a {{ color: #8bc5ff; text-decoration: none; }}
     a:hover {{ text-decoration: underline; }}
     ul {{ margin: 0; padding-left: 18px; }}
@@ -596,10 +796,17 @@ def write_html_report(
       <span>Budget: {html.escape(format_budget_label(budget_chaos))}</span>
       <span>Modo: {html.escape(mode)}</span>
     </div>
+    <div class="quick-links">
+      <a href="../../data/generated/build_dashboard.html">Dashboard</a>
+      <a href="../../data/generated/upgrade_recommendations.html">Recomendacoes</a>
+      <a href="../../data/generated/next_searches.html">Proximas buscas</a>
+      <a href="../../data/generated/market_report.html">Mercado</a>
+    </div>
   </header>
   <main>
     <p class="muted">Abra os links em azul para acessar o trade oficial. Sempre confira no PoE Overlay e no PoB antes de comprar.</p>
     {''.join(cards)}
+    {'<h2>Melhor compra barata sem usar o budget como limite</h2>' + ''.join(best_cards) if best_cards else ''}
     <h2>Candidatos individuais considerados</h2>
     <table>
       <thead><tr><th>Perfil</th><th>Slot</th><th>Item</th><th>Preco</th><th>Leitura</th></tr></thead>
@@ -666,6 +873,7 @@ def main(argv: list[str]) -> int:
     stats = trade.get_trade_stats(user_agent, timeout)
 
     rows_by_profile: dict[str, list[dict[str, Any]]] = {}
+    rows_by_profile_any_budget: dict[str, list[dict[str, Any]]] = {}
     for profile in selected:
         print(f"Searching: {profile.label}")
         try:
@@ -685,13 +893,34 @@ def main(argv: list[str]) -> int:
             rows = []
         rows_by_profile[profile.key] = rows
         print(f"  accepted candidates: {len(rows)}")
+        if math.isfinite(budget_chaos):
+            try:
+                rows_any = evaluate_profile_with_raw_items(
+                    profile=profile,
+                    league=league,
+                    budget_chaos=NO_BUDGET_SEARCH_LIMIT_CHAOS,
+                    divine_price=divine_price,
+                    stats=stats,
+                    user_agent=user_agent,
+                    timeout=timeout,
+                    delay=delay,
+                    max_fetch=args.max_fetch,
+                )
+            except Exception as exc:
+                print(f"[warning] profile best-any-budget failed: {profile.key}: {exc}")
+                rows_any = []
+            rows_by_profile_any_budget[profile.key] = rows_any
+        else:
+            rows_by_profile_any_budget[profile.key] = rows
         time.sleep(delay)
 
     candidates = collect_candidates(rows_by_profile, target_items, player_items, rules)
+    any_budget_candidates = collect_candidates(rows_by_profile_any_budget, target_items, player_items, rules)
     plans, diagnostics = make_plans(candidates, budget_chaos, player_stats, target_stats, rules, max_combo_size)
+    best_any_budget = best_single_purchase_any_budget(any_budget_candidates, player_stats, target_stats, rules)
     if cheapest_first:
         plans = plans[:top]
-    write_report(plans, candidates, diagnostics, budget_chaos, league, top, cheapest_first)
+    write_report(plans, best_any_budget, candidates, diagnostics, budget_chaos, league, top, cheapest_first)
 
     if not plans:
         print("No safe plan found. See report for reasons.")
@@ -702,6 +931,7 @@ def main(argv: list[str]) -> int:
             print(f"{rank}. {names} | {plan.price_chaos:.1f}c | score {plan.score:.1f}")
     print(f"Report saved: {REPORT_FILE}")
     print(f"HTML report saved: {REPORT_HTML}")
+    print(f"JSON report saved: {REPORT_JSON}")
     return 0
 
 
@@ -726,6 +956,7 @@ def evaluate_profile_with_raw_items(
     trade_url = f"{trade.TRADE_BASE}/trade/search/{league}/{query_id}"
 
     for entry in fetched:
+        result_id = str(entry.get("id") or "")
         item = entry.get("item", {})
         listing = entry.get("listing", {})
         price = listing.get("price")
@@ -759,7 +990,12 @@ def evaluate_profile_with_raw_items(
                 "reasons": reasons,
                 "seller": listing.get("account", {}).get("name", ""),
                 "trade_url": trade_url,
+                "trade_search_url": trade_url,
+                "trade_fetch_url": f"{trade.TRADE_BASE}/api/trade/fetch/{result_id}?query={query_id}" if result_id else "",
+                "result_id": result_id,
+                "query_id": query_id,
                 "whisper": listing.get("whisper", ""),
+                "item_mods": trade.item_texts(item),
                 "raw_item": item,
             }
         )

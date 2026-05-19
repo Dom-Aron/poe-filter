@@ -49,7 +49,7 @@ PROFILE_GUIDANCE = {
         "goal": "Encontrar anel com Vulnerability on Hit sem destruir vida, resistencias, chaos res ou conforto de mana.",
         "current": "Seus aneis atuais ja sao bons: Doom Knot tem 110 life, res e -mana; Ghoul Grip tem 94 life, attack speed, chaos res e flat phys.",
         "check": "Antes de comprar, confira se voce nao perde o craft de -mana necessario para Cyclone, se as resistencias continuam capadas e se Chaos Resistance nao cai demais.",
-        "empty": "Nenhum anel passou o filtro conservador. Isso geralmente significa que os baratos seriam downgrade/sidegrade. Aumente o budget ou procure manualmente quando quiser trocar um dos aneis atuais.",
+        "empty": "Nenhum anel passou o filtro conservador. Isso geralmente significa que os baratos seriam downgrade ou melhoria pequena demais. Aumente o budget ou procure manualmente quando quiser trocar um dos aneis atuais.",
     },
     "jewel_damage": {
         "goal": "Encontrar jewel normal com combinacao de vida, attack speed com staff, dano fisico com staff, crit multi ou chaos res.",
@@ -60,7 +60,7 @@ PROFILE_GUIDANCE = {
     "abyss_jewel": {
         "goal": "Melhorar a Ancient Arbiter no Stygian Vise.",
         "current": "Sua Abyss atual ja tem 30 life, dexterity e flat physical damage with Staff Attacks.",
-        "check": "So compre se ganhar vida maior, flat phys melhor, blind/intimidate/onslaught ou attack speed. Vida menor com o mesmo flat phys tende a ser sidegrade.",
+        "check": "So compre se ganhar vida maior, flat phys melhor, blind/intimidate/onslaught ou attack speed. Vida menor com o mesmo flat phys tende a ser melhoria pequena demais.",
         "empty": "Nenhuma Abyss jewel pareceu claramente melhor que a Ancient Arbiter. Isso e normal: a sua atual ja e funcional.",
     },
     "large_cluster": {
@@ -327,7 +327,7 @@ def make_profiles() -> dict[str, Profile]:
         "jewel_damage": Profile(
             key="jewel_damage",
             label="Jewel raro para dano/vida/accuracy",
-            why="Upgrade barato costuma ser melhor que trocar luvas boas por sidegrade.",
+            why="Upgrade barato em jewel costuma ser melhor custo-beneficio do que pagar caro por troca pequena em slot sensivel.",
             required_stat_texts=(),
             count_stat_texts=(
                 "#% increased maximum Life",
@@ -594,7 +594,7 @@ def baseline_adjustment(profile: Profile, item: dict[str, Any]) -> tuple[float, 
         strict += 16 if has_attack_speed else 0
         strict += 20 if has_minus_mana else 0
         if strict < 95:
-            return adjustment, notes + [f"rejected: too much sidegrade/downgrade risk versus current rings ({strict:.1f})"], False
+            return adjustment, notes + [f"rejected: ganho pequeno demais ou risco de piorar versus aneis atuais ({strict:.1f})"], False
 
     elif profile.key == "abyss_jewel":
         life = numeric_mod_value(texts, "to maximum Life")
@@ -751,7 +751,7 @@ def verdict_for(row: dict[str, Any]) -> str:
     if profile == "abyss_jewel":
         if score >= 80 and price <= 15:
             return "Bom candidato barato; compara com a Ancient Arbiter antes de comprar."
-        return "Comparar manualmente; pode ser upgrade pequeno ou sidegrade."
+        return "Comparar manualmente; pode ser upgrade pequeno demais para justificar compra."
     if profile == "jewel_damage":
         if score >= 80 and price <= 10:
             return "Bom candidato barato para testar no PoB/tooltip."
