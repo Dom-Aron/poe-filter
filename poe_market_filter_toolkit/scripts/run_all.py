@@ -11,6 +11,8 @@ Runs the full toolkit flow:
 6. compare_current_to_target.py (optional)
 7. recommend_next_steps.py (optional)
 8. plan_upgrade_path.py (optional)
+9. generate_dashboard.py (optional)
+10. unittest discovery (optional)
 
 Usage:
     python scripts/run_all.py
@@ -54,6 +56,8 @@ def main() -> int:
     parser.add_argument("--compare-build", action="store_true", help="Generate data/generated/gap_analysis from current/build target files.")
     parser.add_argument("--recommend-next", action="store_true", help="Generate next_searches and upgrade_recommendations from gap_analysis.")
     parser.add_argument("--upgrade-plan", action="store_true", help="Also run plan_upgrade_path.py after market/filter reports.")
+    parser.add_argument("--dashboard", action="store_true", help="Generate data/generated/build_dashboard.html.")
+    parser.add_argument("--run-tests", action="store_true", help="Run toolkit safety tests after the flow.")
     parser.add_argument("--budget", help="Budget passed to plan_upgrade_path.py, e.g. 251c or 1d. If omitted, planner shows top 3 cheapest safe upgrades.")
     parser.add_argument("--profiles", help="Profiles passed to plan_upgrade_path.py, e.g. rumi_uncorrupted or ring_vulnerability,jewel_damage.")
     parser.add_argument("--top", type=int, help="Top plans passed to plan_upgrade_path.py.")
@@ -97,6 +101,21 @@ def main() -> int:
             planner_args.extend(["--max-combo-size", str(args.max_combo_size)])
         run_script("plan_upgrade_path.py", *planner_args)
 
+    if args.dashboard:
+        run_script("generate_dashboard.py")
+
+    if args.run_tests:
+        print()
+        print("=" * 72)
+        print("Running: unittest discover")
+        print("=" * 72, flush=True)
+        result = subprocess.run(
+            [sys.executable, "-m", "unittest", "discover", "-s", str(ROOT / "tests")],
+            cwd=str(ROOT),
+        )
+        if result.returncode != 0:
+            raise SystemExit(f"Tests failed (exit code {result.returncode})")
+
     print()
     print("Flow complete.")
     print("Main reports:")
@@ -113,6 +132,8 @@ def main() -> int:
     if args.upgrade_plan:
         print("- market/reports/upgrade_plan.md")
         print("- market/reports/upgrade_plan.html")
+    if args.dashboard:
+        print("- data/generated/build_dashboard.html")
     return 0
 
 

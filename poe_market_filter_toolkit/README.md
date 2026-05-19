@@ -139,6 +139,18 @@ Gerar tambem proximas buscas e recomendacoes:
 python poe_market_filter_toolkit\scripts\run_all.py --fetch-character --compare-build --recommend-next
 ```
 
+Gerar dashboard HTML unico:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_all.py --compare-build --recommend-next --upgrade-plan --dashboard
+```
+
+Rodar testes de seguranca:
+
+```powershell
+python -m unittest discover -s poe_market_filter_toolkit\tests
+```
+
 Para atualizar tambem os arquivos usados pelo planejador:
 
 ```powershell
@@ -152,6 +164,7 @@ fetch_character.py            -> salva data/raw/character_api_raw.json
 parse_character.py            -> gera data/current/player_*.json
 compare_current_to_target.py  -> gera data/generated/gap_analysis.*
 recommend_next_steps.py       -> gera next_searches e upgrade_recommendations
+generate_dashboard.py         -> gera data/generated/build_dashboard.html
 ```
 
 Limitacoes importantes:

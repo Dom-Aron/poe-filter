@@ -108,6 +108,18 @@ Gerar proximas buscas e recomendacoes a partir dos gaps:
 python poe_market_filter_toolkit\scripts\run_all.py --compare-build --recommend-next
 ```
 
+Gerar um painel HTML unico:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_all.py --compare-build --recommend-next --upgrade-plan --dashboard
+```
+
+Rodar os testes de seguranca:
+
+```powershell
+python -m unittest discover -s poe_market_filter_toolkit\tests
+```
+
 Para permitir que o parser atualize os arquivos usados pelo planejador:
 
 ```powershell
@@ -296,6 +308,26 @@ poe_market_filter_toolkit/data/generated/next_searches.md
 poe_market_filter_toolkit/data/generated/upgrade_recommendations.md
 poe_market_filter_toolkit/data/generated/upgrade_report.json
 ```
+
+### `generate_dashboard.py`
+
+Junta gaps, proximas buscas, recomendacoes e plano de compra em um HTML unico.
+
+Gera:
+
+```text
+poe_market_filter_toolkit/data/generated/build_dashboard.html
+```
+
+### Testes
+
+Os testes ficam em:
+
+```text
+poe_market_filter_toolkit/tests/
+```
+
+Eles validam regras de seguranca como slots protegidos, Strength sem valor de vida com Brass Dome e prioridade correta das recomendacoes.
 
 ## Fluxo Recomendado
 
