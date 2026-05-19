@@ -18,14 +18,53 @@ Atlas: Breach Hives / Wombgifts + Delirium
 Estado do personagem: equipamentos_e_status_atuais_poe_slayer.txt
 ```
 
-## O Que Os Scripts Fazem
+## Duas Funcionalidades
 
-Os scripts em `poe_market_filter_toolkit/scripts` ajudam a responder quatro perguntas:
+O repositorio tem duas trilhas que usam dados de mercado, mas com objetivos diferentes.
 
-- **Quanto vale o mercado agora?** Baixam dados do poe.ninja e criam relatorios por categoria.
-- **O filtro esta cobrindo os itens valiosos?** Comparam os nomes do mercado com os `BaseType` existentes no filtro.
-- **O filtro tem risco de erro no parser?** Procuram nomes suspeitos, regras genericas demais e duplicacoes.
-- **O que vale comprar para a build?** Consultam a API oficial de trade do Path of Exile e listam candidatos de upgrade dentro de um budget informado.
+### 1. Filtro de loot dentro do jogo
+
+O filtro existe para facilitar a vida do jogador durante mapas: destacar itens bons, currencies caras, drops da build e coisas que valem pegar no chao.
+
+O mercado entra aqui como fonte de manutencao:
+
+- confirmar nomes, classes, currencies e `BaseType`;
+- perceber quais itens estao caros ou liquidos;
+- corrigir nomes que quebram o parser;
+- ajustar destaques do filtro sem transformar preco de mercado em regra automatica cega.
+
+Scripts principais dessa trilha:
+
+```text
+update_market.py
+market_report.py
+suggest_filter_tiers.py
+filter_audit.py
+```
+
+### 2. Busca de upgrades para a build
+
+Essa trilha procura itens vendidos por jogadores e tenta responder: "com o budget atual, quais compras aproximam meu personagem da build alvo sem piorar pontos essenciais?"
+
+Ela usa:
+
+- equipamentos e status atuais do jogador;
+- itens e status alvo da build;
+- regras de seguranca da build;
+- API oficial de trade;
+- budget em chaos/divines quando informado.
+
+Scripts principais dessa trilha:
+
+```text
+fetch_character.py
+parse_character.py
+compare_current_to_target.py
+recommend_next_steps.py
+find_upgrade_deals.py
+plan_upgrade_path.py
+generate_dashboard.py
+```
 
 Os scripts **nao compram itens**, **nao editam o filtro automaticamente** e **nao substituem PoB**. Eles geram uma lista melhor para revisao humana.
 
@@ -111,8 +150,11 @@ python poe_market_filter_toolkit\scripts\run_all.py --compare-build --recommend-
 Gerar um painel HTML unico:
 
 ```powershell
-python poe_market_filter_toolkit\scripts\run_all.py --compare-build --recommend-next --upgrade-plan --dashboard
+python poe_market_filter_toolkit\scripts\run_all.py --skip-update --compare-build --recommend-next --upgrade-plan --budget 251c --dashboard
+start poe_market_filter_toolkit\data\generated\build_dashboard.html
 ```
+
+O painel agora e a tela principal para usuario leigo na trilha de upgrades da build: ele junta resumo da build, gaps, slots sensiveis, proximas buscas, planos de compra, links do trade, link direto da listagem via API e o whisper do vendedor.
 
 Rodar os testes de seguranca:
 
@@ -242,9 +284,10 @@ Gera:
 ```text
 poe_market_filter_toolkit/market/reports/upgrade_plan.md
 poe_market_filter_toolkit/market/reports/upgrade_plan.html
+poe_market_filter_toolkit/market/reports/upgrade_plan.json
 ```
 
-Se `--budget` nao for informado, mostra por padrao o top 3 dos upgrades seguros mais baratos encontrados. A versao HTML e melhor para usuario leigo porque abre no navegador e traz links clicaveis para o trade oficial.
+Se `--budget` nao for informado, mostra por padrao o top 3 dos upgrades seguros mais baratos encontrados. A versao HTML e melhor para usuario leigo porque abre no navegador e traz links clicaveis para o trade oficial, para a listagem especifica via API e para o whisper.
 
 Arquivos de entrada:
 
@@ -277,6 +320,8 @@ poe_market_filter_toolkit/data/raw/character_api_raw.json
 
 Ajuda a criar `secrets/tokens.json` usando OAuth com PKCE depois que voce tiver um `client_id` aprovado pela GGG.
 
+Implementacao alinhada ao fluxo oficial de cliente publico: Authorization Code com PKCE, `redirect_uri` local e escopo `account:characters`.
+
 Antes de usar:
 
 ```text
@@ -295,6 +340,14 @@ Depois:
 
 ```powershell
 python poe_market_filter_toolkit\scripts\fetch_character.py
+```
+
+### `oauth_refresh.py`
+
+Renova `secrets/tokens.json` quando houver `refresh_token`. O `fetch_character.py` tambem tenta renovar automaticamente quando o token salvo estiver vencido ou perto de vencer.
+
+```powershell
+python poe_market_filter_toolkit\scripts\oauth_refresh.py
 ```
 
 ### `parse_character.py`
@@ -343,6 +396,10 @@ Gera:
 poe_market_filter_toolkit/data/generated/build_dashboard.html
 ```
 
+Ele usa `market/reports/upgrade_plan.json` quando disponivel, entao os botoes do dashboard apontam para os arquivos corretos e os cards de compra mostram preco, vendedor, ganhos, alertas, busca no trade, JSON tecnico da listagem e whisper.
+
+Tambem gera paginas HTML auxiliares para `Recomendacoes`, `Proximas buscas` e `Mercado`, evitando abrir Markdown cru no navegador. A pagina `Mercado` usa dados estruturados de `latest_market.json` para montar resumo por categoria, cards de itens relevantes, busca, filtros e ordenacao. A auditoria do filtro continua apenas como relatorio tecnico em Markdown.
+
 ### Testes
 
 Os testes ficam em:
@@ -351,7 +408,7 @@ Os testes ficam em:
 poe_market_filter_toolkit/tests/
 ```
 
-Eles validam regras de seguranca como slots protegidos, Strength sem valor de vida com Brass Dome e prioridade correta das recomendacoes.
+Eles validam regras de seguranca como slots sensiveis, Strength sem valor de vida com Brass Dome e prioridade correta das recomendacoes.
 
 ## Fluxo Recomendado
 
@@ -405,7 +462,7 @@ Resumo do arquivo `equipamentos_e_status_atuais_poe_slayer.txt`:
 
 - Accuracy resolvida para o momento: 2543 de Accuracy Rating e 96% de chance de acerto.
 - Gargalos principais: Impale, Vulnerability on Hit, jewels/cluster, Spell Block, ailment avoidance e Chaos Resistance.
-- As luvas atuais tem papel importante na build e nao devem ser trocadas apenas por preco.
+- As luvas atuais tem papel importante na build; podem ser trocadas, mas so quando a melhora for clara e nao quebrar accuracy, vida ou resistencias.
 - Prioridades provaveis de compra: anel com Vulnerability, jewels de dano, cluster bom, Rumi's Concoction nao corrompido com rolagem melhor e pecas que melhorem defesa sem derrubar resistencias.
 
 ## Arquivos Gerados
@@ -428,6 +485,7 @@ poe_market_filter_toolkit/market/trade_stats_cache.json
 poe_market_filter_toolkit/market/reports/upgrade_deals.md
 poe_market_filter_toolkit/market/reports/upgrade_plan.md
 poe_market_filter_toolkit/market/reports/upgrade_plan.html
+poe_market_filter_toolkit/market/reports/upgrade_plan.json
 poe_market_filter_toolkit/filters/current/*.filter
 ```
 
