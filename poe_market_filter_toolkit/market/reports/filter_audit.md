@@ -2,115 +2,236 @@
 
 Este relatorio aponta riscos estruturais. Ele nao substitui o teste dentro do jogo.
 
+## `filters\current\void_shockwave_cyclone_slayer_lvl89_t9_t10_breach_hives_market_v18_reviewed.filter`
+
+### Duplicate BaseTypes
+
+Some duplicates are intentional in this filter because early jackpot/global rules override later generic rules.
+- `BaseType "Alchemy Shard"` appears 2 times on lines 209, 1148.
+- `BaseType "Alteration Shard"` appears 2 times on lines 209, 1148.
+- `BaseType "Amethyst Ring"` appears 5 times on lines 1524, 1537, 1548, 1589, 1649.
+- `BaseType "Ancient Orb"` appears 2 times on lines 190, 1114.
+- `BaseType "Annulment Shard"` appears 2 times on lines 209, 1148.
+- `BaseType "Armourer's Scrap"` appears 2 times on lines 200, 1148.
+- `BaseType "Astral Plate"` appears 3 times on lines 1524, 1548, 1639.
+- `BaseType "Blacksmith's Whetstone"` appears 2 times on lines 200, 1148.
+- `BaseType "Blessed Orb"` appears 2 times on lines 200, 1114.
+- `BaseType "Breach Scarab of Instability"` appears 2 times on lines 978, 1055.
+- `BaseType "Breach Scarab of Resonant Cascade"` appears 2 times on lines 966, 1055.
+- `BaseType "Breach Scarab of the Hive"` appears 2 times on lines 978, 1055.
+- `BaseType "Breach Scarab of the Incensed Swarm"` appears 2 times on lines 978, 1055.
+- `BaseType "Breach Scarab of the Marshal"` appears 2 times on lines 978, 1055.
+- `BaseType "Chaos Shard"` appears 2 times on lines 209, 1148.
+- `BaseType "Chromatic Orb"` appears 2 times on lines 200, 1114.
+- `BaseType "Citrine Amulet"` appears 5 times on lines 1524, 1537, 1548, 1589, 1649.
+- `BaseType "Coin of Desecration"` appears 2 times on lines 726, 1137.
+- `BaseType "Coin of Knowledge"` appears 2 times on lines 715, 1137.
+- `BaseType "Coin of Power"` appears 2 times on lines 715, 1137.
+- `BaseType "Coin of Restoration"` appears 2 times on lines 726, 1137.
+- `BaseType "Coin of Skill"` appears 2 times on lines 715, 1137.
+- `BaseType "Crusader Plate"` appears 3 times on lines 1524, 1548, 1639.
+- `BaseType "Damnation"` appears 2 times on lines 387, 1418.
+- `BaseType "Divine Orb"` appears 2 times on lines 168, 1102.
+- `BaseType "Divine Vessel"` appears 2 times on lines 200, 1114.
+- `BaseType "Eldritch Chaos Orb"` appears 2 times on lines 179, 1102.
+- `BaseType "Eldritch Exalted Orb"` appears 2 times on lines 190, 1114.
+- `BaseType "Eldritch Orb of Annulment"` appears 2 times on lines 179, 1102.
+- `BaseType "Enkindling Orb"` appears 2 times on lines 190, 1114.
+- `BaseType "Eternal Orb"` appears 2 times on lines 157, 1090.
+- `BaseType "Exalted Orb"` appears 2 times on lines 190, 1114.
+- `BaseType "Exalted Shard"` appears 2 times on lines 209, 1148.
+- `BaseType "Ezomyte Burgonet"` appears 2 times on lines 1524, 1639.
+- `BaseType "Ezomyte Staff"` appears 5 times on lines 1524, 1537, 1548, 1576, 1616.
+- `BaseType "Flesh of Xesht"` appears 2 times on lines 168, 1102.
+- `BaseType "Foul Staff"` appears 5 times on lines 1524, 1537, 1548, 1576, 1616.
+- `BaseType "Fracturing Orb"` appears 2 times on lines 168, 1102.
+- `BaseType "Fracturing Shard"` appears 2 times on lines 209, 1148.
+- `BaseType "Gemcutter's Prism"` appears 2 times on lines 190, 1114.
+- `BaseType "Gladiator Helmet"` appears 2 times on lines 1524, 1639.
+- `BaseType "Glassblower's Bauble"` appears 2 times on lines 200, 1114.
+- `BaseType "Grand Eldritch Ember"` appears 2 times on lines 190, 1114.
+- `BaseType "Grand Eldritch Ichor"` appears 2 times on lines 200, 1114.
+- `BaseType "Greater Ancestral Call Support"` appears 2 times on lines 84, 1312.
+- `BaseType "Greater Eldritch Ichor"` appears 2 times on lines 200, 1114.
+- `BaseType "Greater Multistrike Support"` appears 2 times on lines 84, 1312.
+- `BaseType "Hinekora's Lock"` appears 2 times on lines 157, 1090.
+- `BaseType "Hivebrain Gland"` appears 2 times on lines 430, 1055.
+- `BaseType "House of Mirrors"` appears 2 times on lines 387, 1418.
+- `BaseType "Hydrascale Boots"` appears 2 times on lines 1524, 1639.
+- `BaseType "Instilling Orb"` appears 2 times on lines 200, 1114.
+- `BaseType "Jeweller's Orb"` appears 2 times on lines 200, 1148.
+- `BaseType "Judgement Staff"` appears 5 times on lines 1524, 1537, 1548, 1576, 1616.
+- `BaseType "Lapis Amulet"` appears 5 times on lines 1524, 1537, 1548, 1589, 1649.
+- `BaseType "Large Cluster Jewel"` appears 2 times on lines 124, 1659.
+- `BaseType "Leviathan Gauntlets"` appears 4 times on lines 1524, 1548, 1563, 1627.
+- `BaseType "Maven's Chisel of Procurement"` appears 2 times on lines 190, 1114.
+- `BaseType "Maven's Chisel of Scarabs"` appears 2 times on lines 190, 1114.
+- `BaseType "Memory of Loneliness"` appears 2 times on lines 190, 1114.
+- `BaseType "Memory of Reverence"` appears 2 times on lines 190, 1114.
+- `BaseType "Memory of Trauma"` appears 2 times on lines 179, 1102.
+- `BaseType "Mirror Shard"` appears 2 times on lines 157, 1090.
+- `BaseType "Mirror of Kalandra"` appears 2 times on lines 157, 1090.
+- `BaseType "Onyx Amulet"` appears 5 times on lines 1524, 1537, 1548, 1589, 1649.
+- `BaseType "Orb of Alchemy"` appears 2 times on lines 200, 1114.
+- `BaseType "Orb of Alteration"` appears 2 times on lines 200, 1114.
+- `BaseType "Orb of Annulment"` appears 2 times on lines 179, 1102.
+- `BaseType "Orb of Augmentation"` appears 2 times on lines 200, 1148.
+- `BaseType "Orb of Binding"` appears 2 times on lines 200, 1148.
+- `BaseType "Orb of Chance"` appears 2 times on lines 200, 1114.
+- `BaseType "Orb of Fusing"` appears 2 times on lines 200, 1114.
+- `BaseType "Orb of Regret"` appears 2 times on lines 200, 1114.
+- `BaseType "Orb of Remembrance"` appears 2 times on lines 179, 1102.
+- `BaseType "Orb of Scouring"` appears 2 times on lines 200, 1114.
+- `BaseType "Orb of Transmutation"` appears 2 times on lines 209, 1148.
+- `BaseType "Orb of Unmaking"` appears 2 times on lines 200, 1114.
+- `BaseType "Orb of Unravelling"` appears 2 times on lines 190, 1114.
+- `BaseType "Portal Scroll"` appears 2 times on lines 209, 1148.
+- `BaseType "Precursor Gauntlets"` appears 5 times on lines 1524, 1537, 1548, 1563, 1627.
+- `BaseType "Reflecting Mist"` appears 2 times on lines 157, 1090.
+- `BaseType "Regal Orb"` appears 2 times on lines 200, 1114.
+- `BaseType "Regal Shard"` appears 2 times on lines 209, 1148.
+- `BaseType "Rogue's Marker"` appears 2 times on lines 209, 1148.
+- `BaseType "Rustic Sash"` appears 5 times on lines 1524, 1537, 1548, 1589, 1649.
+- `BaseType "Sacred Orb"` appears 2 times on lines 179, 1102.
+- `BaseType "Scroll Fragment"` appears 2 times on lines 209, 1148.
+- `BaseType "Scroll of Wisdom"` appears 2 times on lines 209, 1148.
+- `BaseType "Slink Gloves"` appears 4 times on lines 1524, 1548, 1563, 1627.
+- `BaseType "Small Cluster Jewel"` appears 2 times on lines 136, 1669.
+- `BaseType "Stacked Deck"` appears 2 times on lines 190, 1114.
+- `BaseType "Stygian Vise"` appears 5 times on lines 1524, 1537, 1548, 1589, 1649.
+- `BaseType "Tainted Chaos Orb"` appears 2 times on lines 190, 1114.
+- `BaseType "Tainted Exalted Orb"` appears 2 times on lines 179, 1102.
+- `BaseType "Tainted Mythic Orb"` appears 2 times on lines 190, 1114.
+- `BaseType "Tainted Orb of Fusing"` appears 2 times on lines 190, 1114.
+- `BaseType "Tattoo of the Valako Shieldbearer"` appears 2 times on lines 539, 1125.
+- `BaseType "Timeless Eternal Emblem"` appears 2 times on lines 19, 370.
+- `BaseType "Titan Gauntlets"` appears 4 times on lines 1524, 1548, 1563, 1627.
+- `BaseType "Titan Greaves"` appears 2 times on lines 1524, 1639.
+- `BaseType "Transmutation Shard"` appears 2 times on lines 209, 1148.
+- `BaseType "Turquoise Amulet"` appears 5 times on lines 1524, 1537, 1548, 1589, 1649.
+- `BaseType "Two-Stone Ring"` appears 5 times on lines 1524, 1537, 1548, 1589, 1649.
+- `BaseType "Vaal Orb"` appears 2 times on lines 200, 1114.
+- `BaseType "Void Shockwave Support"` appears 2 times on lines 84, 1312.
+- `BaseType "Volatile Vaal Orb"` appears 2 times on lines 168, 1102.
+
+
 ## `void_shockwave_cyclone_slayer_lvl89_t9_t10_breach_hives_market_v18_reviewed.filter`
 
 ### Duplicate BaseTypes
 
 Some duplicates are intentional in this filter because early jackpot/global rules override later generic rules.
-- `BaseType "Alchemy Shard"` appears 2 times on lines 207, 1146.
-- `BaseType "Alteration Shard"` appears 2 times on lines 207, 1146.
-- `BaseType "Amethyst Ring"` appears 4 times on lines 1522, 1535, 1546, 1591.
-- `BaseType "Ancient Orb"` appears 2 times on lines 188, 1112.
-- `BaseType "Annulment Shard"` appears 2 times on lines 207, 1146.
-- `BaseType "Armourer's Scrap"` appears 2 times on lines 198, 1146.
-- `BaseType "Astral Plate"` appears 3 times on lines 1522, 1546, 1581.
-- `BaseType "Blacksmith's Whetstone"` appears 2 times on lines 198, 1146.
-- `BaseType "Blessed Orb"` appears 2 times on lines 198, 1112.
-- `BaseType "Breach Scarab of Instability"` appears 2 times on lines 976, 1053.
-- `BaseType "Breach Scarab of Resonant Cascade"` appears 2 times on lines 964, 1053.
-- `BaseType "Breach Scarab of the Hive"` appears 2 times on lines 976, 1053.
-- `BaseType "Breach Scarab of the Incensed Swarm"` appears 2 times on lines 976, 1053.
-- `BaseType "Breach Scarab of the Marshal"` appears 2 times on lines 976, 1053.
-- `BaseType "Chaos Shard"` appears 2 times on lines 207, 1146.
-- `BaseType "Chromatic Orb"` appears 2 times on lines 198, 1112.
-- `BaseType "Citrine Amulet"` appears 4 times on lines 1522, 1535, 1546, 1591.
-- `BaseType "Coin of Desecration"` appears 2 times on lines 724, 1135.
-- `BaseType "Coin of Knowledge"` appears 2 times on lines 713, 1135.
-- `BaseType "Coin of Power"` appears 2 times on lines 713, 1135.
-- `BaseType "Coin of Restoration"` appears 2 times on lines 724, 1135.
-- `BaseType "Coin of Skill"` appears 2 times on lines 713, 1135.
-- `BaseType "Crusader Plate"` appears 3 times on lines 1522, 1546, 1581.
-- `BaseType "Damnation"` appears 2 times on lines 385, 1416.
-- `BaseType "Divine Orb"` appears 2 times on lines 166, 1100.
-- `BaseType "Divine Vessel"` appears 2 times on lines 198, 1112.
-- `BaseType "Eldritch Chaos Orb"` appears 2 times on lines 177, 1100.
-- `BaseType "Eldritch Exalted Orb"` appears 2 times on lines 188, 1112.
-- `BaseType "Eldritch Orb of Annulment"` appears 2 times on lines 177, 1100.
-- `BaseType "Enkindling Orb"` appears 2 times on lines 188, 1112.
-- `BaseType "Eternal Orb"` appears 2 times on lines 155, 1088.
-- `BaseType "Exalted Orb"` appears 2 times on lines 188, 1112.
-- `BaseType "Exalted Shard"` appears 2 times on lines 207, 1146.
-- `BaseType "Ezomyte Burgonet"` appears 2 times on lines 1522, 1581.
-- `BaseType "Ezomyte Staff"` appears 4 times on lines 1522, 1535, 1546, 1558.
-- `BaseType "Flesh of Xesht"` appears 2 times on lines 166, 1100.
-- `BaseType "Foul Staff"` appears 4 times on lines 1522, 1535, 1546, 1558.
-- `BaseType "Fracturing Orb"` appears 2 times on lines 166, 1100.
-- `BaseType "Fracturing Shard"` appears 2 times on lines 207, 1146.
-- `BaseType "Gemcutter's Prism"` appears 2 times on lines 188, 1112.
-- `BaseType "Gladiator Helmet"` appears 2 times on lines 1522, 1581.
-- `BaseType "Glassblower's Bauble"` appears 2 times on lines 198, 1112.
-- `BaseType "Grand Eldritch Ember"` appears 2 times on lines 188, 1112.
-- `BaseType "Grand Eldritch Ichor"` appears 2 times on lines 198, 1112.
-- `BaseType "Greater Ancestral Call Support"` appears 2 times on lines 82, 1310.
-- `BaseType "Greater Eldritch Ichor"` appears 2 times on lines 198, 1112.
-- `BaseType "Greater Multistrike Support"` appears 2 times on lines 82, 1310.
-- `BaseType "Hinekora's Lock"` appears 2 times on lines 155, 1088.
-- `BaseType "Hivebrain Gland"` appears 2 times on lines 428, 1053.
-- `BaseType "House of Mirrors"` appears 2 times on lines 385, 1416.
-- `BaseType "Hydrascale Boots"` appears 2 times on lines 1522, 1581.
-- `BaseType "Instilling Orb"` appears 2 times on lines 198, 1112.
-- `BaseType "Jeweller's Orb"` appears 2 times on lines 198, 1146.
-- `BaseType "Judgement Staff"` appears 4 times on lines 1522, 1535, 1546, 1558.
-- `BaseType "Lapis Amulet"` appears 4 times on lines 1522, 1535, 1546, 1591.
-- `BaseType "Large Cluster Jewel"` appears 2 times on lines 122, 1601.
-- `BaseType "Leviathan Gauntlets"` appears 3 times on lines 1522, 1546, 1569.
-- `BaseType "Maven's Chisel of Procurement"` appears 2 times on lines 188, 1112.
-- `BaseType "Maven's Chisel of Scarabs"` appears 2 times on lines 188, 1112.
-- `BaseType "Memory of Loneliness"` appears 2 times on lines 188, 1112.
-- `BaseType "Memory of Reverence"` appears 2 times on lines 188, 1112.
-- `BaseType "Memory of Trauma"` appears 2 times on lines 177, 1100.
-- `BaseType "Mirror Shard"` appears 2 times on lines 155, 1088.
-- `BaseType "Mirror of Kalandra"` appears 2 times on lines 155, 1088.
-- `BaseType "Onyx Amulet"` appears 4 times on lines 1522, 1535, 1546, 1591.
-- `BaseType "Orb of Alchemy"` appears 2 times on lines 198, 1112.
-- `BaseType "Orb of Alteration"` appears 2 times on lines 198, 1112.
-- `BaseType "Orb of Annulment"` appears 2 times on lines 177, 1100.
-- `BaseType "Orb of Augmentation"` appears 2 times on lines 198, 1146.
-- `BaseType "Orb of Binding"` appears 2 times on lines 198, 1146.
-- `BaseType "Orb of Chance"` appears 2 times on lines 198, 1112.
-- `BaseType "Orb of Fusing"` appears 2 times on lines 198, 1112.
-- `BaseType "Orb of Regret"` appears 2 times on lines 198, 1112.
-- `BaseType "Orb of Remembrance"` appears 2 times on lines 177, 1100.
-- `BaseType "Orb of Scouring"` appears 2 times on lines 198, 1112.
-- `BaseType "Orb of Transmutation"` appears 2 times on lines 207, 1146.
-- `BaseType "Orb of Unmaking"` appears 2 times on lines 198, 1112.
-- `BaseType "Orb of Unravelling"` appears 2 times on lines 188, 1112.
-- `BaseType "Portal Scroll"` appears 2 times on lines 207, 1146.
-- `BaseType "Precursor Gauntlets"` appears 4 times on lines 1522, 1535, 1546, 1569.
-- `BaseType "Reflecting Mist"` appears 2 times on lines 155, 1088.
-- `BaseType "Regal Orb"` appears 2 times on lines 198, 1112.
-- `BaseType "Regal Shard"` appears 2 times on lines 207, 1146.
-- `BaseType "Rogue's Marker"` appears 2 times on lines 207, 1146.
-- `BaseType "Rustic Sash"` appears 4 times on lines 1522, 1535, 1546, 1591.
-- `BaseType "Sacred Orb"` appears 2 times on lines 177, 1100.
-- `BaseType "Scroll Fragment"` appears 2 times on lines 207, 1146.
-- `BaseType "Scroll of Wisdom"` appears 2 times on lines 207, 1146.
-- `BaseType "Slink Gloves"` appears 3 times on lines 1522, 1546, 1569.
-- `BaseType "Small Cluster Jewel"` appears 2 times on lines 134, 1611.
-- `BaseType "Stacked Deck"` appears 2 times on lines 188, 1112.
-- `BaseType "Stygian Vise"` appears 4 times on lines 1522, 1535, 1546, 1591.
-- `BaseType "Tainted Chaos Orb"` appears 2 times on lines 188, 1112.
-- `BaseType "Tainted Exalted Orb"` appears 2 times on lines 177, 1100.
-- `BaseType "Tainted Mythic Orb"` appears 2 times on lines 188, 1112.
-- `BaseType "Tainted Orb of Fusing"` appears 2 times on lines 188, 1112.
-- `BaseType "Tattoo of the Valako Shieldbearer"` appears 2 times on lines 537, 1123.
-- `BaseType "Timeless Eternal Emblem"` appears 2 times on lines 19, 368.
-- `BaseType "Titan Gauntlets"` appears 3 times on lines 1522, 1546, 1569.
-- `BaseType "Titan Greaves"` appears 2 times on lines 1522, 1581.
-- `BaseType "Transmutation Shard"` appears 2 times on lines 207, 1146.
-- `BaseType "Turquoise Amulet"` appears 4 times on lines 1522, 1535, 1546, 1591.
-- `BaseType "Two-Stone Ring"` appears 4 times on lines 1522, 1535, 1546, 1591.
-- `BaseType "Vaal Orb"` appears 2 times on lines 198, 1112.
-- `BaseType "Void Shockwave Support"` appears 2 times on lines 82, 1310.
-- `BaseType "Volatile Vaal Orb"` appears 2 times on lines 166, 1100.
+- `BaseType "Alchemy Shard"` appears 2 times on lines 242, 1196.
+- `BaseType "Alteration Shard"` appears 2 times on lines 242, 1196.
+- `BaseType "Amethyst Ring"` appears 5 times on lines 1572, 1585, 1596, 1634, 1690.
+- `BaseType "Ancient Orb"` appears 2 times on lines 223, 1162.
+- `BaseType "Annulment Shard"` appears 2 times on lines 242, 1196.
+- `BaseType "Armourer's Scrap"` appears 2 times on lines 233, 1196.
+- `BaseType "Astral Plate"` appears 3 times on lines 1572, 1596, 1680.
+- `BaseType "Blacksmith's Whetstone"` appears 2 times on lines 233, 1196.
+- `BaseType "Blessed Orb"` appears 2 times on lines 233, 1162.
+- `BaseType "Breach Scarab of Instability"` appears 2 times on lines 1013, 1103.
+- `BaseType "Breach Scarab of Resonant Cascade"` appears 2 times on lines 1001, 1103.
+- `BaseType "Breach Scarab of the Hive"` appears 2 times on lines 1013, 1103.
+- `BaseType "Breach Scarab of the Incensed Swarm"` appears 2 times on lines 1013, 1103.
+- `BaseType "Breach Scarab of the Marshal"` appears 2 times on lines 1013, 1103.
+- `BaseType "Chaos Shard"` appears 2 times on lines 242, 1196.
+- `BaseType "Chromatic Orb"` appears 2 times on lines 233, 1162.
+- `BaseType "Citrine Amulet"` appears 5 times on lines 1572, 1585, 1596, 1634, 1690.
+- `BaseType "Coin of Desecration"` appears 2 times on lines 761, 1185.
+- `BaseType "Coin of Knowledge"` appears 2 times on lines 750, 1185.
+- `BaseType "Coin of Power"` appears 2 times on lines 750, 1185.
+- `BaseType "Coin of Restoration"` appears 2 times on lines 761, 1185.
+- `BaseType "Coin of Skill"` appears 2 times on lines 750, 1185.
+- `BaseType "Crusader Plate"` appears 3 times on lines 1572, 1596, 1680.
+- `BaseType "Damnation"` appears 2 times on lines 422, 1466.
+- `BaseType "Delirium Scarab"` appears 2 times on lines 1026, 1095.
+- `BaseType "Delirium Scarab of Delusions"` appears 2 times on lines 1026, 1095.
+- `BaseType "Delirium Scarab of Mania"` appears 2 times on lines 1026, 1085.
+- `BaseType "Delirium Scarab of Neuroses"` appears 2 times on lines 1026, 1074.
+- `BaseType "Delirium Scarab of Paranoia"` appears 2 times on lines 1026, 1074.
+- `BaseType "Divine Orb"` appears 2 times on lines 201, 1150.
+- `BaseType "Divine Vessel"` appears 2 times on lines 233, 1162.
+- `BaseType "Eldritch Chaos Orb"` appears 2 times on lines 212, 1150.
+- `BaseType "Eldritch Exalted Orb"` appears 2 times on lines 223, 1162.
+- `BaseType "Eldritch Orb of Annulment"` appears 2 times on lines 212, 1150.
+- `BaseType "Enkindling Orb"` appears 2 times on lines 223, 1162.
+- `BaseType "Eternal Orb"` appears 2 times on lines 190, 1138.
+- `BaseType "Exalted Orb"` appears 2 times on lines 223, 1162.
+- `BaseType "Exalted Shard"` appears 2 times on lines 242, 1196.
+- `BaseType "Ezomyte Burgonet"` appears 2 times on lines 1572, 1680.
+- `BaseType "Ezomyte Staff"` appears 5 times on lines 1572, 1585, 1596, 1623, 1657.
+- `BaseType "Flesh of Xesht"` appears 2 times on lines 201, 1150.
+- `BaseType "Foul Staff"` appears 5 times on lines 1572, 1585, 1596, 1623, 1657.
+- `BaseType "Fracturing Orb"` appears 2 times on lines 201, 1150.
+- `BaseType "Fracturing Shard"` appears 2 times on lines 242, 1196.
+- `BaseType "Gemcutter's Prism"` appears 2 times on lines 223, 1162.
+- `BaseType "Gladiator Helmet"` appears 2 times on lines 1572, 1680.
+- `BaseType "Glassblower's Bauble"` appears 2 times on lines 233, 1162.
+- `BaseType "Grand Eldritch Ember"` appears 2 times on lines 223, 1162.
+- `BaseType "Grand Eldritch Ichor"` appears 2 times on lines 233, 1162.
+- `BaseType "Greater Eldritch Ichor"` appears 2 times on lines 233, 1162.
+- `BaseType "Hinekora's Lock"` appears 2 times on lines 190, 1138.
+- `BaseType "Hivebrain Gland"` appears 2 times on lines 465, 1103.
+- `BaseType "House of Mirrors"` appears 2 times on lines 422, 1466.
+- `BaseType "Hydrascale Boots"` appears 2 times on lines 1572, 1680.
+- `BaseType "Instilling Orb"` appears 2 times on lines 233, 1162.
+- `BaseType "Jeweller's Orb"` appears 2 times on lines 233, 1196.
+- `BaseType "Judgement Staff"` appears 5 times on lines 1572, 1585, 1596, 1623, 1657.
+- `BaseType "Lapis Amulet"` appears 5 times on lines 1572, 1585, 1596, 1634, 1690.
+- `BaseType "Large Cluster Jewel"` appears 2 times on lines 159, 1701.
+- `BaseType "Leviathan Gauntlets"` appears 4 times on lines 1572, 1596, 1612, 1668.
+- `BaseType "Maven's Chisel of Procurement"` appears 2 times on lines 223, 1162.
+- `BaseType "Maven's Chisel of Scarabs"` appears 2 times on lines 223, 1162.
+- `BaseType "Memory of Loneliness"` appears 2 times on lines 223, 1162.
+- `BaseType "Memory of Reverence"` appears 2 times on lines 223, 1162.
+- `BaseType "Memory of Trauma"` appears 2 times on lines 212, 1150.
+- `BaseType "Mirror Shard"` appears 2 times on lines 190, 1138.
+- `BaseType "Mirror of Kalandra"` appears 2 times on lines 190, 1138.
+- `BaseType "Onyx Amulet"` appears 5 times on lines 1572, 1585, 1596, 1634, 1690.
+- `BaseType "Orb of Alchemy"` appears 2 times on lines 233, 1162.
+- `BaseType "Orb of Alteration"` appears 2 times on lines 233, 1162.
+- `BaseType "Orb of Annulment"` appears 2 times on lines 212, 1150.
+- `BaseType "Orb of Augmentation"` appears 2 times on lines 233, 1196.
+- `BaseType "Orb of Binding"` appears 2 times on lines 233, 1196.
+- `BaseType "Orb of Chance"` appears 2 times on lines 233, 1162.
+- `BaseType "Orb of Fusing"` appears 2 times on lines 233, 1162.
+- `BaseType "Orb of Regret"` appears 2 times on lines 233, 1162.
+- `BaseType "Orb of Remembrance"` appears 2 times on lines 212, 1150.
+- `BaseType "Orb of Scouring"` appears 2 times on lines 233, 1162.
+- `BaseType "Orb of Transmutation"` appears 2 times on lines 242, 1196.
+- `BaseType "Orb of Unmaking"` appears 2 times on lines 233, 1162.
+- `BaseType "Orb of Unravelling"` appears 2 times on lines 223, 1162.
+- `BaseType "Portal Scroll"` appears 2 times on lines 242, 1196.
+- `BaseType "Precursor Gauntlets"` appears 5 times on lines 1572, 1585, 1596, 1612, 1668.
+- `BaseType "Reflecting Mist"` appears 2 times on lines 190, 1138.
+- `BaseType "Regal Orb"` appears 2 times on lines 233, 1162.
+- `BaseType "Regal Shard"` appears 2 times on lines 242, 1196.
+- `BaseType "Rogue's Marker"` appears 2 times on lines 242, 1196.
+- `BaseType "Rustic Sash"` appears 5 times on lines 1572, 1585, 1596, 1634, 1690.
+- `BaseType "Sacred Orb"` appears 2 times on lines 212, 1150.
+- `BaseType "Scroll Fragment"` appears 2 times on lines 242, 1196.
+- `BaseType "Scroll of Wisdom"` appears 2 times on lines 242, 1196.
+- `BaseType "Slink Gloves"` appears 4 times on lines 1572, 1596, 1612, 1668.
+- `BaseType "Small Cluster Jewel"` appears 2 times on lines 170, 1711.
+- `BaseType "Stacked Deck"` appears 2 times on lines 223, 1162.
+- `BaseType "Stygian Vise"` appears 5 times on lines 1572, 1585, 1596, 1634, 1690.
+- `BaseType "Tainted Chaos Orb"` appears 2 times on lines 223, 1162.
+- `BaseType "Tainted Exalted Orb"` appears 2 times on lines 212, 1150.
+- `BaseType "Tainted Mythic Orb"` appears 2 times on lines 223, 1162.
+- `BaseType "Tainted Orb of Fusing"` appears 2 times on lines 223, 1162.
+- `BaseType "Tattoo of the Valako Shieldbearer"` appears 2 times on lines 574, 1173.
+- `BaseType "Timeless Eternal Emblem"` appears 2 times on lines 20, 405.
+- `BaseType "Titan Gauntlets"` appears 4 times on lines 1572, 1596, 1612, 1668.
+- `BaseType "Titan Greaves"` appears 2 times on lines 1572, 1680.
+- `BaseType "Transmutation Shard"` appears 2 times on lines 242, 1196.
+- `BaseType "Turquoise Amulet"` appears 5 times on lines 1572, 1585, 1596, 1634, 1690.
+- `BaseType "Two-Stone Ring"` appears 5 times on lines 1572, 1585, 1596, 1634, 1690.
+- `BaseType "Vaal Orb"` appears 2 times on lines 233, 1162.
+- `BaseType "Volatile Vaal Orb"` appears 2 times on lines 201, 1150.
+
+### Ordering / Syntax
+
+- Line 42: `BaseType` without quoted names: `#        BaseType + EnchantmentPassiveNum para evitar erro de texto de enchant nao reconhecido.`
+- Line 110: `BaseType` without quoted names: `# Usar criterios estruturais e nao uma lista de BaseType evita erro de parser`
+- Line 128: `BaseType` without quoted names: `# - O parser do filtro exige BaseType real, entao nomes unicos de mapas nao`
 
