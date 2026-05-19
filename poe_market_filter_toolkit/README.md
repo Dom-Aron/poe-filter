@@ -102,6 +102,26 @@ python poe_market_filter_toolkit\scripts\run_all.py --upgrade-plan
 
 ## Capturar personagem pela API oficial
 
+### 1. Pedir acesso OAuth para a GGG
+
+A GGG informa na documentacao oficial que o registro de aplicacoes OAuth e feito por email para:
+
+```text
+oauth@grindinggear.com
+```
+
+Para este projeto, peca um **Public Client** com:
+
+```text
+Grant type: Authorization Code with PKCE
+Scopes: account:characters
+Redirect URI: http://127.0.0.1:8080/callback
+```
+
+Explique que o uso e pessoal/local, para ler o personagem da sua propria conta e gerar relatorios de build. Nao envie senha, token, client secret ou dados sensiveis por email.
+
+### 2. Configurar conta e OAuth
+
 Crie `config/account_config.json` a partir de `config/account_config.example.json`:
 
 ```json
@@ -113,7 +133,33 @@ Crie `config/account_config.json` a partir de `config/account_config.example.jso
 }
 ```
 
-Forneca o token OAuth por variavel de ambiente:
+Crie `config/oauth_config.json` a partir de `config/oauth_config.example.json`:
+
+```json
+{
+  "client_id": "SEU_CLIENT_ID_APROVADO_PELA_GGG",
+  "redirect_uri": "http://127.0.0.1:8080/callback",
+  "scope": "account:characters",
+  "authorization_url": "https://www.pathofexile.com/oauth/authorize",
+  "token_url": "https://www.pathofexile.com/oauth/token"
+}
+```
+
+### 3. Fazer login OAuth
+
+Quando tiver o `client_id`, rode:
+
+```powershell
+python poe_market_filter_toolkit\scripts\oauth_login.py
+```
+
+O script abre o navegador, espera o callback local e salva:
+
+```text
+poe_market_filter_toolkit/secrets/tokens.json
+```
+
+Alternativa manual: forneca o token OAuth por variavel de ambiente:
 
 ```powershell
 $env:POE_OAUTH_TOKEN="SEU_TOKEN"
@@ -126,6 +172,8 @@ Ou crie `secrets/tokens.json`:
   "access_token": "SEU_TOKEN"
 }
 ```
+
+### 4. Rodar captura e analise
 
 Rodar captura + parse + analise:
 

@@ -273,6 +273,30 @@ Saida:
 poe_market_filter_toolkit/data/raw/character_api_raw.json
 ```
 
+### `oauth_login.py`
+
+Ajuda a criar `secrets/tokens.json` usando OAuth com PKCE depois que voce tiver um `client_id` aprovado pela GGG.
+
+Antes de usar:
+
+```text
+1. Copie poe_market_filter_toolkit/config/oauth_config.example.json para oauth_config.json.
+2. Preencha client_id.
+3. Confirme redirect_uri = http://127.0.0.1:8080/callback.
+```
+
+Rodar:
+
+```powershell
+python poe_market_filter_toolkit\scripts\oauth_login.py
+```
+
+Depois:
+
+```powershell
+python poe_market_filter_toolkit\scripts\fetch_character.py
+```
+
 ### `parse_character.py`
 
 Converte o JSON cru da API oficial em arquivos normalizados:
