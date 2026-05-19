@@ -3,5 +3,6 @@
   "redirect_uri": "http://127.0.0.1:8080/callback",
   "scope": "account:characters",
   "authorization_url": "https://www.pathofexile.com/oauth/authorize",
-  "token_url": "https://www.pathofexile.com/oauth/token"
+  "token_url": "https://www.pathofexile.com/oauth/token",
+  "token_refresh_margin_seconds": 300
 }

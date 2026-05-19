@@ -46,6 +46,18 @@ def save_json(path: Path, data: dict[str, Any]) -> None:
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
+def enrich_token_metadata(token_data: dict[str, Any], client_id: str, scope: str) -> dict[str, Any]:
+    now = time.time()
+    enriched = dict(token_data)
+    expires_in = enriched.get("expires_in")
+    if isinstance(expires_in, (int, float)):
+        enriched["expires_at"] = int(now + float(expires_in))
+    enriched["saved_at"] = time.strftime("%Y-%m-%d %H:%M:%S")
+    enriched["client_id"] = client_id
+    enriched["scope_requested"] = scope
+    return enriched
+
+
 def base64url(data: bytes) -> str:
     return base64.urlsafe_b64encode(data).decode("ascii").rstrip("=")
 
@@ -192,10 +204,11 @@ def main(argv: list[str]) -> int:
     if not code:
         raise SystemExit("OAuth callback did not include a code.")
 
-    token_data = exchange_code(token_url, client_id, redirect_uri, scope, code, verifier, args.timeout)
-    token_data["saved_at"] = time.strftime("%Y-%m-%d %H:%M:%S")
-    token_data["client_id"] = client_id
-    token_data["scope_requested"] = scope
+    token_data = enrich_token_metadata(
+        exchange_code(token_url, client_id, redirect_uri, scope, code, verifier, args.timeout),
+        client_id,
+        scope,
+    )
     save_json(args.token_file, token_data)
     print(f"Saved OAuth tokens: {args.token_file}")
     return 0
