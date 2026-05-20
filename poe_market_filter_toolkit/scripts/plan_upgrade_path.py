@@ -2,7 +2,7 @@
 """
 plan_upgrade_path.py
 
-Build-aware upgrade planner for the Shockwave Cyclone / General's Cry Slayer.
+Build-aware upgrade planner for the active target build.
 
 It reads the current player items/stats, target build files and upgrade rules,
 searches the official Path of Exile trade API through the existing profiles, and
@@ -60,6 +60,7 @@ class Candidate:
     warnings: list[str]
     seller: str
     trade_url: str
+    trade_item_url: str
     trade_search_url: str
     trade_fetch_url: str
     result_id: str
@@ -205,6 +206,7 @@ def candidate_for_slot(
         warnings=warnings,
         seller=str(row.get("seller", "")),
         trade_url=str(row.get("trade_url", "")),
+        trade_item_url=str(row.get("trade_item_url") or row.get("trade_url", "")),
         trade_search_url=str(row.get("trade_search_url") or row.get("trade_url", "")),
         trade_fetch_url=str(row.get("trade_fetch_url", "")),
         result_id=str(row.get("result_id", "")),
@@ -369,6 +371,34 @@ def make_plans(
     return plans, diagnostics
 
 
+def budget_price_windows(budget_chaos: float) -> list[tuple[float | None, float]]:
+    """Return price windows used to sample trade listings across the whole budget.
+
+    The trade API result list is sorted by price ascending. If we only fetch the
+    first page with a high budget, we mostly see very cheap items. These windows
+    keep the budget as a max price per upgrade plan while still sampling listings
+    from the middle and upper part of the available budget.
+    """
+    if not math.isfinite(budget_chaos):
+        return [(None, NO_BUDGET_SEARCH_LIMIT_CHAOS)]
+
+    if budget_chaos <= 150:
+        upper_bounds = [float(budget_chaos)]
+    elif budget_chaos <= 500:
+        upper_bounds = [round(budget_chaos * 0.35, 2), float(budget_chaos)]
+    else:
+        upper_bounds = [round(budget_chaos * 0.2, 2), round(budget_chaos * 0.6, 2), float(budget_chaos)]
+
+    windows: list[tuple[float | None, float]] = []
+    previous: float | None = None
+    for upper in upper_bounds:
+        if previous is not None and upper <= previous:
+            continue
+        windows.append((previous, upper))
+        previous = upper
+    return windows
+
+
 def best_single_purchase_any_budget(
     candidates: list[Candidate],
     player_stats: dict[str, Any],
@@ -439,7 +469,9 @@ def write_report(
         f"Budget: `{format_budget_label(budget_chaos)}`",
         f"Mode: `{'cheapest safe upgrades' if cheapest_first else 'best value inside budget'}`",
         "",
-        "Este relatorio testa compras 1x1, 2x2 e 3x3. Ele pode mostrar menos que o top pedido quando o mercado nao tem ofertas suficientes, quando o budget nao cobre bons upgrades, ou quando as ofertas quebram pisos da build.",
+        "Este relatorio testa compras 1x1, 2x2 e 3x3. O budget e tratado como teto por plano de upgrade, nao como soma de todos os planos exibidos.",
+        "Com budget informado, a busca amostra faixas de preco ate o teto para evitar que um budget alto retorne apenas os itens mais baratos.",
+        "Ele pode mostrar menos que o top pedido quando o mercado nao tem ofertas suficientes, quando o budget nao cobre bons upgrades, ou quando as ofertas quebram pisos da build.",
         "",
     ]
 
@@ -531,6 +563,7 @@ def write_report(
             "- `1x1`: uma troca isolada.",
             "- `2x2`: duas compras que se compensam, por exemplo um anel que perde resistencia e outro item que recupera.",
             "- `3x3`: caminho maior dentro do budget.",
+            "- O budget e teto de cada plano exibido. Exemplo: 1000c permite um plano de ate 1000c, nao dez planos somando 1000c.",
             "- Se nao houver top 10, isso nao e erro: significa que o mercado/budget/filtros so produziram menos opcoes seguras.",
             "- Sempre valide no trade, PoE Overlay e PoB antes de comprar.",
             "",
@@ -543,7 +576,9 @@ def write_report(
 
 
 def item_markdown_links(candidate: Candidate) -> str:
-    links = [f"[{candidate.name}]({candidate.trade_search_url or candidate.trade_url})"]
+    links = [f"[{candidate.name}]({candidate.trade_item_url or candidate.trade_url})"]
+    if candidate.trade_search_url:
+        links.append(f"[busca]({candidate.trade_search_url})")
     if candidate.trade_fetch_url:
         links.append(f"[item/API]({candidate.trade_fetch_url})")
     return " / ".join(links)
@@ -564,7 +599,8 @@ def candidate_to_dict(candidate: Candidate) -> dict[str, Any]:
         "gains": candidate.gains,
         "warnings": candidate.warnings,
         "seller": candidate.seller,
-        "trade_url": candidate.trade_search_url or candidate.trade_url,
+        "trade_url": candidate.trade_item_url or candidate.trade_url,
+        "trade_item_url": candidate.trade_item_url or candidate.trade_url,
         "trade_search_url": candidate.trade_search_url or candidate.trade_url,
         "trade_fetch_url": candidate.trade_fetch_url,
         "result_id": candidate.result_id,
@@ -606,9 +642,13 @@ def write_json_report(
         "budget_chaos": None if not math.isfinite(budget_chaos) else budget_chaos,
         "mode": "cheapest safe upgrades" if cheapest_first else "best value inside budget",
         "notes": [
+            "trade_item_url tenta abrir a listagem exata usando query_id e result_id.",
             "trade_search_url abre a busca oficial que produziu o resultado.",
             "trade_fetch_url aponta para a listagem especifica retornada pela API oficial.",
+            "Se o item tiver sido vendido ou removido, o trade_item_url pode cair na busca ou nao mostrar mais o item; nesse caso, use trade_fetch_url para conferir o snapshot tecnico.",
             "whisper e o texto de contato mais direto para o item exato.",
+            "budget_chaos e o teto de cada plano 1x1, 2x2 ou 3x3, nao a soma de todos os planos.",
+            "Com budget informado, o script amostra faixas de preco ate o teto para nao limitar a busca aos itens mais baratos.",
         ],
         "plans": [plan_to_dict(plan, rank) for rank, plan in enumerate(plans[:top], start=1)],
         "best_any_budget": [plan_to_dict(plan, rank) for rank, plan in enumerate(best_any_budget[:3], start=1)],
@@ -661,9 +701,15 @@ def write_html_report(
         for rank, plan in enumerate(plans[:top], start=1):
             item_links = []
             for candidate in plan.candidates:
-                actions = [
-                    f"<a href=\"{html.escape(candidate.trade_search_url or candidate.trade_url)}\" target=\"_blank\" rel=\"noopener\">Busca no trade</a>"
-                ]
+                actions = []
+                if candidate.trade_item_url:
+                    actions.append(
+                        f"<a href=\"{html.escape(candidate.trade_item_url)}\" target=\"_blank\" rel=\"noopener\" title=\"Tenta abrir a listagem exata pelo result_id\">Item exato</a>"
+                    )
+                if candidate.trade_search_url:
+                    actions.append(
+                        f"<a href=\"{html.escape(candidate.trade_search_url)}\" target=\"_blank\" rel=\"noopener\">Busca original</a>"
+                    )
                 if candidate.trade_fetch_url:
                     actions.append(
                         f"<a href=\"{html.escape(candidate.trade_fetch_url)}\" target=\"_blank\" rel=\"noopener\">JSON tecnico</a>"
@@ -709,9 +755,15 @@ def write_html_report(
     best_cards: list[str] = []
     for rank, plan in enumerate(best_any_budget[:3], start=1):
         candidate = plan.candidates[0]
-        actions = [
-            f"<a href=\"{html.escape(candidate.trade_search_url or candidate.trade_url)}\" target=\"_blank\" rel=\"noopener\">Busca no trade</a>"
-        ]
+        actions = []
+        if candidate.trade_item_url:
+            actions.append(
+                f"<a href=\"{html.escape(candidate.trade_item_url)}\" target=\"_blank\" rel=\"noopener\" title=\"Tenta abrir a listagem exata pelo result_id\">Item exato</a>"
+            )
+        if candidate.trade_search_url:
+            actions.append(
+                f"<a href=\"{html.escape(candidate.trade_search_url)}\" target=\"_blank\" rel=\"noopener\">Busca original</a>"
+            )
         if candidate.trade_fetch_url:
             actions.append(
                 f"<a href=\"{html.escape(candidate.trade_fetch_url)}\" target=\"_blank\" rel=\"noopener\">JSON tecnico</a>"
@@ -731,14 +783,18 @@ def write_html_report(
 
     candidate_rows = []
     for candidate in candidates[: max(top * 4, 12)]:
-        detail_link = ""
+        extra_links = []
+        if candidate.trade_search_url:
+            extra_links.append(f"<a href=\"{html.escape(candidate.trade_search_url)}\" target=\"_blank\" rel=\"noopener\">busca</a>")
         if candidate.trade_fetch_url:
-            detail_link = f" | <a href=\"{html.escape(candidate.trade_fetch_url)}\" target=\"_blank\" rel=\"noopener\">JSON tecnico</a>"
+            extra_links.append(f"<a href=\"{html.escape(candidate.trade_fetch_url)}\" target=\"_blank\" rel=\"noopener\">JSON tecnico</a>")
+        extra = " | " + " | ".join(extra_links) if extra_links else ""
+        item_url = candidate.trade_item_url or candidate.trade_url or candidate.trade_search_url
         candidate_rows.append(
             "<tr>"
             f"<td>{html.escape(candidate.profile_label)}</td>"
             f"<td>{html.escape(candidate.slot)}</td>"
-            f"<td><a href=\"{html.escape(candidate.trade_search_url or candidate.trade_url)}\" target=\"_blank\" rel=\"noopener\">{html.escape(candidate.name)}</a>{detail_link}</td>"
+            f"<td><a href=\"{html.escape(item_url)}\" target=\"_blank\" rel=\"noopener\">{html.escape(candidate.name)}</a>{extra}</td>"
             f"<td>{html.escape(candidate.price_text)}</td>"
             f"<td>{html.escape('; '.join(candidate.gains))}</td>"
             "</tr>"
@@ -822,7 +878,7 @@ def write_html_report(
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Plan 1x1, 2x2 and 3x3 upgrade purchases for the current build.")
-    parser.add_argument("--budget", help="Available budget, e.g. 251c, 1d, 1.5div. If omitted, shows top 3 cheapest safe upgrades.")
+    parser.add_argument("--budget", help="Budget per upgrade plan, e.g. 251c, 1d, 1.5div. If omitted, shows top 3 cheapest safe upgrades.")
     parser.add_argument("--league", help="League name. Defaults to config/market_config.json.")
     parser.add_argument("--profiles", default="all", help="Comma list or all.")
     parser.add_argument("--top", type=int, default=None, help="Maximum plans to show. Defaults to 3 without budget and 10 with budget.")
@@ -946,59 +1002,68 @@ def evaluate_profile_with_raw_items(
     delay: float,
     max_fetch: int,
 ) -> list[dict[str, Any]]:
-    query_id, ids = search_profile_optional_budget(profile, league, budget_chaos, stats, user_agent, timeout, max_fetch)
-    if not query_id or not ids:
+    result_sets = search_profile_optional_budget(profile, league, budget_chaos, stats, user_agent, timeout, max_fetch)
+    if not result_sets:
         return []
-    time.sleep(delay)
-
-    fetched = trade.fetch_results(ids, query_id, user_agent, timeout, delay)
     evaluated: list[dict[str, Any]] = []
-    trade_url = f"{trade.TRADE_BASE}/trade/search/{league}/{query_id}"
+    seen_result_ids: set[str] = set()
 
-    for entry in fetched:
-        result_id = str(entry.get("id") or "")
-        item = entry.get("item", {})
-        listing = entry.get("listing", {})
-        price = listing.get("price")
-        price_chaos = trade.price_to_chaos(price, divine_price)
-        if price_chaos is None or not math.isfinite(price_chaos):
+    for query_id, ids in result_sets:
+        ids = [result_id for result_id in ids if result_id not in seen_result_ids]
+        if not ids:
             continue
-        if math.isfinite(budget_chaos) and price_chaos > budget_chaos:
-            continue
+        seen_result_ids.update(ids)
+        time.sleep(delay)
 
-        score, reasons = trade.score_item(profile, item)
-        baseline_delta, baseline_notes, passes_baseline = trade.baseline_adjustment(profile, item)
-        if not passes_baseline:
-            continue
-        score += baseline_delta
-        reasons.extend(baseline_notes)
-        if score < profile.min_score:
-            continue
-        value_score = score / max(price_chaos, 1.0)
-        evaluated.append(
-            {
-                "profile": profile.key,
-                "profile_label": profile.label,
-                "why": profile.why,
-                "item_name": item.get("name") or "",
-                "type_line": item.get("typeLine") or item.get("baseType") or "",
-                "ilvl": item.get("ilvl"),
-                "price": price,
-                "price_chaos": price_chaos,
-                "score": score,
-                "value_score": value_score,
-                "reasons": reasons,
-                "seller": listing.get("account", {}).get("name", ""),
-                "trade_url": trade_url,
-                "trade_search_url": trade_url,
-                "trade_fetch_url": f"{trade.TRADE_BASE}/api/trade/fetch/{result_id}?query={query_id}" if result_id else "",
-                "result_id": result_id,
-                "query_id": query_id,
-                "whisper": listing.get("whisper", ""),
-                "item_mods": trade.item_texts(item),
-                "raw_item": item,
-            }
-        )
+        fetched = trade.fetch_results(ids, query_id, user_agent, timeout, delay)
+        trade_url = f"{trade.TRADE_BASE}/trade/search/{league}/{query_id}"
+
+        for entry in fetched:
+            result_id = str(entry.get("id") or "")
+            item = entry.get("item", {})
+            listing = entry.get("listing", {})
+            price = listing.get("price")
+            price_chaos = trade.price_to_chaos(price, divine_price)
+            if price_chaos is None or not math.isfinite(price_chaos):
+                continue
+            if math.isfinite(budget_chaos) and price_chaos > budget_chaos:
+                continue
+            trade_item_url = f"{trade_url}/{result_id}" if result_id else trade_url
+
+            score, reasons = trade.score_item(profile, item)
+            baseline_delta, baseline_notes, passes_baseline = trade.baseline_adjustment(profile, item)
+            if not passes_baseline:
+                continue
+            score += baseline_delta
+            reasons.extend(baseline_notes)
+            if score < profile.min_score:
+                continue
+            value_score = score / max(price_chaos, 1.0)
+            evaluated.append(
+                {
+                    "profile": profile.key,
+                    "profile_label": profile.label,
+                    "why": profile.why,
+                    "item_name": item.get("name") or "",
+                    "type_line": item.get("typeLine") or item.get("baseType") or "",
+                    "ilvl": item.get("ilvl"),
+                    "price": price,
+                    "price_chaos": price_chaos,
+                    "score": score,
+                    "value_score": value_score,
+                    "reasons": reasons,
+                    "seller": listing.get("account", {}).get("name", ""),
+                    "trade_url": trade_item_url,
+                    "trade_item_url": trade_item_url,
+                    "trade_search_url": trade_url,
+                    "trade_fetch_url": f"{trade.TRADE_BASE}/api/trade/fetch/{result_id}?query={query_id}" if result_id else "",
+                    "result_id": result_id,
+                    "query_id": query_id,
+                    "whisper": listing.get("whisper", ""),
+                    "item_mods": trade.item_texts(item),
+                    "raw_item": item,
+                }
+            )
 
     evaluated.sort(key=lambda item: (item["score"], item["value_score"]), reverse=True)
     return evaluated
@@ -1012,9 +1077,9 @@ def search_profile_optional_budget(
     user_agent: str,
     timeout: int,
     max_fetch: int,
-) -> tuple[str | None, list[str]]:
+) -> list[tuple[str, list[str]]]:
     if math.isfinite(budget_chaos):
-        return trade.search_profile(profile, league, budget_chaos, stats, user_agent, timeout, max_fetch)
+        return search_profile_budget_windows(profile, league, budget_chaos, stats, user_agent, timeout, max_fetch)
 
     query = trade.with_required_stats(
         profile.query,
@@ -1025,7 +1090,39 @@ def search_profile_optional_budget(
     )
     payload = {"query": query, "sort": {"price": "asc"}}
     data = trade.request_json(f"{trade.TRADE_BASE}/api/trade/search/{league}", user_agent, timeout, method="POST", payload=payload)
-    return data.get("id"), list(data.get("result", []))[:max_fetch]
+    query_id = data.get("id")
+    if not query_id:
+        return []
+    return [(str(query_id), list(data.get("result", []))[:max_fetch])]
+
+
+def search_profile_budget_windows(
+    profile: trade.Profile,
+    league: str,
+    budget_chaos: float,
+    stats: list[dict[str, str]],
+    user_agent: str,
+    timeout: int,
+    max_fetch: int,
+) -> list[tuple[str, list[str]]]:
+    windows = budget_price_windows(budget_chaos)
+    fetch_per_window = max(3, math.ceil(max_fetch / max(len(windows), 1)))
+    result_sets: list[tuple[str, list[str]]] = []
+    for minimum, maximum in windows:
+        query = trade.with_required_stats(
+            profile.query,
+            stats,
+            profile.required_stat_texts,
+            profile.count_stat_texts,
+            profile.count_min,
+        )
+        query["filters"] = trade.merge_filters(query.get("filters", {}), trade.make_price_filter(maximum, minimum))
+        payload = {"query": query, "sort": {"price": "asc"}}
+        data = trade.request_json(f"{trade.TRADE_BASE}/api/trade/search/{league}", user_agent, timeout, method="POST", payload=payload)
+        query_id = data.get("id")
+        if query_id:
+            result_sets.append((str(query_id), list(data.get("result", []))[:fetch_per_window]))
+    return result_sets
 
 
 if __name__ == "__main__":

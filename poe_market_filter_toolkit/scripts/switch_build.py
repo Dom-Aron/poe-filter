@@ -1,0 +1,417 @@
+#!/usr/bin/env python3
+"""
+switch_build.py
+
+Manages multiple target build profiles for the build agent.
+
+Each profile lives in builds/profiles/<slug>/ and owns the target build files
+used by compare_current_to_target.py, recommend_next_steps.py and
+plan_upgrade_path.py. Activating a profile copies those files into builds/.
+
+The PoB link/code is stored as metadata. Full PoB XML/stat parsing is a later
+step; this script is the stable switchboard that lets the rest of the toolkit
+work with more than one build target.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import shutil
+import sys
+import time
+from pathlib import Path
+from typing import Any
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
+
+
+ROOT = Path(__file__).resolve().parents[1]
+BUILDS_DIR = ROOT / "builds"
+PROFILES_DIR = BUILDS_DIR / "profiles"
+CHARACTER_PROFILES_DIR = BUILDS_DIR / "characters"
+ACTIVE_BUILD = BUILDS_DIR / "active_build.json"
+TARGET_FILES = ("target_build_items.json", "target_build_stats.json", "upgrade_rules.json")
+PLAYER_FILES = ("player_items.json", "player_stats.json")
+POB_USER_AGENT = "poe-market-filter-toolkit/1.0 (+personal build profile switcher)"
+
+
+def now_label() -> str:
+    return time.strftime("%Y-%m-%d %H:%M:%S")
+
+
+def slugify(text: str) -> str:
+    cleaned = re.sub(r"[^a-zA-Z0-9]+", "_", text.strip().lower()).strip("_")
+    return cleaned or "build"
+
+
+def detect_pob_reference(raw: str) -> dict[str, str]:
+    value = raw.strip()
+    if not value:
+        return {"kind": "manual", "value": ""}
+    pobb = re.search(r"pobb\.in/([A-Za-z0-9_-]+)", value)
+    if pobb:
+        return {"kind": "pobb.in", "value": value, "id": pobb.group(1)}
+    pastebin = re.search(r"pastebin\.com/(?:raw/)?([A-Za-z0-9]+)", value)
+    if pastebin:
+        return {"kind": "pastebin", "value": value, "id": pastebin.group(1)}
+    if value.startswith("http://") or value.startswith("https://"):
+        return {"kind": "url", "value": value}
+    return {"kind": "pob_code", "value": value}
+
+
+def read_json(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def write_json(path: Path, data: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def copy_profile_file(source: Path, target: Path) -> None:
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source, target)
+
+
+def profile_dir(slug: str) -> Path:
+    return PROFILES_DIR / slugify(slug)
+
+
+def existing_profile_slugs() -> list[str]:
+    if not PROFILES_DIR.exists():
+        return []
+    return sorted(path.name for path in PROFILES_DIR.iterdir() if path.is_dir())
+
+
+def existing_character_slugs() -> list[str]:
+    if not CHARACTER_PROFILES_DIR.exists():
+        return []
+    return sorted(path.name for path in CHARACTER_PROFILES_DIR.iterdir() if path.is_dir())
+
+
+def build_profile_payload(name: str, slug: str, pob_url: str = "", notes: str = "") -> dict[str, Any]:
+    pob = detect_pob_reference(pob_url)
+    return {
+        "schema_version": 1,
+        "slug": slug,
+        "name": name,
+        "pob": pob,
+        "notes": notes,
+        "files": {name: name for name in TARGET_FILES},
+        "created_at": now_label(),
+        "updated_at": now_label(),
+    }
+
+
+def create_profile(
+    name: str,
+    pob_url: str,
+    from_current: bool,
+    notes: str = "",
+    fetch_pob: bool = False,
+    timeout: int = 30,
+) -> Path:
+    slug = slugify(name or detect_pob_reference(pob_url).get("id", "build"))
+    target = profile_dir(slug)
+    target.mkdir(parents=True, exist_ok=True)
+
+    profile_file = target / "build_profile.json"
+    if profile_file.exists():
+        profile = read_json(profile_file)
+        if pob_url:
+            profile["pob"] = detect_pob_reference(pob_url)
+        if name:
+            profile["name"] = name
+        if notes:
+            profile["notes"] = notes
+        profile["updated_at"] = now_label()
+    else:
+        profile = build_profile_payload(name or slug, slug, pob_url, notes)
+
+    if from_current:
+        for filename in TARGET_FILES:
+            source = BUILDS_DIR / filename
+            if not source.exists():
+                raise SystemExit(f"Cannot create profile from current files; missing {source}")
+            shutil.copy2(source, target / filename)
+        profile["target_files_source"] = "cloned_from_current"
+        profile["target_files_note"] = (
+            "This profile was created from the currently active target JSON files. "
+            "Edit/import target_build_items.json, target_build_stats.json and upgrade_rules.json "
+            "before expecting recommendations to differ from the previous build."
+        )
+    else:
+        missing = [filename for filename in TARGET_FILES if not (target / filename).exists()]
+        if missing:
+            raise SystemExit(
+                "Profile target files are missing: "
+                + ", ".join(missing)
+                + ". Use --from-current for the first version, then edit the profile files."
+            )
+
+    if fetch_pob and pob_url:
+        fetch_pob_source(pob_url, target / "pob_source.txt", timeout)
+
+    write_json(profile_file, profile)
+    return target
+
+
+def fetch_pob_source(url: str, output: Path, timeout: int) -> None:
+    reference = detect_pob_reference(url)
+    value = reference.get("value", url)
+    if not value.startswith(("http://", "https://")):
+        output.write_text(value, encoding="utf-8")
+        return
+    request = Request(value, headers={"User-Agent": POB_USER_AGENT, "Accept": "text/plain, text/html, */*"})
+    try:
+        with urlopen(request, timeout=timeout) as response:
+            text = response.read().decode("utf-8", errors="replace")
+    except HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")
+        raise SystemExit(f"Failed to fetch PoB URL: HTTP {exc.code}: {detail[:500]}") from exc
+    except (URLError, TimeoutError) as exc:
+        raise SystemExit(f"Failed to fetch PoB URL: {exc}") from exc
+    output.write_text(text, encoding="utf-8")
+
+
+def activate_profile(slug: str) -> dict[str, Any]:
+    slug = slugify(slug)
+    source_dir = profile_dir(slug)
+    if not source_dir.exists():
+        raise SystemExit(f"Build profile not found: {slug}. Use --list to see available profiles.")
+
+    missing = [filename for filename in TARGET_FILES if not (source_dir / filename).exists()]
+    if missing:
+        raise SystemExit(f"Build profile {slug} is incomplete. Missing: {', '.join(missing)}")
+
+    for filename in TARGET_FILES:
+        copy_profile_file(source_dir / filename, BUILDS_DIR / filename)
+
+    profile = read_json(source_dir / "build_profile.json")
+    active = {
+        "schema_version": 1,
+        "active_slug": slug,
+        "active_profile_dir": str(source_dir.relative_to(ROOT)).replace("\\", "/"),
+        "name": profile.get("name", slug),
+        "pob": profile.get("pob", {}),
+        "activated_at": now_label(),
+    }
+    write_json(ACTIVE_BUILD, active)
+    return active
+
+
+def remove_directory(path: Path) -> None:
+    resolved = path.resolve()
+    allowed_roots = [PROFILES_DIR.resolve(), CHARACTER_PROFILES_DIR.resolve()]
+    if not any(resolved == root or root in resolved.parents for root in allowed_roots):
+        raise SystemExit(f"Refusing to remove path outside managed profile dirs: {path}")
+    shutil.rmtree(resolved)
+
+
+def delete_build_profile(slug: str, force: bool = False) -> Path:
+    slug = slugify(slug)
+    target = profile_dir(slug)
+    if not target.exists():
+        raise SystemExit(f"Build profile not found: {slug}")
+    active_slug = read_json(ACTIVE_BUILD).get("active_slug")
+    if active_slug == slug and not force:
+        raise SystemExit(
+            f"Build profile is active: {slug}. Switch to another build first or pass --force."
+        )
+    remove_directory(target)
+    if active_slug == slug:
+        ACTIVE_BUILD.unlink(missing_ok=True)
+    return target
+
+
+def character_profile_dir(slug: str) -> Path:
+    return CHARACTER_PROFILES_DIR / slugify(slug)
+
+
+def create_character_profile(name: str, from_current: bool, notes: str = "") -> Path:
+    slug = slugify(name)
+    target = character_profile_dir(slug)
+    target.mkdir(parents=True, exist_ok=True)
+    if from_current:
+        for filename in PLAYER_FILES:
+            source = BUILDS_DIR / filename
+            if not source.exists():
+                raise SystemExit(f"Cannot create character profile from current files; missing {source}")
+            shutil.copy2(source, target / filename)
+    missing = [filename for filename in PLAYER_FILES if not (target / filename).exists()]
+    if missing:
+        raise SystemExit(
+            "Character profile files are missing: "
+            + ", ".join(missing)
+            + ". Use --character-from-current for the first version."
+        )
+    write_json(
+        target / "character_profile.json",
+        {
+            "schema_version": 1,
+            "slug": slug,
+            "name": name,
+            "notes": notes,
+            "files": {name: name for name in PLAYER_FILES},
+            "updated_at": now_label(),
+        },
+    )
+    return target
+
+
+def activate_character_profile(slug: str) -> Path:
+    slug = slugify(slug)
+    source_dir = character_profile_dir(slug)
+    if not source_dir.exists():
+        raise SystemExit(f"Character profile not found: {slug}")
+    missing = [filename for filename in PLAYER_FILES if not (source_dir / filename).exists()]
+    if missing:
+        raise SystemExit(f"Character profile {slug} is incomplete. Missing: {', '.join(missing)}")
+    for filename in PLAYER_FILES:
+        copy_profile_file(source_dir / filename, BUILDS_DIR / filename)
+    return source_dir
+
+
+def delete_character_profile(slug: str) -> Path:
+    slug = slugify(slug)
+    target = character_profile_dir(slug)
+    if not target.exists():
+        raise SystemExit(f"Character profile not found: {slug}")
+    remove_directory(target)
+    return target
+
+
+def list_profiles() -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    active = read_json(ACTIVE_BUILD).get("active_slug")
+    for slug in existing_profile_slugs():
+        profile = read_json(profile_dir(slug) / "build_profile.json")
+        rows.append(
+            {
+                "slug": slug,
+                "name": profile.get("name", slug),
+                "pob": profile.get("pob", {}).get("value", ""),
+                "active": slug == active,
+            }
+        )
+    return rows
+
+
+def list_character_profiles() -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for slug in existing_character_slugs():
+        profile = read_json(character_profile_dir(slug) / "character_profile.json")
+        rows.append(
+            {
+                "slug": slug,
+                "name": profile.get("name", slug),
+                "notes": profile.get("notes", ""),
+            }
+        )
+    return rows
+
+
+def parse_args(argv: list[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Create, list and activate target build profiles.")
+    parser.add_argument("--list", action="store_true", help="List available build profiles.")
+    parser.add_argument("--list-characters", action="store_true", help="List saved current-character profiles.")
+    parser.add_argument("--switch-to", help="Activate an existing profile slug, or create it when --name/--pob-url are provided.")
+    parser.add_argument("--delete-build", help="Delete a target build profile by slug.")
+    parser.add_argument("--force", action="store_true", help="Allow deleting the active build profile.")
+    parser.add_argument("--name", help="Human-readable build name when creating/updating a profile.")
+    parser.add_argument("--pob-url", help="Path of Building link/code to store with the profile.")
+    parser.add_argument("--from-current", action="store_true", help="Create/update profile files from the current builds/ target files.")
+    parser.add_argument("--activate", action="store_true", help="Activate the created or updated profile.")
+    parser.add_argument("--notes", default="", help="Short free-form notes saved in build_profile.json.")
+    parser.add_argument("--fetch-pob", action="store_true", help="Save the PoB URL/code content to pob_source.txt when possible.")
+    parser.add_argument("--timeout", type=int, default=30)
+    parser.add_argument("--create-character", help="Create/update a saved current-character profile.")
+    parser.add_argument("--character-from-current", action="store_true", help="Create/update character profile from current player files.")
+    parser.add_argument("--switch-character", help="Activate a saved current-character profile.")
+    parser.add_argument("--delete-character", help="Delete a saved current-character profile.")
+    return parser.parse_args(argv)
+
+
+def main(argv: list[str]) -> int:
+    args = parse_args(argv)
+
+    if args.delete_build:
+        deleted = delete_build_profile(args.delete_build, force=args.force)
+        print(f"Deleted build profile: {deleted}")
+        return 0
+
+    if args.create_character:
+        created = create_character_profile(args.create_character, args.character_from_current, args.notes)
+        print(f"Character profile saved: {created}")
+        return 0
+
+    if args.switch_character:
+        activated = activate_character_profile(args.switch_character)
+        print(f"Active character files loaded from: {activated}")
+        return 0
+
+    if args.delete_character:
+        deleted = delete_character_profile(args.delete_character)
+        print(f"Deleted character profile: {deleted}")
+        return 0
+
+    if args.list_characters:
+        rows = list_character_profiles()
+        if not rows:
+            print("No character profiles found.")
+        for row in rows:
+            note = f" | {row['notes']}" if row.get("notes") else ""
+            print(f"  {row['slug']} | {row['name']}{note}")
+        if not args.list and not args.switch_to and not args.name and not args.pob_url:
+            return 0
+
+    if args.list:
+        rows = list_profiles()
+        if not rows:
+            print("No build profiles found.")
+        for row in rows:
+            marker = "*" if row["active"] else " "
+            print(f"{marker} {row['slug']} | {row['name']} | {row['pob']}")
+        if not args.switch_to and not args.name and not args.pob_url:
+            return 0
+
+    selected_slug = ""
+    if args.name or args.pob_url:
+        profile_path = create_profile(
+            name=args.name or args.switch_to or "",
+            pob_url=args.pob_url or "",
+            from_current=args.from_current,
+            notes=args.notes,
+            fetch_pob=args.fetch_pob,
+            timeout=args.timeout,
+        )
+        selected_slug = profile_path.name
+        print(f"Build profile saved: {profile_path}")
+        if args.from_current:
+            print(
+                "Note: --from-current cloned the existing target JSON files. "
+                "Edit/import the profile files before expecting build-specific gaps or recommendations to change."
+            )
+
+    if args.switch_to:
+        selected_slug = slugify(args.switch_to)
+
+    if args.activate or args.switch_to:
+        if not selected_slug:
+            raise SystemExit("Use --switch-to or --name/--pob-url with --activate.")
+        active = activate_profile(selected_slug)
+        print(f"Active build: {active['active_slug']} ({active['name']})")
+        print(f"Active metadata: {ACTIVE_BUILD}")
+        return 0
+
+    if not args.list and not selected_slug:
+        raise SystemExit("Nothing to do. Use --list, --switch-to, or --name/--pob-url.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))

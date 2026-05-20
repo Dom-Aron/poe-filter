@@ -31,6 +31,7 @@ DEFAULT_UPGRADE_PLAN = REPORTS / "upgrade_plan.md"
 DEFAULT_UPGRADE_PLAN_JSON = REPORTS / "upgrade_plan.json"
 DEFAULT_MARKET_REPORT = REPORTS / "market_report.md"
 DEFAULT_MARKET_JSON = ROOT / "market" / "latest_market.json"
+DEFAULT_ACTIVE_BUILD = ROOT / "builds" / "active_build.json"
 DEFAULT_OUTPUT = GENERATED / "build_dashboard.html"
 RECOMMENDATIONS_HTML = GENERATED / "upgrade_recommendations.html"
 NEXT_SEARCHES_HTML = GENERATED / "next_searches.html"
@@ -238,6 +239,32 @@ def dashboard_summary(gap: dict[str, Any], upgrade_report: dict[str, Any], upgra
     ) + "</div>"
 
 
+def active_build_panel(active_build: dict[str, Any]) -> str:
+    if not active_build:
+        return "<p class=\"muted\">Nenhuma build alvo ativa registrada. Use switch_build.py para cadastrar uma.</p>"
+    name = str(active_build.get("name") or active_build.get("active_slug") or "Build ativa")
+    slug = str(active_build.get("active_slug") or "")
+    activated = str(active_build.get("activated_at") or "")
+    pob = active_build.get("pob") if isinstance(active_build.get("pob"), dict) else {}
+    pob_value = str(pob.get("value") or "")
+    profile_dir = str(active_build.get("active_profile_dir") or "")
+    pob_html = (
+        f"<a href=\"{html.escape(pob_value)}\" target=\"_blank\" rel=\"noopener\">{html.escape(pob_value)}</a>"
+        if pob_value.startswith(("http://", "https://"))
+        else html.escape(pob_value or "n/d")
+    )
+    return (
+        "<div class=\"panel small\">"
+        f"<h3>{html.escape(name)}</h3>"
+        f"<p><strong>Slug:</strong> <code>{html.escape(slug)}</code></p>"
+        f"<p><strong>Perfil:</strong> <code>{html.escape(profile_dir)}</code></p>"
+        f"<p><strong>PoB:</strong> {pob_html}</p>"
+        f"<p class=\"muted\">Ativada em {html.escape(activated or 'n/d')}. "
+        "Se este perfil foi criado com --from-current, os alvos ainda sao uma copia da build anterior ate voce editar/importar os JSONs do perfil.</p>"
+        "</div>"
+    )
+
+
 def workflow_overview() -> str:
     return """
     <div class="search-grid">
@@ -257,10 +284,20 @@ def workflow_overview() -> str:
 
 def trade_actions(candidate: dict[str, Any]) -> str:
     links: list[str] = []
-    search_url = str(candidate.get("trade_search_url") or candidate.get("trade_url") or "")
+    search_url = str(candidate.get("trade_search_url") or "")
+    trade_url = str(candidate.get("trade_url") or "")
+    item_url = str(candidate.get("trade_item_url") or "")
+    if not item_url and trade_url and trade_url != search_url:
+        item_url = trade_url
+    if not search_url:
+        search_url = trade_url
     fetch_url = str(candidate.get("trade_fetch_url") or "")
+    if not candidate.get("trade_item_url") and search_url and candidate.get("result_id"):
+        item_url = f"{search_url.rstrip('/')}/{candidate.get('result_id')}"
+    if item_url:
+        links.append(f"<a href=\"{html.escape(item_url)}\" target=\"_blank\" rel=\"noopener\" title=\"Tenta abrir a listagem exata pelo result_id\">Item exato</a>")
     if search_url:
-        links.append(f"<a href=\"{html.escape(search_url)}\" target=\"_blank\" rel=\"noopener\">Busca no trade</a>")
+        links.append(f"<a href=\"{html.escape(search_url)}\" target=\"_blank\" rel=\"noopener\">Busca original</a>")
     if fetch_url:
         links.append(f"<a href=\"{html.escape(fetch_url)}\" target=\"_blank\" rel=\"noopener\" title=\"Abre o JSON tecnico da listagem retornada pela API oficial\">JSON tecnico</a>")
     if not links:
@@ -411,7 +448,9 @@ def common_css() -> str:
     """
 
 
-def page_shell(title: str, subtitle: str, body: str, output: Path) -> str:
+def page_shell(title: str, subtitle: str, body: str, output: Path, active_build: dict[str, Any] | None = None) -> str:
+    active_build = active_build if active_build is not None else read_json(DEFAULT_ACTIVE_BUILD)
+    active_html = active_build_panel(active_build)
     return f"""<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -433,6 +472,10 @@ def page_shell(title: str, subtitle: str, body: str, output: Path) -> str:
     </div>
   </header>
   <main>
+    <section>
+      <h2>Build Alvo Ativa</h2>
+      {active_html}
+    </section>
     <section class="panel">{body}</section>
   </main>
 </body>
@@ -709,6 +752,7 @@ def render_dashboard(
     recommendations_md: str,
     upgrade_plan_md: str,
     upgrade_plan_json: dict[str, Any],
+    active_build: dict[str, Any],
     output: Path,
 ) -> str:
     generated = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -732,6 +776,10 @@ def render_dashboard(
     </div>
   </header>
   <main>
+    <section>
+      <h2>Build Alvo Ativa</h2>
+      {active_build_panel(active_build)}
+    </section>
     <section>
       <h2>Resumo</h2>
       {dashboard_summary(gap, upgrade_report, upgrade_plan_json)}
@@ -783,6 +831,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--upgrade-plan-json", type=Path, default=DEFAULT_UPGRADE_PLAN_JSON)
     parser.add_argument("--market-report", type=Path, default=DEFAULT_MARKET_REPORT)
     parser.add_argument("--market-json", type=Path, default=DEFAULT_MARKET_JSON)
+    parser.add_argument("--active-build", type=Path, default=DEFAULT_ACTIVE_BUILD)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     return parser.parse_args(argv)
 
@@ -800,6 +849,7 @@ def main(argv: list[str]) -> int:
         recommendations_md=recommendations_md,
         upgrade_plan_md=read_text(args.upgrade_plan),
         upgrade_plan_json=read_json(args.upgrade_plan_json),
+        active_build=read_json(args.active_build),
         output=args.output,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)

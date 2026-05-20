@@ -276,9 +276,9 @@ def write_json(path: Path, data: dict[str, Any]) -> None:
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
-def copy_with_backup(source: Path, target: Path) -> None:
+def copy_to_builds(source: Path, target: Path, backup: bool = False) -> None:
     target.parent.mkdir(parents=True, exist_ok=True)
-    if target.exists():
+    if backup and target.exists():
         backup = target.with_suffix(target.suffix + ".bak")
         shutil.copy2(target, backup)
     shutil.copy2(source, target)
@@ -288,7 +288,8 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Parse raw PoE character API data into normalized build files.")
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("--output-dir", type=Path, default=CURRENT_DIR)
-    parser.add_argument("--update-builds", action="store_true", help="Also copy player_items/player_stats into builds/ for the planner, with .bak backups.")
+    parser.add_argument("--update-builds", action="store_true", help="Also copy player_items/player_stats into builds/ for the planner.")
+    parser.add_argument("--backup-builds", action="store_true", help="Create .bak files before overwriting builds/player_items.json and builds/player_stats.json.")
     return parser.parse_args(argv)
 
 
@@ -309,12 +310,13 @@ def main(argv: list[str]) -> int:
     write_json(args.output_dir / "player_stats.json", player_stats)
 
     if args.update_builds:
-        copy_with_backup(args.output_dir / "player_items.json", BUILDS_DIR / "player_items.json")
-        copy_with_backup(args.output_dir / "player_stats.json", BUILDS_DIR / "player_stats.json")
+        copy_to_builds(args.output_dir / "player_items.json", BUILDS_DIR / "player_items.json", args.backup_builds)
+        copy_to_builds(args.output_dir / "player_stats.json", BUILDS_DIR / "player_stats.json", args.backup_builds)
 
     print(f"Parsed character files written to: {args.output_dir}")
     if args.update_builds:
-        print("Updated planner input files in builds/ with .bak backups.")
+        suffix = " with .bak backups." if args.backup_builds else "."
+        print(f"Updated planner input files in builds/{suffix}")
     return 0
 
 

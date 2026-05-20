@@ -3,7 +3,7 @@
 find_upgrade_deals.py
 
 Searches the official Path of Exile trade API for budget upgrades for the
-Ronarray Shockwave Cyclone / General's Cry Slayer setup documented in this repo.
+active target build configured in this repo.
 
 Usage:
     python poe_market_filter_toolkit/scripts/find_upgrade_deals.py --budget 251c
@@ -240,11 +240,14 @@ def price_to_chaos(price: dict[str, Any] | None, divine_price: float) -> float |
     return amount * conversions.get(currency, math.inf)
 
 
-def make_price_filter(max_chaos: float) -> dict[str, Any]:
+def make_price_filter(max_chaos: float, min_chaos: float | None = None) -> dict[str, Any]:
+    price: dict[str, Any] = {"max": round(max_chaos, 2), "option": "chaos"}
+    if min_chaos is not None and min_chaos > 0:
+        price["min"] = round(min_chaos, 2)
     return {
         "trade_filters": {
             "filters": {
-                "price": {"max": round(max_chaos, 2), "option": "chaos"},
+                "price": price,
                 "sale_type": {"option": "priced"},
             }
         }

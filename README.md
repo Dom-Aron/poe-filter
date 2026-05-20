@@ -1,21 +1,21 @@
-# PoE Filter Toolkit - Shockwave Cyclone Slayer
+# PoE Filter Toolkit
 
-Projeto para manter o filtro de loot da build **Shockwave Cyclone / General's Cry Slayer** e gerar relatorios de mercado para a liga **Mirage**.
+Projeto para manter filtros de loot do Path of Exile, gerar relatorios de mercado e planejar upgrades para a build alvo ativa.
 
 Filtro principal:
 
 ```text
-void_shockwave_cyclone_slayer_lvl89_t9_t10_breach_hives_market_v18_reviewed.filter
+active_loot_filter.filter
 ```
 
 Contexto atual:
 
 ```text
 Path of Exile 1 - 3.28 Mirage
-Build: Ronarray Shockwave Cyclone / General's Cry Slayer
+Build ativa: definida em poe_market_filter_toolkit/builds/active_build.json
 Conteudo: mapas T9/T10
 Atlas: Breach Hives / Wombgifts + Delirium
-Estado do personagem: equipamentos_e_status_atuais_poe_slayer.txt
+Estado do personagem: poe_market_filter_toolkit/builds/player_items.json e player_stats.json
 ```
 
 ## Duas Funcionalidades
@@ -99,6 +99,43 @@ Rodar tudo sem baixar mercado novo, usando `market/latest_market.json`:
 python poe_market_filter_toolkit\scripts\run_all.py --skip-update
 ```
 
+Listar builds alvo salvas:
+
+```powershell
+python poe_market_filter_toolkit\scripts\switch_build.py --list
+```
+
+Criar/ativar uma build alvo a partir dos arquivos atuais em `builds/`:
+
+```powershell
+python poe_market_filter_toolkit\scripts\switch_build.py --name "Minha Build" --pob-url "https://pobb.in/..." --from-current --activate
+```
+
+Trocar para uma build alvo ja cadastrada:
+
+```powershell
+python poe_market_filter_toolkit\scripts\switch_build.py --switch-to minha_build
+```
+
+Tambem da para trocar a build antes de rodar o fluxo:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_all.py --switch-build minha_build --skip-update --compare-build --recommend-next --upgrade-plan --budget 500c --dashboard
+```
+
+Rodar relatorios para varias builds e abrir uma pagina com seletor:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_build_matrix.py --builds ronarray_shockwave_cyclone_slayer,teste_storm_burst_totem --budget 500c --max-fetch 9
+start poe_market_filter_toolkit\data\generated\multi_build_dashboard.html
+```
+
+Ou via fluxo principal:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_all.py --builds all --budget 500c --max-fetch 9
+```
+
 Buscar upgrades no trade com 251 chaos:
 
 ```powershell
@@ -117,7 +154,7 @@ Buscar apenas alguns tipos de upgrade:
 python poe_market_filter_toolkit\scripts\find_upgrade_deals.py --budget 251c --profiles ring_vulnerability,jewel_damage,large_cluster
 ```
 
-Planejar compras 1x1, 2x2 e 3x3 dentro do budget:
+Planejar compras 1x1, 2x2 e 3x3 usando o budget como teto por plano de upgrade:
 
 ```powershell
 python poe_market_filter_toolkit\scripts\plan_upgrade_path.py --budget 251c
@@ -273,8 +310,9 @@ Le arquivos estruturados em `poe_market_filter_toolkit/builds/`, busca candidato
 
 Ele considera:
 
-- budget informado pelo usuario;
-- slots travados, como peitoral e luvas atuais;
+- budget informado pelo usuario como teto para uma troca 1x1, 2x2 ou 3x3, nao como soma de todas as ideias do relatorio;
+- amostragem por faixas de preco dentro do budget, para nao olhar apenas os itens mais baratos quando o budget e alto;
+- slots sensiveis, como peitoral e luvas atuais;
 - pisos minimos da build, como resistencias, vida e chance de acerto;
 - metas da build alvo, como Impale, Chaos Resistance, Spell Block e Vulnerability on Hit;
 - possibilidade real de existir menos que top 10 ofertas seguras.
@@ -287,7 +325,7 @@ poe_market_filter_toolkit/market/reports/upgrade_plan.html
 poe_market_filter_toolkit/market/reports/upgrade_plan.json
 ```
 
-Se `--budget` nao for informado, mostra por padrao o top 3 dos upgrades seguros mais baratos encontrados. A versao HTML e melhor para usuario leigo porque abre no navegador e traz links clicaveis para o trade oficial, para a listagem especifica via API e para o whisper.
+Se `--budget` nao for informado, mostra por padrao o top 3 dos upgrades seguros mais baratos encontrados. Quando `--budget` e informado, ele ranqueia os melhores planos seguros ate aquele teto e ainda mostra uma secao separada de melhor compra barata sem usar o budget como limite. A versao HTML e melhor para usuario leigo porque abre no navegador e traz links clicaveis para o trade oficial, para a listagem especifica via API e para o whisper.
 
 Arquivos de entrada:
 
@@ -361,7 +399,69 @@ poe_market_filter_toolkit/data/current/player_passives.json
 poe_market_filter_toolkit/data/current/player_skills.json
 ```
 
-Use `--update-builds` para copiar `player_items.json` e `player_stats.json` para `poe_market_filter_toolkit/builds/`, criando backup `.bak` antes.
+Use `--update-builds` para copiar `player_items.json` e `player_stats.json` para `poe_market_filter_toolkit/builds/`. Se quiser preservar a versao anterior antes de sobrescrever, adicione `--backup-builds`.
+
+### `switch_build.py`
+
+Gerencia multiplas builds alvo. Cada build fica em:
+
+```text
+poe_market_filter_toolkit/builds/profiles/<slug>/
+```
+
+Cada perfil guarda:
+
+```text
+build_profile.json
+target_build_items.json
+target_build_stats.json
+upgrade_rules.json
+```
+
+Ao ativar uma build, o script copia esses tres arquivos alvo para `poe_market_filter_toolkit/builds/`, que e o local lido pelo comparador, recomendador e planejador de compras. O link ou codigo do PoB fica salvo em `build_profile.json`; parsing automatico completo de PoB ainda deve ser tratado como etapa futura, entao revise os arquivos alvo quando criar uma build nova.
+
+Comandos uteis:
+
+```powershell
+python poe_market_filter_toolkit\scripts\switch_build.py --list
+python poe_market_filter_toolkit\scripts\switch_build.py --name "Nova Build" --pob-url "https://pobb.in/..." --from-current --activate
+python poe_market_filter_toolkit\scripts\switch_build.py --switch-to nova_build
+python poe_market_filter_toolkit\scripts\switch_build.py --delete-build nova_build
+```
+
+Se a build estiver ativa, troque para outra antes de apagar ou use `--force`.
+
+Perfis de personagem atual tambem podem ser salvos, carregados e removidos:
+
+```powershell
+python poe_market_filter_toolkit\scripts\switch_build.py --create-character "Meu Slayer" --character-from-current
+python poe_market_filter_toolkit\scripts\switch_build.py --list-characters
+python poe_market_filter_toolkit\scripts\switch_build.py --switch-character meu_slayer
+python poe_market_filter_toolkit\scripts\switch_build.py --delete-character meu_slayer
+```
+
+### `run_build_matrix.py`
+
+Executa a analise para varias builds alvo e salva uma copia dos HTML/JSON/Markdown de cada uma em:
+
+```text
+poe_market_filter_toolkit/data/generated/builds/<slug>/
+```
+
+Tambem gera:
+
+```text
+poe_market_filter_toolkit/data/generated/multi_build_dashboard.html
+```
+
+Esse HTML tem seletor de build e links para dashboard, plano de compra, recomendacoes e PoB de cada perfil. E o caminho recomendado quando voce quer acompanhar sua build e a build de um amigo na mesma sessao.
+
+Exemplos:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_build_matrix.py --builds all --budget 500c --max-fetch 9
+python poe_market_filter_toolkit\scripts\run_build_matrix.py --builds minha_build,build_do_amigo --budget 1d
+```
 
 ### `compare_current_to_target.py`
 
@@ -458,7 +558,7 @@ python poe_market_filter_toolkit\scripts\run_all.py --upgrade-plan --budget 251c
 
 ## Estado Atual Da Build
 
-Resumo do arquivo `equipamentos_e_status_atuais_poe_slayer.txt`:
+Resumo do personagem usado como base atual:
 
 - Accuracy resolvida para o momento: 2543 de Accuracy Rating e 96% de chance de acerto.
 - Gargalos principais: Impale, Vulnerability on Hit, jewels/cluster, Spell Block, ailment avoidance e Chaos Resistance.

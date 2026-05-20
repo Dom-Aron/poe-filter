@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "slug": "teste_storm_burst_totem",
+  "name": "Teste Storm Burst Totem",
+  "pob": {
+    "kind": "pobb.in",
+    "value": "https://pobb.in/sRsCyhvyVPzM",
+    "id": "sRsCyhvyVPzM"
+  },
+  "notes": "",
+  "files": {
+    "target_build_items.json": "target_build_items.json",
+    "target_build_stats.json": "target_build_stats.json",
+    "upgrade_rules.json": "upgrade_rules.json"
+  },
+  "created_at": "2026-05-19 23:20:02",
+  "updated_at": "2026-05-19 23:24:09",
+  "target_files_source": "cloned_from_current",
+  "target_files_note": "This profile was created from the currently active target JSON files. Edit/import target_build_items.json, target_build_stats.json and upgrade_rules.json before expecting recommendations to differ from the previous build."
+}

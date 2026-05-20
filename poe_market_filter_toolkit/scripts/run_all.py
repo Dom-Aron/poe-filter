@@ -50,9 +50,17 @@ def run_script(script_name: str, *args: str) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run all PoE market toolkit scripts.")
     parser.add_argument("--skip-update", action="store_true", help="Do not fetch the market; use market/latest_market.json.")
+    parser.add_argument("--list-builds", action="store_true", help="List available target build profiles and continue.")
+    parser.add_argument("--switch-build", help="Activate a target build profile before running the flow.")
+    parser.add_argument("--builds", help="Run multi-build reports for comma-separated build slugs, all, or active.")
+    parser.add_argument("--build-name", help="Name used when creating/updating a build profile.")
+    parser.add_argument("--pob-url", help="PoB link/code saved with the build profile.")
+    parser.add_argument("--build-from-current", action="store_true", help="Create/update the build profile from current builds/ target files.")
+    parser.add_argument("--fetch-pob", action="store_true", help="Ask switch_build.py to save the PoB URL/code content when possible.")
     parser.add_argument("--fetch-character", action="store_true", help="Fetch authenticated character from official GGG API.")
     parser.add_argument("--parse-character", action="store_true", help="Parse data/raw/character_api_raw.json into normalized current files.")
-    parser.add_argument("--update-builds", action="store_true", help="When parsing character, also copy player_items/player_stats into builds/ with backups.")
+    parser.add_argument("--update-builds", action="store_true", help="When parsing character, also copy player_items/player_stats into builds/.")
+    parser.add_argument("--backup-builds", action="store_true", help="When parsing character with --update-builds, create .bak files before overwriting planner inputs.")
     parser.add_argument("--compare-build", action="store_true", help="Generate data/generated/gap_analysis from current/build target files.")
     parser.add_argument("--recommend-next", action="store_true", help="Generate next_searches and upgrade_recommendations from gap_analysis.")
     parser.add_argument("--upgrade-plan", action="store_true", help="Also run plan_upgrade_path.py after market/filter reports.")
@@ -65,11 +73,48 @@ def main() -> int:
     parser.add_argument("--max-combo-size", type=int, help="Max combo size passed to plan_upgrade_path.py.")
     args = parser.parse_args()
 
+    if args.list_builds:
+        run_script("switch_build.py", "--list")
+
+    if args.switch_build or args.build_name or args.pob_url:
+        switch_args: list[str] = []
+        if args.switch_build:
+            switch_args.extend(["--switch-to", args.switch_build])
+        if args.build_name:
+            switch_args.extend(["--name", args.build_name])
+        if args.pob_url:
+            switch_args.extend(["--pob-url", args.pob_url])
+        if args.build_from_current:
+            switch_args.append("--from-current")
+        if args.fetch_pob:
+            switch_args.append("--fetch-pob")
+        if not args.switch_build:
+            switch_args.append("--activate")
+        run_script("switch_build.py", *switch_args)
+
+    if args.builds:
+        matrix_args = ["--builds", args.builds]
+        if args.budget:
+            matrix_args.extend(["--budget", args.budget])
+        if args.profiles:
+            matrix_args.extend(["--profiles", args.profiles])
+        if args.top is not None:
+            matrix_args.extend(["--top", str(args.top)])
+        if args.max_fetch is not None:
+            matrix_args.extend(["--max-fetch", str(args.max_fetch)])
+        run_script("run_build_matrix.py", *matrix_args)
+        print()
+        print("Flow complete.")
+        print("- data/generated/multi_build_dashboard.html")
+        return 0
+
     if args.fetch_character:
         run_script("fetch_character.py")
 
     if args.parse_character or args.fetch_character:
         parse_args = ["--update-builds"] if args.update_builds else []
+        if args.backup_builds:
+            parse_args.append("--backup-builds")
         run_script("parse_character.py", *parse_args)
 
     if not args.skip_update:

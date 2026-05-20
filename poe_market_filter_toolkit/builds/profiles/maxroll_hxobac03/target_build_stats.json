@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "minimums": {
+    "life": 3300,
+    "chance_to_hit": 95,
+    "fire_resistance": 75,
+    "cold_resistance": 75,
+    "lightning_resistance": 75,
+    "chaos_resistance": 0
+  },
+  "goals": {
+    "life": 3800,
+    "chance_to_hit": 100,
+    "chance_to_hit_evasive": 95,
+    "impale_chance": 80,
+    "chaos_resistance": 40,
+    "spell_block": 30,
+    "ailment_avoidance": 50
+  }
+}

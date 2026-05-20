@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "slug": "ronarray_shockwave_cyclone_slayer",
+  "name": "Ronarray Shockwave Cyclone Slayer",
+  "pob": {
+    "kind": "url",
+    "value": "https://mobalytics.gg/poe/builds/ronarray-shockwave-cyclone-generals-cry-slayer"
+  },
+  "notes": "",
+  "files": {
+    "target_build_items.json": "target_build_items.json",
+    "target_build_stats.json": "target_build_stats.json",
+    "upgrade_rules.json": "upgrade_rules.json"
+  },
+  "created_at": "2026-05-19 20:41:26",
+  "updated_at": "2026-05-19 20:41:26"
+}
