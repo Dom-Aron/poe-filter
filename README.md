@@ -440,6 +440,20 @@ python poe_market_filter_toolkit\scripts\switch_build.py --switch-character meu_
 python poe_market_filter_toolkit\scripts\switch_build.py --delete-character meu_slayer
 ```
 
+Cada personagem pode ser associado a uma build alvo. Ao carregar o personagem, a build associada tambem e ativada por padrao:
+
+```powershell
+python poe_market_filter_toolkit\scripts\switch_build.py --create-character "Meu Deadeye" --character-from-current --character-build maxroll_maobaf03
+python poe_market_filter_toolkit\scripts\switch_build.py --set-character-build meu_deadeye maxroll_maobaf03
+python poe_market_filter_toolkit\scripts\switch_build.py --switch-character meu_deadeye
+```
+
+Se quiser carregar o personagem sem trocar a build alvo:
+
+```powershell
+python poe_market_filter_toolkit\scripts\switch_build.py --switch-character meu_deadeye --no-switch-character-build
+```
+
 ### `run_build_matrix.py`
 
 Executa a analise para varias builds alvo e salva uma copia dos HTML/JSON/Markdown de cada uma em:

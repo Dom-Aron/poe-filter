@@ -29,6 +29,7 @@ MATRIX_DIR = GENERATED / "builds"
 REPORTS = ROOT / "market" / "reports"
 PROFILES_DIR = ROOT / "builds" / "profiles"
 ACTIVE_BUILD = ROOT / "builds" / "active_build.json"
+ACTIVE_CHARACTER = ROOT / "builds" / "active_character.json"
 
 
 ARTIFACTS = [
@@ -36,12 +37,12 @@ ARTIFACTS = [
     GENERATED / "upgrade_recommendations.html",
     GENERATED / "next_searches.html",
     GENERATED / "market_report.html",
+    GENERATED / "upgrade_plan.html",
     GENERATED / "gap_analysis.json",
     GENERATED / "gap_analysis.md",
     GENERATED / "next_searches.md",
     GENERATED / "upgrade_recommendations.md",
     GENERATED / "upgrade_report.json",
-    REPORTS / "upgrade_plan.html",
     REPORTS / "upgrade_plan.md",
     REPORTS / "upgrade_plan.json",
 ]
@@ -101,6 +102,10 @@ def copy_artifacts(slug: str) -> dict[str, str]:
     active = read_json(ACTIVE_BUILD)
     (target / "active_build.json").write_text(json.dumps(active, indent=2, ensure_ascii=False), encoding="utf-8")
     copied["active_build.json"] = str((target / "active_build.json").relative_to(GENERATED)).replace("\\", "/")
+    if ACTIVE_CHARACTER.exists():
+        active_character = read_json(ACTIVE_CHARACTER)
+        (target / "active_character.json").write_text(json.dumps(active_character, indent=2, ensure_ascii=False), encoding="utf-8")
+        copied["active_character.json"] = str((target / "active_character.json").relative_to(GENERATED)).replace("\\", "/")
     return copied
 
 

@@ -38,6 +38,7 @@ PLAYER_STATS = BUILDS_DIR / "player_stats.json"
 TARGET_ITEMS = BUILDS_DIR / "target_build_items.json"
 TARGET_STATS = BUILDS_DIR / "target_build_stats.json"
 UPGRADE_RULES = BUILDS_DIR / "upgrade_rules.json"
+ACTIVE_BUILD = BUILDS_DIR / "active_build.json"
 REPORT_FILE = ROOT / "market" / "reports" / "upgrade_plan.md"
 REPORT_HTML = ROOT / "market" / "reports" / "upgrade_plan.html"
 REPORT_JSON = ROOT / "market" / "reports" / "upgrade_plan.json"
@@ -82,6 +83,12 @@ class Plan:
 
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def active_build_slug() -> str:
+    if not ACTIVE_BUILD.exists():
+        return ""
+    return str(load_json(ACTIVE_BUILD).get("active_slug") or "")
 
 
 def stat(data: dict[str, Any], key: str, default: float = 0.0) -> float:
@@ -636,7 +643,9 @@ def write_json_report(
 ) -> None:
     REPORT_JSON.parent.mkdir(parents=True, exist_ok=True)
     data = {
+        "schema_version": 1,
         "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "active_build_slug": active_build_slug(),
         "league": league,
         "budget_label": format_budget_label(budget_chaos),
         "budget_chaos": None if not math.isfinite(budget_chaos) else budget_chaos,

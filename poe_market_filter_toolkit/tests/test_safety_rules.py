@@ -129,6 +129,39 @@ class SafetyRulesTest(unittest.TestCase):
         self.assertIn('<option value="build_a" selected>', switcher)
         self.assertIn('<option value="build_b">', switcher)
 
+    def test_recommendations_can_use_build_specific_library(self):
+        gap = {
+            "risks": {
+                "crit_multiplier": {"current": 400, "goal": 550, "status": "needs_improvement", "missing_to_goal": 150},
+            },
+            "current_priorities": {"crit_multiplier": "high"},
+        }
+        rules = {
+            "search_library": {
+                "crit_multiplier": {
+                    "title": "Crit multi da build ativa",
+                    "priority": "alta",
+                    "reason": "Crit multi e central para esta build.",
+                    "trade_terms": ["Global Critical Strike Multiplier"],
+                    "price_hint": "Validar no PoB.",
+                    "profiles": ["deadeye_jewel"],
+                }
+            }
+        }
+
+        entries = recommend.search_entries(gap, rules)
+
+        self.assertEqual(entries[0]["title"], "Crit multi da build ativa")
+        self.assertEqual(entries[0]["profiles"], ["deadeye_jewel"])
+
+    def test_trade_profiles_can_come_from_rules(self):
+        rules_path = ROOT / "builds" / "profiles" / "maxroll_hxobac03" / "upgrade_rules.json"
+
+        profiles = plan_upgrade_path.trade.make_profiles(rules_path)
+
+        self.assertIn("bow_elemental_dps", profiles)
+        self.assertNotIn("ring_vulnerability", profiles)
+
 
 if __name__ == "__main__":
     unittest.main()

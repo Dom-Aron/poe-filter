@@ -32,10 +32,12 @@ DEFAULT_UPGRADE_PLAN_JSON = REPORTS / "upgrade_plan.json"
 DEFAULT_MARKET_REPORT = REPORTS / "market_report.md"
 DEFAULT_MARKET_JSON = ROOT / "market" / "latest_market.json"
 DEFAULT_ACTIVE_BUILD = ROOT / "builds" / "active_build.json"
+DEFAULT_ACTIVE_CHARACTER = ROOT / "builds" / "active_character.json"
 DEFAULT_OUTPUT = GENERATED / "build_dashboard.html"
 RECOMMENDATIONS_HTML = GENERATED / "upgrade_recommendations.html"
 NEXT_SEARCHES_HTML = GENERATED / "next_searches.html"
 MARKET_REPORT_HTML = GENERATED / "market_report.html"
+UPGRADE_PLAN_HTML = GENERATED / "upgrade_plan.html"
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -265,6 +267,43 @@ def active_build_panel(active_build: dict[str, Any]) -> str:
     )
 
 
+def active_character_panel(active_character: dict[str, Any]) -> str:
+    if not active_character:
+        return "<p class=\"muted\">Nenhum personagem ativo registrado. Use switch_build.py --switch-character quando tiver perfis de personagem.</p>"
+    name = str(active_character.get("name") or active_character.get("active_slug") or "Personagem ativo")
+    slug = str(active_character.get("active_slug") or "")
+    build_slug = str(active_character.get("build_slug") or "n/d")
+    activated = str(active_character.get("activated_at") or "")
+    profile_dir = str(active_character.get("active_character_dir") or "")
+    return (
+        "<div class=\"panel small\">"
+        f"<h3>{html.escape(name)}</h3>"
+        f"<p><strong>Slug:</strong> <code>{html.escape(slug)}</code></p>"
+        f"<p><strong>Perfil:</strong> <code>{html.escape(profile_dir)}</code></p>"
+        f"<p><strong>Build associada:</strong> <code>{html.escape(build_slug)}</code></p>"
+        f"<p class=\"muted\">Ativado em {html.escape(activated or 'n/d')}.</p>"
+        "</div>"
+    )
+
+
+def build_data_warning(active_build: dict[str, Any]) -> str:
+    profile_dir = active_build.get("active_profile_dir")
+    if not profile_dir:
+        return ""
+    profile_file = ROOT / str(profile_dir) / "build_profile.json"
+    profile = read_json(profile_file)
+    if profile.get("target_files_source") != "cloned_from_current":
+        return ""
+    return (
+        "<div class=\"panel small warning-panel\">"
+        "<h3>Dados Alvo Ainda Clonados</h3>"
+        "<p>Esta build foi criada a partir dos arquivos alvo ativos na epoca. "
+        "As paginas podem trocar a build corretamente, mas as recomendacoes so serao especificas "
+        "quando target_build_items.json, target_build_stats.json e upgrade_rules.json deste perfil forem ajustados/importados.</p>"
+        "</div>"
+    )
+
+
 def workflow_overview() -> str:
     return """
     <div class="search-grid">
@@ -383,6 +422,30 @@ def upgrade_plan_cards(upgrade_plan: dict[str, Any], fallback_md: str) -> str:
     return notes_html + best_html + "".join(cards)
 
 
+def current_upgrade_plan(upgrade_plan: dict[str, Any], active_build: dict[str, Any]) -> dict[str, Any]:
+    if not upgrade_plan:
+        return {}
+    plan_slug = str(upgrade_plan.get("active_build_slug") or "")
+    active_slug = str(active_build.get("active_slug") or "")
+    if active_slug and plan_slug and plan_slug != active_slug:
+        return {
+            "plans": [],
+            "notes": [
+                f"Plano de compra ignorado: foi gerado para `{plan_slug}`, mas a build ativa e `{active_slug}`.",
+                "Rode plan_upgrade_path.py ou run_all.py --upgrade-plan depois de trocar a build.",
+            ],
+        }
+    if active_slug and not plan_slug:
+        return {
+            "plans": [],
+            "notes": [
+                "Plano de compra ignorado: arquivo antigo sem carimbo de build ativa.",
+                "Rode plan_upgrade_path.py ou run_all.py --upgrade-plan para evitar misturar recomendacoes de outra build.",
+            ],
+        }
+    return upgrade_plan
+
+
 def common_css() -> str:
     return """
     :root { color-scheme: dark; }
@@ -415,6 +478,7 @@ def common_css() -> str:
     .compact { margin-top: 14px; }
     .panel { border: 1px solid #38424c; border-radius: 8px; padding: 18px; background: #1b1f23; overflow: auto; }
     .panel.small { margin-bottom: 14px; }
+    .warning-panel { border-color: #a47f2d; background: #241c10; }
     .deal-card { border: 1px solid #44505c; border-radius: 8px; padding: 18px; background: #1b1f23; }
     .deal-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
     .deal-head h3 { flex: 1; min-width: 220px; }
@@ -448,9 +512,19 @@ def common_css() -> str:
     """
 
 
-def page_shell(title: str, subtitle: str, body: str, output: Path, active_build: dict[str, Any] | None = None) -> str:
+def page_shell(
+    title: str,
+    subtitle: str,
+    body: str,
+    output: Path,
+    active_build: dict[str, Any] | None = None,
+    active_character: dict[str, Any] | None = None,
+) -> str:
     active_build = active_build if active_build is not None else read_json(DEFAULT_ACTIVE_BUILD)
+    active_character = active_character if active_character is not None else read_json(DEFAULT_ACTIVE_CHARACTER)
     active_html = active_build_panel(active_build)
+    character_html = active_character_panel(active_character)
+    warning_html = build_data_warning(active_build)
     return f"""<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -468,13 +542,17 @@ def page_shell(title: str, subtitle: str, body: str, output: Path, active_build:
       {file_link(RECOMMENDATIONS_HTML, "Recomendacoes", output)}
       {file_link(NEXT_SEARCHES_HTML, "Proximas buscas", output)}
       {file_link(MARKET_REPORT_HTML, "Mercado", output)}
-      {file_link(REPORTS / "upgrade_plan.html", "Plano de compra", output)}
+      {file_link(UPGRADE_PLAN_HTML, "Plano de compra", output)}
     </div>
   </header>
   <main>
     <section>
-      <h2>Build Alvo Ativa</h2>
-      {active_html}
+      <h2>Contexto Ativo</h2>
+      <div class="columns compact">
+        {character_html}
+        {active_html}
+      </div>
+      {warning_html}
     </section>
     <section class="panel">{body}</section>
   </main>
@@ -745,6 +823,17 @@ def write_market_page(market: dict[str, Any], output: Path) -> None:
     output.write_text(market_page(market, output), encoding="utf-8")
 
 
+def write_upgrade_plan_page(upgrade_plan: dict[str, Any], fallback_md: str, active_build: dict[str, Any], output: Path) -> None:
+    current_plan = current_upgrade_plan(upgrade_plan, active_build)
+    body = (
+        "<section><h2>Plano De Compra</h2>"
+        "<p class=\"muted\">Planos 1x1, 2x2 e 3x3 gerados para a build ativa. Quando o arquivo pertence a outra build, esta pagina bloqueia o conteudo para evitar mistura.</p>"
+        f"{upgrade_plan_cards(current_plan, '' if current_plan != upgrade_plan else fallback_md)}</section>"
+    )
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(page_shell("Plano De Compra", "Compras candidatas filtradas pela build ativa.", body, output, active_build=active_build), encoding="utf-8")
+
+
 def render_dashboard(
     gap: dict[str, Any],
     upgrade_report: dict[str, Any],
@@ -753,9 +842,11 @@ def render_dashboard(
     upgrade_plan_md: str,
     upgrade_plan_json: dict[str, Any],
     active_build: dict[str, Any],
+    active_character: dict[str, Any],
     output: Path,
 ) -> str:
     generated = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    upgrade_plan_current = current_upgrade_plan(upgrade_plan_json, active_build)
     return f"""<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -771,18 +862,22 @@ def render_dashboard(
     <div class="quick-links">
       {file_link(RECOMMENDATIONS_HTML, "Recomendacoes", output)}
       {file_link(NEXT_SEARCHES_HTML, "Proximas buscas", output)}
-      {file_link(REPORTS / "upgrade_plan.html", "Plano de compra", output)}
+      {file_link(UPGRADE_PLAN_HTML, "Plano de compra", output)}
       {file_link(MARKET_REPORT_HTML, "Mercado", output)}
     </div>
   </header>
   <main>
     <section>
-      <h2>Build Alvo Ativa</h2>
-      {active_build_panel(active_build)}
+      <h2>Contexto Ativo</h2>
+      <div class="columns compact">
+        {active_character_panel(active_character)}
+        {active_build_panel(active_build)}
+      </div>
+      {build_data_warning(active_build)}
     </section>
     <section>
       <h2>Resumo</h2>
-      {dashboard_summary(gap, upgrade_report, upgrade_plan_json)}
+      {dashboard_summary(gap, upgrade_report, upgrade_plan_current)}
     </section>
     <section>
       <h2>Como Este Repositorio Se Divide</h2>
@@ -799,7 +894,7 @@ def render_dashboard(
     </section>
     <section>
       <h2>Plano De Compra</h2>
-      {upgrade_plan_cards(upgrade_plan_json, upgrade_plan_md)}
+      {upgrade_plan_cards(upgrade_plan_current, '' if upgrade_plan_current != upgrade_plan_json else upgrade_plan_md)}
     </section>
     <section class="columns">
       <div class="panel">
@@ -832,6 +927,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--market-report", type=Path, default=DEFAULT_MARKET_REPORT)
     parser.add_argument("--market-json", type=Path, default=DEFAULT_MARKET_JSON)
     parser.add_argument("--active-build", type=Path, default=DEFAULT_ACTIVE_BUILD)
+    parser.add_argument("--active-character", type=Path, default=DEFAULT_ACTIVE_CHARACTER)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     return parser.parse_args(argv)
 
@@ -842,14 +938,19 @@ def main(argv: list[str]) -> int:
     recommendations_md = read_text(args.recommendations)
     market_json = read_json(args.market_json)
     upgrade_report = read_json(args.upgrade_report)
+    active_build = read_json(args.active_build)
+    active_character = read_json(args.active_character)
+    upgrade_plan_md = read_text(args.upgrade_plan)
+    upgrade_plan_json = read_json(args.upgrade_plan_json)
     content = render_dashboard(
         gap=read_json(args.gap),
         upgrade_report=upgrade_report,
         next_searches_md=next_searches_md,
         recommendations_md=recommendations_md,
-        upgrade_plan_md=read_text(args.upgrade_plan),
-        upgrade_plan_json=read_json(args.upgrade_plan_json),
-        active_build=read_json(args.active_build),
+        upgrade_plan_md=upgrade_plan_md,
+        upgrade_plan_json=upgrade_plan_json,
+        active_build=active_build,
+        active_character=active_character,
         output=args.output,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -864,6 +965,7 @@ def main(argv: list[str]) -> int:
         write_market_page(market_json, MARKET_REPORT_HTML)
     else:
         write_markdown_page("Mercado", "Snapshot formatado dos precos coletados para a liga atual.", read_text(args.market_report), MARKET_REPORT_HTML)
+    write_upgrade_plan_page(upgrade_plan_json, upgrade_plan_md, active_build, UPGRADE_PLAN_HTML)
     print(f"Dashboard saved: {args.output}")
     print(f"HTML pages saved: {GENERATED}")
     return 0

@@ -52,6 +52,8 @@ def main() -> int:
     parser.add_argument("--skip-update", action="store_true", help="Do not fetch the market; use market/latest_market.json.")
     parser.add_argument("--list-builds", action="store_true", help="List available target build profiles and continue.")
     parser.add_argument("--switch-build", help="Activate a target build profile before running the flow.")
+    parser.add_argument("--switch-character", help="Activate a saved character profile before running the flow.")
+    parser.add_argument("--no-switch-character-build", action="store_true", help="When switching character, do not activate its associated build.")
     parser.add_argument("--builds", help="Run multi-build reports for comma-separated build slugs, all, or active.")
     parser.add_argument("--build-name", help="Name used when creating/updating a build profile.")
     parser.add_argument("--pob-url", help="PoB link/code saved with the build profile.")
@@ -75,6 +77,12 @@ def main() -> int:
 
     if args.list_builds:
         run_script("switch_build.py", "--list")
+
+    if args.switch_character:
+        character_args = ["--switch-character", args.switch_character]
+        if args.no_switch_character_build:
+            character_args.append("--no-switch-character-build")
+        run_script("switch_build.py", *character_args)
 
     if args.switch_build or args.build_name or args.pob_url:
         switch_args: list[str] = []

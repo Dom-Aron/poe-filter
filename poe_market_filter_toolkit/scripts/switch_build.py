@@ -32,6 +32,7 @@ BUILDS_DIR = ROOT / "builds"
 PROFILES_DIR = BUILDS_DIR / "profiles"
 CHARACTER_PROFILES_DIR = BUILDS_DIR / "characters"
 ACTIVE_BUILD = BUILDS_DIR / "active_build.json"
+ACTIVE_CHARACTER = BUILDS_DIR / "active_character.json"
 TARGET_FILES = ("target_build_items.json", "target_build_stats.json", "upgrade_rules.json")
 PLAYER_FILES = ("player_items.json", "player_stats.json")
 POB_USER_AGENT = "poe-market-filter-toolkit/1.0 (+personal build profile switcher)"
@@ -256,6 +257,7 @@ def create_character_profile(name: str, from_current: bool, notes: str = "") -> 
             "slug": slug,
             "name": name,
             "notes": notes,
+            "build_slug": "",
             "files": {name: name for name in PLAYER_FILES},
             "updated_at": now_label(),
         },
@@ -273,7 +275,33 @@ def activate_character_profile(slug: str) -> Path:
         raise SystemExit(f"Character profile {slug} is incomplete. Missing: {', '.join(missing)}")
     for filename in PLAYER_FILES:
         copy_profile_file(source_dir / filename, BUILDS_DIR / filename)
+    profile = read_json(source_dir / "character_profile.json")
+    active = {
+        "schema_version": 1,
+        "active_slug": slug,
+        "active_character_dir": str(source_dir.relative_to(ROOT)).replace("\\", "/"),
+        "name": profile.get("name", slug),
+        "build_slug": profile.get("build_slug", ""),
+        "activated_at": now_label(),
+    }
+    write_json(ACTIVE_CHARACTER, active)
     return source_dir
+
+
+def set_character_build(character_slug: str, build_slug: str) -> Path:
+    character_slug = slugify(character_slug)
+    build_slug = slugify(build_slug)
+    if not profile_dir(build_slug).exists():
+        raise SystemExit(f"Build profile not found: {build_slug}")
+    target = character_profile_dir(character_slug)
+    if not target.exists():
+        raise SystemExit(f"Character profile not found: {character_slug}")
+    profile_file = target / "character_profile.json"
+    profile = read_json(profile_file)
+    profile["build_slug"] = build_slug
+    profile["updated_at"] = now_label()
+    write_json(profile_file, profile)
+    return target
 
 
 def delete_character_profile(slug: str) -> Path:
@@ -309,6 +337,7 @@ def list_character_profiles() -> list[dict[str, Any]]:
             {
                 "slug": slug,
                 "name": profile.get("name", slug),
+                "build_slug": profile.get("build_slug", ""),
                 "notes": profile.get("notes", ""),
             }
         )
@@ -332,6 +361,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--create-character", help="Create/update a saved current-character profile.")
     parser.add_argument("--character-from-current", action="store_true", help="Create/update character profile from current player files.")
     parser.add_argument("--switch-character", help="Activate a saved current-character profile.")
+    parser.add_argument("--character-build", help="Build slug to associate with --create-character or --switch-character.")
+    parser.add_argument("--set-character-build", nargs=2, metavar=("CHARACTER", "BUILD"), help="Associate an existing character profile with a build profile.")
+    parser.add_argument("--no-switch-character-build", action="store_true", help="When switching character, do not activate its associated build.")
     parser.add_argument("--delete-character", help="Delete a saved current-character profile.")
     return parser.parse_args(argv)
 
@@ -346,12 +378,25 @@ def main(argv: list[str]) -> int:
 
     if args.create_character:
         created = create_character_profile(args.create_character, args.character_from_current, args.notes)
+        if args.character_build:
+            set_character_build(args.create_character, args.character_build)
         print(f"Character profile saved: {created}")
         return 0
 
     if args.switch_character:
         activated = activate_character_profile(args.switch_character)
         print(f"Active character files loaded from: {activated}")
+        profile = read_json(activated / "character_profile.json")
+        build_slug = args.character_build or profile.get("build_slug")
+        if build_slug and not args.no_switch_character_build:
+            active = activate_profile(str(build_slug))
+            print(f"Associated build activated: {active['active_slug']} ({active['name']})")
+        return 0
+
+    if args.set_character_build:
+        character_slug, build_slug = args.set_character_build
+        updated = set_character_build(character_slug, build_slug)
+        print(f"Character build association saved: {updated}")
         return 0
 
     if args.delete_character:
@@ -365,7 +410,8 @@ def main(argv: list[str]) -> int:
             print("No character profiles found.")
         for row in rows:
             note = f" | {row['notes']}" if row.get("notes") else ""
-            print(f"  {row['slug']} | {row['name']}{note}")
+            build = f" | build={row['build_slug']}" if row.get("build_slug") else ""
+            print(f"  {row['slug']} | {row['name']}{build}{note}")
         if not args.list and not args.switch_to and not args.name and not args.pob_url:
             return 0
 

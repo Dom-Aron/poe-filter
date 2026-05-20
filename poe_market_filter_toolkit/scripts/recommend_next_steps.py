@@ -137,12 +137,20 @@ def priority_rank(priority: str) -> int:
     }.get(priority, 3)
 
 
-def search_entries(gap: dict[str, Any]) -> list[dict[str, Any]]:
+def active_search_library(rules: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    configured = rules.get("search_library")
+    if isinstance(configured, dict) and configured:
+        return {str(key): value for key, value in configured.items() if isinstance(value, dict)}
+    return SEARCH_LIBRARY
+
+
+def search_entries(gap: dict[str, Any], rules: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+    library = active_search_library(rules or {})
     priorities = gap.get("current_priorities", {})
     risks = gap.get("risks", {})
     entries: list[dict[str, Any]] = []
     for stat_name, risk in risks.items():
-        template = SEARCH_LIBRARY.get(stat_name)
+        template = library.get(stat_name)
         if not template:
             continue
         priority = priorities.get(stat_name, "high")
@@ -301,7 +309,7 @@ def main(argv: list[str]) -> int:
     args = parse_args(argv)
     gap = load_json(args.gap)
     rules = load_json(args.rules)
-    entries = search_entries(gap)
+    entries = search_entries(gap, rules)
     write_next_searches(args.next_searches, entries)
     write_recommendations(args.recommendations, gap, entries)
     write_report_json(args.report_json, gap, entries, rules)

@@ -1,6 +1,7 @@
 poe_market_filter_toolkit.zip
 poe_market_filter_toolkit/market/reports/upgrade_plan.json
 poe_market_filter_toolkit/builds/active_build.json
+poe_market_filter_toolkit/builds/active_character.json
 poe_market_filter_toolkit/builds/*.bak
 poe_market_filter_toolkit/builds/*.bak.*
 poe_market_filter_toolkit/builds/profiles/*/pob_source.txt

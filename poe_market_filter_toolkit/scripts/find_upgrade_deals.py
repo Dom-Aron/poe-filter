@@ -38,6 +38,7 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = ROOT.parent
 DEFAULT_CONFIG = ROOT / "config" / "market_config.json"
+DEFAULT_RULES = ROOT / "builds" / "upgrade_rules.json"
 LATEST_MARKET = ROOT / "market" / "latest_market.json"
 REPORT_FILE = ROOT / "market" / "reports" / "upgrade_deals.md"
 STATS_CACHE = ROOT / "market" / "trade_stats_cache.json"
@@ -110,6 +111,12 @@ def load_config(path: Path) -> dict[str, Any]:
         "timeout_seconds": 30,
         "user_agent": "poe-market-filter-toolkit/1.0 (+personal loot filter project)",
     }
+
+
+def load_json(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def request_json(
@@ -288,7 +295,32 @@ def with_required_stats(
     return query
 
 
-def make_profiles() -> dict[str, Profile]:
+def weight_from_dict(data: dict[str, Any]) -> Weight:
+    return Weight(
+        contains=str(data.get("contains", "")),
+        points=float(data.get("points", 0.0)),
+        per_value=float(data.get("per_value", 0.0)),
+        cap=float(data["cap"]) if isinstance(data.get("cap"), (int, float)) else None,
+    )
+
+
+def profile_from_dict(key: str, data: dict[str, Any]) -> Profile:
+    return Profile(
+        key=key,
+        label=str(data.get("label") or key),
+        why=str(data.get("why") or ""),
+        query=data.get("query") if isinstance(data.get("query"), dict) else {},
+        required_stat_texts=tuple(str(value) for value in data.get("required_stat_texts", [])),
+        weights=tuple(weight_from_dict(weight) for weight in data.get("weights", [])),
+        count_stat_texts=tuple(str(value) for value in data.get("count_stat_texts", [])),
+        count_min=int(data.get("count_min", 0) or 0),
+        base_score=float(data.get("base_score", 0.0) or 0.0),
+        min_score=float(data.get("min_score", 0.0) or 0.0),
+        baseline=data.get("baseline") if isinstance(data.get("baseline"), dict) else None,
+    )
+
+
+def default_profiles() -> dict[str, Profile]:
     return {
         "ring_vulnerability": Profile(
             key="ring_vulnerability",
@@ -474,6 +506,14 @@ def make_profiles() -> dict[str, Profile]:
             },
         ),
     }
+
+
+def make_profiles(rules_path: Path = DEFAULT_RULES) -> dict[str, Profile]:
+    rules = load_json(rules_path)
+    configured = rules.get("trade_profiles") if isinstance(rules.get("trade_profiles"), dict) else {}
+    if configured:
+        return {key: profile_from_dict(key, value) for key, value in configured.items() if isinstance(value, dict)}
+    return default_profiles()
 
 
 def extract_number_near(text: str) -> float | None:
