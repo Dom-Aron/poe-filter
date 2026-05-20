@@ -1,60 +1,27 @@
 {
   "schema_version": 1,
-  "build": "Ronarray Shockwave Cyclone / General's Cry Slayer",
+  "build": "Maxroll hxobac03 Deadeye",
+  "source": "maxroll_meta_summary",
   "desired_by_profile": {
-    "ring_vulnerability": {
-      "replacement_slots": ["ring_2", "ring_1"],
-      "prefer_slots": ["ring_2"],
-      "must_keep_if_replacing_ring_1": ["mana_cost_channeling"],
-      "desired_stats": [
-        "vulnerability_on_hit",
-        "life",
-        "elemental_resistance",
-        "chaos_resistance",
-        "physical_damage_to_attacks",
-        "mana_cost_channeling"
-      ]
+    "bow_elemental_dps": {
+      "replacement_slots": ["weapon"],
+      "desired_stats": ["elemental_damage", "attack_speed", "critical_strike_chance", "critical_multiplier"]
     },
-    "jewel_damage": {
+    "quiver_damage": {
+      "replacement_slots": ["quiver"],
+      "desired_stats": ["life", "elemental_damage_with_attacks", "critical_multiplier", "attack_speed", "accuracy"]
+    },
+    "deadeye_jewel": {
       "replacement_slots": ["jewel_free_1"],
-      "desired_stats": [
-        "maximum_life_percent",
-        "staff_physical_damage_percent",
-        "staff_attack_speed_percent",
-        "crit_multiplier",
-        "accuracy",
-        "chaos_resistance"
-      ]
+      "desired_stats": ["maximum_life_percent", "projectile_damage", "attack_speed", "critical_multiplier", "chaos_resistance"]
     },
-    "abyss_jewel": {
-      "replacement_slots": ["abyss_jewel_1"],
-      "desired_stats": [
-        "life",
-        "staff_flat_physical",
-        "attack_speed",
-        "blind",
-        "onslaught",
-        "chaos_resistance"
-      ]
+    "deadeye_accessory": {
+      "replacement_slots": ["ring_1", "ring_2", "amulet"],
+      "desired_stats": ["life", "elemental_damage_with_attacks", "critical_multiplier", "accuracy", "resistance"]
     },
-    "large_cluster": {
-      "replacement_slots": ["cluster_free_1"],
-      "desired_stats": [
-        "eight_passives",
-        "physical_damage",
-        "staff_damage",
-        "impale",
-        "fuel_the_fight",
-        "martial_prowess"
-      ]
-    },
-    "rumi_uncorrupted": {
-      "replacement_slots": ["flask_rumi"],
-      "desired_stats": [
-        "not_corrupted",
-        "attack_block_during_effect",
-        "spell_block_during_effect"
-      ]
+    "utility_flask": {
+      "replacement_slots": ["flask_utility"],
+      "desired_stats": ["not_corrupted", "increased_effect", "attack_speed", "critical_strike_chance"]
     }
   }
 }

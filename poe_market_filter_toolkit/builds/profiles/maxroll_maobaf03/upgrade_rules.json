@@ -6,37 +6,149 @@
   "hard_reject_if_below_minimum": true,
   "minimum_plan_score": 50,
   "minimum_guarded_slot_score": 50,
-  "budget": {
-    "allow_partial_budget": true,
-    "message_when_empty": "O budget pode ser insuficiente ou o mercado pode nao ter ofertas seguras agora."
-  },
   "guarded_slots": {
-    "body_armour": "Slot sensivel: trocar apenas se nao quebrar resistencias/defesas e se o ganho passar o minimo configurado.",
-    "gloves": "Slot sensivel: trocar apenas se preservar accuracy/vida/resistencias e entregar melhoria clara."
+    "weapon": "Slot central de dano: trocar apenas se o arco novo for claramente melhor.",
+    "quiver": "Quiver pode carregar dano e vida; evitar sidegrade caro."
   },
   "weights": {
-    "vulnerability_on_hit": 140,
-    "impale_chance": 5,
-    "life": 1.1,
-    "fire_resistance": 1.0,
-    "cold_resistance": 1.1,
-    "lightning_resistance": 0.7,
-    "chaos_resistance": 1.7,
+    "life": 1.0,
     "accuracy": 0.03,
     "attack_speed": 4,
-    "physical_damage_to_attacks": 25,
-    "staff_flat_physical": 30,
-    "staff_physical_damage_percent": 2.5,
-    "crit_multiplier": 2.0,
-    "spell_block_during_effect": 6,
-    "attack_block_during_effect": 3,
-    "not_corrupted": 25,
-    "large_cluster_good_base": 70,
-    "eight_passives": 35
+    "critical_strike_chance": 5,
+    "crit_multiplier": 2.5,
+    "projectile_damage": 2.0,
+    "elemental_damage": 2.0,
+    "elemental_damage_with_attacks": 2.5,
+    "chaos_resistance": 1.3,
+    "fire_resistance": 0.8,
+    "cold_resistance": 0.8,
+    "lightning_resistance": 0.8
   },
   "penalties": {
-    "replacing_protected_slot": 80,
-    "missing_mana_cost_when_replacing_ring_1": 80,
-    "same_profile_duplicate": 35
+    "replacing_protected_slot": 70,
+    "same_profile_duplicate": 30
+  },
+  "search_library": {
+    "life": {
+      "title": "Jewel, quiver ou acessorio com vida",
+      "priority": "alta",
+      "reason": "A build Deadeye precisa manter vida suficiente sem perder dano ofensivo.",
+      "trade_terms": ["+# to maximum Life", "% increased maximum Life", "Elemental Damage with Attack Skills", "Critical Strike Multiplier"],
+      "price_hint": "Priorize vida junto de dano; vida isolada costuma ser sidegrade.",
+      "profiles": ["deadeye_jewel", "quiver_damage", "deadeye_accessory"]
+    },
+    "chance_to_hit": {
+      "title": "Accuracy como parte de um pacote ofensivo",
+      "priority": "media",
+      "reason": "Hit chance abaixo da meta atrapalha dano real, mas nao deve ser comprado sozinho.",
+      "trade_terms": ["+# to Accuracy Rating", "Attack Speed", "Critical Strike Multiplier", "Elemental Damage with Attack Skills"],
+      "price_hint": "Comprar se vier junto de dano/vida.",
+      "profiles": ["deadeye_accessory", "deadeye_jewel", "quiver_damage"]
+    },
+    "chaos_resistance": {
+      "title": "Chaos resistance sem perder dano",
+      "priority": "media",
+      "reason": "Chaos resistance melhora conforto defensivo, mas a build depende de manter dano.",
+      "trade_terms": ["+#% to Chaos Resistance", "+# to maximum Life", "Elemental Damage with Attack Skills"],
+      "price_hint": "Bom em jewels e acessorios quando nao sacrifica dano.",
+      "profiles": ["deadeye_jewel", "deadeye_accessory"]
+    },
+    "crit_chance": {
+      "title": "Crit chance/crit multi para escalar Deadeye",
+      "priority": "alta",
+      "reason": "Crit e multiplicador sao parte central do dano da build.",
+      "trade_terms": ["Critical Strike Chance", "Global Critical Strike Multiplier", "Elemental Damage with Attack Skills"],
+      "price_hint": "Validar no PoB antes de pagar caro.",
+      "profiles": ["bow_elemental_dps", "quiver_damage", "deadeye_jewel"]
+    },
+    "crit_multiplier": {
+      "title": "Critical strike multiplier em jewel/quiver/amuleto",
+      "priority": "alta",
+      "reason": "Crit multi costuma ser um dos upgrades ofensivos mais diretos.",
+      "trade_terms": ["Global Critical Strike Multiplier", "Critical Strike Multiplier with Elemental Skills", "Projectile Damage"],
+      "price_hint": "Crit multi com vida e attack speed tende a valer mais.",
+      "profiles": ["deadeye_jewel", "quiver_damage", "deadeye_accessory"]
+    }
+  },
+  "trade_profiles": {
+    "bow_elemental_dps": {
+      "label": "Arco elemental de alto DPS",
+      "why": "Upgrade principal de dano para Deadeye baseada em ataques.",
+      "query": {"status": {"option": "online"}, "filters": {"type_filters": {"filters": {"category": {"option": "weapon.bow"}, "rarity": {"option": "rare"}}}}},
+      "count_stat_texts": ["#% increased Elemental Damage with Attack Skills", "#% increased Attack Speed", "#% increased Critical Strike Chance", "Adds # to # Lightning Damage", "Adds # to # Cold Damage", "Adds # to # Fire Damage"],
+      "count_min": 2,
+      "weights": [
+        {"contains": "increased Elemental Damage with Attack Skills", "per_value": 2.0, "cap": 70},
+        {"contains": "increased Attack Speed", "per_value": 4.0, "cap": 60},
+        {"contains": "increased Critical Strike Chance", "per_value": 3.0, "cap": 55},
+        {"contains": "Adds", "points": 24},
+        {"contains": "Critical Strike Multiplier", "per_value": 2.0, "cap": 45}
+      ],
+      "base_score": 20,
+      "min_score": 70
+    },
+    "quiver_damage": {
+      "label": "Quiver com vida e dano",
+      "why": "Quiver pode concentrar vida, attack speed, projeteis e crit multi.",
+      "query": {"status": {"option": "online"}, "filters": {"type_filters": {"filters": {"category": {"option": "armour.quiver"}, "rarity": {"option": "rare"}}}}},
+      "count_stat_texts": ["+# to maximum Life", "#% increased Elemental Damage with Attack Skills", "+#% to Global Critical Strike Multiplier", "#% increased Attack Speed", "+# to Accuracy Rating"],
+      "count_min": 2,
+      "weights": [
+        {"contains": "to maximum Life", "per_value": 0.9, "cap": 55},
+        {"contains": "Elemental Damage with Attack Skills", "per_value": 2.0, "cap": 55},
+        {"contains": "Global Critical Strike Multiplier", "per_value": 2.5, "cap": 55},
+        {"contains": "increased Attack Speed", "per_value": 4.0, "cap": 45},
+        {"contains": "to Accuracy Rating", "per_value": 0.04, "cap": 30}
+      ],
+      "base_score": 10,
+      "min_score": 62
+    },
+    "deadeye_jewel": {
+      "label": "Jewel Deadeye vida/dano/crit",
+      "why": "Jewel e slot flexivel para corrigir vida, crit multi, attack speed e chaos res.",
+      "query": {"status": {"option": "online"}, "filters": {"type_filters": {"filters": {"category": {"option": "jewel.base"}, "rarity": {"option": "rare"}}}}},
+      "count_stat_texts": ["#% increased maximum Life", "+#% to Global Critical Strike Multiplier", "#% increased Projectile Damage", "#% increased Attack Speed", "+#% to Chaos Resistance"],
+      "count_min": 2,
+      "weights": [
+        {"contains": "increased maximum Life", "per_value": 5.0, "cap": 40},
+        {"contains": "Global Critical Strike Multiplier", "per_value": 2.5, "cap": 45},
+        {"contains": "Projectile Damage", "per_value": 2.0, "cap": 35},
+        {"contains": "increased Attack Speed", "per_value": 3.0, "cap": 35},
+        {"contains": "to Chaos Resistance", "per_value": 1.0, "cap": 25}
+      ],
+      "base_score": 5,
+      "min_score": 60
+    },
+    "deadeye_accessory": {
+      "label": "Acessorio Deadeye ofensivo",
+      "why": "Aneis e amuletos podem corrigir vida/resists sem perder dano elemental.",
+      "query": {"status": {"option": "online"}, "filters": {"type_filters": {"filters": {"category": {"option": "accessory"}, "rarity": {"option": "rare"}}}}},
+      "count_stat_texts": ["+# to maximum Life", "#% increased Elemental Damage with Attack Skills", "+#% to Global Critical Strike Multiplier", "+# to Accuracy Rating", "+#% to Chaos Resistance"],
+      "count_min": 2,
+      "weights": [
+        {"contains": "to maximum Life", "per_value": 0.8, "cap": 55},
+        {"contains": "Elemental Damage with Attack Skills", "per_value": 2.0, "cap": 60},
+        {"contains": "Global Critical Strike Multiplier", "per_value": 2.4, "cap": 55},
+        {"contains": "to Accuracy Rating", "per_value": 0.04, "cap": 30},
+        {"contains": "to Chaos Resistance", "per_value": 1.0, "cap": 25}
+      ],
+      "base_score": 10,
+      "min_score": 65
+    },
+    "utility_flask": {
+      "label": "Utility flask para Deadeye",
+      "why": "Flasks bons podem dar crit, velocidade ou defesa sem trocar gear.",
+      "query": {"status": {"option": "online"}, "filters": {"type_filters": {"filters": {"category": {"option": "flask.utility"}}}, "misc_filters": {"filters": {"corrupted": {"option": "false"}}}}},
+      "count_stat_texts": ["#% increased Attack Speed during Effect", "#% increased Critical Strike Chance during Effect", "#% increased effect", "#% increased Movement Speed during Effect"],
+      "count_min": 1,
+      "weights": [
+        {"contains": "increased Attack Speed during Effect", "per_value": 4.0, "cap": 45},
+        {"contains": "increased Critical Strike Chance during Effect", "per_value": 1.0, "cap": 45},
+        {"contains": "increased effect", "per_value": 2.0, "cap": 40},
+        {"contains": "increased Movement Speed during Effect", "per_value": 1.0, "cap": 25}
+      ],
+      "base_score": 10,
+      "min_score": 50
+    }
   }
 }
