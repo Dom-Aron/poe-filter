@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "slug": "teste_storm_burst_totem",
+  "name": "Teste Storm Burst Totem",
+  "notes": "Personagem ficticio para testar troca de build pobb.in.",
+  "build_slug": "teste_storm_burst_totem",
+  "files": {
+    "player_items.json": "player_items.json",
+    "player_stats.json": "player_stats.json"
+  },
+  "updated_at": "2026-05-20 20:48:18"
+}

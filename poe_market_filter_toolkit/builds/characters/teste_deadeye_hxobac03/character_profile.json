@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "slug": "teste_deadeye_hxobac03",
+  "name": "Teste Deadeye HXOBAC03",
+  "notes": "Personagem ficticio para testar troca de build Maxroll hxobac03.",
+  "build_slug": "maxroll_hxobac03",
+  "files": {
+    "player_items.json": "player_items.json",
+    "player_stats.json": "player_stats.json"
+  },
+  "updated_at": "2026-05-20 20:48:18"
+}

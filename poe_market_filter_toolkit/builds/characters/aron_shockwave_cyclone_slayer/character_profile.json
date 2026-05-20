@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "slug": "aron_shockwave_cyclone_slayer",
+  "name": "Aron Shockwave Cyclone Slayer",
+  "notes": "Personagem real atual do jogador para a build inicial.",
+  "build_slug": "ronarray_shockwave_cyclone_slayer",
+  "files": {
+    "player_items.json": "player_items.json",
+    "player_stats.json": "player_stats.json"
+  },
+  "updated_at": "2026-05-20 20:48:17"
+}
