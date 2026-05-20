@@ -1,6 +1,6 @@
 # =====================================================================
 # Path of Exile 1 - 3.28 Mirage
-# VOID Shockwave Cyclone / General's Cry Slayer - Ronarray
+# Active Path of Exile loot filter
 # Versao: LVL 89 MAPS T9-T10 - BREACH HIVES - STRICT GEAR / OPEN CURRENCY v18 - REVIEWED
 #
 # Atualizado para o estado atual do personagem:
@@ -64,7 +64,7 @@ Show
 # Fonte: poe_market_filter_toolkit / poe.ninja Mirage.
 # Estas regras ficam no topo para nao serem engolidas por regras de build,
 # gemas, mapas ou fallbacks genericos. Elas destacam itens caros mesmo quando
-# nao servem para Shockwave Cyclone.
+# nao servem para a build alvo ativa.
 #
 # Observacao sobre atributos/mods:
 # - GemLevel/Quality e EnchantmentPassiveNum sao confiaveis no chao.
@@ -1339,7 +1339,7 @@ Show
 # ---------------------------------------------------------------------
 # 6) BUILD - Gemas: qualidade alta ou suportes importantes da build
 # Mesmo quando o mercado nao estiver alto, estas gemas ficam visiveis porque
-# servem para Shockwave Cyclone / General's Cry Slayer.
+# servem para a build alvo ativa.
 # ---------------------------------------------------------------------
 
 # Miragem T1 - gemas Imbued: mostrar mesmo sem qualidade alta
