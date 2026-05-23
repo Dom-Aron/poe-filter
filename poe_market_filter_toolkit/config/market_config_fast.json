@@ -1,0 +1,6 @@
+{
+  "league": "Mirage",
+  "request_delay_seconds": 0.2,
+  "timeout_seconds": 8,
+  "user_agent": "poe-market-filter-toolkit/1.0 (+personal loot filter project)"
+}

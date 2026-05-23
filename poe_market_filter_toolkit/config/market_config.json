@@ -1,6 +1,6 @@
 {
   "league": "Mirage",
-  "request_delay_seconds": 0.7,
+  "request_delay_seconds": 1.5,
   "timeout_seconds": 30,
   "user_agent": "poe-market-filter-toolkit/1.0 (+personal loot filter project)",
   "tier_thresholds_chaos": {
