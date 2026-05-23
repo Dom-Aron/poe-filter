@@ -305,6 +305,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--profiles", help="Profiles passed to plan_upgrade_path.py.")
     parser.add_argument("--top", type=int)
     parser.add_argument("--max-fetch", type=int)
+    parser.add_argument("--allow-legacy-global-state", action="store_true", help="Allow the old build-matrix flow that mutates global active build files.")
     return parser.parse_args(argv)
 
 
@@ -319,6 +320,12 @@ def selected_builds(raw: str) -> list[str]:
 
 def main(argv: list[str]) -> int:
     args = parse_args(argv)
+    if not args.allow_legacy_global_state:
+        raise SystemExit(
+            "run_build_matrix.py is legacy and mutates global active build files. "
+            "Use run_character_matrix.py for the per-character architecture, or pass "
+            "--allow-legacy-global-state if you intentionally want the old flow."
+        )
     builds = selected_builds(args.builds)
     if not builds:
         raise SystemExit("No builds selected. Use --builds all or create profiles with switch_build.py.")

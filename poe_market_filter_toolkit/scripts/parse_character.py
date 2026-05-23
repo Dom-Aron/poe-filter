@@ -290,6 +290,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--output-dir", type=Path, default=CURRENT_DIR)
     parser.add_argument("--update-builds", action="store_true", help="Also copy player_items/player_stats into builds/ for the planner.")
     parser.add_argument("--backup-builds", action="store_true", help="Create .bak files before overwriting builds/player_items.json and builds/player_stats.json.")
+    parser.add_argument("--allow-legacy-global-state", action="store_true", help="Allow --update-builds to overwrite global builds/player_*.json files.")
     return parser.parse_args(argv)
 
 
@@ -308,6 +309,13 @@ def main(argv: list[str]) -> int:
     write_json(args.output_dir / "player_passives.json", player_passives)
     write_json(args.output_dir / "player_skills.json", player_skills)
     write_json(args.output_dir / "player_stats.json", player_stats)
+
+    if args.update_builds and not args.allow_legacy_global_state:
+        raise SystemExit(
+            "--update-builds writes global planner inputs and is legacy. "
+            "Write directly into builds/characters/<slug>/ instead, or pass "
+            "--allow-legacy-global-state intentionally."
+        )
 
     if args.update_builds:
         copy_to_builds(args.output_dir / "player_items.json", BUILDS_DIR / "player_items.json", args.backup_builds)

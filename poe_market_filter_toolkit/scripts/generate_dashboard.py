@@ -159,25 +159,52 @@ def status_class(status: str) -> str:
     return "neutral"
 
 
+def gap_sort_key(item: tuple[str, dict[str, Any]]) -> tuple[int, float, str]:
+    key, entry = item
+    status = str(entry.get("status", "unknown"))
+    rank = {"below_minimum": 0, "needs_improvement": 1, "unknown": 2, "solved": 3}.get(status, 4)
+    missing = entry.get("missing_to_minimum")
+    if not isinstance(missing, (int, float)):
+        missing = entry.get("missing_to_goal")
+    missing_value = float(missing) if isinstance(missing, (int, float)) else 0.0
+    return (rank, -missing_value, key)
+
+
+def gap_missing_text(entry: dict[str, Any]) -> str:
+    status = str(entry.get("status", "unknown"))
+    if status == "below_minimum" and isinstance(entry.get("missing_to_minimum"), (int, float)):
+        return f"falta {entry['missing_to_minimum']:g} ate o minimo"
+    if status == "needs_improvement" and isinstance(entry.get("missing_to_goal"), (int, float)):
+        return f"falta {entry['missing_to_goal']:g} ate a meta"
+    if status == "unknown":
+        return "sem dado atual"
+    if status == "solved":
+        return "ok"
+    return status
+
+
 def gap_cards(gap: dict[str, Any]) -> str:
     comparison = gap.get("comparison", {})
     if not comparison:
         return "<p class=\"muted\">Nenhuma analise de gaps disponivel. Rode compare_current_to_target.py.</p>"
     cards: list[str] = []
-    for key, entry in sorted(comparison.items()):
+    for key, entry in sorted(comparison.items(), key=gap_sort_key):
         status = str(entry.get("status", "unknown"))
         current = entry.get("current")
         goal = entry.get("goal")
         minimum = entry.get("minimum")
+        missing = gap_missing_text(entry)
         cards.append(
             "<div class=\"metric {cls}\">"
             "<span>{name}</span>"
             "<strong>{current}</strong>"
+            "<small>{missing}</small>"
             "<small>min {minimum} | meta {goal} | {status}</small>"
             "</div>".format(
                 cls=status_class(status),
                 name=html.escape(key),
                 current=html.escape(str(current)),
+                missing=html.escape(missing),
                 minimum=html.escape(str(minimum)),
                 goal=html.escape(str(goal)),
                 status=html.escape(status),
@@ -202,16 +229,31 @@ def recommended_search_cards(report: dict[str, Any]) -> str:
     for index, entry in enumerate(searches[:8], start=1):
         terms = "".join(f"<li>{html.escape(term)}</li>" for term in entry.get("trade_terms", [])[:5])
         profiles = ", ".join(f"`{profile}`" for profile in entry.get("profiles", [])) or "busca manual"
+        gap = gap_context_from_search(entry)
         cards.append(
             "<article class=\"search-card\">"
             f"<span class=\"rank\">#{index}</span>"
             f"<h4>{html.escape(entry.get('title', 'Busca'))}</h4>"
+            f"<small>{html.escape(gap)}</small>"
             f"<p>{html.escape(entry.get('reason', ''))}</p>"
             f"<ul>{terms}</ul>"
             f"<small>Perfis: {html.escape(profiles)}</small>"
             "</article>"
         )
     return "<div class=\"search-grid\">" + "".join(cards) + "</div>"
+
+
+def gap_context_from_search(entry: dict[str, Any]) -> str:
+    current = entry.get("current")
+    minimum = entry.get("minimum")
+    goal = entry.get("goal")
+    missing = entry.get("missing_to_minimum")
+    label = "min"
+    if not isinstance(missing, (int, float)):
+        missing = entry.get("missing_to_goal")
+        label = "meta"
+    missing_text = f" | falta {missing:g} ate {label}" if isinstance(missing, (int, float)) else ""
+    return f"{entry.get('stat', 'stat')}: atual {current} | min {minimum} | meta {goal}{missing_text}"
 
 
 def relative_link(path: Path, output: Path) -> str:
@@ -525,6 +567,7 @@ def page_shell(
     active_html = active_build_panel(active_build)
     character_html = active_character_panel(active_character)
     warning_html = build_data_warning(active_build)
+    dashboard_path = output.parent / "build_dashboard.html" if output.parent.resolve() != GENERATED.resolve() else DEFAULT_OUTPUT
     return f"""<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -538,7 +581,7 @@ def page_shell(
     <h1>{html.escape(title)}</h1>
     <p class="muted">{html.escape(subtitle)}</p>
     <div class="quick-links">
-      {file_link(DEFAULT_OUTPUT, "Dashboard", output)}
+      {file_link(dashboard_path, "Dashboard", output)}
       {file_link(RECOMMENDATIONS_HTML, "Recomendacoes", output)}
       {file_link(NEXT_SEARCHES_HTML, "Proximas buscas", output)}
       {file_link(MARKET_REPORT_HTML, "Mercado", output)}
@@ -568,6 +611,23 @@ def write_markdown_page(title: str, subtitle: str, markdown: str, output: Path) 
     output.write_text(page_shell(title, subtitle, md_to_html(markdown), output), encoding="utf-8")
 
 
+def write_context_markdown_page(
+    title: str,
+    subtitle: str,
+    markdown: str,
+    output: Path,
+    active_build: dict[str, Any],
+    active_character: dict[str, Any],
+) -> None:
+    if not markdown:
+        return
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(
+        page_shell(title, subtitle, md_to_html(markdown), output, active_build=active_build, active_character=active_character),
+        encoding="utf-8",
+    )
+
+
 def recommendation_cards(report: dict[str, Any]) -> str:
     searches = report.get("recommended_searches", [])
     if not searches:
@@ -591,24 +651,36 @@ def recommendation_cards(report: dict[str, Any]) -> str:
     return "".join(cards)
 
 
-def write_recommendations_page(report: dict[str, Any], output: Path) -> None:
+def write_recommendations_page(report: dict[str, Any], output: Path, active_build: dict[str, Any], active_character: dict[str, Any]) -> None:
     body = (
         "<section><h2>Recomendacoes De Upgrade</h2>"
         "<p class=\"muted\">Leitura priorizada dos gargalos atuais. Ela nao compra automaticamente e nao substitui PoB.</p>"
         f"{recommendation_cards(report)}</section>"
     )
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(page_shell("Recomendacoes", "Prioridades de compra para aproximar o personagem da build alvo.", body, output), encoding="utf-8")
+    output.write_text(
+        page_shell(
+            "Recomendacoes",
+            "Prioridades de compra para aproximar o personagem da build alvo.",
+            body,
+            output,
+            active_build=active_build,
+            active_character=active_character,
+        ),
+        encoding="utf-8",
+    )
 
 
-def write_next_searches_page(report: dict[str, Any], output: Path) -> None:
+def write_next_searches_page(report: dict[str, Any], output: Path, active_build: dict[str, Any], active_character: dict[str, Any]) -> None:
     searches = report.get("recommended_searches", [])
     cards: list[str] = []
     for entry in searches:
         terms = "".join(f"<span class=\"pill\">{html.escape(str(term))}</span>" for term in entry.get("trade_terms", [])[:8])
+        gap = gap_context_from_search(entry)
         cards.append(
             "<article class=\"search-card\">"
             f"<h4>{html.escape(str(entry.get('title', 'Busca')))}</h4>"
+            f"<small>{html.escape(gap)}</small>"
             f"<p>{html.escape(str(entry.get('reason', '')))}</p>"
             f"<div>{terms}</div>"
             "</article>"
@@ -620,7 +692,17 @@ def write_next_searches_page(report: dict[str, Any], output: Path) -> None:
         f"<div class=\"search-grid\">{cards_html}</div></section>"
     )
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(page_shell("Proximas Buscas", "Termos prontos para procurar upgrades com menos ruido.", body, output), encoding="utf-8")
+    output.write_text(
+        page_shell(
+            "Proximas Buscas",
+            "Termos prontos para procurar upgrades com menos ruido.",
+            body,
+            output,
+            active_build=active_build,
+            active_character=active_character,
+        ),
+        encoding="utf-8",
+    )
 
 
 def as_float(value: Any, default: float = 0.0) -> float:
@@ -679,7 +761,7 @@ def market_card_list(title: str, items: list[dict[str, Any]], metric: str) -> st
     return f"<article class=\"search-card\"><h4>{html.escape(title)}</h4><ul>{''.join(rows)}</ul></article>"
 
 
-def market_page(market: dict[str, Any], output: Path) -> str:
+def market_page(market: dict[str, Any], output: Path, active_build: dict[str, Any], active_character: dict[str, Any]) -> str:
     items = [item for item in market.get("items", []) if isinstance(item, dict)]
     items.sort(key=lambda item: as_float(item.get("chaos_value")), reverse=True)
     categories = market_category_summary(items)
@@ -815,15 +897,28 @@ def market_page(market: dict[str, Any], output: Path) -> str:
       render();
     </script>
     """
-    return page_shell("Mercado", "Precos da liga organizados para leitura humana e manutencao do filtro.", body, output)
+    return page_shell(
+        "Mercado",
+        "Precos da liga organizados para leitura humana e manutencao do filtro.",
+        body,
+        output,
+        active_build=active_build,
+        active_character=active_character,
+    )
 
 
-def write_market_page(market: dict[str, Any], output: Path) -> None:
+def write_market_page(market: dict[str, Any], output: Path, active_build: dict[str, Any], active_character: dict[str, Any]) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(market_page(market, output), encoding="utf-8")
+    output.write_text(market_page(market, output, active_build, active_character), encoding="utf-8")
 
 
-def write_upgrade_plan_page(upgrade_plan: dict[str, Any], fallback_md: str, active_build: dict[str, Any], output: Path) -> None:
+def write_upgrade_plan_page(
+    upgrade_plan: dict[str, Any],
+    fallback_md: str,
+    active_build: dict[str, Any],
+    active_character: dict[str, Any],
+    output: Path,
+) -> None:
     current_plan = current_upgrade_plan(upgrade_plan, active_build)
     body = (
         "<section><h2>Plano De Compra</h2>"
@@ -831,7 +926,17 @@ def write_upgrade_plan_page(upgrade_plan: dict[str, Any], fallback_md: str, acti
         f"{upgrade_plan_cards(current_plan, '' if current_plan != upgrade_plan else fallback_md)}</section>"
     )
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(page_shell("Plano De Compra", "Compras candidatas filtradas pela build ativa.", body, output, active_build=active_build), encoding="utf-8")
+    output.write_text(
+        page_shell(
+            "Plano De Compra",
+            "Compras candidatas filtradas pela build ativa.",
+            body,
+            output,
+            active_build=active_build,
+            active_character=active_character,
+        ),
+        encoding="utf-8",
+    )
 
 
 def render_dashboard(
@@ -934,6 +1039,12 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 def main(argv: list[str]) -> int:
     args = parse_args(argv)
+    global RECOMMENDATIONS_HTML, NEXT_SEARCHES_HTML, MARKET_REPORT_HTML, UPGRADE_PLAN_HTML
+    if args.output.resolve() != DEFAULT_OUTPUT.resolve():
+        RECOMMENDATIONS_HTML = args.output.parent / "upgrade_recommendations.html"
+        NEXT_SEARCHES_HTML = args.output.parent / "next_searches.html"
+        MARKET_REPORT_HTML = args.output.parent / "market_report.html"
+        UPGRADE_PLAN_HTML = args.output.parent / "upgrade_plan.html"
     next_searches_md = read_text(args.next_searches)
     recommendations_md = read_text(args.recommendations)
     market_json = read_json(args.market_json)
@@ -956,18 +1067,39 @@ def main(argv: list[str]) -> int:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(content, encoding="utf-8")
     if upgrade_report:
-        write_recommendations_page(upgrade_report, RECOMMENDATIONS_HTML)
-        write_next_searches_page(upgrade_report, NEXT_SEARCHES_HTML)
+        write_recommendations_page(upgrade_report, RECOMMENDATIONS_HTML, active_build, active_character)
+        write_next_searches_page(upgrade_report, NEXT_SEARCHES_HTML, active_build, active_character)
     else:
-        write_markdown_page("Recomendacoes", "Leitura guiada dos proximos passos da build.", recommendations_md, RECOMMENDATIONS_HTML)
-        write_markdown_page("Proximas Buscas", "Termos e perfis para procurar upgrades com mais seguranca.", next_searches_md, NEXT_SEARCHES_HTML)
+        write_context_markdown_page(
+            "Recomendacoes",
+            "Leitura guiada dos proximos passos da build.",
+            recommendations_md,
+            RECOMMENDATIONS_HTML,
+            active_build,
+            active_character,
+        )
+        write_context_markdown_page(
+            "Proximas Buscas",
+            "Termos e perfis para procurar upgrades com mais seguranca.",
+            next_searches_md,
+            NEXT_SEARCHES_HTML,
+            active_build,
+            active_character,
+        )
     if market_json:
-        write_market_page(market_json, MARKET_REPORT_HTML)
+        write_market_page(market_json, MARKET_REPORT_HTML, active_build, active_character)
     else:
-        write_markdown_page("Mercado", "Snapshot formatado dos precos coletados para a liga atual.", read_text(args.market_report), MARKET_REPORT_HTML)
-    write_upgrade_plan_page(upgrade_plan_json, upgrade_plan_md, active_build, UPGRADE_PLAN_HTML)
+        write_context_markdown_page(
+            "Mercado",
+            "Snapshot formatado dos precos coletados para a liga atual.",
+            read_text(args.market_report),
+            MARKET_REPORT_HTML,
+            active_build,
+            active_character,
+        )
+    write_upgrade_plan_page(upgrade_plan_json, upgrade_plan_md, active_build, active_character, UPGRADE_PLAN_HTML)
     print(f"Dashboard saved: {args.output}")
-    print(f"HTML pages saved: {GENERATED}")
+    print(f"HTML pages saved: {args.output.parent}")
     return 0
 
 

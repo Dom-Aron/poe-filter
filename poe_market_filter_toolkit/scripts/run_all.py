@@ -50,7 +50,9 @@ def run_script(script_name: str, *args: str) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run all PoE market toolkit scripts.")
     parser.add_argument("--skip-update", action="store_true", help="Do not fetch the market; use market/latest_market.json.")
-    parser.add_argument("--list-builds", action="store_true", help="List available target build profiles and continue.")
+    parser.add_argument("--character", help="Official flow: run run_character.py for one saved character profile.")
+    parser.add_argument("--characters", help="Official flow: run run_character_matrix.py for comma-separated character slugs or all.")
+    parser.add_argument("--list-builds", action="store_true", help="Legacy: list available target build profiles and continue.")
     parser.add_argument("--switch-build", help="Activate a target build profile before running the flow.")
     parser.add_argument("--switch-character", help="Activate a saved character profile before running the flow.")
     parser.add_argument("--no-switch-character-build", action="store_true", help="When switching character, do not activate its associated build.")
@@ -68,12 +70,45 @@ def main() -> int:
     parser.add_argument("--upgrade-plan", action="store_true", help="Also run plan_upgrade_path.py after market/filter reports.")
     parser.add_argument("--dashboard", action="store_true", help="Generate data/generated/build_dashboard.html.")
     parser.add_argument("--run-tests", action="store_true", help="Run toolkit safety tests after the flow.")
+    parser.add_argument("--open", action="store_true", help="Open the generated dashboard when using --character.")
     parser.add_argument("--budget", help="Budget passed to plan_upgrade_path.py, e.g. 251c or 1d. If omitted, planner shows top 3 cheapest safe upgrades.")
     parser.add_argument("--profiles", help="Profiles passed to plan_upgrade_path.py, e.g. rumi_uncorrupted or ring_vulnerability,jewel_damage.")
     parser.add_argument("--top", type=int, help="Top plans passed to plan_upgrade_path.py.")
     parser.add_argument("--max-fetch", type=int, help="Max trade listings per profile for plan_upgrade_path.py.")
     parser.add_argument("--max-combo-size", type=int, help="Max combo size passed to plan_upgrade_path.py.")
     args = parser.parse_args()
+
+    if args.character:
+        character_args = ["--character", args.character]
+        if args.skip_update:
+            character_args.append("--skip-market-update")
+        if args.budget:
+            character_args.extend(["--budget", args.budget])
+        if args.profiles:
+            character_args.extend(["--profiles", args.profiles])
+        if args.top is not None:
+            character_args.extend(["--top", str(args.top)])
+        if args.max_fetch is not None:
+            character_args.extend(["--max-fetch", str(args.max_fetch)])
+        if args.max_combo_size is not None:
+            character_args.extend(["--max-combo-size", str(args.max_combo_size)])
+        if args.open:
+            character_args.append("--open")
+        run_script("run_character.py", *character_args)
+        return 0
+
+    if args.characters:
+        matrix_args = ["--characters", args.characters]
+        if args.budget:
+            matrix_args.extend(["--budget", args.budget])
+        if args.profiles:
+            matrix_args.extend(["--profiles", args.profiles])
+        if args.top is not None:
+            matrix_args.extend(["--top", str(args.top)])
+        if args.max_fetch is not None:
+            matrix_args.extend(["--max-fetch", str(args.max_fetch)])
+        run_script("run_character_matrix.py", *matrix_args)
+        return 0
 
     if args.list_builds:
         run_script("switch_build.py", "--list")
@@ -101,20 +136,11 @@ def main() -> int:
         run_script("switch_build.py", *switch_args)
 
     if args.builds:
-        matrix_args = ["--builds", args.builds]
-        if args.budget:
-            matrix_args.extend(["--budget", args.budget])
-        if args.profiles:
-            matrix_args.extend(["--profiles", args.profiles])
-        if args.top is not None:
-            matrix_args.extend(["--top", str(args.top)])
-        if args.max_fetch is not None:
-            matrix_args.extend(["--max-fetch", str(args.max_fetch)])
-        run_script("run_build_matrix.py", *matrix_args)
-        print()
-        print("Flow complete.")
-        print("- data/generated/multi_build_dashboard.html")
-        return 0
+        raise SystemExit(
+            "--builds used the old global build flow and is no longer the safe path. "
+            "Use --characters with saved character slugs, or call run_build_matrix.py "
+            "--allow-legacy-global-state intentionally."
+        )
 
     if args.fetch_character:
         run_script("fetch_character.py")
