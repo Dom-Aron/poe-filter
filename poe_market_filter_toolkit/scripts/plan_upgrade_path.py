@@ -85,10 +85,10 @@ def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def active_build_slug() -> str:
-    if not ACTIVE_BUILD.exists():
+def active_build_slug(path: Path = ACTIVE_BUILD) -> str:
+    if not path.exists():
         return ""
-    return str(load_json(ACTIVE_BUILD).get("active_slug") or "")
+    return str(load_json(path).get("active_slug") or "")
 
 
 def stat(data: dict[str, Any], key: str, default: float = 0.0) -> float:
@@ -115,6 +115,17 @@ def add_effect(effects: dict[str, float], key: str, value: float) -> None:
         effects[key] = effects.get(key, 0.0) + value
 
 
+def numeric_mod_value_exact(texts: list[str], include: str, exclude: tuple[str, ...] = ()) -> float:
+    include_lower = include.lower()
+    exclude_lower = tuple(item.lower() for item in exclude)
+    for text in texts:
+        lower = text.lower()
+        if include_lower in lower and not any(blocked in lower for blocked in exclude_lower):
+            values = trade.all_numbers(text)
+            return values[0] if values else 0.0
+    return 0.0
+
+
 def candidate_effects(profile: str, item: dict[str, Any]) -> dict[str, float]:
     texts = trade.item_texts(item)
     effects: dict[str, float] = {}
@@ -132,6 +143,14 @@ def candidate_effects(profile: str, item: dict[str, Any]) -> dict[str, float]:
     add_effect(effects, "cold_resistance", all_res)
     add_effect(effects, "lightning_resistance", all_res)
     add_effect(effects, "crit_multiplier", trade.numeric_mod_value(texts, "Global Critical Strike Multiplier"))
+    add_effect(effects, "critical_strike_chance", trade.numeric_mod_value(texts, "increased Critical Strike Chance"))
+    add_effect(effects, "elemental_damage_with_attacks", trade.numeric_mod_value(texts, "increased Elemental Damage with Attack Skills"))
+    add_effect(effects, "elemental_damage", numeric_mod_value_exact(texts, "increased Elemental Damage", ("with Attack Skills",)))
+    add_effect(effects, "projectile_damage", trade.numeric_mod_value(texts, "increased Projectile Damage"))
+    add_effect(effects, "spell_damage", trade.numeric_mod_value(texts, "increased Spell Damage"))
+    add_effect(effects, "lightning_damage", trade.numeric_mod_value(texts, "increased Lightning Damage"))
+    add_effect(effects, "cast_speed", trade.numeric_mod_value(texts, "increased Cast Speed"))
+    add_effect(effects, "totem_damage", trade.numeric_mod_value(texts, "increased Totem Damage"))
 
     if trade.has_text(texts, "Curse Enemies with Vulnerability on Hit"):
         effects["vulnerability_on_hit"] = 1.0
@@ -139,6 +158,8 @@ def candidate_effects(profile: str, item: dict[str, Any]) -> dict[str, float]:
         effects["physical_damage_to_attacks"] = 1.0
     if trade.has_text(texts, "Total Mana Cost"):
         effects["mana_cost_channeling"] = -3.0
+    if trade.has_text(texts, "Level of all Lightning Spell Skill Gems"):
+        effects["gem_level"] = 1.0
 
     if profile == "abyss_jewel":
         if trade.has_text(texts, "Added Physical Damage with Staff Attacks"):
@@ -174,6 +195,7 @@ def candidate_for_slot(
     slot: str,
     player_items: dict[str, Any],
     rules: dict[str, Any],
+    profile_rules: dict[str, Any],
 ) -> Candidate | None:
     item = row.get("raw_item", {})
     effects = candidate_effects(row["profile"], item)
@@ -185,11 +207,13 @@ def candidate_for_slot(
         delta[key] = delta.get(key, 0.0) - value
 
     guarded_slots = rules.get("guarded_slots", rules.get("locked_slots", {}))
-
-    if slot == "ring_1" and delta.get("mana_cost_channeling", 0.0) >= 0:
-        warnings.append("bloqueado: trocar ring_1 remove o -mana cost do Cyclone")
-        penalty = float(rules.get("penalties", {}).get("missing_mana_cost_when_replacing_ring_1", 80))
-        delta["plan_penalty"] = delta.get("plan_penalty", 0.0) - penalty
+    required_keys = required_effects_for_slot(profile_rules, slot)
+    for key in required_keys:
+        if not preserves_required_effect(effects.get(key), current.get(key)):
+            warnings.append(f"bloqueado: trocar {slot} nao preserva {key}")
+            penalty_key = f"missing_{key}_when_replacing_{slot}"
+            penalty = float(rules.get("penalties", {}).get(penalty_key, rules.get("penalties", {}).get("missing_required_effect", 80)))
+            delta["plan_penalty"] = delta.get("plan_penalty", 0.0) - penalty
 
     if isinstance(guarded_slots, dict) and slot in guarded_slots:
         warnings.append(f"slot sensivel: {guarded_slots[slot]}")
@@ -223,6 +247,29 @@ def candidate_for_slot(
     )
 
 
+def required_effects_for_slot(profile_rules: dict[str, Any], slot: str) -> list[str]:
+    keys: list[str] = []
+    for field in (f"must_keep_if_replacing_{slot}", "must_keep"):
+        value = profile_rules.get(field)
+        if isinstance(value, list):
+            keys.extend(str(item) for item in value)
+    if slot == "ring_1":
+        legacy = profile_rules.get("must_keep_if_replacing_ring_1")
+        if isinstance(legacy, list):
+            keys.extend(str(item) for item in legacy)
+    return list(dict.fromkeys(keys))
+
+
+def preserves_required_effect(candidate_value: float | None, current_value: float | None) -> bool:
+    if current_value is None:
+        return candidate_value is not None
+    if current_value < 0:
+        return candidate_value is not None and candidate_value <= current_value
+    if current_value > 0:
+        return candidate_value is not None and candidate_value >= min(current_value, 1.0)
+    return candidate_value is not None
+
+
 def describe_effects(effects: dict[str, float]) -> list[str]:
     labels = {
         "vulnerability_on_hit": "ganha Vulnerability on Hit",
@@ -233,7 +280,11 @@ def describe_effects(effects: dict[str, float]) -> list[str]:
         "lightning_resistance": "lightning res",
         "chaos_resistance": "chaos res",
         "attack_speed": "attack speed",
+        "critical_strike_chance": "crit chance",
         "crit_multiplier": "crit multi",
+        "elemental_damage": "elemental damage",
+        "elemental_damage_with_attacks": "elemental damage attacks",
+        "projectile_damage": "projectile damage",
         "physical_damage_to_attacks": "flat phys attacks",
         "staff_flat_physical": "flat phys staff",
         "maximum_life_percent": "% life",
@@ -243,7 +294,12 @@ def describe_effects(effects: dict[str, float]) -> list[str]:
         "eight_passives": "cluster 8 passivas",
         "not_corrupted": "nao corrompido",
         "spell_block_during_effect": "spell block flask",
-        "attack_block_during_effect": "attack block flask"
+        "attack_block_during_effect": "attack block flask",
+        "spell_damage": "spell damage",
+        "lightning_damage": "lightning damage",
+        "cast_speed": "cast speed",
+        "totem_damage": "totem damage",
+        "gem_level": "+gem level"
     }
     out: list[str] = []
     for key, label in labels.items():
@@ -266,8 +322,7 @@ def final_stats_for_combo(base_stats: dict[str, float], candidates: tuple[Candid
         for key, value in candidate.effects.items():
             if key in {"plan_penalty", "mana_cost_channeling"}:
                 continue
-            if key in final:
-                final[key] += value
+            final[key] = final.get(key, 0.0) + value
     return final
 
 
@@ -280,6 +335,7 @@ def combo_score(
     weights = rules.get("weights", {})
     minimums = target_stats.get("minimums", {})
     goals = target_stats.get("goals", {})
+    soft_minimums = set(rules.get("soft_minimum_stats", [])) if isinstance(rules.get("soft_minimum_stats"), list) else set()
     score = 0.0
     gains: list[str] = []
     warnings: list[str] = []
@@ -287,6 +343,9 @@ def combo_score(
     for stat_name, minimum in minimums.items():
         value = final_stats.get(stat_name, 0.0)
         if value < float(minimum):
+            if stat_name in soft_minimums:
+                warnings.append(f"abaixo do minimo derivado: {stat_name} {value:g}/{minimum:g}; validar no PoB")
+                continue
             warnings.append(f"rejeitado: {stat_name} ficaria {value:g}, abaixo do minimo {minimum:g}")
             return -math.inf, gains, warnings, False
 
@@ -440,7 +499,7 @@ def collect_candidates(
         slots = profile_rules.get("replacement_slots", [])
         for row in rows[:max_per_profile]:
             for slot in slots:
-                candidate = candidate_for_slot(row, slot, player_items, rules)
+                candidate = candidate_for_slot(row, slot, player_items, rules, profile_rules)
                 if candidate:
                     candidates.append(candidate)
 
@@ -454,7 +513,8 @@ def collect_candidates(
             continue
         kept.append(candidate)
         counts[candidate.slot] = count + 1
-    return kept
+    max_total = int(rules.get("max_total_candidates", 48))
+    return kept[:max_total]
 
 
 def write_report(
@@ -466,8 +526,12 @@ def write_report(
     league: str,
     top: int,
     cheapest_first: bool,
+    output_md: Path,
+    output_html: Path,
+    output_json: Path,
+    active_slug: str,
 ) -> None:
-    REPORT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    output_md.parent.mkdir(parents=True, exist_ok=True)
     lines = [
         "# Upgrade Plan",
         "",
@@ -577,9 +641,30 @@ def write_report(
         ]
     )
 
-    REPORT_FILE.write_text("\n".join(lines), encoding="utf-8")
-    write_json_report(plans, best_any_budget, candidates, diagnostics, budget_chaos, league, top, cheapest_first)
-    write_html_report(plans, best_any_budget, candidates, diagnostics, budget_chaos, league, top, cheapest_first)
+    output_md.write_text("\n".join(lines), encoding="utf-8")
+    write_json_report(
+        plans,
+        best_any_budget,
+        candidates,
+        diagnostics,
+        budget_chaos,
+        league,
+        top,
+        cheapest_first,
+        output_json,
+        active_slug,
+    )
+    write_html_report(
+        plans,
+        best_any_budget,
+        candidates,
+        diagnostics,
+        budget_chaos,
+        league,
+        top,
+        cheapest_first,
+        output_html,
+    )
 
 
 def item_markdown_links(candidate: Candidate) -> str:
@@ -640,12 +725,14 @@ def write_json_report(
     league: str,
     top: int,
     cheapest_first: bool,
+    output_json: Path,
+    active_slug: str,
 ) -> None:
-    REPORT_JSON.parent.mkdir(parents=True, exist_ok=True)
+    output_json.parent.mkdir(parents=True, exist_ok=True)
     data = {
         "schema_version": 1,
         "generated_at": datetime.now().isoformat(timespec="seconds"),
-        "active_build_slug": active_build_slug(),
+        "active_build_slug": active_slug,
         "league": league,
         "budget_label": format_budget_label(budget_chaos),
         "budget_chaos": None if not math.isfinite(budget_chaos) else budget_chaos,
@@ -664,7 +751,7 @@ def write_json_report(
         "candidates": [candidate_to_dict(candidate) for candidate in candidates],
         "diagnostics": list(dict.fromkeys(diagnostics))[:30],
     }
-    REPORT_JSON.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    output_json.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def format_budget_label(budget_chaos: float) -> str:
@@ -700,8 +787,9 @@ def write_html_report(
     league: str,
     top: int,
     cheapest_first: bool,
+    output_html: Path,
 ) -> None:
-    REPORT_HTML.parent.mkdir(parents=True, exist_ok=True)
+    output_html.parent.mkdir(parents=True, exist_ok=True)
     generated = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     mode = "Top 3 upgrades seguros mais baratos" if cheapest_first else "Melhores planos dentro do budget"
 
@@ -862,10 +950,10 @@ def write_html_report(
       <span>Modo: {html.escape(mode)}</span>
     </div>
     <div class="quick-links">
-      <a href="../../data/generated/build_dashboard.html">Dashboard</a>
-      <a href="../../data/generated/upgrade_recommendations.html">Recomendacoes</a>
-      <a href="../../data/generated/next_searches.html">Proximas buscas</a>
-      <a href="../../data/generated/market_report.html">Mercado</a>
+      <a href="build_dashboard.html">Dashboard</a>
+      <a href="upgrade_recommendations.html">Recomendacoes</a>
+      <a href="next_searches.html">Proximas buscas</a>
+      <a href="market_report.html">Mercado</a>
     </div>
   </header>
   <main>
@@ -882,7 +970,7 @@ def write_html_report(
 </body>
 </html>
 """
-    REPORT_HTML.write_text(content, encoding="utf-8")
+    output_html.write_text(content, encoding="utf-8")
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
@@ -893,12 +981,27 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--top", type=int, default=None, help="Maximum plans to show. Defaults to 3 without budget and 10 with budget.")
     parser.add_argument("--max-fetch", type=int, default=30, help="Max trade listings fetched per profile.")
     parser.add_argument("--max-combo-size", type=int, default=None, help="Override max combo size.")
+    parser.add_argument("--request-delay", type=float, default=None, help="Seconds to wait between trade API requests. Defaults to market_config.json.")
+    parser.add_argument(
+        "--best-any-budget-mode",
+        choices=("reuse", "extra", "off"),
+        default="reuse",
+        help=(
+            "How to build the 'best cheap buy ignoring budget' section. "
+            "'reuse' uses already fetched rows and avoids extra API calls; "
+            "'extra' performs separate no-budget searches; 'off' disables it."
+        ),
+    )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--player-items", type=Path, default=PLAYER_ITEMS)
     parser.add_argument("--player-stats", type=Path, default=PLAYER_STATS)
     parser.add_argument("--target-items", type=Path, default=TARGET_ITEMS)
     parser.add_argument("--target-stats", type=Path, default=TARGET_STATS)
     parser.add_argument("--rules", type=Path, default=UPGRADE_RULES)
+    parser.add_argument("--active-build", type=Path, default=ACTIVE_BUILD)
+    parser.add_argument("--output-md", type=Path, default=REPORT_FILE)
+    parser.add_argument("--output-html", type=Path, default=REPORT_HTML)
+    parser.add_argument("--output-json", type=Path, default=REPORT_JSON)
     return parser.parse_args(argv)
 
 
@@ -908,7 +1011,7 @@ def main(argv: list[str]) -> int:
     league = args.league or config.get("league", "Mirage")
     user_agent = config.get("user_agent", "poe-market-filter-toolkit/1.0 (+personal loot filter project)")
     timeout = int(config.get("timeout_seconds", 30))
-    delay = float(config.get("request_delay_seconds", 0.9))
+    delay = float(args.request_delay if args.request_delay is not None else config.get("request_delay_seconds", 0.9))
     divine_price = trade.load_divine_price_chaos()
     cheapest_first = not bool(args.budget)
     budget_chaos = trade.parse_budget(args.budget, divine_price) if args.budget else NO_BUDGET_SEARCH_LIMIT_CHAOS
@@ -922,7 +1025,7 @@ def main(argv: list[str]) -> int:
     max_combo_size = args.max_combo_size or (1 if cheapest_first else int(rules.get("max_combo_size", 3)))
     max_combo_size = max(1, min(3, max_combo_size))
 
-    profiles = trade.make_profiles()
+    profiles = trade.make_profiles(args.rules)
     if args.profiles == "all":
         selected = list(profiles.values())
     else:
@@ -958,7 +1061,11 @@ def main(argv: list[str]) -> int:
             rows = []
         rows_by_profile[profile.key] = rows
         print(f"  accepted candidates: {len(rows)}")
-        if math.isfinite(budget_chaos):
+        if args.best_any_budget_mode == "off":
+            rows_by_profile_any_budget[profile.key] = []
+        elif args.best_any_budget_mode == "reuse" or not math.isfinite(budget_chaos):
+            rows_by_profile_any_budget[profile.key] = rows
+        elif math.isfinite(budget_chaos):
             try:
                 rows_any = evaluate_profile_with_raw_items(
                     profile=profile,
@@ -975,8 +1082,6 @@ def main(argv: list[str]) -> int:
                 print(f"[warning] profile best-any-budget failed: {profile.key}: {exc}")
                 rows_any = []
             rows_by_profile_any_budget[profile.key] = rows_any
-        else:
-            rows_by_profile_any_budget[profile.key] = rows
         time.sleep(delay)
 
     candidates = collect_candidates(rows_by_profile, target_items, player_items, rules)
@@ -985,7 +1090,20 @@ def main(argv: list[str]) -> int:
     best_any_budget = best_single_purchase_any_budget(any_budget_candidates, player_stats, target_stats, rules)
     if cheapest_first:
         plans = plans[:top]
-    write_report(plans, best_any_budget, candidates, diagnostics, budget_chaos, league, top, cheapest_first)
+    write_report(
+        plans,
+        best_any_budget,
+        candidates,
+        diagnostics,
+        budget_chaos,
+        league,
+        top,
+        cheapest_first,
+        args.output_md,
+        args.output_html,
+        args.output_json,
+        active_build_slug(args.active_build),
+    )
 
     if not plans:
         print("No safe plan found. See report for reasons.")
@@ -994,9 +1112,9 @@ def main(argv: list[str]) -> int:
         for rank, plan in enumerate(plans[:top], start=1):
             names = " + ".join(candidate.name for candidate in plan.candidates)
             print(f"{rank}. {names} | {plan.price_chaos:.1f}c | score {plan.score:.1f}")
-    print(f"Report saved: {REPORT_FILE}")
-    print(f"HTML report saved: {REPORT_HTML}")
-    print(f"JSON report saved: {REPORT_JSON}")
+    print(f"Report saved: {args.output_md}")
+    print(f"HTML report saved: {args.output_html}")
+    print(f"JSON report saved: {args.output_json}")
     return 0
 
 

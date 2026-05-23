@@ -138,7 +138,11 @@ def build_gap_analysis(
         "notes": [
             "Este arquivo usa os stats numericos disponiveis no player_stats.json.",
             "Stats ausentes devem vir de PoB, da API parseada ou de entrada manual.",
-            "The Brass Dome equipado: Strength nao deve ser pontuada como fonte de vida.",
+            *[
+                str(note)
+                for note in rules.get("gap_notes", [])
+                if isinstance(note, str)
+            ],
         ],
     }
 

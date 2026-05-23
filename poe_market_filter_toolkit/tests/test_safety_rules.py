@@ -13,6 +13,7 @@ import plan_upgrade_path
 import recommend_next_steps as recommend
 import run_build_matrix
 import switch_build
+import update_market
 
 
 class SafetyRulesTest(unittest.TestCase):
@@ -46,7 +47,7 @@ class SafetyRulesTest(unittest.TestCase):
             },
         }
 
-        entries = recommend.search_entries(gap)
+        entries = recommend.search_entries(gap, {"allow_legacy_search_library": True})
 
         self.assertEqual(entries[0]["stat"], "life")
 
@@ -60,9 +61,21 @@ class SafetyRulesTest(unittest.TestCase):
             },
         }
 
-        entries = recommend.search_entries(gap)
+        entries = recommend.search_entries(gap, {"allow_legacy_search_library": True})
 
         self.assertEqual(entries[0]["priority"], "low")
+
+    def test_search_entries_do_not_use_legacy_library_by_default(self):
+        gap = {
+            "risks": {
+                "life": {"current": 3400, "goal": 3800, "status": "needs_improvement", "missing_to_goal": 400},
+            },
+            "current_priorities": {"life": "high"},
+        }
+
+        entries = recommend.search_entries(gap)
+
+        self.assertEqual(entries, [])
 
     def test_dashboard_links_are_relative_to_generated_html(self):
         output = ROOT / "data" / "generated" / "build_dashboard.html"
@@ -78,6 +91,15 @@ class SafetyRulesTest(unittest.TestCase):
             plan_upgrade_path.budget_price_windows(1000),
             [(None, 200.0), (200.0, 600.0), (600.0, 1000.0)],
         )
+
+    def test_elemental_attack_damage_is_not_double_counted_as_generic_elemental(self):
+        effects = plan_upgrade_path.candidate_effects(
+            "quiver_damage",
+            {"explicitMods": ["32% increased Elemental Damage with Attack Skills"]},
+        )
+
+        self.assertEqual(effects.get("elemental_damage_with_attacks"), 32)
+        self.assertNotIn("elemental_damage", effects)
 
     def test_dashboard_builds_exact_trade_link_from_result_id(self):
         html = generate_dashboard.trade_actions(
@@ -161,6 +183,16 @@ class SafetyRulesTest(unittest.TestCase):
 
         self.assertIn("bow_elemental_dps", profiles)
         self.assertNotIn("ring_vulnerability", profiles)
+
+    def test_market_dedupe_preserves_named_variants(self):
+        items = [
+            {"source_endpoint": "stash", "requested_category": "SkillGem", "category": "SkillGem", "name": "Example Gem", "variant": "20/20", "details_id": "a", "chaos_value": 10},
+            {"source_endpoint": "stash", "requested_category": "SkillGem", "category": "SkillGem", "name": "Example Gem", "variant": "21/20", "details_id": "b", "chaos_value": 100},
+        ]
+
+        deduped = update_market.dedupe_items(items)
+
+        self.assertEqual(len(deduped), 2)
 
 
 if __name__ == "__main__":

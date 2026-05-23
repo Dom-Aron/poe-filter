@@ -21,12 +21,14 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_GAP = ROOT / "data" / "generated" / "gap_analysis.json"
 DEFAULT_RULES = ROOT / "builds" / "upgrade_rules.json"
+DEFAULT_ACTIVE_BUILD = ROOT / "builds" / "active_build.json"
+DEFAULT_ACTIVE_CHARACTER = ROOT / "builds" / "active_character.json"
 DEFAULT_NEXT_SEARCHES = ROOT / "data" / "generated" / "next_searches.md"
 DEFAULT_RECOMMENDATIONS = ROOT / "data" / "generated" / "upgrade_recommendations.md"
 DEFAULT_REPORT_JSON = ROOT / "data" / "generated" / "upgrade_report.json"
 
 
-SEARCH_LIBRARY: dict[str, dict[str, Any]] = {
+LEGACY_SEARCH_LIBRARY: dict[str, dict[str, Any]] = {
     "life": {
         "title": "Jewel com maximum life",
         "priority": "alta",
@@ -141,7 +143,9 @@ def active_search_library(rules: dict[str, Any]) -> dict[str, dict[str, Any]]:
     configured = rules.get("search_library")
     if isinstance(configured, dict) and configured:
         return {str(key): value for key, value in configured.items() if isinstance(value, dict)}
-    return SEARCH_LIBRARY
+    if rules.get("allow_legacy_search_library"):
+        return LEGACY_SEARCH_LIBRARY
+    return {}
 
 
 def search_entries(gap: dict[str, Any], rules: dict[str, Any] | None = None) -> list[dict[str, Any]]:
@@ -158,7 +162,9 @@ def search_entries(gap: dict[str, Any], rules: dict[str, Any] | None = None) -> 
             "stat": stat_name,
             "status": risk.get("status"),
             "current": risk.get("current"),
+            "minimum": risk.get("minimum"),
             "goal": risk.get("goal"),
+            "missing_to_minimum": risk.get("missing_to_minimum"),
             "missing_to_goal": risk.get("missing_to_goal"),
             "priority": priority,
             **template,
@@ -172,6 +178,20 @@ def search_entries(gap: dict[str, Any], rules: dict[str, Any] | None = None) -> 
     return entries
 
 
+def gap_context(entry: dict[str, Any]) -> str:
+    status = str(entry.get("status") or "unknown")
+    current = entry.get("current")
+    minimum = entry.get("minimum")
+    goal = entry.get("goal")
+    missing = entry.get("missing_to_minimum")
+    label = "minimo"
+    if not isinstance(missing, (int, float)):
+        missing = entry.get("missing_to_goal")
+        label = "meta"
+    missing_text = f"; falta {missing:g} ate {label}" if isinstance(missing, (int, float)) else ""
+    return f"status={status}; atual={current}; minimo={minimum}; meta={goal}{missing_text}"
+
+
 def write_next_searches(path: Path, entries: list[dict[str, Any]]) -> None:
     lines = [
         "# Proximas buscas recomendadas",
@@ -181,12 +201,19 @@ def write_next_searches(path: Path, entries: list[dict[str, Any]]) -> None:
     ]
     if not entries:
         lines.append("Nenhuma busca recomendada com os dados atuais.")
+        lines.append("")
+        lines.append("Possiveis motivos:")
+        lines.append("- A build nao tem `search_library` configurado em `upgrade_rules.json`.")
+        lines.append("- Os gaps atuais nao combinam com nenhuma busca declarada para esta build.")
+        lines.append("- A build/personagem ja esta perto o bastante dos alvos configurados.")
     for index, entry in enumerate(entries, start=1):
         lines.extend(
             [
                 f"## {index}. {entry['title']}",
                 "",
                 f"Prioridade: {entry.get('priority_pt') or entry['priority']}",
+                "",
+                f"Gap: {gap_context(entry)}",
                 "",
                 f"Motivo: {entry['reason']}",
                 "",
@@ -251,6 +278,8 @@ def write_recommendations(path: Path, gap: dict[str, Any], entries: list[dict[st
                     "",
                     f"Prioridade: {entry.get('priority_pt') or entry['priority']}",
                     "",
+                    f"Gap: {gap_context(entry)}",
+                    "",
                     f"Motivo: {entry['reason']}",
                     "",
                     f"Perfis relacionados: {', '.join(entry.get('profiles') or ['busca manual'])}",
@@ -259,6 +288,8 @@ def write_recommendations(path: Path, gap: dict[str, Any], entries: list[dict[st
             )
     else:
         lines.append("Nenhuma compra recomendada com os dados atuais.")
+        lines.append("")
+        lines.append("Se isso parecer estranho, confira se `upgrade_rules.json` da build tem `search_library` e `trade_profiles`.")
 
     lines.extend(
         [
@@ -267,7 +298,6 @@ def write_recommendations(path: Path, gap: dict[str, Any], entries: list[dict[st
             "- Itens importantes podem ser trocados se a melhora for clara e nao quebrar pisos da build.",
             "- Evitar sidegrades: gastar pouco para melhorar quase nada geralmente nao compensa.",
             "- Usar o score minimo configurado antes de considerar uma compra.",
-            "- Nao pontuar Strength como vida enquanto The Brass Dome estiver equipada.",
             "- Nao comprar item acima do budget como compra imediata; tratar como monitorar depois.",
             "- Confirmar qualquer compra no trade, PoE Overlay e PoB.",
             "",
@@ -277,10 +307,21 @@ def write_recommendations(path: Path, gap: dict[str, Any], entries: list[dict[st
     path.write_text("\n".join(lines), encoding="utf-8")
 
 
-def write_report_json(path: Path, gap: dict[str, Any], entries: list[dict[str, Any]], rules: dict[str, Any]) -> None:
+def write_report_json(
+    path: Path,
+    gap: dict[str, Any],
+    entries: list[dict[str, Any]],
+    rules: dict[str, Any],
+    active_build: dict[str, Any],
+    active_character: dict[str, Any],
+) -> None:
     report = {
         "schema_version": 1,
         "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "active_build_slug": active_build.get("active_slug", ""),
+        "active_build_name": active_build.get("name", ""),
+        "active_character_slug": active_character.get("active_slug", ""),
+        "active_character_name": active_character.get("name", ""),
         "priorities": gap.get("current_priorities", {}),
         "guarded_slots": gap.get("guarded_slots") or gap.get("protected_slots", {}),
         "recommended_searches": entries,
@@ -302,6 +343,8 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--next-searches", type=Path, default=DEFAULT_NEXT_SEARCHES)
     parser.add_argument("--recommendations", type=Path, default=DEFAULT_RECOMMENDATIONS)
     parser.add_argument("--report-json", type=Path, default=DEFAULT_REPORT_JSON)
+    parser.add_argument("--active-build", type=Path, default=DEFAULT_ACTIVE_BUILD)
+    parser.add_argument("--active-character", type=Path, default=DEFAULT_ACTIVE_CHARACTER)
     return parser.parse_args(argv)
 
 
@@ -309,10 +352,12 @@ def main(argv: list[str]) -> int:
     args = parse_args(argv)
     gap = load_json(args.gap)
     rules = load_json(args.rules)
+    active_build = load_json(args.active_build) if args.active_build.exists() else {}
+    active_character = load_json(args.active_character) if args.active_character.exists() else {}
     entries = search_entries(gap, rules)
     write_next_searches(args.next_searches, entries)
     write_recommendations(args.recommendations, gap, entries)
-    write_report_json(args.report_json, gap, entries, rules)
+    write_report_json(args.report_json, gap, entries, rules, active_build, active_character)
     print(f"Next searches saved: {args.next_searches}")
     print(f"Recommendations saved: {args.recommendations}")
     print(f"Upgrade report JSON saved: {args.report_json}")

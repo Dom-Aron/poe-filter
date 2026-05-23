@@ -164,10 +164,17 @@ def configured_categories(config: dict[str, Any]) -> tuple[list[str], list[str]]
 
 
 def dedupe_items(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    by_key: dict[tuple[str, str], dict[str, Any]] = {}
+    by_key: dict[tuple[str, str, str, str, str, str], dict[str, Any]] = {}
 
     for item in items:
-        key = (str(item.get("category", "")), str(item.get("name", "")))
+        key = (
+            str(item.get("source_endpoint", "")),
+            str(item.get("requested_category", "")),
+            str(item.get("category", "")),
+            str(item.get("name", "")),
+            str(item.get("variant", "")),
+            str(item.get("details_id", "")),
+        )
         current = by_key.get(key)
         item_value = float(item.get("chaos_value", 0) or 0)
         current_value = float(current.get("chaos_value", 0) or 0) if current else -1

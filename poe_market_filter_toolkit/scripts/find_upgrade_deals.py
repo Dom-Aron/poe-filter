@@ -2,8 +2,8 @@
 """
 find_upgrade_deals.py
 
-Searches the official Path of Exile trade API for budget upgrades for the
-active target build configured in this repo.
+Searches the official Path of Exile trade API for budget upgrades using a
+declared upgrade_rules.json file.
 
 Usage:
     python poe_market_filter_toolkit/scripts/find_upgrade_deals.py --budget 251c
@@ -23,6 +23,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import re
 import sys
 import time
@@ -44,6 +45,7 @@ REPORT_FILE = ROOT / "market" / "reports" / "upgrade_deals.md"
 STATS_CACHE = ROOT / "market" / "trade_stats_cache.json"
 
 TRADE_BASE = "https://www.pathofexile.com"
+MAX_RATE_LIMIT_WAIT_SECONDS = int(os.environ.get("POE_TRADE_MAX_RATE_LIMIT_WAIT_SECONDS", "90"))
 
 PROFILE_GUIDANCE = {
     "ring_vulnerability": {
@@ -146,6 +148,11 @@ def request_json(
             if exc.code == 429:
                 retry_after = exc.headers.get("Retry-After")
                 wait_seconds = int(retry_after) if retry_after and retry_after.isdigit() else 8 * attempt
+                if wait_seconds > MAX_RATE_LIMIT_WAIT_SECONDS:
+                    raise RuntimeError(
+                        f"Rate limited by Path of Exile trade API for {wait_seconds}s; "
+                        f"max configured wait is {MAX_RATE_LIMIT_WAIT_SECONDS}s."
+                    ) from exc
                 print(f"[rate limit] waiting {wait_seconds}s before retrying {url}")
                 time.sleep(wait_seconds)
                 continue
@@ -513,7 +520,9 @@ def make_profiles(rules_path: Path = DEFAULT_RULES) -> dict[str, Profile]:
     configured = rules.get("trade_profiles") if isinstance(rules.get("trade_profiles"), dict) else {}
     if configured:
         return {key: profile_from_dict(key, value) for key, value in configured.items() if isinstance(value, dict)}
-    return default_profiles()
+    if rules.get("allow_legacy_trade_profiles") or rules_path.resolve() == DEFAULT_RULES.resolve():
+        return default_profiles()
+    return {}
 
 
 def extract_number_near(text: str) -> float | None:
@@ -824,8 +833,9 @@ def write_report(
     budget_chaos: float,
     league: str,
     top: int,
+    output: Path,
 ) -> None:
-    REPORT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    output.parent.mkdir(parents=True, exist_ok=True)
     lines = [
         "# Upgrade Deals",
         "",
@@ -909,7 +919,7 @@ def write_report(
             lines.append(f"| {rank} | {row['score']:.1f} | {row['value_score']:.2f} |")
         lines.extend(["", "</details>", ""])
 
-    REPORT_FILE.write_text("\n".join(lines), encoding="utf-8")
+    output.write_text("\n".join(lines), encoding="utf-8")
 
 
 def print_summary(profiles: list[Profile], rows_by_profile: dict[str, list[dict[str, Any]]], top: int) -> None:
@@ -936,10 +946,12 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Find budget upgrade deals on official Path of Exile trade.")
     parser.add_argument("--budget", required=True, help="Available budget, e.g. 251c, 1d, 1.5div.")
     parser.add_argument("--league", help="League name. Defaults to config/market_config.json.")
-    parser.add_argument("--profiles", default="all", help="Comma list or all. Available: ring_vulnerability,jewel_damage,abyss_jewel,large_cluster,rumi_uncorrupted")
+    parser.add_argument("--rules", type=Path, default=DEFAULT_RULES, help="Build-specific upgrade_rules.json. Prefer passing a profile path.")
+    parser.add_argument("--profiles", default="all", help="Comma list or all. Available profiles come from --rules trade_profiles, or legacy defaults.")
     parser.add_argument("--top", type=int, default=5, help="Rows per profile to print/save.")
     parser.add_argument("--max-fetch", type=int, default=25, help="Max listings fetched per profile.")
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
+    parser.add_argument("--output", type=Path, default=REPORT_FILE)
     return parser.parse_args(argv)
 
 
@@ -953,7 +965,7 @@ def main(argv: list[str]) -> int:
     divine_price = load_divine_price_chaos()
     budget_chaos = parse_budget(args.budget, divine_price)
 
-    profiles = make_profiles()
+    profiles = make_profiles(args.rules)
     if args.profiles == "all":
         selected = list(profiles.values())
     else:
@@ -990,8 +1002,8 @@ def main(argv: list[str]) -> int:
         time.sleep(delay)
 
     print_summary(selected, rows_by_profile, args.top)
-    write_report(selected, rows_by_profile, budget_chaos, league, args.top)
-    print(f"\nReport saved: {REPORT_FILE}")
+    write_report(selected, rows_by_profile, budget_chaos, league, args.top, args.output)
+    print(f"\nReport saved: {args.output}")
     return 0
 
 
