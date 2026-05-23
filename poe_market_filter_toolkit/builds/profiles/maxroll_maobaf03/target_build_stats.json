@@ -16,7 +16,7 @@
     "cold_resistance": 78,
     "lightning_resistance": 78,
     "chaos_resistance": 75,
-    "crit_chance": 94,
+    "critical_strike_chance": 94,
     "crit_multiplier": 571,
     "ehp": 22811
   }

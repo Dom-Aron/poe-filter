@@ -3,9 +3,11 @@
   "max_combo_size": 3,
   "max_candidates_per_profile": 8,
   "max_candidates_per_slot": 6,
+  "max_total_candidates": 48,
   "hard_reject_if_below_minimum": true,
   "minimum_plan_score": 50,
   "minimum_guarded_slot_score": 50,
+  "soft_minimum_stats": ["chance_to_hit"],
   "guarded_slots": {
     "weapon": "Slot central de dano: trocar apenas se o arco novo for claramente melhor.",
     "quiver": "Quiver pode carregar dano e vida; evitar sidegrade caro."
@@ -53,7 +55,7 @@
       "price_hint": "Bom em jewels e acessorios quando nao sacrifica dano.",
       "profiles": ["deadeye_jewel", "deadeye_accessory"]
     },
-    "crit_chance": {
+    "critical_strike_chance": {
       "title": "Crit chance/crit multi para escalar Deadeye",
       "priority": "alta",
       "reason": "Crit e multiplicador sao parte central do dano da build.",

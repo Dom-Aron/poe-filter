@@ -3,40 +3,130 @@
   "max_combo_size": 3,
   "max_candidates_per_profile": 8,
   "max_candidates_per_slot": 6,
+  "max_total_candidates": 48,
   "hard_reject_if_below_minimum": true,
   "minimum_plan_score": 50,
   "minimum_guarded_slot_score": 50,
-  "budget": {
-    "allow_partial_budget": true,
-    "message_when_empty": "O budget pode ser insuficiente ou o mercado pode nao ter ofertas seguras agora."
-  },
   "guarded_slots": {
-    "body_armour": "Slot sensivel: trocar apenas se nao quebrar resistencias/defesas e se o ganho passar o minimo configurado.",
-    "gloves": "Slot sensivel: trocar apenas se preservar accuracy/vida/resistencias e entregar melhoria clara."
+    "weapon": "Slot central de dano: trocar apenas se houver ganho claro de spell/cast/lightning.",
+    "shield": "Shield deve preservar vida ou resistencia enquanto melhora dano/conforto."
   },
   "weights": {
-    "vulnerability_on_hit": 140,
-    "impale_chance": 5,
-    "life": 1.1,
-    "fire_resistance": 1.0,
-    "cold_resistance": 1.1,
-    "lightning_resistance": 0.7,
-    "chaos_resistance": 1.7,
-    "accuracy": 0.03,
-    "attack_speed": 4,
-    "physical_damage_to_attacks": 25,
-    "staff_flat_physical": 30,
-    "staff_physical_damage_percent": 2.5,
+    "life": 1.0,
+    "spell_damage": 2.0,
+    "lightning_damage": 2.0,
+    "cast_speed": 5.0,
+    "totem_damage": 2.0,
+    "gem_level": 60,
     "crit_multiplier": 2.0,
-    "spell_block_during_effect": 6,
-    "attack_block_during_effect": 3,
-    "not_corrupted": 25,
-    "large_cluster_good_base": 70,
-    "eight_passives": 35
+    "maximum_life_percent": 6.0,
+    "fire_resistance": 0.8,
+    "cold_resistance": 0.8,
+    "lightning_resistance": 0.8,
+    "chaos_resistance": 1.4
   },
   "penalties": {
-    "replacing_protected_slot": 80,
-    "missing_mana_cost_when_replacing_ring_1": 80,
-    "same_profile_duplicate": 35
+    "replacing_protected_slot": 70,
+    "same_profile_duplicate": 30
+  },
+  "search_library": {
+    "spell_damage": {
+      "title": "Arma ou shield com spell/lightning damage",
+      "priority": "alta",
+      "reason": "Storm Burst Totem escala por dano de spell/lightning e cast speed.",
+      "trade_terms": ["Spell Damage", "Lightning Damage", "+1 to Level of all Lightning Spell Skill Gems", "Cast Speed"],
+      "price_hint": "Priorize pacote com spell damage + cast speed ou +1 gem.",
+      "profiles": ["spell_weapon", "spell_shield"]
+    },
+    "cast_speed": {
+      "title": "Cast speed sem perder vida",
+      "priority": "alta",
+      "reason": "Cast speed aumenta conforto e dano efetivo dos totens.",
+      "trade_terms": ["Cast Speed", "Spell Damage", "maximum Life"],
+      "price_hint": "Bom em arma, shield, amuleto e aneis.",
+      "profiles": ["spell_weapon", "spell_accessory", "spell_shield"]
+    },
+    "life": {
+      "title": "Vida em shield/acessorios/jewel",
+      "priority": "media",
+      "reason": "A build de teste ainda esta abaixo do alvo de vida.",
+      "trade_terms": ["maximum Life", "Spell Damage", "Cast Speed", "Chaos Resistance"],
+      "price_hint": "Vida isolada e sidegrade; compre quando vier com dano ou resistencia.",
+      "profiles": ["spell_shield", "spell_accessory", "totem_jewel"]
+    },
+    "chaos_resistance": {
+      "title": "Chaos resistance com dano ou vida",
+      "priority": "media",
+      "reason": "Chaos negativo deixa a build instavel.",
+      "trade_terms": ["Chaos Resistance", "maximum Life", "Cast Speed"],
+      "price_hint": "Acessorios costumam resolver isso com menor custo.",
+      "profiles": ["spell_accessory", "totem_jewel"]
+    }
+  },
+  "trade_profiles": {
+    "spell_weapon": {
+      "label": "Wand/sceptre spell lightning",
+      "why": "Principal upgrade ofensivo para Storm Burst Totem.",
+      "query": {"status": {"option": "online"}, "filters": {"type_filters": {"filters": {"category": {"option": "weapon"}, "rarity": {"option": "rare"}}}}},
+      "count_stat_texts": ["#% increased Spell Damage", "#% increased Lightning Damage", "#% increased Cast Speed", "+# to Level of all Lightning Spell Skill Gems", "+#% to Global Critical Strike Multiplier"],
+      "count_min": 2,
+      "weights": [
+        {"contains": "increased Spell Damage", "per_value": 1.8, "cap": 70},
+        {"contains": "increased Lightning Damage", "per_value": 1.8, "cap": 70},
+        {"contains": "increased Cast Speed", "per_value": 5.0, "cap": 60},
+        {"contains": "Level of all Lightning Spell Skill Gems", "points": 70},
+        {"contains": "Global Critical Strike Multiplier", "per_value": 2.0, "cap": 45}
+      ],
+      "base_score": 15,
+      "min_score": 65
+    },
+    "spell_shield": {
+      "label": "Shield spell com vida",
+      "why": "Shield pode melhorar vida/resistencia e ainda adicionar spell damage.",
+      "query": {"status": {"option": "online"}, "filters": {"type_filters": {"filters": {"category": {"option": "armour.shield"}, "rarity": {"option": "rare"}}}}},
+      "count_stat_texts": ["+# to maximum Life", "#% increased Spell Damage", "#% increased Cast Speed", "+#% to all Elemental Resistances", "+#% to Chaos Resistance"],
+      "count_min": 2,
+      "weights": [
+        {"contains": "to maximum Life", "per_value": 0.9, "cap": 55},
+        {"contains": "increased Spell Damage", "per_value": 1.8, "cap": 60},
+        {"contains": "increased Cast Speed", "per_value": 5.0, "cap": 45},
+        {"contains": "to all Elemental Resistances", "per_value": 1.0, "cap": 35},
+        {"contains": "to Chaos Resistance", "per_value": 1.0, "cap": 30}
+      ],
+      "base_score": 10,
+      "min_score": 60
+    },
+    "spell_accessory": {
+      "label": "Acessorio spell/totem",
+      "why": "Aneis e amuletos corrigem vida/resists e podem trazer cast speed.",
+      "query": {"status": {"option": "online"}, "filters": {"type_filters": {"filters": {"category": {"option": "accessory"}, "rarity": {"option": "rare"}}}}},
+      "count_stat_texts": ["+# to maximum Life", "#% increased Cast Speed", "#% increased Spell Damage", "+#% to Chaos Resistance", "+#% to all Elemental Resistances"],
+      "count_min": 2,
+      "weights": [
+        {"contains": "to maximum Life", "per_value": 0.8, "cap": 55},
+        {"contains": "increased Cast Speed", "per_value": 5.0, "cap": 45},
+        {"contains": "increased Spell Damage", "per_value": 1.8, "cap": 55},
+        {"contains": "to Chaos Resistance", "per_value": 1.0, "cap": 30},
+        {"contains": "to all Elemental Resistances", "per_value": 1.0, "cap": 35}
+      ],
+      "base_score": 10,
+      "min_score": 60
+    },
+    "totem_jewel": {
+      "label": "Jewel spell/totem",
+      "why": "Jewel flexivel para vida, totem damage, spell damage e crit.",
+      "query": {"status": {"option": "online"}, "filters": {"type_filters": {"filters": {"category": {"option": "jewel.base"}, "rarity": {"option": "rare"}}}}},
+      "count_stat_texts": ["#% increased maximum Life", "#% increased Totem Damage", "#% increased Spell Damage", "#% increased Cast Speed", "+#% to Global Critical Strike Multiplier"],
+      "count_min": 2,
+      "weights": [
+        {"contains": "increased maximum Life", "per_value": 5.0, "cap": 40},
+        {"contains": "increased Totem Damage", "per_value": 2.0, "cap": 45},
+        {"contains": "increased Spell Damage", "per_value": 1.8, "cap": 40},
+        {"contains": "increased Cast Speed", "per_value": 4.0, "cap": 35},
+        {"contains": "Global Critical Strike Multiplier", "per_value": 2.0, "cap": 40}
+      ],
+      "base_score": 5,
+      "min_score": 58
+    }
   }
 }

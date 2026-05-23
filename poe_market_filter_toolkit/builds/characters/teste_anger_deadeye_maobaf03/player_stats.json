@@ -1,24 +1,21 @@
 {
   "schema_version": 1,
-  "updated": "2026-05-18",
+  "updated": "2026-05-20",
   "stats": {
-    "life": 3410,
-    "accuracy": 2543,
-    "chance_to_hit": 96,
-    "chance_to_hit_evasive": 87,
-    "impale_chance": 46,
-    "fire_resistance": 81,
-    "cold_resistance": 80,
-    "lightning_resistance": 80,
-    "chaos_resistance": 23,
-    "attack_block": 62,
-    "spell_block": 17,
-    "ailment_avoidance": 16
+    "life": 3150,
+    "accuracy": 1900,
+    "chance_to_hit": 91,
+    "critical_strike_chance": 48,
+    "crit_multiplier": 330,
+    "fire_resistance": 78,
+    "cold_resistance": 73,
+    "lightning_resistance": 76,
+    "chaos_resistance": -2
   },
   "uncapped_resistance_notes": {
-    "fire_resistance": 134,
-    "cold_resistance": 91,
-    "lightning_resistance": 156,
-    "chaos_resistance": 23
+    "fire_resistance": 105,
+    "cold_resistance": 82,
+    "lightning_resistance": 95,
+    "chaos_resistance": -2
   }
 }

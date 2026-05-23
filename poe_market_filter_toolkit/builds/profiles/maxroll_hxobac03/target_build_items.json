@@ -5,19 +5,19 @@
   "desired_by_profile": {
     "bow_elemental_dps": {
       "replacement_slots": ["weapon"],
-      "desired_stats": ["elemental_damage", "attack_speed", "critical_strike_chance", "critical_multiplier"]
+      "desired_stats": ["elemental_damage", "attack_speed", "critical_strike_chance", "crit_multiplier"]
     },
     "quiver_damage": {
       "replacement_slots": ["quiver"],
-      "desired_stats": ["life", "elemental_damage_with_attacks", "critical_multiplier", "attack_speed", "accuracy"]
+      "desired_stats": ["life", "elemental_damage_with_attacks", "crit_multiplier", "attack_speed", "accuracy"]
     },
     "deadeye_jewel": {
       "replacement_slots": ["jewel_free_1"],
-      "desired_stats": ["maximum_life_percent", "projectile_damage", "attack_speed", "critical_multiplier", "chaos_resistance"]
+      "desired_stats": ["maximum_life_percent", "projectile_damage", "attack_speed", "crit_multiplier", "chaos_resistance"]
     },
     "deadeye_accessory": {
       "replacement_slots": ["ring_1", "ring_2", "amulet"],
-      "desired_stats": ["life", "elemental_damage_with_attacks", "critical_multiplier", "accuracy", "resistance"]
+      "desired_stats": ["life", "elemental_damage_with_attacks", "crit_multiplier", "accuracy", "resistance"]
     },
     "utility_flask": {
       "replacement_slots": ["flask_utility"],

@@ -3,9 +3,13 @@
   "max_combo_size": 3,
   "max_candidates_per_profile": 8,
   "max_candidates_per_slot": 6,
+  "max_total_candidates": 48,
   "hard_reject_if_below_minimum": true,
   "minimum_plan_score": 50,
   "minimum_guarded_slot_score": 50,
+  "allow_legacy_trade_profiles": true,
+  "soft_minimum_stats": ["chance_to_hit"],
+  "derived_goal_stats": ["chance_to_hit_evasive", "spell_block", "ailment_avoidance"],
   "budget": {
     "allow_partial_budget": true,
     "message_when_empty": "O budget pode ser insuficiente ou o mercado pode nao ter ofertas seguras agora."
@@ -13,6 +17,98 @@
   "guarded_slots": {
     "body_armour": "Slot sensivel: trocar apenas se nao quebrar resistencias/defesas e se o ganho passar o minimo configurado.",
     "gloves": "Slot sensivel: trocar apenas se preservar accuracy/vida/resistencias e entregar melhoria clara."
+  },
+  "gap_notes": [
+    "The Brass Dome equipado: Strength nao deve ser pontuada como fonte de vida."
+  ],
+  "search_library": {
+    "life": {
+      "title": "Jewel com maximum life",
+      "priority": "alta",
+      "reason": "Vida esta abaixo da meta e jewels permitem melhorar sem mexer em slots sensiveis.",
+      "trade_terms": [
+        "6-7% increased maximum Life",
+        "Attack Speed with Staves ou Two Handed Melee Weapons",
+        "Global Critical Strike Multiplier",
+        "Physical Damage with Staves",
+        "Chaos Resistance se possivel"
+      ],
+      "price_hint": "Ate 30c: bom; 30-80c: comprar se tiver vida + 2 mods uteis; acima disso, comparar no PoB.",
+      "profiles": ["jewel_damage", "abyss_jewel"]
+    },
+    "chaos_resistance": {
+      "title": "Jewel/anel/cinto com Chaos Resistance",
+      "priority": "alta",
+      "reason": "Chaos Resistance esta positiva, mas abaixo da meta confortavel.",
+      "trade_terms": [
+        "+#% to Chaos Resistance",
+        "+# to maximum Life",
+        "mods de dano fisico/attack speed/crit se for jewel",
+        "nao perder resistencias elementais capadas"
+      ],
+      "price_hint": "Barato em jewels simples; em anel com Vulnerability fica mais caro.",
+      "profiles": ["jewel_damage", "abyss_jewel", "ring_vulnerability"]
+    },
+    "impale_chance": {
+      "title": "Cluster/jewel com Impale ou dano fisico",
+      "priority": "alta",
+      "reason": "Chance de Impale esta longe da meta da build fisica.",
+      "trade_terms": [
+        "Large Cluster Jewel com 8 passivas",
+        "Physical Damage / Staff Attacks / Two Handed Weapons",
+        "notables uteis como Fuel the Fight, Martial Prowess ou equivalentes",
+        "evitar bases elemental, minion, bow ou spell"
+      ],
+      "price_hint": "Cluster bom depende dos notables; nao comprar sem abrir o item no trade.",
+      "profiles": ["large_cluster"]
+    },
+    "spell_block": {
+      "title": "Rumi's nao corrompido ou fontes de spell block",
+      "priority": "media",
+      "reason": "Spell Block ainda esta abaixo da meta defensiva.",
+      "trade_terms": [
+        "Rumi's Concoction nao corrompido",
+        "pelo menos 12% attack block durante efeito",
+        "pelo menos 4% spell block durante efeito",
+        "idealmente permitir enchant automatico depois"
+      ],
+      "price_hint": "Compra de qualidade de vida; nao pagar caro se o atual 12/4 ainda funciona.",
+      "profiles": ["rumi_uncorrupted"]
+    },
+    "ailment_avoidance": {
+      "title": "Ailment avoidance sem quebrar gear atual",
+      "priority": "media",
+      "reason": "Avoidance esta baixo, mas pode ser resolvido por arvore, flask ou crafts depois.",
+      "trade_terms": [
+        "chance to Avoid Elemental Ailments",
+        "flask suffixes uteis",
+        "boots/crafts apenas se nao perder vida/resists"
+      ],
+      "price_hint": "Tratar como defesa futura; so vale trocar botas se o ganho total compensar vida, resists e velocidade.",
+      "profiles": []
+    },
+    "chance_to_hit": {
+      "title": "Accuracy apenas se vier junto de outros mods",
+      "priority": "baixa",
+      "reason": "Chance to hit esta acima do minimo; accuracy extra nao deve dominar o score.",
+      "trade_terms": [
+        "+# to Accuracy Rating",
+        "comprar apenas se vier com life/dano/chaos res"
+      ],
+      "price_hint": "Nao gastar budget alto so para accuracy.",
+      "profiles": ["jewel_damage"]
+    },
+    "chance_to_hit_evasive": {
+      "title": "Accuracy contra evasivos como bonus",
+      "priority": "baixa",
+      "reason": "Contra evasivos ainda ha espaco, mas nao e gargalo principal como antes.",
+      "trade_terms": [
+        "Accuracy Rating como mod secundario",
+        "preferir jewel com life + dano + accuracy"
+      ],
+      "price_hint": "Bonus, nao prioridade de compra isolada.",
+      "profiles": ["jewel_damage"]
+    }
   },
   "weights": {
     "vulnerability_on_hit": 140,
