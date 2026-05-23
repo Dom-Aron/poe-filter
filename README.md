@@ -1,6 +1,6 @@
 # PoE Filter Toolkit
 
-Projeto para manter filtros de loot do Path of Exile, gerar relatorios de mercado e planejar upgrades para a build alvo ativa.
+Projeto para manter filtros de loot do Path of Exile, gerar relatorios de mercado e planejar upgrades por personagem.
 
 Filtro principal:
 
@@ -12,10 +12,9 @@ Contexto atual:
 
 ```text
 Path of Exile 1 - 3.28 Mirage
-Build ativa: definida em poe_market_filter_toolkit/builds/active_build.json
 Conteudo: mapas T9/T10
 Atlas: Breach Hives / Wombgifts + Delirium
-Estado do personagem: poe_market_filter_toolkit/builds/player_items.json e player_stats.json
+Fluxo recomendado: poe_market_filter_toolkit/scripts/run_character.py
 ```
 
 ## Duas Funcionalidades
@@ -80,20 +79,71 @@ Configuracao importante:
 ```json
 {
   "league": "Mirage",
-  "request_delay_seconds": 0.7,
+  "request_delay_seconds": 1.5,
   "timeout_seconds": 30
 }
 ```
 
 ## Como Usar
 
-Rodar tudo:
+### Fluxo recomendado por personagem
 
-```powershell
-python poe_market_filter_toolkit\scripts\run_all.py
+O comando principal para upgrades agora e por personagem. Ele le o personagem e a build associada diretamente das pastas de perfil, atualiza/usa os dados atuais, compara com a build alvo, gera gaps, busca mercado, monta o plano de compra, gera os HTMLs e salva tudo separado em:
+
+```text
+poe_market_filter_toolkit/data/generated/characters/<personagem>/
 ```
 
-Rodar tudo sem baixar mercado novo, usando `market/latest_market.json`:
+Rodar o fluxo completo para um personagem salvo:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --budget 1000c --open
+```
+
+Se a API oficial de trade responder com rate limit, o script agora espera ate 90s por padrao quando o servidor pedir. Para reduzir chamadas em uma rodada de teste:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --budget 1000c --max-fetch 10 --request-delay 2 --open
+```
+
+Por padrao, a secao "melhor compra barata ignorando budget" reaproveita os itens ja buscados para evitar chamadas extras. Se quiser forcar buscas sem budget para essa secao, sabendo que isso aumenta o risco de rate limit:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --budget 1000c --best-any-budget-mode extra --open
+```
+
+Usar o mercado ja baixado e nao rodar auditoria do filtro:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --budget 1000c --skip-market-update --skip-filter-reports --open
+```
+
+Atualizar o personagem pela API oficial antes de comparar:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --fetch-character --parse-character --character-name "NomeDoPersonagem" --budget 1000c --open
+```
+
+Por padrao, o parser preserva `player_stats.json` manual porque a API oficial nao entrega todos os calculos de PoB. Para sobrescrever mesmo assim:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --fetch-character --parse-character --overwrite-manual-stats
+```
+
+Atalho equivalente pelo `run_all.py`:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_all.py --character aron_shockwave_cyclone_slayer --budget 1000c --open
+```
+
+Rodar para varios personagens salvos e gerar uma pagina indice:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_character_matrix.py --characters all --budget 1000c
+start poe_market_filter_toolkit\data\generated\character_matrix_dashboard.html
+```
+
+Rodar mercado/filtro sem mexer nas builds/personagens:
 
 ```powershell
 python poe_market_filter_toolkit\scripts\run_all.py --skip-update
@@ -105,93 +155,27 @@ Listar builds alvo salvas:
 python poe_market_filter_toolkit\scripts\switch_build.py --list
 ```
 
-Criar/ativar uma build alvo a partir dos arquivos atuais em `builds/`:
+Criar/editar perfis continua possivel com `switch_build.py`, mas o fluxo principal nao depende mais de build ativa global. Depois de criar a build, associe um personagem a ela e rode `run_character.py`.
+
+Buscar upgrades no trade diretamente com as regras de uma build especifica:
 
 ```powershell
-python poe_market_filter_toolkit\scripts\switch_build.py --name "Minha Build" --pob-url "https://pobb.in/..." --from-current --activate
+python poe_market_filter_toolkit\scripts\find_upgrade_deals.py --budget 251c --rules poe_market_filter_toolkit\builds\profiles\ronarray_shockwave_cyclone_slayer\upgrade_rules.json
 ```
 
-Trocar para uma build alvo ja cadastrada:
+Planejar compras diretamente para arquivos especificos e sem usar estado global:
 
 ```powershell
-python poe_market_filter_toolkit\scripts\switch_build.py --switch-to minha_build
+python poe_market_filter_toolkit\scripts\plan_upgrade_path.py --budget 251c --player-items poe_market_filter_toolkit\builds\characters\aron_shockwave_cyclone_slayer\player_items.json --player-stats poe_market_filter_toolkit\builds\characters\aron_shockwave_cyclone_slayer\player_stats.json --target-items poe_market_filter_toolkit\builds\profiles\ronarray_shockwave_cyclone_slayer\target_build_items.json --target-stats poe_market_filter_toolkit\builds\profiles\ronarray_shockwave_cyclone_slayer\target_build_stats.json --rules poe_market_filter_toolkit\builds\profiles\ronarray_shockwave_cyclone_slayer\upgrade_rules.json
 ```
 
-Tambem da para trocar a build antes de rodar o fluxo:
+Scripts legados que usam estado global ficam bloqueados por padrao quando oferecem risco de misturar builds:
 
 ```powershell
-python poe_market_filter_toolkit\scripts\run_all.py --switch-build minha_build --skip-update --compare-build --recommend-next --upgrade-plan --budget 500c --dashboard
+python poe_market_filter_toolkit\scripts\run_build_matrix.py --builds all
 ```
 
-Rodar relatorios para varias builds e abrir uma pagina com seletor:
-
-```powershell
-python poe_market_filter_toolkit\scripts\run_build_matrix.py --builds ronarray_shockwave_cyclone_slayer,teste_storm_burst_totem --budget 500c --max-fetch 9
-start poe_market_filter_toolkit\data\generated\multi_build_dashboard.html
-```
-
-Ou via fluxo principal:
-
-```powershell
-python poe_market_filter_toolkit\scripts\run_all.py --builds all --budget 500c --max-fetch 9
-```
-
-Buscar upgrades no trade com 251 chaos:
-
-```powershell
-python poe_market_filter_toolkit\scripts\find_upgrade_deals.py --budget 251c
-```
-
-Buscar upgrades com 1 divine:
-
-```powershell
-python poe_market_filter_toolkit\scripts\find_upgrade_deals.py --budget 1d
-```
-
-Buscar apenas alguns tipos de upgrade:
-
-```powershell
-python poe_market_filter_toolkit\scripts\find_upgrade_deals.py --budget 251c --profiles ring_vulnerability,jewel_damage,large_cluster
-```
-
-Planejar compras 1x1, 2x2 e 3x3 usando o budget como teto por plano de upgrade:
-
-```powershell
-python poe_market_filter_toolkit\scripts\plan_upgrade_path.py --budget 251c
-```
-
-Sem budget, o planejador busca os 3 upgrades seguros mais baratos:
-
-```powershell
-python poe_market_filter_toolkit\scripts\plan_upgrade_path.py
-```
-
-Rodar mercado, auditoria e planejador de uma vez:
-
-```powershell
-python poe_market_filter_toolkit\scripts\run_all.py --upgrade-plan --budget 251c
-```
-
-Capturar personagem pela API oficial da GGG, parsear e gerar analise de gaps:
-
-```powershell
-python poe_market_filter_toolkit\scripts\run_all.py --fetch-character --compare-build
-```
-
-Gerar proximas buscas e recomendacoes a partir dos gaps:
-
-```powershell
-python poe_market_filter_toolkit\scripts\run_all.py --compare-build --recommend-next
-```
-
-Gerar um painel HTML unico:
-
-```powershell
-python poe_market_filter_toolkit\scripts\run_all.py --skip-update --compare-build --recommend-next --upgrade-plan --budget 251c --dashboard
-start poe_market_filter_toolkit\data\generated\build_dashboard.html
-```
-
-O painel agora e a tela principal para usuario leigo na trilha de upgrades da build: ele junta resumo da build, gaps, slots sensiveis, proximas buscas, planos de compra, links do trade, link direto da listagem via API e o whisper do vendedor.
+Para usar o fluxo legado intencionalmente, passe `--allow-legacy-global-state`. O caminho recomendado continua sendo por personagem.
 
 Rodar os testes de seguranca:
 
@@ -199,10 +183,10 @@ Rodar os testes de seguranca:
 python -m unittest discover -s poe_market_filter_toolkit\tests
 ```
 
-Para permitir que o parser atualize os arquivos usados pelo planejador:
+O parser nao deve mais atualizar os arquivos globais usados pelo planejador. Salve o parse dentro de `builds/characters/<personagem>/` ou use `run_character.py --parse-character`. O antigo `--update-builds` exige confirmacao explicita por flag de legado.
 
 ```powershell
-python poe_market_filter_toolkit\scripts\run_all.py --fetch-character --compare-build --update-builds
+python poe_market_filter_toolkit\scripts\parse_character.py --update-builds --allow-legacy-global-state
 ```
 
 Perfis disponiveis no buscador de upgrades:
@@ -221,7 +205,7 @@ rumi_uncorrupted
 
 Baixa precos do poe.ninja para as categorias configuradas em `market_config.json`.
 
-Gera:
+Quando chamado diretamente sem parametros de saida, gera:
 
 ```text
 poe_market_filter_toolkit/market/latest_market.json
@@ -279,6 +263,65 @@ filter_audit.py
 
 E o comando principal para atualizar os relatorios de mercado e auditar o filtro.
 
+### `run_character.py`
+
+Orquestra o fluxo completo para **um personagem**. Este e o caminho mais seguro para evitar mistura entre builds/personagens, porque nao depende de `builds/active_build.json` nem dos arquivos globais `builds/player_items.json`, `builds/target_build_items.json`, etc. como fonte de verdade.
+
+Entrada principal:
+
+```text
+poe_market_filter_toolkit/builds/characters/<personagem>/
+poe_market_filter_toolkit/builds/profiles/<build_associada>/
+```
+
+Saida isolada:
+
+```text
+poe_market_filter_toolkit/data/generated/characters/<personagem>/
+```
+
+Dentro dessa pasta ficam:
+
+```text
+active_character.json
+active_build.json
+character/player_items.json
+character/player_stats.json
+build/target_build_items.json
+build/target_build_stats.json
+build/upgrade_rules.json
+gap_analysis.json
+upgrade_report.json
+upgrade_plan.json
+build_dashboard.html
+upgrade_recommendations.html
+next_searches.html
+upgrade_plan.html
+market_report.html
+run_summary.json
+```
+
+Ordem executada:
+
+```text
+1. le o perfil do personagem e a build associada;
+2. opcionalmente busca/parseia o personagem pela API oficial;
+3. opcionalmente atualiza mercado;
+4. gera relatorio de mercado;
+5. opcionalmente gera relatorios tecnicos do filtro;
+6. compara personagem atual com build alvo;
+7. gera recomendacoes e proximas buscas;
+8. busca itens no trade e testa planos 1x1, 2x2 e 3x3;
+9. copia entradas e metadados para a pasta do personagem;
+10. gera HTMLs do personagem e, com `--open`, abre o dashboard.
+```
+
+Exemplo:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --budget 1000c --open
+```
+
 ### `find_upgrade_deals.py`
 
 Consulta a API oficial de trade do Path of Exile, busca itens listados por jogadores e ranqueia candidatos de upgrade para a build.
@@ -327,7 +370,7 @@ poe_market_filter_toolkit/market/reports/upgrade_plan.json
 
 Se `--budget` nao for informado, mostra por padrao o top 3 dos upgrades seguros mais baratos encontrados. Quando `--budget` e informado, ele ranqueia os melhores planos seguros ate aquele teto e ainda mostra uma secao separada de melhor compra barata sem usar o budget como limite. A versao HTML e melhor para usuario leigo porque abre no navegador e traz links clicaveis para o trade oficial, para a listagem especifica via API e para o whisper.
 
-Arquivos de entrada:
+Arquivos de entrada padrao quando chamado diretamente:
 
 ```text
 poe_market_filter_toolkit/builds/player_items.json
@@ -336,6 +379,8 @@ poe_market_filter_toolkit/builds/target_build_items.json
 poe_market_filter_toolkit/builds/target_build_stats.json
 poe_market_filter_toolkit/builds/upgrade_rules.json
 ```
+
+No fluxo recomendado `run_character.py`, esses caminhos sao substituidos por arquivos do personagem e da build associada, e as saidas sao gravadas em `data/generated/characters/<personagem>/`.
 
 ### `fetch_character.py`
 
@@ -403,7 +448,7 @@ Use `--update-builds` para copiar `player_items.json` e `player_stats.json` para
 
 ### `switch_build.py`
 
-Gerencia multiplas builds alvo. Cada build fica em:
+Gerencia cadastro de multiplas builds alvo e personagens. Ele ainda pode ativar/copiar arquivos para compatibilidade com scripts antigos, mas o fluxo recomendado `run_character.py` usa os perfis diretamente e nao precisa dessa ativacao global. Cada build fica em:
 
 ```text
 poe_market_filter_toolkit/builds/profiles/<slug>/
@@ -418,7 +463,7 @@ target_build_stats.json
 upgrade_rules.json
 ```
 
-Ao ativar uma build, o script copia esses tres arquivos alvo para `poe_market_filter_toolkit/builds/`, que e o local lido pelo comparador, recomendador e planejador de compras. O link ou codigo do PoB fica salvo em `build_profile.json`; parsing automatico completo de PoB ainda deve ser tratado como etapa futura, entao revise os arquivos alvo quando criar uma build nova.
+Ao ativar uma build, o script copia esses tres arquivos alvo para `poe_market_filter_toolkit/builds/` para manter compatibilidade com comandos antigos. O link ou codigo do PoB fica salvo em `build_profile.json`; parsing automatico completo de PoB ainda deve ser tratado como etapa futura, entao revise os arquivos alvo quando criar uma build nova.
 
 Comandos uteis:
 
@@ -475,6 +520,21 @@ Exemplos:
 ```powershell
 python poe_market_filter_toolkit\scripts\run_build_matrix.py --builds all --budget 500c --max-fetch 9
 python poe_market_filter_toolkit\scripts\run_build_matrix.py --builds minha_build,build_do_amigo --budget 1d
+```
+
+### `run_character_matrix.py`
+
+Executa `run_character.py` para varios personagens salvos e cria um indice em:
+
+```text
+poe_market_filter_toolkit/data/generated/character_matrix_dashboard.html
+```
+
+Esse e o caminho para acompanhar seu personagem e o personagem de um amigo sem misturar arquivos:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_character_matrix.py --characters all --budget 1000c --max-fetch 10
+start poe_market_filter_toolkit\data\generated\character_matrix_dashboard.html
 ```
 
 ### `compare_current_to_target.py`
