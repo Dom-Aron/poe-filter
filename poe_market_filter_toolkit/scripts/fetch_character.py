@@ -99,6 +99,7 @@ def character_url(realm: str, name: str) -> str:
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Fetch the authenticated Path of Exile character.")
+    parser.add_argument("--allow-experimental-oauth", action="store_true", help="Run this optional OAuth-dependent helper intentionally.")
     parser.add_argument("--config", type=Path, default=DEFAULT_ACCOUNT_CONFIG)
     parser.add_argument("--token-file", type=Path, default=DEFAULT_TOKEN_FILE)
     parser.add_argument("--oauth-config", type=Path, default=DEFAULT_OAUTH_CONFIG)
@@ -112,6 +113,12 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 def main(argv: list[str]) -> int:
     args = parse_args(argv)
+    if not args.allow_experimental_oauth:
+        raise SystemExit(
+            "fetch_character.py depends on OAuth and is experimental in this repository. "
+            "The supported flow is local/no-OAuth via edit_character.py and run_character.py. "
+            "Pass --allow-experimental-oauth if you intentionally want to use this helper."
+        )
     config = load_json(args.config)
     character_name = args.character_name or config.get("character_name")
     realm = args.realm if args.realm is not None else config.get("realm", "pc")

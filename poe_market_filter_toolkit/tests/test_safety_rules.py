@@ -12,6 +12,7 @@ import generate_dashboard
 import plan_upgrade_path
 import recommend_next_steps as recommend
 import run_build_matrix
+import run_character
 import switch_build
 import update_market
 import validate_character
@@ -201,12 +202,19 @@ class SafetyRulesTest(unittest.TestCase):
         self.assertIn(report["status"], {"ok", "warning"})
         self.assertEqual(report["build_slug"], "ronarray_shockwave_cyclone_slayer")
         self.assertEqual(report["errors"], [])
+        self.assertNotIn("preencha mais slots em target_build_items.json", " ".join(report["suggestions"]))
 
     def test_character_validator_rejects_missing_character(self):
         report = validate_character.validate_character("personagem_que_nao_existe")
 
         self.assertEqual(report["status"], "failed")
         self.assertTrue(report["errors"])
+
+    def test_run_character_requires_explicit_oauth_opt_in(self):
+        with self.assertRaises(SystemExit) as raised:
+            run_character.main(["--character", "aron_shockwave_cyclone_slayer", "--fetch-character", "--skip-market-update"])
+
+        self.assertIn("experimental", str(raised.exception))
 
 
 if __name__ == "__main__":

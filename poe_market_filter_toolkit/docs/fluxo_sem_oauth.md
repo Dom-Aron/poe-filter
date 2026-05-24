@@ -84,3 +84,4 @@ python poe_market_filter_toolkit\scripts\run_character.py --character aron_shock
 - Links do trade podem apontar para a busca/listagem retornada, mas o item pode ter vendido ou mudado.
 - Rate limit da API de trade pode deixar o plano incompleto.
 - OAuth nao e necessario para o fluxo local.
+- Scripts OAuth ficam bloqueados por padrao e exigem `--allow-experimental-oauth`.

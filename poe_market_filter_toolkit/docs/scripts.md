@@ -71,4 +71,6 @@ oauth_refresh.py
 fetch_character.py
 ```
 
-Mantidos como opcionais. O projeto nao depende deles para funcionar.
+Mantidos como opcionais e experimentais. Eles nao rodam por acidente: use
+`--allow-experimental-oauth` apenas se voce tiver credenciais aprovadas e quiser
+testar esse caminho. O projeto nao depende deles para funcionar.

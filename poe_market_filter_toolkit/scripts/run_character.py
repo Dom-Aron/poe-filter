@@ -43,7 +43,7 @@ def run_script(script_name: str, *args: str, keep_going: bool = False) -> bool:
 
 def update_character_from_api(character_slug: str, character_name: str | None, realm: str | None) -> None:
     raw = paths.character_dir(character_slug) / "raw" / "character_api_raw.json"
-    args: list[str] = ["--output", str(raw)]
+    args: list[str] = ["--allow-experimental-oauth", "--output", str(raw)]
     if character_name:
         args.extend(["--character-name", character_name])
     if realm:
@@ -162,6 +162,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--character-name", help="Official API character name when fetching current data.")
     parser.add_argument("--realm", help="Official API realm, usually pc.")
     parser.add_argument("--fetch-character", action="store_true", help="Fetch current character data from the official API into the character profile.")
+    parser.add_argument("--allow-experimental-oauth", action="store_true", help="Allow --fetch-character to call the optional OAuth-dependent helper.")
     parser.add_argument("--parse-character", action="store_true", help="Parse fetched raw API data into the character profile.")
     parser.add_argument("--overwrite-manual-stats", action="store_true", help="Allow API parsing to replace player_stats.json even though derived stats are incomplete.")
     parser.add_argument("--skip-market-update", action="store_true", help="Use existing market/latest_market.json instead of updating market data.")
@@ -199,6 +200,11 @@ def main(argv: list[str]) -> int:
     steps.append("load_character_and_associated_build")
 
     if args.fetch_character:
+        if not args.allow_experimental_oauth:
+            raise SystemExit(
+                "--fetch-character requires OAuth, which is experimental here. "
+                "Use edit_character.py for the supported no-OAuth flow, or pass --allow-experimental-oauth intentionally."
+            )
         update_character_from_api(character_slug, args.character_name, args.realm)
         steps.append("fetch_character_api")
     if args.parse_character or args.fetch_character:

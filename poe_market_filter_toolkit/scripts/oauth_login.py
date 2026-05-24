@@ -156,6 +156,7 @@ def exchange_code(
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Authorize Path of Exile OAuth and save tokens.")
+    parser.add_argument("--allow-experimental-oauth", action="store_true", help="Run this optional OAuth helper intentionally.")
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--token-file", type=Path, default=DEFAULT_TOKEN_FILE)
     parser.add_argument("--timeout", type=int, default=180)
@@ -165,6 +166,11 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 def main(argv: list[str]) -> int:
     args = parse_args(argv)
+    if not args.allow_experimental_oauth:
+        raise SystemExit(
+            "oauth_login.py is experimental and not required for the supported local/no-OAuth workflow. "
+            "Pass --allow-experimental-oauth if you intentionally want to test OAuth."
+        )
     config = load_json(args.config)
     client_id = str(config.get("client_id") or "").strip()
     redirect_uri = str(config.get("redirect_uri") or "http://127.0.0.1:8080/callback").strip()
