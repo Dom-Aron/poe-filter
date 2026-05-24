@@ -14,6 +14,7 @@ import recommend_next_steps as recommend
 import run_build_matrix
 import switch_build
 import update_market
+import validate_character
 
 
 class SafetyRulesTest(unittest.TestCase):
@@ -193,6 +194,19 @@ class SafetyRulesTest(unittest.TestCase):
         deduped = update_market.dedupe_items(items)
 
         self.assertEqual(len(deduped), 2)
+
+    def test_character_validator_accepts_saved_character_profile(self):
+        report = validate_character.validate_character("aron_shockwave_cyclone_slayer")
+
+        self.assertIn(report["status"], {"ok", "warning"})
+        self.assertEqual(report["build_slug"], "ronarray_shockwave_cyclone_slayer")
+        self.assertEqual(report["errors"], [])
+
+    def test_character_validator_rejects_missing_character(self):
+        report = validate_character.validate_character("personagem_que_nao_existe")
+
+        self.assertEqual(report["status"], "failed")
+        self.assertTrue(report["errors"])
 
 
 if __name__ == "__main__":
