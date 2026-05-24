@@ -33,6 +33,7 @@ DEFAULT_MARKET_REPORT = REPORTS / "market_report.md"
 DEFAULT_MARKET_JSON = ROOT / "market" / "latest_market.json"
 DEFAULT_ACTIVE_BUILD = ROOT / "builds" / "active_build.json"
 DEFAULT_ACTIVE_CHARACTER = ROOT / "builds" / "active_character.json"
+DEFAULT_VALIDATION_REPORT = GENERATED / "validation_report.json"
 DEFAULT_OUTPUT = GENERATED / "build_dashboard.html"
 RECOMMENDATIONS_HTML = GENERATED / "upgrade_recommendations.html"
 NEXT_SEARCHES_HTML = GENERATED / "next_searches.html"
@@ -283,6 +284,34 @@ def dashboard_summary(gap: dict[str, Any], upgrade_report: dict[str, Any], upgra
     ) + "</div>"
 
 
+def validation_panel(validation: dict[str, Any]) -> str:
+    if not validation:
+        return (
+            "<div class=\"panel small warning-panel\">"
+            "<h3>Validacao Nao Executada</h3>"
+            "<p>Rode o fluxo por personagem sem --skip-validation para conferir arquivos locais antes de buscar no mercado.</p>"
+            "</div>"
+        )
+    status = str(validation.get("status") or "unknown")
+    cls = "ok" if status == "ok" else "warn" if status == "warning" else "bad"
+    blocks = []
+    for label, title in (("errors", "Erros"), ("warnings", "Avisos"), ("suggestions", "Sugestoes")):
+        values = [str(item) for item in validation.get(label, []) if str(item).strip()]
+        if values:
+            blocks.append(
+                f"<div><h4>{html.escape(title)}</h4><ul>"
+                + "".join(f"<li>{html.escape(value)}</li>" for value in values[:8])
+                + "</ul></div>"
+            )
+    detail = "".join(blocks) if blocks else "<p>Arquivos locais coerentes para o fluxo sem OAuth.</p>"
+    return (
+        f"<div class=\"panel small validation {cls}\">"
+        f"<h3>Validacao Local: {html.escape(status)}</h3>"
+        f"{detail}"
+        "</div>"
+    )
+
+
 def active_build_panel(active_build: dict[str, Any]) -> str:
     if not active_build:
         return "<p class=\"muted\">Nenhuma build alvo ativa registrada. Use switch_build.py para cadastrar uma.</p>"
@@ -438,6 +467,23 @@ def upgrade_plan_cards(upgrade_plan: dict[str, Any], fallback_md: str) -> str:
         )
     notes = "".join(f"<li>{html.escape(str(note))}</li>" for note in upgrade_plan.get("notes", []))
     notes_html = f"<div class=\"panel small\"><h3>Como interpretar os links</h3><ul>{notes}</ul></div>" if notes else ""
+    diagnostic_summary = upgrade_plan.get("diagnostic_summary", [])
+    diagnostics_html = ""
+    if diagnostic_summary:
+        rows = "".join(
+            "<tr><td>{reason}</td><td>{count}</td></tr>".format(
+                reason=html.escape(str(row.get("reason", ""))),
+                count=html.escape(str(row.get("count", ""))),
+            )
+            for row in diagnostic_summary[:8]
+            if isinstance(row, dict)
+        )
+        diagnostics_html = (
+            "<div class=\"panel small\"><h3>Rejeicoes Mais Frequentes</h3>"
+            "<p class=\"muted\">Ajuda a entender por que o script nao achou mais compras seguras.</p>"
+            f"<table><thead><tr><th>Motivo</th><th>Ocorrencias</th></tr></thead><tbody>{rows}</tbody></table>"
+            "</div>"
+        )
     best = upgrade_plan.get("best_any_budget", [])
     best_html = ""
     if best:
@@ -461,7 +507,7 @@ def upgrade_plan_cards(upgrade_plan: dict[str, Any], fallback_md: str) -> str:
             f"<div class=\"deal-grid\">{''.join(best_cards)}</div>"
             "</section>"
         )
-    return notes_html + best_html + "".join(cards)
+    return notes_html + best_html + diagnostics_html + "".join(cards)
 
 
 def current_upgrade_plan(upgrade_plan: dict[str, Any], active_build: dict[str, Any]) -> dict[str, Any]:
@@ -521,6 +567,9 @@ def common_css() -> str:
     .panel { border: 1px solid #38424c; border-radius: 8px; padding: 18px; background: #1b1f23; overflow: auto; }
     .panel.small { margin-bottom: 14px; }
     .warning-panel { border-color: #a47f2d; background: #241c10; }
+    .validation.ok { border-color: #2f7d4a; }
+    .validation.warn { border-color: #a47f2d; background: #241c10; }
+    .validation.bad { border-color: #a54646; background: #251516; }
     .deal-card { border: 1px solid #44505c; border-radius: 8px; padding: 18px; background: #1b1f23; }
     .deal-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
     .deal-head h3 { flex: 1; min-width: 220px; }
@@ -948,6 +997,7 @@ def render_dashboard(
     upgrade_plan_json: dict[str, Any],
     active_build: dict[str, Any],
     active_character: dict[str, Any],
+    validation_report: dict[str, Any],
     output: Path,
 ) -> str:
     generated = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -979,6 +1029,7 @@ def render_dashboard(
         {active_build_panel(active_build)}
       </div>
       {build_data_warning(active_build)}
+      {validation_panel(validation_report)}
     </section>
     <section>
       <h2>Resumo</h2>
@@ -1033,6 +1084,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--market-json", type=Path, default=DEFAULT_MARKET_JSON)
     parser.add_argument("--active-build", type=Path, default=DEFAULT_ACTIVE_BUILD)
     parser.add_argument("--active-character", type=Path, default=DEFAULT_ACTIVE_CHARACTER)
+    parser.add_argument("--validation-report", type=Path, default=DEFAULT_VALIDATION_REPORT)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     return parser.parse_args(argv)
 
@@ -1051,6 +1103,7 @@ def main(argv: list[str]) -> int:
     upgrade_report = read_json(args.upgrade_report)
     active_build = read_json(args.active_build)
     active_character = read_json(args.active_character)
+    validation_report = read_json(args.validation_report)
     upgrade_plan_md = read_text(args.upgrade_plan)
     upgrade_plan_json = read_json(args.upgrade_plan_json)
     content = render_dashboard(
@@ -1062,6 +1115,7 @@ def main(argv: list[str]) -> int:
         upgrade_plan_json=upgrade_plan_json,
         active_build=active_build,
         active_character=active_character,
+        validation_report=validation_report,
         output=args.output,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)

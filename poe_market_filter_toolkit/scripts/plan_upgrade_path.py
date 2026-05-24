@@ -22,6 +22,7 @@ import json
 import math
 import sys
 import time
+from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -716,6 +717,14 @@ def plan_to_dict(plan: Plan, rank: int) -> dict[str, Any]:
     }
 
 
+def diagnostic_summary(diagnostics: list[str]) -> list[dict[str, Any]]:
+    counts = Counter(diagnostics)
+    return [
+        {"reason": reason, "count": count}
+        for reason, count in counts.most_common(12)
+    ]
+
+
 def write_json_report(
     plans: list[Plan],
     best_any_budget: list[Plan],
@@ -750,6 +759,7 @@ def write_json_report(
         "best_any_budget": [plan_to_dict(plan, rank) for rank, plan in enumerate(best_any_budget[:3], start=1)],
         "candidates": [candidate_to_dict(candidate) for candidate in candidates],
         "diagnostics": list(dict.fromkeys(diagnostics))[:30],
+        "diagnostic_summary": diagnostic_summary(diagnostics),
     }
     output_json.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
@@ -899,9 +909,18 @@ def write_html_report(
 
     diagnostics_html = ""
     if diagnostics:
-        diagnostics_html = "<ul>" + "".join(
-            f"<li>{html.escape(note)}</li>" for note in list(dict.fromkeys(diagnostics))[:12]
-        ) + "</ul>"
+        summary_rows = "".join(
+            f"<tr><td>{html.escape(row['reason'])}</td><td>{row['count']}</td></tr>"
+            for row in diagnostic_summary(diagnostics)
+        )
+        sample_items = "".join(f"<li>{html.escape(note)}</li>" for note in list(dict.fromkeys(diagnostics))[:12])
+        diagnostics_html = (
+            "<h3>Resumo de motivos</h3>"
+            "<table><thead><tr><th>Motivo</th><th>Ocorrencias</th></tr></thead>"
+            f"<tbody>{summary_rows}</tbody></table>"
+            "<h3>Amostra</h3>"
+            f"<ul>{sample_items}</ul>"
+        )
 
     content = f"""<!doctype html>
 <html lang="pt-BR">

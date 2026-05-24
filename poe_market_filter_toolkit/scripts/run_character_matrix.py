@@ -14,38 +14,30 @@ from __future__ import annotations
 
 import argparse
 import html
-import json
 import subprocess
 import sys
 from pathlib import Path
 from typing import Any
 
+TOOLKIT_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(TOOLKIT_ROOT))
 
-ROOT = Path(__file__).resolve().parents[1]
-BUILDS = ROOT / "builds"
-CHARACTERS = BUILDS / "characters"
-GENERATED = ROOT / "data" / "generated"
-CHARACTER_OUTPUT = GENERATED / "characters"
-
-
-def read_json(path: Path) -> dict[str, Any]:
-    if not path.exists():
-        return {}
-    return json.loads(path.read_text(encoding="utf-8"))
+from core import paths
+from core.io import read_json
 
 
 def run_script(name: str, *args: str) -> None:
-    command = [sys.executable, str(ROOT / "scripts" / name), *args]
+    command = [sys.executable, str(paths.SCRIPTS / name), *args]
     print("Running:", " ".join([name, *args]), flush=True)
-    result = subprocess.run(command, cwd=str(ROOT))
+    result = subprocess.run(command, cwd=str(paths.ROOT))
     if result.returncode != 0:
         raise SystemExit(f"Script failed: {name} (exit code {result.returncode})")
 
 
 def known_characters() -> list[str]:
-    if not CHARACTERS.exists():
+    if not paths.CHARACTERS.exists():
         return []
-    return sorted(path.name for path in CHARACTERS.iterdir() if path.is_dir())
+    return sorted(path.name for path in paths.CHARACTERS.iterdir() if path.is_dir())
 
 
 def selected_characters(raw: str) -> list[str]:
@@ -57,10 +49,12 @@ def selected_characters(raw: str) -> list[str]:
 
 
 def render_character_pages(character_slug: str) -> None:
-    target = CHARACTER_OUTPUT / character_slug
+    target = paths.CHARACTER_OUTPUT / character_slug
     target.mkdir(parents=True, exist_ok=True)
     run_script(
         "generate_dashboard.py",
+        "--validation-report",
+        str(target / "validation_report.json"),
         "--gap",
         str(target / "gap_analysis.json"),
         "--upgrade-report",
@@ -115,11 +109,11 @@ def run_for_character(
     if best_any_budget_mode:
         args.extend(["--best-any-budget-mode", best_any_budget_mode])
     run_script("run_character.py", *args)
-    target = CHARACTER_OUTPUT / character_slug
+    target = paths.CHARACTER_OUTPUT / character_slug
     character = read_json(target / "active_character.json")
     build = read_json(target / "active_build.json")
     artifacts = {
-        path.name: str(path.relative_to(GENERATED)).replace("\\", "/")
+        path.name: str(path.relative_to(paths.GENERATED)).replace("\\", "/")
         for path in target.iterdir()
         if path.is_file()
     }
@@ -144,7 +138,7 @@ def gap_sort_key(item: tuple[str, dict[str, Any]]) -> tuple[int, float, str]:
 
 
 def gap_summary_for_character(character_slug: str) -> str:
-    gap = read_json(CHARACTER_OUTPUT / character_slug / "gap_analysis.json")
+    gap = read_json(paths.CHARACTER_OUTPUT / character_slug / "gap_analysis.json")
     comparison = gap.get("comparison", {}) if isinstance(gap.get("comparison"), dict) else {}
     if not comparison:
         return "<p class=\"muted\">Sem gap analysis salvo.</p>"
@@ -169,7 +163,7 @@ def gap_summary_for_character(character_slug: str) -> str:
 
 
 def write_index(rows: list[dict[str, Any]], budget: str) -> Path:
-    output = GENERATED / "character_matrix_dashboard.html"
+    output = paths.GENERATED / "character_matrix_dashboard.html"
     cards = []
     for row in rows:
         artifacts = row.get("artifacts", {})
@@ -236,14 +230,14 @@ def write_index(rows: list[dict[str, Any]], budget: str) -> Path:
 def rows_from_existing_outputs(characters: list[str]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for character_slug in characters:
-        target = CHARACTER_OUTPUT / character_slug
+        target = paths.CHARACTER_OUTPUT / character_slug
         if not target.exists():
             continue
         render_character_pages(character_slug)
         character = read_json(target / "active_character.json")
         build = read_json(target / "active_build.json")
         artifacts = {
-            path.name: str(path.relative_to(GENERATED)).replace("\\", "/")
+            path.name: str(path.relative_to(paths.GENERATED)).replace("\\", "/")
             for path in target.iterdir()
             if path.is_file()
         }
