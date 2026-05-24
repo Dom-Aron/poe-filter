@@ -199,10 +199,11 @@ def validate_character(character_slug: str, strict: bool = False) -> dict[str, A
         if missing_slots:
             warnings.append(f"trade_profile {profile_key} mira slots ausentes: {', '.join(missing_slots)}")
 
+    target_keys = target_stat_keys(target_stats)
     if build_profile.get("target_files_source") == "cloned_from_current":
         warnings.append("build alvo parece clonada de outra build; revise target_build_items/stats e upgrade_rules")
-    if len(target_slots) < 3:
-        suggestions.append("preencha mais slots em target_build_items.json para comparacoes melhores")
+    if len(target_slots) < 3 and len(target_keys) < 5:
+        suggestions.append("preencha mais slots ou metas em target_build_items/target_build_stats para comparacoes melhores")
     if len(current_stats) < 5:
         suggestions.append("preencha stats agregados do personagem em player_stats.json, idealmente vindos do PoB")
     if not trade_profiles(rules) and not rules.get("allow_legacy_trade_profiles"):
