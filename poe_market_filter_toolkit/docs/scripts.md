@@ -27,6 +27,39 @@ edit_character.py
 Assistente interativo para preencher `player_items.json` e `player_stats.json`.
 
 ```text
+sync_pob.py
+```
+
+Importa XML/codigo exportado do Path of Building sem OAuth. Pode atualizar os
+arquivos do personagem atual ou os arquivos da build alvo. Hoje extrai itens,
+status calculados e grupos de gems/skills ativos. Ao importar uma build alvo,
+tambem gera `target_requirements.json`, com metas, pisos de seguranca,
+requisitos por slot, skills ativas, tags dominantes e pesos sugeridos derivados
+genericamente do PoB. O planner usa os status para medir se uma troca aproxima
+o personagem das metas da build.
+
+```powershell
+python poe_market_filter_toolkit\scripts\sync_pob.py --list-local
+python poe_market_filter_toolkit\scripts\sync_pob.py --character aron_shockwave_cyclone_slayer --source "C:\Users\<voce>\Documents\Path of Building\Builds\MinhaBuild.xml"
+python poe_market_filter_toolkit\scripts\sync_pob.py --character aron_shockwave_cyclone_slayer --from-clipboard --save-code poe_market_filter_toolkit\data\raw\pob_export_aron.txt
+python poe_market_filter_toolkit\scripts\sync_pob.py --build ronarray_shockwave_cyclone_slayer --source "C:\pob\BuildAlvo.xml" --as target
+```
+
+```text
+analyze_target_build.py
+```
+
+Regera `target_requirements.json` para uma build ja cadastrada usando
+`target_build_stats.json`, `target_build_items.json` e, quando existir,
+`target_build_skills.json`. Use `--update-stats` se quiser reescrever tambem
+`target_build_stats.json` com pisos minimos inferidos.
+
+```powershell
+python poe_market_filter_toolkit\scripts\analyze_target_build.py --build ronarray_shockwave_cyclone_slayer
+python poe_market_filter_toolkit\scripts\analyze_target_build.py --build ronarray_shockwave_cyclone_slayer --update-stats
+```
+
+```text
 switch_build.py
 ```
 
@@ -39,9 +72,13 @@ update_market.py
 market_report.py
 suggest_filter_tiers.py
 filter_audit.py
+review_filter_strategy.py
 ```
 
 Atualizam snapshot de mercado, relatórios de preços e auditoria do filtro de loot.
+`review_filter_strategy.py` faz a ponte conservadora entre mercado, personagem e
+build alvo, gerando `filter_strategy.md` e `filter_strategy_snippets.filter`
+sem editar o filtro automaticamente.
 
 ## Build agent
 

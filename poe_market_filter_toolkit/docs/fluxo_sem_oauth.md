@@ -30,10 +30,43 @@ poe_market_filter_toolkit/builds/profiles/<build>/
   build_profile.json
   target_build_items.json
   target_build_stats.json
+  target_requirements.json
   upgrade_rules.json
 ```
 
+`target_requirements.json` e gerado ao importar um PoB alvo. Ele descreve o que
+a build exige de forma generica: metas, pisos minimos, requisitos por slot,
+skills ativas, tags dominantes e pesos sugeridos.
+
 ## Atualizar dados manualmente
+
+Importar dados calculados do Path of Building local:
+
+```powershell
+python poe_market_filter_toolkit\scripts\sync_pob.py --list-local
+python poe_market_filter_toolkit\scripts\sync_pob.py --character aron_shockwave_cyclone_slayer --source "C:\Users\<voce>\Documents\Path of Building\Builds\MinhaBuild.xml"
+```
+
+Isso atualiza `player_items.json` e `player_stats.json` com dados do PoB, sem
+usar credenciais da conta Path of Exile.
+
+Se voce exportar como codigo no PoB, copie o codigo e rode:
+
+```powershell
+python poe_market_filter_toolkit\scripts\sync_pob.py --character aron_shockwave_cyclone_slayer --from-clipboard --save-code poe_market_filter_toolkit\data\raw\pob_export_aron.txt
+```
+
+Para atualizar a build alvo com um PoB de referencia:
+
+```powershell
+python poe_market_filter_toolkit\scripts\sync_pob.py --build ronarray_shockwave_cyclone_slayer --source "C:\pob\BuildAlvo.xml" --as target
+```
+
+O mesmo caminho pode ser usado junto com o orquestrador:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --sync-pob-from-clipboard --budget 1000c --open
+```
 
 Editar item/status com assistente:
 

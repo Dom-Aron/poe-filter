@@ -15,6 +15,14 @@ Rodar tudo para um personagem salvo:
 python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --budget 1000c --open
 ```
 
+Atalhos locais equivalentes:
+
+```powershell
+.\tasks.ps1 character aron_shockwave_cyclone_slayer 1000c
+.\tasks.ps1 test
+.\tasks.ps1 filter aron_shockwave_cyclone_slayer
+```
+
 Saidas por personagem:
 
 ```text
@@ -34,6 +42,41 @@ run_summary.json
 ```
 
 ## Atualizar Dados Do Personagem
+
+Importar dados calculados do Path of Building salvo localmente:
+
+```powershell
+python poe_market_filter_toolkit\scripts\sync_pob.py --list-local
+python poe_market_filter_toolkit\scripts\sync_pob.py --character aron_shockwave_cyclone_slayer --source "C:\Users\<voce>\Documents\Path of Building\Builds\MinhaBuild.xml"
+```
+
+Essa importacao atualiza itens, status calculados e grupos de gems/skills do personagem.
+
+Importar usando o código exportado pelo PoB:
+
+```powershell
+python poe_market_filter_toolkit\scripts\sync_pob.py --character aron_shockwave_cyclone_slayer --from-clipboard --save-code poe_market_filter_toolkit\data\raw\pob_export_aron.txt
+```
+
+Importar a build alvo a partir de um PoB:
+
+```powershell
+python poe_market_filter_toolkit\scripts\sync_pob.py --build ronarray_shockwave_cyclone_slayer --source "C:\pob\BuildAlvo.xml" --as target
+```
+
+Nesse modo o toolkit gera `target_requirements.json`, que resume metas, pisos de seguranca, requisitos por slot, skills ativas, tags dominantes e pesos sugeridos sem depender do nome da build.
+
+Para builds ja cadastradas, tambem da para regenerar essa leitura generica sem reimportar o PoB:
+
+```powershell
+python poe_market_filter_toolkit\scripts\analyze_target_build.py --build ronarray_shockwave_cyclone_slayer
+```
+
+Ou sincronizar e rodar o fluxo completo em seguida:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --sync-pob-from-clipboard --budget 1000c --open
+```
 
 Editar itens/status sem mexer no JSON cru:
 
@@ -71,6 +114,7 @@ poe_market_filter_toolkit/builds/profiles/<build>/
   build_profile.json
   target_build_items.json
   target_build_stats.json
+  target_requirements.json
   upgrade_rules.json
 ```
 
@@ -91,9 +135,14 @@ update_market.py
 market_report.py
 suggest_filter_tiers.py
 filter_audit.py
+review_filter_strategy.py
 ```
 
 Esses scripts ajudam a manter o filtro, mas nao editam o filtro automaticamente.
+`review_filter_strategy.py` cruza personagem, build alvo e mercado para separar
+o que deve aparecer por valor de mercado do que deve aparecer por potencial para
+a build. Ele tambem gera `market/reports/filter_strategy_snippets.filter` para
+revisao manual.
 
 ## Testes
 
