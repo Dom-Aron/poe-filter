@@ -17,7 +17,9 @@ import argparse
 import os
 import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 TOOLKIT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TOOLKIT_ROOT))
@@ -116,6 +118,8 @@ def render_character_pages(character_slug: str) -> None:
     destination = paths.character_output_dir(character_slug)
     run_script(
         "generate_dashboard.py",
+        "--run-summary",
+        str(destination / "run_summary.json"),
         "--validation-report",
         str(destination / "validation_report.json"),
         "--gap",
@@ -152,15 +156,94 @@ def open_dashboard(path: Path) -> None:
         subprocess.run(["xdg-open", str(path)], check=False)
 
 
-def write_run_summary(character_slug: str, budget: str | None, steps: list[str]) -> None:
+def utc_now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
+def read_json_if_exists(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    data = read_json(path)
+    return data if isinstance(data, dict) else {}
+
+
+def parse_report_time(value: Any) -> datetime | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    if text.endswith("Z"):
+        text = text[:-1] + "+00:00"
+    try:
+        parsed = datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def age_minutes_from(value: Any) -> float | None:
+    generated_at = parse_report_time(value)
+    if generated_at is None:
+        return None
+    age = datetime.now(timezone.utc) - generated_at
+    return round(max(age.total_seconds(), 0) / 60, 2)
+
+
+def build_execution_context(args: argparse.Namespace) -> dict[str, Any]:
+    return {
+        "fetch_character": bool(args.fetch_character),
+        "parse_character": bool(args.parse_character),
+        "sync_pob": bool(args.sync_pob_source or args.sync_pob_from_clipboard),
+        "skip_market_update": bool(args.skip_market_update),
+        "skip_market_report": bool(args.skip_market_report),
+        "skip_filter_reports": bool(args.skip_filter_reports),
+        "skip_upgrade_plan": bool(args.skip_upgrade_plan),
+        "skip_validation": bool(args.skip_validation),
+        "strict_validation": bool(args.strict_validation),
+        "budget": args.budget,
+        "profiles": args.profiles,
+        "top": args.top,
+        "max_fetch": args.max_fetch,
+        "max_combo_size": args.max_combo_size,
+        "request_delay": args.request_delay,
+        "best_any_budget_mode": args.best_any_budget_mode,
+    }
+
+
+def build_observability(destination: Path, args: argparse.Namespace) -> dict[str, Any]:
+    validation = read_json_if_exists(destination / "validation_report.json")
+    market = read_json_if_exists(destination / "latest_market.json")
+    market_errors = market.get("errors", [])
+    market_items = market.get("items", [])
+    validation_warnings = validation.get("warnings", [])
+    validation_errors = validation.get("errors", [])
+    market_generated_at = market.get("generated_at")
+    return {
+        "validation_status": validation.get("status", "skipped" if args.skip_validation else "missing"),
+        "validation_warnings": len(validation_warnings) if isinstance(validation_warnings, list) else 0,
+        "validation_errors": len(validation_errors) if isinstance(validation_errors, list) else 0,
+        "market_generated_at": market_generated_at,
+        "market_items": len(market_items) if isinstance(market_items, list) else 0,
+        "market_errors": len(market_errors) if isinstance(market_errors, list) else 0,
+        "market_age_minutes": age_minutes_from(market_generated_at),
+        "market_data_source": "reused_cached" if args.skip_market_update else "updated_now",
+        "market_report_source": "reused_cached" if args.skip_market_report else "updated_now",
+    }
+
+
+def write_run_summary(character_slug: str, args: argparse.Namespace, steps: list[str]) -> None:
     destination = paths.character_output_dir(character_slug)
     summary = {
-        "schema_version": 1,
+        "schema_version": 2,
+        "generated_at": utc_now_iso(),
         "character_slug": character_slug,
         "active_character": read_json(destination / "active_character.json"),
         "active_build": read_json(destination / "active_build.json"),
-        "budget": budget or "no budget",
+        "budget": args.budget or "no budget",
         "steps": steps,
+        "execution": build_execution_context(args),
+        "observability": build_observability(destination, args),
         "dashboard": str((destination / "build_dashboard.html").relative_to(paths.ROOT)).replace("\\", "/"),
     }
     write_json(destination / "run_summary.json", summary)
@@ -351,8 +434,9 @@ def main(argv: list[str]) -> int:
 
     copy_character_inputs(character_slug, build_slug)
     copy_reports(character_slug, include_filter_reports=not args.skip_filter_reports)
+    steps.append("render_dashboard")
+    write_run_summary(character_slug, args, steps)
     render_character_pages(character_slug)
-    write_run_summary(character_slug, args.budget, steps)
 
     dashboard = paths.character_output_dir(character_slug) / "build_dashboard.html"
     print()

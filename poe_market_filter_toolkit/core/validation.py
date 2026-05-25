@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -34,6 +34,10 @@ PLANNER_EFFECT_KEYS = {
     "gem_level",
     "plan_penalty",
 }
+
+
+def utc_now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def numeric_stats(data: dict[str, Any]) -> dict[str, float]:
@@ -114,7 +118,7 @@ def make_report(character_slug: str, build_slug: str, errors: list[str], warning
         status = "warning"
     return {
         "schema_version": 1,
-        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "generated_at": utc_now_iso(),
         "character_slug": character_slug,
         "build_slug": build_slug,
         "status": status,

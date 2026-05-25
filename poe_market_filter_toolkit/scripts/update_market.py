@@ -17,7 +17,7 @@ from __future__ import annotations
 import argparse
 import json
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
@@ -29,6 +29,10 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / "config" / "market_config.json"
 SNAPSHOT_DIR = ROOT / "market" / "snapshots"
 LATEST_FILE = ROOT / "market" / "latest_market.json"
+
+
+def utc_now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def load_config(path: Path) -> dict[str, Any]:
@@ -208,7 +212,7 @@ def main() -> int:
 
     snapshot: dict[str, Any] = {
         "league": league,
-        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "generated_at": utc_now_iso(),
         "generated_by": "scripts/update_market.py",
         "items": [],
         "errors": [],
@@ -238,7 +242,7 @@ def main() -> int:
 
     snapshot["items"] = dedupe_items(collected_items)
 
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
+    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H%M%S")
     snapshot_file = SNAPSHOT_DIR / f"market_{timestamp}.json"
 
     text = json.dumps(snapshot, ensure_ascii=False, indent=2)

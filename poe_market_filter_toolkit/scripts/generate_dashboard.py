@@ -34,6 +34,7 @@ DEFAULT_MARKET_JSON = ROOT / "market" / "latest_market.json"
 DEFAULT_ACTIVE_BUILD = ROOT / "builds" / "active_build.json"
 DEFAULT_ACTIVE_CHARACTER = ROOT / "builds" / "active_character.json"
 DEFAULT_VALIDATION_REPORT = GENERATED / "validation_report.json"
+DEFAULT_RUN_SUMMARY = GENERATED / "run_summary.json"
 DEFAULT_OUTPUT = GENERATED / "build_dashboard.html"
 RECOMMENDATIONS_HTML = GENERATED / "upgrade_recommendations.html"
 NEXT_SEARCHES_HTML = GENERATED / "next_searches.html"
@@ -312,6 +313,75 @@ def validation_panel(validation: dict[str, Any]) -> str:
     )
 
 
+def run_health_panel(run_summary: dict[str, Any]) -> str:
+    if not run_summary:
+        return (
+            "<div class=\"panel small warning-panel\">"
+            "<h3>Resumo Da Execucao Indisponivel</h3>"
+            "<p>Rode run_character.py para gerar run_summary.json com idade do mercado, origem dos dados e status de validacao.</p>"
+            "</div>"
+        )
+    observability = run_summary.get("observability", {})
+    if not isinstance(observability, dict):
+        observability = {}
+    execution = run_summary.get("execution", {})
+    if not isinstance(execution, dict):
+        execution = {}
+
+    validation_status = str(observability.get("validation_status") or "n/d")
+    market_age = observability.get("market_age_minutes")
+    market_errors = observability.get("market_errors")
+    market_items = observability.get("market_items")
+    market_source = str(observability.get("market_data_source") or "n/d")
+    report_source = str(observability.get("market_report_source") or "n/d")
+
+    health = "ok"
+    notes: list[str] = []
+    if validation_status not in {"ok", "skipped"}:
+        health = "warn" if validation_status == "warning" else "bad"
+        notes.append(f"Validacao: {validation_status}")
+    if isinstance(market_errors, int) and market_errors > 0:
+        health = "bad"
+        notes.append(f"Erros de mercado: {market_errors}")
+    if isinstance(market_age, (int, float)) and market_age > 180:
+        health = "warn" if health == "ok" else health
+        notes.append(f"Mercado possivelmente stale: {market_age:.0f} min")
+    if not notes:
+        notes.append("Execucao sem alerta operacional forte.")
+
+    age_text = f"{market_age:.1f} min" if isinstance(market_age, (int, float)) else "n/d"
+    generated = str(run_summary.get("generated_at") or "n/d")
+    strict = "sim" if execution.get("strict_validation") else "nao"
+    skipped = [
+        label
+        for key, label in (
+            ("skip_market_update", "mercado"),
+            ("skip_market_report", "relatorio de mercado"),
+            ("skip_filter_reports", "relatorios do filtro"),
+            ("skip_upgrade_plan", "plano de compra"),
+            ("skip_validation", "validacao"),
+        )
+        if execution.get(key)
+    ]
+    skipped_text = ", ".join(skipped) if skipped else "nenhum"
+
+    return (
+        f"<div class=\"panel small run-health {health}\">"
+        "<h3>Saude Da Execucao</h3>"
+        "<div class=\"summary-grid\">"
+        f"<div class=\"summary-card\"><span>Validacao</span><strong>{html.escape(validation_status)}</strong></div>"
+        f"<div class=\"summary-card\"><span>Idade do mercado</span><strong>{html.escape(age_text)}</strong></div>"
+        f"<div class=\"summary-card\"><span>Itens de mercado</span><strong>{html.escape(str(market_items if market_items is not None else 'n/d'))}</strong></div>"
+        f"<div class=\"summary-card\"><span>Erros de mercado</span><strong>{html.escape(str(market_errors if market_errors is not None else 'n/d'))}</strong></div>"
+        "</div>"
+        f"<p><strong>Dados:</strong> mercado {html.escape(market_source)}; relatorio {html.escape(report_source)}.</p>"
+        f"<p><strong>Strict validation:</strong> {strict}. <strong>Etapas puladas:</strong> {html.escape(skipped_text)}.</p>"
+        f"<p class=\"muted\">Summary gerado em {html.escape(generated)}.</p>"
+        "<ul>" + "".join(f"<li>{html.escape(note)}</li>" for note in notes) + "</ul>"
+        "</div>"
+    )
+
+
 def active_build_panel(active_build: dict[str, Any]) -> str:
     if not active_build:
         return "<p class=\"muted\">Nenhuma build alvo ativa registrada. Use switch_build.py para cadastrar uma.</p>"
@@ -570,6 +640,9 @@ def common_css() -> str:
     .validation.ok { border-color: #2f7d4a; }
     .validation.warn { border-color: #a47f2d; background: #241c10; }
     .validation.bad { border-color: #a54646; background: #251516; }
+    .run-health.ok { border-color: #2f7d4a; }
+    .run-health.warn { border-color: #a47f2d; background: #241c10; }
+    .run-health.bad { border-color: #a54646; background: #251516; }
     .deal-card { border: 1px solid #44505c; border-radius: 8px; padding: 18px; background: #1b1f23; }
     .deal-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
     .deal-head h3 { flex: 1; min-width: 220px; }
@@ -998,6 +1071,7 @@ def render_dashboard(
     active_build: dict[str, Any],
     active_character: dict[str, Any],
     validation_report: dict[str, Any],
+    run_summary: dict[str, Any],
     output: Path,
 ) -> str:
     generated = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -1029,6 +1103,7 @@ def render_dashboard(
         {active_build_panel(active_build)}
       </div>
       {build_data_warning(active_build)}
+      {run_health_panel(run_summary)}
       {validation_panel(validation_report)}
     </section>
     <section>
@@ -1085,6 +1160,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--active-build", type=Path, default=DEFAULT_ACTIVE_BUILD)
     parser.add_argument("--active-character", type=Path, default=DEFAULT_ACTIVE_CHARACTER)
     parser.add_argument("--validation-report", type=Path, default=DEFAULT_VALIDATION_REPORT)
+    parser.add_argument("--run-summary", type=Path, default=DEFAULT_RUN_SUMMARY)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     return parser.parse_args(argv)
 
@@ -1104,6 +1180,7 @@ def main(argv: list[str]) -> int:
     active_build = read_json(args.active_build)
     active_character = read_json(args.active_character)
     validation_report = read_json(args.validation_report)
+    run_summary = read_json(args.run_summary)
     upgrade_plan_md = read_text(args.upgrade_plan)
     upgrade_plan_json = read_json(args.upgrade_plan_json)
     content = render_dashboard(
@@ -1116,6 +1193,7 @@ def main(argv: list[str]) -> int:
         active_build=active_build,
         active_character=active_character,
         validation_report=validation_report,
+        run_summary=run_summary,
         output=args.output,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
