@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 from . import paths
 from .io import read_json_checked
+from .time_utils import utc_now_iso
 
 
 REQUIRED_CHARACTER_FILES = ("character_profile.json", "player_items.json", "player_stats.json")
@@ -34,10 +34,6 @@ PLANNER_EFFECT_KEYS = {
     "gem_level",
     "plan_penalty",
 }
-
-
-def utc_now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def numeric_stats(data: dict[str, Any]) -> dict[str, float]:

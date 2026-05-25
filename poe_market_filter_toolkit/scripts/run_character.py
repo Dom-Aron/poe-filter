@@ -27,6 +27,7 @@ sys.path.insert(0, str(TOOLKIT_ROOT))
 from core import paths
 from core.io import copy_if_exists, read_json, write_json
 from core.profiles import PLAYER_FILES, TARGET_FILES, build_file, load_build_profile, load_character_profile, character_file, write_active_metadata
+from core.time_utils import utc_now_iso
 
 
 def run_script(script_name: str, *args: str, keep_going: bool = False) -> bool:
@@ -156,10 +157,6 @@ def open_dashboard(path: Path) -> None:
         subprocess.run(["xdg-open", str(path)], check=False)
 
 
-def utc_now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
-
-
 def read_json_if_exists(path: Path) -> dict[str, Any]:
     if not path.exists():
         return {}
@@ -208,6 +205,9 @@ def build_execution_context(args: argparse.Namespace) -> dict[str, Any]:
         "max_combo_size": args.max_combo_size,
         "request_delay": args.request_delay,
         "best_any_budget_mode": args.best_any_budget_mode,
+        "fail_on_stale_market": bool(args.fail_on_stale_market),
+        "max_market_age_minutes": args.max_market_age_minutes,
+        "fail_on_market_errors": bool(args.fail_on_market_errors),
     }
 
 
@@ -230,6 +230,38 @@ def build_observability(destination: Path, args: argparse.Namespace) -> dict[str
         "market_data_source": "reused_cached" if args.skip_market_update else "updated_now",
         "market_report_source": "reused_cached" if args.skip_market_report else "updated_now",
     }
+
+
+def market_observability_from_file(market_path: Path, args: argparse.Namespace) -> dict[str, Any]:
+    market = read_json_if_exists(market_path)
+    market_errors = market.get("errors", [])
+    market_items = market.get("items", [])
+    market_generated_at = market.get("generated_at")
+    return {
+        "market_generated_at": market_generated_at,
+        "market_items": len(market_items) if isinstance(market_items, list) else 0,
+        "market_errors": len(market_errors) if isinstance(market_errors, list) else 0,
+        "market_age_minutes": age_minutes_from(market_generated_at),
+        "market_data_source": "reused_cached" if args.skip_market_update else "updated_now",
+    }
+
+
+def enforce_market_quality(args: argparse.Namespace) -> None:
+    if not args.fail_on_stale_market and not args.fail_on_market_errors:
+        return
+    health = market_observability_from_file(paths.MARKET / "latest_market.json", args)
+    age = health.get("market_age_minutes")
+    errors = health.get("market_errors")
+    if args.fail_on_market_errors and isinstance(errors, int) and errors > 0:
+        raise SystemExit(f"Market quality check failed: latest_market.json has {errors} collection errors.")
+    if args.fail_on_stale_market:
+        if age is None:
+            raise SystemExit("Market quality check failed: latest_market.json has no parseable generated_at.")
+        if age > args.max_market_age_minutes:
+            raise SystemExit(
+                "Market quality check failed: market data is stale "
+                f"({age:.1f} min > {args.max_market_age_minutes:.1f} min)."
+            )
 
 
 def write_run_summary(character_slug: str, args: argparse.Namespace, steps: list[str]) -> None:
@@ -273,6 +305,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--max-fetch", type=int, default=30)
     parser.add_argument("--max-combo-size", type=int)
     parser.add_argument("--request-delay", type=float, help="Seconds to wait between trade API requests.")
+    parser.add_argument("--fail-on-stale-market", action="store_true", help="Abort if latest market data is older than --max-market-age-minutes.")
+    parser.add_argument("--max-market-age-minutes", type=float, default=180.0, help="Freshness threshold used by --fail-on-stale-market.")
+    parser.add_argument("--fail-on-market-errors", action="store_true", help="Abort if latest_market.json contains collection errors.")
     parser.add_argument(
         "--best-any-budget-mode",
         choices=("reuse", "extra", "off"),
@@ -342,6 +377,8 @@ def main(argv: list[str]) -> int:
         steps.append("market_report")
     else:
         steps.append("reuse_market_report")
+
+    enforce_market_quality(args)
 
     if not args.skip_filter_reports:
         run_script("suggest_filter_tiers.py")

@@ -10,8 +10,9 @@ from __future__ import annotations
 
 import re
 from collections import Counter
-from datetime import datetime
 from typing import Any
+
+from .time_utils import utc_now_iso
 
 
 ELEMENTAL_RESISTS = ("fire_resistance", "cold_resistance", "lightning_resistance")
@@ -364,7 +365,7 @@ def build_target_requirements(stats_doc: dict[str, Any], items_doc: dict[str, An
     return {
         "schema_version": 1,
         "source": "path_of_building",
-        "updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "updated": utc_now_iso(),
         "minimums": minimums,
         "goals": goals,
         "weights": derive_weights({key: float(value) for key, value in goals.items() if isinstance(value, (int, float))}, slots, skills),

@@ -28,7 +28,6 @@ import re
 import sys
 import time
 from dataclasses import dataclass
-from datetime import datetime
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
@@ -38,6 +37,11 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = ROOT.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from core.time_utils import utc_now_iso
+
 DEFAULT_CONFIG = ROOT / "config" / "market_config.json"
 DEFAULT_RULES = ROOT / "builds" / "upgrade_rules.json"
 LATEST_MARKET = ROOT / "market" / "latest_market.json"
@@ -839,7 +843,7 @@ def write_report(
     lines = [
         "# Upgrade Deals",
         "",
-        f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+        f"Generated: {utc_now_iso()}",
         f"League: `{league}`",
         f"Budget: `{budget_chaos:.1f} chaos`",
         "",

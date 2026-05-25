@@ -15,6 +15,12 @@ Rodar tudo para um personagem salvo:
 python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --budget 1000c --open
 ```
 
+Rodar de forma conservadora, bloqueando mercado velho ou coleta com erro:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --budget 1000c --fail-on-stale-market --max-market-age-minutes 180 --fail-on-market-errors --open
+```
+
 Atalhos locais equivalentes:
 
 ```powershell

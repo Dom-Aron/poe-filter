@@ -21,20 +21,18 @@ import json
 import re
 import sys
 import zlib
-from datetime import datetime
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 from typing import Any
 from xml.etree import ElementTree as ET
-
-from parse_character import normalize_mods
-
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from core import target_analysis
+from core.time_utils import utc_now_iso
+from parse_character import normalize_mods
 
 BUILDS_DIR = ROOT / "builds"
 PROFILES_DIR = BUILDS_DIR / "profiles"
@@ -198,7 +196,7 @@ def extract_stats(root: ET.Element) -> dict[str, Any]:
     return {
         "schema_version": 1,
         "source": "path_of_building",
-        "updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "updated": utc_now_iso(),
         "character": character,
         "stats": stats,
     }
@@ -320,7 +318,7 @@ def extract_items(root: ET.Element) -> dict[str, Any]:
     return {
         "schema_version": 1,
         "source": "path_of_building",
-        "updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "updated": utc_now_iso(),
         "items": items,
     }
 
@@ -372,7 +370,7 @@ def extract_skills(root: ET.Element) -> dict[str, Any]:
     return {
         "schema_version": 1,
         "source": "path_of_building",
-        "updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "updated": utc_now_iso(),
         "skill_groups": groups,
         "main_skills": [group["main_gem"] for group in groups if group.get("enabled") and group.get("main_gem")],
     }

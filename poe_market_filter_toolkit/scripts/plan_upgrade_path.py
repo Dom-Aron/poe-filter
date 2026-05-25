@@ -24,7 +24,6 @@ import sys
 import time
 from collections import Counter
 from dataclasses import dataclass
-from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -32,6 +31,10 @@ import find_upgrade_deals as trade
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from core.time_utils import utc_now_iso
+
 DEFAULT_CONFIG = ROOT / "config" / "market_config.json"
 BUILDS_DIR = ROOT / "builds"
 PLAYER_ITEMS = BUILDS_DIR / "player_items.json"
@@ -569,7 +572,7 @@ def write_report(
     lines = [
         "# Upgrade Plan",
         "",
-        f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+        f"Generated: {utc_now_iso()}",
         f"League: `{league}`",
         f"Budget: `{format_budget_label(budget_chaos)}`",
         f"Mode: `{'cheapest safe upgrades' if cheapest_first else 'best value inside budget'}`",
@@ -773,7 +776,7 @@ def write_json_report(
     output_json.parent.mkdir(parents=True, exist_ok=True)
     data = {
         "schema_version": 1,
-        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "generated_at": utc_now_iso(),
         "active_build_slug": active_slug,
         "league": league,
         "budget_label": format_budget_label(budget_chaos),
@@ -833,7 +836,7 @@ def write_html_report(
     output_html: Path,
 ) -> None:
     output_html.parent.mkdir(parents=True, exist_ok=True)
-    generated = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    generated = utc_now_iso()
     mode = "Top 3 upgrades seguros mais baratos" if cheapest_first else "Melhores planos dentro do budget"
 
     cards: list[str] = []

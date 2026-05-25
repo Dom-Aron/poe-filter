@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -26,13 +27,13 @@ from urllib.request import Request, urlopen
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from core.time_utils import utc_now_iso
+
 DEFAULT_CONFIG = ROOT / "config" / "market_config.json"
 SNAPSHOT_DIR = ROOT / "market" / "snapshots"
 LATEST_FILE = ROOT / "market" / "latest_market.json"
-
-
-def utc_now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def load_config(path: Path) -> dict[str, Any]:

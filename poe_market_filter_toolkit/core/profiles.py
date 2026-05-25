@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from datetime import datetime
 from typing import Any
 
 from . import paths
 from .io import read_json, required_file, write_json
+from .time_utils import utc_now_iso
 
 
 PLAYER_FILES = ("player_items.json", "player_stats.json")
@@ -52,7 +52,7 @@ def character_payload(character_slug: str, profile: dict[str, Any], build_slug: 
         "build_slug": build_slug,
         "notes": profile.get("notes", ""),
         "active_character_dir": paths.rel(paths.character_dir(character_slug)),
-        "activated_at": datetime.now().isoformat(timespec="seconds"),
+        "activated_at": utc_now_iso(),
         "source": "run_character.py",
     }
 
@@ -66,7 +66,7 @@ def build_payload(build_slug: str, profile: dict[str, Any]) -> dict[str, Any]:
         "pob": profile.get("pob", {}),
         "notes": profile.get("notes", ""),
         "active_profile_dir": paths.rel(paths.build_dir(build_slug)),
-        "activated_at": datetime.now().isoformat(timespec="seconds"),
+        "activated_at": utc_now_iso(),
         "source": "run_character.py",
     }
 

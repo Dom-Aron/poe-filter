@@ -17,6 +17,9 @@ python poe_market_filter_toolkit\scripts\run_character.py --character aron_shock
 - Timestamps criticos agora usam UTC:
   - `core/validation.py`: `generated_at` do relatorio de validacao.
   - `scripts/update_market.py`: `generated_at` do snapshot de mercado e nome do snapshot.
+  - `scripts/compare_current_to_target.py`: `generated_at` da analise de gaps.
+  - `scripts/recommend_next_steps.py`: relatorios Markdown e JSON de recomendacoes.
+  - `scripts/plan_upgrade_path.py`: plano de compra Markdown, HTML e JSON.
 - `run_summary.json` passou para `schema_version: 2`.
 - `run_summary.json` registra:
   - `generated_at`;
@@ -29,6 +32,11 @@ python poe_market_filter_toolkit\scripts\run_character.py --character aron_shock
   - origem dos dados de mercado;
   - origem do relatorio de mercado;
   - quantidade de itens e erros de mercado.
+- `run_character.py` agora pode bloquear execucoes com dados ruins:
+  - `--fail-on-stale-market`;
+  - `--max-market-age-minutes`;
+  - `--fail-on-market-errors`.
+- A suite de testes cobre o contrato minimo de observabilidade do `run_summary.json`.
 
 ## Objetivo
 
@@ -48,18 +56,25 @@ Reduzir ambiguidade operacional. Depois de uma execucao, deve ser rapido respond
 - Validacao `warning`: pode seguir, mas revise antes de comprar item caro.
 - Validacao `failed`: nao confiar nas recomendacoes.
 
+## Flags De Qualidade
+
+Para rodar de forma conservadora:
+
+```powershell
+python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --budget 1000c --fail-on-stale-market --max-market-age-minutes 180 --fail-on-market-errors
+```
+
+Use `--fail-on-stale-market` quando quiser impedir recomendacoes com mercado antigo. Use `--fail-on-market-errors` quando qualquer erro de coleta precisar bloquear a execucao.
+
 ## Backlog Priorizado
 
 ### Curto Prazo
 
-- Adicionar flags de bloqueio:
-  - `--fail-on-stale-market`;
-  - `--max-market-age-minutes`.
 - Criar `scripts/health_check.py` unico para:
   - testes;
   - validacao de personagem;
   - smoke run com cache.
-- Formalizar contrato do `run_summary.json` em teste automatizado.
+- Expandir o contrato do `run_summary.json` para validar tambem renderizacao do dashboard.
 
 ### Medio Prazo
 
@@ -79,4 +94,3 @@ Reduzir ambiguidade operacional. Depois de uma execucao, deve ser rapido respond
 - Mudancas silenciosas no contrato de um JSON podem afetar outro script.
 - Sem OAuth, os dados atuais do personagem dependem de export/import manual pelo PoB.
 - Links do trade podem ficar obsoletos rapidamente.
-

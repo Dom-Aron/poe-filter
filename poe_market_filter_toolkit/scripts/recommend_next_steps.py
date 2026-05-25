@@ -13,12 +13,15 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from core.time_utils import utc_now_iso
+
 DEFAULT_GAP = ROOT / "data" / "generated" / "gap_analysis.json"
 DEFAULT_RULES = ROOT / "builds" / "upgrade_rules.json"
 DEFAULT_ACTIVE_BUILD = ROOT / "builds" / "active_build.json"
@@ -197,7 +200,7 @@ def write_next_searches(path: Path, entries: list[dict[str, Any]]) -> None:
     lines = [
         "# Proximas buscas recomendadas",
         "",
-        f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+        f"Generated: {utc_now_iso()}",
         "",
     ]
     if not entries:
@@ -240,7 +243,7 @@ def write_recommendations(path: Path, gap: dict[str, Any], entries: list[dict[st
     lines = [
         "# Recomendacoes de upgrade",
         "",
-        f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+        f"Generated: {utc_now_iso()}",
         "",
         "## Estado atual resumido",
         "",
@@ -318,7 +321,7 @@ def write_report_json(
 ) -> None:
     report = {
         "schema_version": 1,
-        "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "generated_at": utc_now_iso(),
         "active_build_slug": active_build.get("active_slug", ""),
         "active_build_name": active_build.get("name", ""),
         "active_character_slug": active_character.get("active_slug", ""),

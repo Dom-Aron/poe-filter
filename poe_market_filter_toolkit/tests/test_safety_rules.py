@@ -3,6 +3,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,6 +22,7 @@ import sync_pob
 import update_market
 import validate_character
 from core import target_analysis
+from core import validation as core_validation
 
 
 class SafetyRulesTest(unittest.TestCase):
@@ -402,6 +404,76 @@ Ezomyte Staff
             sync_pob.save_pob_code(path, " abc \n def ")
 
             self.assertEqual(path.read_text(encoding="utf-8"), "abcdef\n")
+
+    def test_run_summary_observability_contract(self):
+        args = SimpleNamespace(
+            fetch_character=False,
+            parse_character=False,
+            sync_pob_source=None,
+            sync_pob_from_clipboard=False,
+            skip_market_update=True,
+            skip_market_report=False,
+            skip_filter_reports=False,
+            skip_upgrade_plan=True,
+            skip_validation=False,
+            strict_validation=False,
+            budget="1000c",
+            profiles="all",
+            top=10,
+            max_fetch=30,
+            max_combo_size=None,
+            request_delay=None,
+            best_any_budget_mode="reuse",
+            fail_on_stale_market=True,
+            max_market_age_minutes=180.0,
+            fail_on_market_errors=True,
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "validation_report.json").write_text(
+                json.dumps({"status": "ok", "warnings": [], "errors": []}),
+                encoding="utf-8",
+            )
+            (root / "latest_market.json").write_text(
+                json.dumps({"generated_at": "2026-05-25T00:00:00Z", "items": [{}, {}], "errors": []}),
+                encoding="utf-8",
+            )
+
+            execution = run_character.build_execution_context(args)
+            observability = run_character.build_observability(root, args)
+
+        self.assertTrue(execution["fail_on_stale_market"])
+        self.assertEqual(execution["max_market_age_minutes"], 180.0)
+        self.assertTrue(execution["fail_on_market_errors"])
+        self.assertEqual(observability["validation_status"], "ok")
+        self.assertEqual(observability["market_items"], 2)
+        self.assertEqual(observability["market_errors"], 0)
+        self.assertEqual(observability["market_data_source"], "reused_cached")
+        self.assertIsInstance(observability["market_age_minutes"], float)
+
+    def test_utc_timestamps_are_marked_with_z(self):
+        self.assertTrue(core_validation.utc_now_iso().endswith("Z"))
+        self.assertTrue(update_market.utc_now_iso().endswith("Z"))
+        self.assertTrue(run_character.utc_now_iso().endswith("Z"))
+        self.assertTrue(compare.utc_now_iso().endswith("Z"))
+        self.assertTrue(recommend.utc_now_iso().endswith("Z"))
+        self.assertTrue(plan_upgrade_path.utc_now_iso().endswith("Z"))
+
+    def test_market_observability_reads_errors_and_age(self):
+        args = SimpleNamespace(skip_market_update=False)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "latest_market.json"
+            path.write_text(
+                json.dumps({"generated_at": "2026-05-25T00:00:00Z", "items": [{}], "errors": [{"category": "Currency"}]}),
+                encoding="utf-8",
+            )
+
+            health = run_character.market_observability_from_file(path, args)
+
+        self.assertEqual(health["market_items"], 1)
+        self.assertEqual(health["market_errors"], 1)
+        self.assertEqual(health["market_data_source"], "updated_now")
+        self.assertIsInstance(health["market_age_minutes"], float)
 
 
 if __name__ == "__main__":

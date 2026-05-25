@@ -15,12 +15,15 @@ import json
 import os
 import re
 import sys
-from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from core.time_utils import utc_now_iso
+
 GENERATED = ROOT / "data" / "generated"
 REPORTS = ROOT / "market" / "reports"
 DEFAULT_GAP = GENERATED / "gap_analysis.json"
@@ -1074,7 +1077,7 @@ def render_dashboard(
     run_summary: dict[str, Any],
     output: Path,
 ) -> str:
-    generated = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    generated = utc_now_iso()
     upgrade_plan_current = current_upgrade_plan(upgrade_plan_json, active_build)
     return f"""<!doctype html>
 <html lang="pt-BR">

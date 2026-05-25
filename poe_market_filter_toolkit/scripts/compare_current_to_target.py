@@ -11,12 +11,15 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from core.time_utils import utc_now_iso
+
 DEFAULT_PLAYER_ITEMS = ROOT / "builds" / "player_items.json"
 DEFAULT_PLAYER_STATS = ROOT / "builds" / "player_stats.json"
 DEFAULT_TARGET_STATS = ROOT / "builds" / "target_build_stats.json"
@@ -128,7 +131,7 @@ def build_gap_analysis(
 
     return {
         "schema_version": 1,
-        "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "generated_at": utc_now_iso(),
         "solved": solved,
         "risks": risks,
         "comparison": comparison,
