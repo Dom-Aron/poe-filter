@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "source": "saved_build_profile",
+  "updated": "2026-05-24 22:15:54",
+  "minimums": {
+    "life": 3300,
+    "chaos_resistance": 0,
+    "chance_to_hit": 95,
+    "ailment_avoidance": 35.0,
+    "fire_resistance": 75,
+    "cold_resistance": 75,
+    "lightning_resistance": 75
+  },
+  "goals": {
+    "ailment_avoidance": 50,
+    "chance_to_hit": 100,
+    "chance_to_hit_evasive": 95,
+    "chaos_resistance": 40,
+    "impale_chance": 80,
+    "life": 3800,
+    "spell_block": 30
+  },
+  "weights": {
+    "ailment_avoidance": 0.75,
+    "chance_to_hit": 2.0,
+    "chance_to_hit_evasive": 0.75,
+    "chaos_resistance": 1.4,
+    "impale_chance": 0.75,
+    "life": 1.0,
+    "spell_block": 1.5
+  },
+  "dominant_tags": [],
+  "slot_requirements": {},
+  "skill_requirements": [],
+  "suggested_searches": [],
+  "notes": [
+    "Gerado automaticamente a partir do PoB alvo.",
+    "Minimums sao pisos de seguranca; goals representam onde a build alvo chega.",
+    "Use slot_requirements e dominant_tags para revisar buscas especificas sem prender o projeto a uma build nomeada."
+  ],
+  "build_slug": "ronarray_shockwave_cyclone_slayer"
+}

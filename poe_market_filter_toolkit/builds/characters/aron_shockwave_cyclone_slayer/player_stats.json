@@ -1,24 +1,45 @@
 {
   "schema_version": 1,
-  "updated": "2026-05-18",
+  "source": "path_of_building",
+  "updated": "2026-05-24 21:58:32",
+  "character": {
+    "level": 91,
+    "class": "Duelist",
+    "ascendancy": "Slayer",
+    "main_socket_group": "1"
+  },
   "stats": {
-    "life": 3410,
-    "accuracy": 2543,
-    "chance_to_hit": 96,
-    "chance_to_hit_evasive": 87,
-    "impale_chance": 46,
-    "fire_resistance": 81,
-    "cold_resistance": 80,
-    "lightning_resistance": 80,
-    "chaos_resistance": 23,
+    "attack_rate": 7.94664,
+    "critical_strike_chance": 27.9994,
+    "crit_multiplier": 269.0,
+    "chance_to_hit": 89,
+    "total_dps": 310533.49523376,
+    "combined_dps": 678711.50081277,
+    "ehp": 25792.938825307,
+    "physical_max_hit": 7121,
+    "lightning_max_hit": 22877,
+    "fire_max_hit": 23916,
+    "cold_max_hit": 19487,
+    "chaos_max_hit": 6833,
+    "accuracy": 2310,
+    "life": 4003,
+    "mana": 748,
+    "energy_shield": 0,
+    "evasion": 844,
+    "armour": 12586,
+    "physical_damage_reduction": 53,
     "attack_block": 62,
     "spell_block": 17,
-    "ailment_avoidance": 16
+    "spell_suppression": 0,
+    "fire_resistance": 81,
+    "fire_resistance_overcap": 47,
+    "cold_resistance": 76,
+    "cold_resistance_overcap": 0,
+    "lightning_resistance": 80,
+    "lightning_resistance_overcap": 67,
+    "chaos_resistance": 23,
+    "chaos_resistance_overcap": 0,
+    "full_dps": 0
   },
-  "uncapped_resistance_notes": {
-    "fire_resistance": 134,
-    "cold_resistance": 91,
-    "lightning_resistance": 156,
-    "chaos_resistance": 23
-  }
+  "source_path": "C:\\Users\\DomAron\\Documents\\Path of Building\\Builds\\Dom_Aron - SrBeyblade.xml"
 }

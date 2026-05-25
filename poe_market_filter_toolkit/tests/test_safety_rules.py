@@ -1,5 +1,6 @@
 import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -8,14 +9,18 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import compare_current_to_target as compare
+import analyze_target_build
 import generate_dashboard
 import plan_upgrade_path
 import recommend_next_steps as recommend
+import review_filter_strategy
 import run_build_matrix
 import run_character
 import switch_build
+import sync_pob
 import update_market
 import validate_character
+from core import target_analysis
 
 
 class SafetyRulesTest(unittest.TestCase):
@@ -67,6 +72,18 @@ class SafetyRulesTest(unittest.TestCase):
 
         self.assertEqual(entries[0]["priority"], "low")
 
+    def test_accuracy_recommendation_accepts_unknown_current_value(self):
+        gap = {
+            "risks": {
+                "chance_to_hit_evasive": {"current": None, "goal": 95, "status": "unknown", "missing_to_goal": None},
+            },
+            "current_priorities": {"chance_to_hit_evasive": "needs_data"},
+        }
+
+        entries = recommend.search_entries(gap, {"allow_legacy_search_library": True})
+
+        self.assertEqual(entries[0]["stat"], "chance_to_hit_evasive")
+
     def test_search_entries_do_not_use_legacy_library_by_default(self):
         gap = {
             "risks": {
@@ -93,6 +110,129 @@ class SafetyRulesTest(unittest.TestCase):
             plan_upgrade_path.budget_price_windows(1000),
             [(None, 200.0), (200.0, 600.0), (600.0, 1000.0)],
         )
+
+    def test_goal_stats_score_only_progress_towards_target(self):
+        contribution = plan_upgrade_path.weighted_stat_contribution(
+            key="life",
+            value=500,
+            base_stats={"life": 3900},
+            final_stats={"life": 4400},
+            target_stats={"goals": {"life": 3800}},
+            weights={"life": 1.0},
+        )
+
+        self.assertEqual(contribution, 0)
+
+    def test_goal_stats_penalize_moving_away_from_target(self):
+        contribution = plan_upgrade_path.weighted_stat_contribution(
+            key="chaos_resistance",
+            value=-20,
+            base_stats={"chaos_resistance": 23},
+            final_stats={"chaos_resistance": 3},
+            target_stats={"goals": {"chaos_resistance": 40}},
+            weights={"chaos_resistance": 1.7},
+        )
+
+        self.assertLess(contribution, 0)
+
+    def test_target_requirements_infer_safe_minimums_from_pob_goals(self):
+        requirements = target_analysis.build_target_requirements(
+            {"stats": {"life": 4000, "fire_resistance": 82, "chaos_resistance": 35, "chance_to_hit": 97}},
+            {"items": {}},
+            {"skill_groups": []},
+        )
+
+        self.assertEqual(requirements["minimums"]["life"], 3400)
+        self.assertEqual(requirements["minimums"]["fire_resistance"], 75)
+        self.assertEqual(requirements["minimums"]["chaos_resistance"], 0)
+        self.assertEqual(requirements["minimums"]["chance_to_hit"], 90)
+        self.assertEqual(requirements["goals"]["fire_resistance"], 82)
+
+    def test_target_requirements_extract_slot_and_skill_tags(self):
+        requirements = target_analysis.build_target_requirements(
+            {"stats": {"life": 3500, "combined_dps": 500000}},
+            {
+                "items": {
+                    "weapon": {
+                        "name": "Hate Mast",
+                        "base": "Ezomyte Staff",
+                        "rarity": "Rare",
+                        "mods_raw": ["+120 to Accuracy Rating", "+30% to Global Critical Strike Multiplier"],
+                        "stats": {"accuracy": 120, "crit_multiplier": 30},
+                    }
+                }
+            },
+            {
+                "skill_groups": [
+                    {
+                        "index": 1,
+                        "slot": "body_armour",
+                        "main_gem": "Cyclone",
+                        "include_in_full_dps": True,
+                        "gems": [
+                            {"name": "Cyclone", "level": 21, "quality": 20, "enabled": True},
+                            {"name": "Brutality Support", "level": 20, "quality": 20, "enabled": True},
+                        ],
+                    }
+                ]
+            },
+        )
+
+        weapon = requirements["slot_requirements"]["weapon"]
+        self.assertIn("accuracy", weapon["desired_stats"])
+        self.assertIn("crit", weapon["tags"])
+        self.assertIn("staff", weapon["tags"])
+        self.assertIn("gem_level", requirements["weights"])
+        self.assertEqual(requirements["skill_requirements"][0]["main_skill"], "Cyclone")
+
+    def test_analyze_target_build_uses_goals_as_pob_stats_source(self):
+        stats_doc = analyze_target_build.stats_doc_from_target_stats(
+            {"source": "manual", "goals": {"life": 3800, "chance_to_hit": 100}, "minimums": {"life": 3300}}
+        )
+
+        self.assertEqual(stats_doc["stats"]["life"], 3800)
+        self.assertNotIn("minimums", stats_doc)
+
+    def test_analyze_target_build_keeps_explicit_minimums(self):
+        minimums = analyze_target_build.explicit_minimums(
+            {"minimums": {"fire_resistance": 75, "notes": "cap", "life": 3300}}
+        )
+
+        self.assertEqual(minimums, {"fire_resistance": 75, "life": 3300})
+
+    def test_filter_strategy_separates_safe_market_basetypes(self):
+        rows = review_filter_strategy.market_rows(
+            {
+                "items": [
+                    {"name": "Divine Orb", "requested_category": "Currency", "category": "Currency", "chaos_value": 400},
+                    {"name": "Doryani's Machinarium", "requested_category": "UniqueMap", "category": "UniqueMap", "chaos_value": 500},
+                ]
+            },
+            {"tier_thresholds_chaos": {"T1": 100}},
+            20,
+        )
+
+        safe = {row["name"]: row["safe_basetype"] for row in rows}
+        self.assertTrue(safe["Divine Orb"])
+        self.assertFalse(safe["Doryani's Machinarium"])
+
+    def test_filter_strategy_collects_build_bases_from_current_and_target(self):
+        bases = review_filter_strategy.useful_build_bases(
+            {
+                "items": {
+                    "weapon": {"base": "Ezomyte Staff", "name": "Hate Mast", "stats": {"accuracy": 130}},
+                    "flask_1": {"base": "Granite Flask", "name": "Granite Flask", "stats": {}},
+                }
+            },
+            {"items": {"gloves": {"base": "Precursor Gauntlets", "name": "Death Knuckle", "stats": {"life": 113}}}},
+            {"slot_requirements": {"ring_1": {"base": "Amethyst Ring", "desired_stats": ["chaos_resistance"], "stats": {}}}},
+        )
+
+        names = {row["base"] for row in bases}
+        self.assertIn("Ezomyte Staff", names)
+        self.assertIn("Precursor Gauntlets", names)
+        self.assertIn("Amethyst Ring", names)
+        self.assertNotIn("Granite Flask", names)
 
     def test_elemental_attack_damage_is_not_double_counted_as_generic_elemental(self):
         effects = plan_upgrade_path.candidate_effects(
@@ -215,6 +355,53 @@ class SafetyRulesTest(unittest.TestCase):
             run_character.main(["--character", "aron_shockwave_cyclone_slayer", "--fetch-character", "--skip-market-update"])
 
         self.assertIn("experimental", str(raised.exception))
+
+    def test_sync_pob_extracts_stats_and_active_items(self):
+        xml = """<PathOfBuilding>
+          <Build level="90" className="Duelist" ascendClassName="Slayer">
+            <PlayerStat stat="Life" value="3977"/>
+            <PlayerStat stat="HitChance" value="89"/>
+            <PlayerStat stat="FireResist" value="81"/>
+            <PlayerStat stat="CritMultiplier" value="2.69"/>
+            <PlayerStat stat="CombinedDPS" value="668772.5"/>
+          </Build>
+          <Items activeItemSet="1">
+            <Item id="1">Rarity: Rare
+Hate Mast
+Ezomyte Staff
+--------
++130 to Accuracy Rating
+20% increased Attack Speed
++16% to Global Critical Strike Multiplier</Item>
+            <ItemSet id="1">
+              <Slot name="Weapon 1" itemId="1"/>
+            </ItemSet>
+          </Items>
+        </PathOfBuilding>"""
+        root = sync_pob.ET.fromstring(xml)
+
+        stats = sync_pob.extract_stats(root)
+        items = sync_pob.extract_items(root)
+        skills = sync_pob.extract_skills(root)
+
+        self.assertEqual(stats["character"]["class"], "Duelist")
+        self.assertEqual(stats["character"]["ascendancy"], "Slayer")
+        self.assertEqual(stats["stats"]["life"], 3977)
+        self.assertEqual(stats["stats"]["chance_to_hit"], 89)
+        self.assertEqual(stats["stats"]["crit_multiplier"], 269)
+        self.assertEqual(stats["stats"]["combined_dps"], 668772.5)
+        self.assertIn("weapon", items["items"])
+        self.assertEqual(items["items"]["weapon"]["name"], "Hate Mast")
+        self.assertEqual(items["items"]["weapon"]["base"], "Ezomyte Staff")
+        self.assertEqual(items["items"]["weapon"]["stats"]["accuracy"], 130)
+        self.assertEqual(skills["skill_groups"], [])
+
+    def test_sync_pob_save_code_normalizes_whitespace(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "export.txt"
+            sync_pob.save_pob_code(path, " abc \n def ")
+
+            self.assertEqual(path.read_text(encoding="utf-8"), "abcdef\n")
 
 
 if __name__ == "__main__":

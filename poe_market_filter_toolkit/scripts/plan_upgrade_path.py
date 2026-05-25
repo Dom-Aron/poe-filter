@@ -327,8 +327,42 @@ def final_stats_for_combo(base_stats: dict[str, float], candidates: tuple[Candid
     return final
 
 
+def weighted_stat_contribution(
+    key: str,
+    value: float,
+    base_stats: dict[str, float],
+    final_stats: dict[str, float],
+    target_stats: dict[str, Any],
+    weights: dict[str, Any],
+) -> float:
+    weight = float(weights.get(key, 0.0))
+    if not weight or not value:
+        return 0.0
+    goals = target_stats.get("goals", {}) if isinstance(target_stats.get("goals"), dict) else {}
+    minimums = target_stats.get("minimums", {}) if isinstance(target_stats.get("minimums"), dict) else {}
+
+    if isinstance(goals.get(key), (int, float)):
+        goal = float(goals[key])
+        before_gap = max(goal - base_stats.get(key, 0.0), 0.0)
+        after_gap = max(goal - final_stats.get(key, 0.0), 0.0)
+        return (before_gap - after_gap) * weight
+
+    if isinstance(minimums.get(key), (int, float)):
+        minimum = float(minimums[key])
+        before_gap = max(minimum - base_stats.get(key, 0.0), 0.0)
+        after_gap = max(minimum - final_stats.get(key, 0.0), 0.0)
+        if before_gap or after_gap:
+            return (before_gap - after_gap) * weight
+        if value < 0:
+            return value * weight
+        return value * weight * 0.25
+
+    return value * weight
+
+
 def combo_score(
     candidates: tuple[Candidate, ...],
+    base_stats: dict[str, float],
     final_stats: dict[str, float],
     target_stats: dict[str, Any],
     rules: dict[str, Any],
@@ -365,8 +399,7 @@ def combo_score(
             if key == "plan_penalty":
                 score += value
                 continue
-            weight = float(weights.get(key, 0.0))
-            score += value * weight
+            score += weighted_stat_contribution(key, value, base_stats, final_stats, target_stats, weights)
         gains.extend(candidate.gains)
         warnings.extend(candidate.warnings)
 
@@ -415,7 +448,7 @@ def make_plans(
             if math.isfinite(budget_chaos) and total_price > budget_chaos:
                 continue
             final_stats = final_stats_for_combo(base_stats, combo)
-            score, gains, warnings, ok = combo_score(combo, final_stats, target_stats, rules)
+            score, gains, warnings, ok = combo_score(combo, base_stats, final_stats, target_stats, rules)
             if not ok:
                 diagnostics.extend(warnings[:2])
                 continue

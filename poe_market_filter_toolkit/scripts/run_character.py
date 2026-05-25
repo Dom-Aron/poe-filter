@@ -75,7 +75,7 @@ def copy_character_inputs(character_slug: str, build_slug: str) -> None:
         copy_if_exists(char_dir / filename, destination / "character" / filename)
 
     profile_dir = paths.build_dir(build_slug)
-    for filename in ("build_profile.json", *TARGET_FILES):
+    for filename in ("build_profile.json", *TARGET_FILES, "target_requirements.json", "target_build_skills.json"):
         copy_if_exists(profile_dir / filename, destination / "build" / filename)
 
 
@@ -95,9 +95,19 @@ def copy_reports(character_slug: str, include_filter_reports: bool) -> None:
         paths.MARKET / "latest_market.json",
     ]
     if include_filter_reports:
-        files.extend([paths.REPORTS / "filter_suggestions.md", paths.REPORTS / "filter_audit.md"])
+        files.extend(
+            [
+                paths.REPORTS / "filter_suggestions.md",
+                paths.REPORTS / "filter_audit.md",
+                paths.REPORTS / "filter_strategy.md",
+                paths.REPORTS / "filter_strategy_snippets.filter",
+            ]
+        )
     else:
-        remove_stale_outputs(character_slug, ("filter_suggestions.md", "filter_audit.md"))
+        remove_stale_outputs(
+            character_slug,
+            ("filter_suggestions.md", "filter_audit.md", "filter_strategy.md", "filter_strategy_snippets.filter"),
+        )
     for source in files:
         copy_if_exists(source, destination / source.name)
 
@@ -164,6 +174,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--fetch-character", action="store_true", help="Fetch current character data from the official API into the character profile.")
     parser.add_argument("--allow-experimental-oauth", action="store_true", help="Allow --fetch-character to call the optional OAuth-dependent helper.")
     parser.add_argument("--parse-character", action="store_true", help="Parse fetched raw API data into the character profile.")
+    parser.add_argument("--sync-pob-source", help="PoB XML path/export-code file/raw code to sync before validating.")
+    parser.add_argument("--sync-pob-from-clipboard", action="store_true", help="Sync PoB export code from the Windows clipboard before validating.")
+    parser.add_argument("--sync-pob-save-code", type=Path, help="When syncing PoB code, save it to this file.")
     parser.add_argument("--overwrite-manual-stats", action="store_true", help="Allow API parsing to replace player_stats.json even though derived stats are incomplete.")
     parser.add_argument("--skip-market-update", action="store_true", help="Use existing market/latest_market.json instead of updating market data.")
     parser.add_argument("--skip-market-report", action="store_true", help="Use existing market/reports/market_report.* instead of rebuilding the report.")
@@ -211,6 +224,20 @@ def main(argv: list[str]) -> int:
         parse_character_into_profile(character_slug, keep_manual_stats=not args.overwrite_manual_stats)
         steps.append("parse_character_into_profile")
 
+    pob_source_count = sum(1 for value in (args.sync_pob_source, args.sync_pob_from_clipboard) if value)
+    if pob_source_count > 1:
+        raise SystemExit("Use only one PoB sync source: --sync-pob-source or --sync-pob-from-clipboard.")
+    if args.sync_pob_source or args.sync_pob_from_clipboard:
+        sync_args = ["--character", character_slug]
+        if args.sync_pob_source:
+            sync_args.extend(["--source", args.sync_pob_source])
+        if args.sync_pob_from_clipboard:
+            sync_args.append("--from-clipboard")
+        if args.sync_pob_save_code:
+            sync_args.extend(["--save-code", str(args.sync_pob_save_code)])
+        run_script("sync_pob.py", *sync_args)
+        steps.append("sync_pob")
+
     if not args.skip_validation:
         validation_args = [
             "--character",
@@ -236,6 +263,7 @@ def main(argv: list[str]) -> int:
     if not args.skip_filter_reports:
         run_script("suggest_filter_tiers.py")
         run_script("filter_audit.py")
+        run_script("review_filter_strategy.py", "--character", character_slug)
         steps.append("filter_reports")
 
     destination = paths.character_output_dir(character_slug)

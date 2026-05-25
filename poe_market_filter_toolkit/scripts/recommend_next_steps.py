@@ -169,7 +169,8 @@ def search_entries(gap: dict[str, Any], rules: dict[str, Any] | None = None) -> 
             "priority": priority,
             **template,
         }
-        if stat_name in {"chance_to_hit", "chance_to_hit_evasive"} and risk.get("current", 0) >= 94:
+        current = risk.get("current")
+        if stat_name in {"chance_to_hit", "chance_to_hit_evasive"} and isinstance(current, (int, float)) and current >= 94:
             entry["priority"] = "low"
             entry["priority_pt"] = "baixa"
         entries.append(entry)

@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "source": "path_of_building",
+  "updated": "2026-05-24 21:58:32",
+  "skill_groups": [
+    {
+      "index": 1,
+      "slot": "body_armour",
+      "label": "",
+      "enabled": true,
+      "include_in_full_dps": false,
+      "main_active_skill": "1",
+      "main_gem": "Cyclone of Tumult",
+      "gems": [
+        {
+          "name": "Cyclone of Tumult",
+          "level": 20,
+          "quality": 20,
+          "enabled": true,
+          "skill_id": "CycloneAltX",
+          "gem_id": "Metadata/Items/Gems/SkillGemCyclone"
+        },
+        {
+          "name": "Melee Physical Damage",
+          "level": 20,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "SupportMeleePhysicalDamage",
+          "gem_id": "Metadata/Items/Gems/SupportGemMeleePhysicalDamage"
+        },
+        {
+          "name": "Impale",
+          "level": 19,
+          "quality": 20,
+          "enabled": true,
+          "skill_id": "SupportImpale",
+          "gem_id": "Metadata/Items/Gems/SupportGemImpale"
+        },
+        {
+          "name": "Pulverise",
+          "level": 20,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "SupportPulverise",
+          "gem_id": "Metadata/Items/Gems/SupportGemPulverise"
+        },
+        {
+          "name": "Void Shockwave",
+          "level": 4,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "SupportVoidShockwave",
+          "gem_id": "Metadata/Items/Gems/SupportGemVoidShockwave"
+        },
+        {
+          "name": "Infused Channelling",
+          "level": 19,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "SupportInfusedChannelling",
+          "gem_id": "Metadata/Items/Gems/SupportGemStormBarrier"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "slot": "gloves",
+      "label": "",
+      "enabled": true,
+      "include_in_full_dps": false,
+      "main_active_skill": "1",
+      "main_gem": "Molten Shell",
+      "gems": [
+        {
+          "name": "Molten Shell",
+          "level": 8,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "MoltenShell",
+          "gem_id": "Metadata/Items/Gems/SkillGemMoltenShell"
+        },
+        {
+          "name": "Cast when Damage Taken",
+          "level": 4,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "SupportCastWhenDamageTaken",
+          "gem_id": "Metadata/Items/Gems/SupportGemCastOnDamageTaken"
+        },
+        {
+          "name": "Pride",
+          "level": 20,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "Pride",
+          "gem_id": "Metadata/Items/Gems/SkillGemPride"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "slot": "weapon_swap",
+      "label": "",
+      "enabled": true,
+      "include_in_full_dps": false,
+      "main_active_skill": "1",
+      "main_gem": "Boneshatter of Complex Trauma",
+      "gems": [
+        {
+          "name": "Boneshatter of Complex Trauma",
+          "level": 20,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "BoneshatterAltX",
+          "gem_id": "Metadata/Items/Gems/SkillGemBoneshatter"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "slot": "boots",
+      "label": "",
+      "enabled": true,
+      "include_in_full_dps": false,
+      "main_active_skill": "1",
+      "main_gem": "Assassin's Mark",
+      "gems": [
+        {
+          "name": "Assassin's Mark",
+          "level": 17,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "AssassinsMark",
+          "gem_id": "Metadata/Items/Gems/SkillGemCriticalWeakness"
+        },
+        {
+          "name": "Mark On Hit",
+          "level": 20,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "SupportMarkOnHit",
+          "gem_id": "Metadata/Items/Gems/SupportGemMarkOnHit"
+        },
+        {
+          "name": "Lifetap",
+          "level": 18,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "SupportLifetap",
+          "gem_id": "Metadata/Items/Gems/SupportGemLifetap"
+        },
+        {
+          "name": "Frostblink",
+          "level": 11,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "Frostblink",
+          "gem_id": "Metadata/Items/Gems/SkillGemFrostblink"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "slot": "weapon",
+      "label": "",
+      "enabled": true,
+      "include_in_full_dps": false,
+      "main_active_skill": "1",
+      "main_gem": "Tectonic Slam of Cataclysm",
+      "gems": [
+        {
+          "name": "Tectonic Slam of Cataclysm",
+          "level": 20,
+          "quality": 17,
+          "enabled": true,
+          "skill_id": "TectonicSlamAltX",
+          "gem_id": "Metadata/Items/Gems/SkillGemTectonicSlam"
+        },
+        {
+          "name": "Autoexertion",
+          "level": 20,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "Autoexertion",
+          "gem_id": "Metadata/Items/Gems/SkillGemCallToArms"
+        },
+        {
+          "name": "Pulverise",
+          "level": 20,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "SupportPulverise",
+          "gem_id": "Metadata/Items/Gems/SupportGemPulverise"
+        },
+        {
+          "name": "General's Cry",
+          "level": 20,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "GeneralsCry",
+          "gem_id": "Metadata/Items/Gems/SkillGemGeneralsCry"
+        },
+        {
+          "name": "Brutality",
+          "level": 19,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "SupportBrutality",
+          "gem_id": "Metadata/Items/Gems/SupportGemBrutality"
+        },
+        {
+          "name": "Melee Physical Damage",
+          "level": 20,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "SupportMeleePhysicalDamage",
+          "gem_id": "Metadata/Items/Gems/SupportGemMeleePhysicalDamage"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "slot": "helmet",
+      "label": "",
+      "enabled": true,
+      "include_in_full_dps": false,
+      "main_active_skill": "1",
+      "main_gem": "Blood and Sand",
+      "gems": [
+        {
+          "name": "Blood and Sand",
+          "level": 6,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "BloodAndSand",
+          "gem_id": "Metadata/Items/Gems/SkillGemBloodAndSand"
+        },
+        {
+          "name": "Faster Attacks",
+          "level": 20,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "SupportFasterAttacks",
+          "gem_id": "Metadata/Items/Gems/SupportGemFasterAttack"
+        },
+        {
+          "name": "Leap Slam",
+          "level": 20,
+          "quality": 0,
+          "enabled": true,
+          "skill_id": "LeapSlam",
+          "gem_id": "Metadata/Items/Gems/SkillGemLeapSlam"
+        }
+      ]
+    }
+  ],
+  "main_skills": [
+    "Cyclone of Tumult",
+    "Molten Shell",
+    "Boneshatter of Complex Trauma",
+    "Assassin's Mark",
+    "Tectonic Slam of Cataclysm",
+    "Blood and Sand"
+  ],
+  "source_path": "C:\\Users\\DomAron\\Documents\\Path of Building\\Builds\\Dom_Aron - SrBeyblade.xml"
+}

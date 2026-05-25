@@ -5,3 +5,5 @@ poe_market_filter_toolkit/builds/active_character.json
 poe_market_filter_toolkit/builds/*.bak
 poe_market_filter_toolkit/builds/*.bak.*
 poe_market_filter_toolkit/builds/profiles/*/pob_source.txt
+poe_market_filter_toolkit/data/raw/*.pob.txt
+poe_market_filter_toolkit/data/raw/pob_export_*.txt
