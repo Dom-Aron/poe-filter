@@ -23,6 +23,16 @@ Atalhos locais equivalentes:
 .\tasks.ps1 filter aron_shockwave_cyclone_slayer
 ```
 
+Atalhos para desenvolvimento do codigo:
+
+```powershell
+.\dev.ps1 check
+.\dev.ps1 status
+.\dev.ps1 artifacts
+```
+
+O guia curto de desenvolvimento fica em [DEV.md](DEV.md).
+
 Saidas por personagem:
 
 ```text
