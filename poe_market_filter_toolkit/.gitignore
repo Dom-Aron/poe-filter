@@ -10,6 +10,8 @@ market/trade_stats_cache.json
 market/reports/upgrade_deals.md
 market/reports/upgrade_plan.md
 market/reports/upgrade_plan.html
+market/reports/filter_strategy.md
+market/reports/filter_strategy_snippets.filter
 
 # Account/API secrets and raw character exports
 secrets/*

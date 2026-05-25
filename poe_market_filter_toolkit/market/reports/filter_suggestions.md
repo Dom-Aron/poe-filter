@@ -2,57 +2,70 @@
 
 - Liga: `Mirage`
 - Mercado gerado em: `2026-05-21T22:00:07`
-- Filtros analisados: `2`
-- BaseTypes unicos encontrados no filtro: `893`
+- Filtros analisados: `1`
+- BaseTypes unicos encontrados no filtro: `846`
 - Preco minimo principal: `20.00 chaos`
 
 ## Arquivos de filtro analisados
 
 - `active_loot_filter.filter`
-- `filters\current\active_loot_filter.filter`
 
 ## Itens caros ausentes no filtro
 
 | Item | Categoria | Fonte | Tier | Chaos | Liquidez/Volume | Nome parecido no filtro |
 |---|---:|---:|---:|---:|---:|---|
 | Dark Pact of Trarthus | SkillGem | SkillGem | T0_JACKPOT | 604678.00 | 1 |  |
+| Awakened Enlighten Support | SkillGem | SkillGem | T0_JACKPOT | 429088.00 | 57 |  |
+| Awakened Empower Support | SkillGem | SkillGem | T0_JACKPOT | 355948.00 | 31 |  |
 | Vaal Reave | SkillGem | SkillGem | T0_JACKPOT | 292560.00 | 2 |  |
+| Greater Spell Echo Support | SkillGem | SkillGem | T0_JACKPOT | 245750.00 | 9 |  |
 | Cruelty Support | SkillGem | SkillGem | T0_JACKPOT | 243312.00 | 3 | Brutality Support, Fortify Support |
 | Vaal Arc | SkillGem | SkillGem | T0_JACKPOT | 162371.00 | 2 | Vaal Orb |
 | Vaal Blight | SkillGem | SkillGem | T0_JACKPOT | 157495.00 | 2 |  |
+| Awakened Enhance Support | SkillGem | SkillGem | T0_JACKPOT | 140916.00 | 63 |  |
 | Volatility Support | SkillGem | SkillGem | T0_JACKPOT | 121900.00 | 1 | Brutality Support, Fortify Support |
 | Concentrated Effect Support | SkillGem | SkillGem | T0_JACKPOT | 97520.00 | 1 |  |
 | Sniper's Mark | SkillGem | SkillGem | T0_JACKPOT | 97520.00 | 1 |  |
 | Purity of Fire | SkillGem | SkillGem | T0_JACKPOT | 97325.00 | 9 |  |
+| Companionship Support | SkillGem | SkillGem | T0_JACKPOT | 96545.00 | 5 |  |
 | Precision | SkillGem | SkillGem | T0_JACKPOT | 88743.00 | 2 |  |
 | Meat Shield Support | SkillGem | SkillGem | T0_JACKPOT | 86793.00 | 2 |  |
 | Trinity Support | SkillGem | SkillGem | T0_JACKPOT | 82404.00 | 1 | Brutality Support, Fortify Support |
+| Eclipse Support | SkillGem | SkillGem | T0_JACKPOT | 56562.00 | 17 | Pulverise Support, Fissure Support |
+| Siphoning Trap of Pain | SkillGem | SkillGem | T0_JACKPOT | 48760.00 | 4 |  |
 | Vaal Caustic Arrow | SkillGem | SkillGem | T0_JACKPOT | 48760.00 | 1 |  |
 | Ice Bite Support | SkillGem | SkillGem | T0_JACKPOT | 43884.00 | 2 |  |
-| Inspiration Support | SkillGem | SkillGem | T0_JACKPOT | 43396.00 | 4 | Congregation Support |
+| Inspiration Support | SkillGem | SkillGem | T0_JACKPOT | 43396.00 | 4 |  |
 | Blight of Contagion | SkillGem | SkillGem | T0_JACKPOT | 36570.00 | 1 |  |
 | Herald of Ash | SkillGem | SkillGem | T0_JACKPOT | 35107.00 | 2 |  |
 | Vaal Summon Skeletons | SkillGem | SkillGem | T0_JACKPOT | 31694.00 | 5 |  |
 | Expert Retaliation Support | SkillGem | SkillGem | T0_JACKPOT | 29256.00 | 1 |  |
+| Congregation Support | SkillGem | SkillGem | T0_JACKPOT | 28671.00 | 8 |  |
 | Summon Lightning Golem | SkillGem | SkillGem | T0_JACKPOT | 28281.00 | 2 |  |
 | Arcanist Brand | SkillGem | SkillGem | T0_JACKPOT | 26818.00 | 7 |  |
 | Summon Ice Golem | SkillGem | SkillGem | T0_JACKPOT | 25111.00 | 5 |  |
 | Kinetic Rain | SkillGem | SkillGem | T0_JACKPOT | 24380.00 | 2 |  |
 | Vaal Ground Slam | SkillGem | SkillGem | T0_JACKPOT | 24380.00 | 1 |  |
+| Essence Drain of Wickedness | SkillGem | SkillGem | T0_JACKPOT | 23892.00 | 4 |  |
 | Father's Love | Cards | DivinationCard | T0_JACKPOT | 23407.00 | 15605 |  |
 | Vaal Domination | SkillGem | SkillGem | T0_JACKPOT | 23405.00 | 3 |  |
 | Herald of Ice | SkillGem | SkillGem | T0_JACKPOT | 22673.00 | 11 |  |
+| Invert the Rules Support | SkillGem | SkillGem | T0_JACKPOT | 22430.00 | 6 |  |
 | Flesh and Stone | SkillGem | SkillGem | T0_JACKPOT | 21942.00 | 1 |  |
+| Doryani's Machinarium | UniqueMap | UniqueMap | T0_JACKPOT | 21942.00 | 40 |  |
+| Cooldown Recovery Support | SkillGem | SkillGem | T0_JACKPOT | 21796.00 | 23 |  |
 | Vaal Arctic Armour | SkillGem | SkillGem | T0_JACKPOT | 21454.00 | 2 |  |
+| Cast on Ward Break Support | SkillGem | SkillGem | T0_JACKPOT | 20772.00 | 14 |  |
 | Determination | SkillGem | SkillGem | T0_JACKPOT | 19894.00 | 5 | Damnation |
 | Arctic Armour | SkillGem | SkillGem | T0_JACKPOT | 19504.00 | 2 |  |
 | Kinetic Bolt | SkillGem | SkillGem | T0_JACKPOT | 19504.00 | 1 |  |
-| Minion Life Support | SkillGem | SkillGem | T0_JACKPOT | 19406.00 | 12 | Minion Pact Support |
+| Minion Life Support | SkillGem | SkillGem | T0_JACKPOT | 19406.00 | 12 |  |
 | Molten Strike | SkillGem | SkillGem | T0_JACKPOT | 19114.00 | 4 |  |
 | Ethereal Knives of Lingering Blades | SkillGem | SkillGem | T0_JACKPOT | 19016.00 | 7 |  |
 | Vaal Flicker Strike | SkillGem | SkillGem | T0_JACKPOT | 17456.00 | 4 |  |
 | Vaal Spark | SkillGem | SkillGem | T0_JACKPOT | 17261.00 | 3 |  |
 | Vaal Double Strike | SkillGem | SkillGem | T0_JACKPOT | 17066.00 | 1 |  |
+| Greater Unleash Support | SkillGem | SkillGem | T0_JACKPOT | 16383.00 | 4 | Greater Multistrike Support |
 | Automation | SkillGem | SkillGem | T0_JACKPOT | 15603.00 | 11 |  |
 | Double Strike of Impaling | SkillGem | SkillGem | T0_JACKPOT | 15603.00 | 47 |  |
 | Tempest Shield | SkillGem | SkillGem | T0_JACKPOT | 15603.00 | 4 |  |
@@ -60,6 +73,7 @@
 | Vaal Haste | SkillGem | SkillGem | T0_JACKPOT | 14628.00 | 3 |  |
 | Vaal Ice Nova | SkillGem | SkillGem | T0_JACKPOT | 14628.00 | 5 |  |
 | Volatile Dead | SkillGem | SkillGem | T0_JACKPOT | 14189.00 | 2 | Volatile Power |
+| Minion Pact Support | SkillGem | SkillGem | T0_JACKPOT | 13848.00 | 14 |  |
 | Vaal Blade Vortex | SkillGem | SkillGem | T0_JACKPOT | 13458.00 | 12 |  |
 | Herald of Thunder | SkillGem | SkillGem | T0_JACKPOT | 13165.00 | 7 |  |
 | Vaal Righteous Fire | SkillGem | SkillGem | T0_JACKPOT | 12531.00 | 12 |  |
@@ -68,23 +82,26 @@
 | Blood Rage | SkillGem | SkillGem | T0_JACKPOT | 12190.00 | 2 |  |
 | Dash | SkillGem | SkillGem | T0_JACKPOT | 12190.00 | 1 |  |
 | Frenzy | SkillGem | SkillGem | T0_JACKPOT | 12190.00 | 1 |  |
-| Greater Fork Support | SkillGem | SkillGem | T0_JACKPOT | 12190.00 | 8 | Greater Multistrike Support, Greater Unleash Support, Greater Spell Echo Support |
+| Greater Fork Support | SkillGem | SkillGem | T0_JACKPOT | 12190.00 | 8 | Greater Multistrike Support |
 | Vaal Grace | SkillGem | SkillGem | T0_JACKPOT | 12190.00 | 14 |  |
 | Vaal Absolution | SkillGem | SkillGem | T0_JACKPOT | 11995.00 | 10 |  |
 | Vaal Discipline | SkillGem | SkillGem | T0_JACKPOT | 11897.00 | 9 |  |
 | Malevolence | SkillGem | SkillGem | T0_JACKPOT | 11849.00 | 6 |  |
 | Immortal Call | SkillGem | SkillGem | T0_JACKPOT | 11215.00 | 13 |  |
 | Phase Run | SkillGem | SkillGem | T0_JACKPOT | 11215.00 | 6 |  |
-| Crackling Lance of Branching | SkillGem | SkillGem | T0_JACKPOT | 11095.00 | 9 | Crackling Lance of Disintegration |
+| Crackling Lance of Branching | SkillGem | SkillGem | T0_JACKPOT | 11095.00 | 9 |  |
 | Vaal Smite | SkillGem | SkillGem | T0_JACKPOT | 11069.00 | 33 |  |
+| Frostblink of Wintry Blast | SkillGem | SkillGem | T0_JACKPOT | 10727.00 | 1 |  |
 | Arcane Cloak | SkillGem | SkillGem | T0_JACKPOT | 10581.00 | 13 |  |
 | Vaal Reap | SkillGem | SkillGem | T0_JACKPOT | 9752.00 | 16 |  |
+| Contagion of Subsiding | SkillGem | SkillGem | T0_JACKPOT | 9508.00 | 15 |  |
 | Vitality | SkillGem | SkillGem | T0_JACKPOT | 8777.00 | 5 |  |
 | War Banner | SkillGem | SkillGem | T0_JACKPOT | 8777.00 | 6 |  |
 | Anger | SkillGem | SkillGem | T0_JACKPOT | 8338.00 | 3 |  |
 | Storm Rain | SkillGem | SkillGem | T0_JACKPOT | 8289.00 | 2 |  |
 | Shield Charge | SkillGem | SkillGem | T0_JACKPOT | 8240.00 | 17 |  |
 | Eldritch Blasphemy Support | SkillGem | SkillGem | T0_JACKPOT | 7802.00 | 8 |  |
+| Flame Dash of Return | SkillGem | SkillGem | T0_JACKPOT | 7314.00 | 1 |  |
 | Pride | SkillGem | SkillGem | T0_JACKPOT | 7314.00 | 3 |  |
 | Vaal Cyclone | SkillGem | SkillGem | T0_JACKPOT | 7314.00 | 1 |  |
 | Vaal Detonate Dead | SkillGem | SkillGem | T0_JACKPOT | 7314.00 | 2 |  |
@@ -93,34 +110,43 @@
 | Grace | SkillGem | SkillGem | T0_JACKPOT | 6826.00 | 2 |  |
 | Summon Flame Golem | SkillGem | SkillGem | T0_JACKPOT | 6729.00 | 12 |  |
 | Temporal Chains | SkillGem | SkillGem | T0_JACKPOT | 6534.00 | 7 |  |
+| Vaal Temptation Support | SkillGem | SkillGem | T0_JACKPOT | 6436.00 | 19 |  |
 | Unholy Trinity Support | SkillGem | SkillGem | T0_JACKPOT | 6339.00 | 22 |  |
-| Greater Chain Support | SkillGem | SkillGem | T0_JACKPOT | 5851.00 | 16 | Greater Unleash Support, Greater Spell Echo Support |
+| Bladefall of Trarthus | SkillGem | SkillGem | T0_JACKPOT | 5997.00 | 6 |  |
+| Cyclone of Tumult | SkillGem | SkillGem | T0_JACKPOT | 5851.00 | 1 |  |
+| Greater Chain Support | SkillGem | SkillGem | T0_JACKPOT | 5851.00 | 16 |  |
 | Vaal Lightning Arrow | SkillGem | SkillGem | T0_JACKPOT | 5851.00 | 4 |  |
 | Annihilation Support | SkillGem | SkillGem | T0_JACKPOT | 5510.00 | 10 |  |
 | Assassin's Mark | SkillGem | SkillGem | T0_JACKPOT | 5364.00 | 6 | Assassin's Gift |
 | Ball Lightning of Orbiting | SkillGem | SkillGem | T0_JACKPOT | 5364.00 | 19 |  |
 | Scornful Herald Support | SkillGem | SkillGem | T0_JACKPOT | 5217.00 | 17 |  |
+| Ethereal Knives of the Massacre | SkillGem | SkillGem | T0_JACKPOT | 5120.00 | 2 |  |
 | Steelskin | SkillGem | SkillGem | T0_JACKPOT | 5120.00 | 10 |  |
 | Petrified Blood | SkillGem | SkillGem | T0_JACKPOT | 5022.00 | 6 |  |
 | Berserk | SkillGem | SkillGem | T0_JACKPOT | 4974.00 | 8 |  |
 | Flameblast of Contraction | SkillGem | SkillGem | T0_JACKPOT | 4908.00 | 20 | Fragment of Constriction |
 | Elemental Penetration Support | SkillGem | SkillGem | T0_JACKPOT | 4876.00 | 26 |  |
-| Greater Spell Cascade Support | SkillGem | SkillGem | T0_JACKPOT | 4876.00 | 28 | Greater Spell Echo Support, Greater Unleash Support |
+| Greater Spell Cascade Support | SkillGem | SkillGem | T0_JACKPOT | 4876.00 | 28 |  |
 | Spellslinger | SkillGem | SkillGem | T0_JACKPOT | 4876.00 | 5 |  |
 | Summon Raging Spirit | SkillGem | SkillGem | T0_JACKPOT | 4876.00 | 2 |  |
 | Vaal Animate Weapon | SkillGem | SkillGem | T0_JACKPOT | 4876.00 | 1 |  |
 | Viper Strike of the Mamba | SkillGem | SkillGem | T0_JACKPOT | 4876.00 | 1 |  |
 | Void Manipulation Support | SkillGem | SkillGem | T0_JACKPOT | 4876.00 | 19 |  |
-| Greater Devour Support | SkillGem | SkillGem | T0_JACKPOT | 4681.00 | 18 | Greater Unleash Support, Greater Spell Echo Support, Greater Multistrike Support |
-| Animate Guardian | SkillGem | SkillGem | T0_JACKPOT | 4388.00 | 11 | Animate Guardian of Smiting |
+| Greater Devour Support | SkillGem | SkillGem | T0_JACKPOT | 4681.00 | 18 | Greater Multistrike Support |
+| Detonate Dead of Scavenging | SkillGem | SkillGem | T0_JACKPOT | 4632.00 | 8 |  |
+| Wave of Conviction of Trarthus | SkillGem | SkillGem | T0_JACKPOT | 4535.00 | 8 |  |
+| Animate Guardian | SkillGem | SkillGem | T0_JACKPOT | 4388.00 | 11 |  |
 | Autoexertion | SkillGem | SkillGem | T0_JACKPOT | 4388.00 | 11 |  |
+| Explosive Concoction of Destruction | SkillGem | SkillGem | T0_JACKPOT | 4388.00 | 3 |  |
 | Hexpass Support | SkillGem | SkillGem | T0_JACKPOT | 4388.00 | 11 |  |
+| Holy Hammers | SkillGem | SkillGem | T0_JACKPOT | 4388.00 | 5 |  |
 | Purity of Elements | SkillGem | SkillGem | T0_JACKPOT | 4388.00 | 37 | The Rite of Elements |
 | Shield Crush | SkillGem | SkillGem | T0_JACKPOT | 4388.00 | 2 |  |
 | Ball Lightning of Static | SkillGem | SkillGem | T0_JACKPOT | 3901.00 | 1 |  |
 | Frost Blades of Katabasis | SkillGem | SkillGem | T0_JACKPOT | 3901.00 | 12 |  |
 | Sunder | SkillGem | SkillGem | T0_JACKPOT | 3608.00 | 7 |  |
 | Flammability | SkillGem | SkillGem | T0_JACKPOT | 3511.00 | 5 |  |
+| Spectral Shield Throw of Trarthus | SkillGem | SkillGem | T0_JACKPOT | 3462.00 | 3 |  |
 | Vaal Impurity of Ice | SkillGem | SkillGem | T0_JACKPOT | 3462.00 | 4 |  |
 | Bonechill Support | SkillGem | SkillGem | T0_JACKPOT | 3454.00 | 11 |  |
 | Galvanic Field | SkillGem | SkillGem | T0_JACKPOT | 3436.00 | 8 |  |
@@ -128,16 +154,21 @@
 | Choking Guilt | Cards | DivinationCard | T0_JACKPOT | 3414.00 | 1138 |  |
 | Blink Arrow | SkillGem | SkillGem | T0_JACKPOT | 3413.00 | 3 |  |
 | Bloodsoaked Banner Support | SkillGem | SkillGem | T0_JACKPOT | 3413.00 | 18 |  |
-| Enlighten Support | SkillGem | SkillGem | T0_JACKPOT | 3413.00 | 508 | Awakened Enlighten Support, Eclipse Support |
+| Enlighten Support | SkillGem | SkillGem | T0_JACKPOT | 3413.00 | 508 |  |
 | Overloaded Intensity Support | SkillGem | SkillGem | T0_JACKPOT | 3413.00 | 21 |  |
 | Perforate of Bloodshed | SkillGem | SkillGem | T0_JACKPOT | 3413.00 | 4 |  |
 | Static Strike of Gathering Lightning | SkillGem | SkillGem | T0_JACKPOT | 3381.00 | 19 |  |
 | Frostmage Support | SkillGem | SkillGem | T0_JACKPOT | 3267.00 | 16 |  |
+| Reave of Refraction | SkillGem | SkillGem | T0_JACKPOT | 3218.00 | 25 | Runegraft of Refraction |
 | Infernal Cry | SkillGem | SkillGem | T0_JACKPOT | 2974.00 | 6 | General's Cry |
+| Ice Spear of Splitting | SkillGem | SkillGem | T0_JACKPOT | 2966.00 | 18 |  |
+| Essence Drain of Desperation | SkillGem | SkillGem | T0_JACKPOT | 2926.00 | 6 | Essence of Desolation |
+| Kinetic Blast of Clustering | SkillGem | SkillGem | T0_JACKPOT | 2926.00 | 68 |  |
 | Punishment | SkillGem | SkillGem | T0_JACKPOT | 2926.00 | 5 |  |
 | Smoke Mine | SkillGem | SkillGem | T0_JACKPOT | 2926.00 | 5 |  |
 | Summon Stone Golem of Safeguarding | SkillGem | SkillGem | T0_JACKPOT | 2926.00 | 10 |  |
 | Vaal Lightning Strike | SkillGem | SkillGem | T0_JACKPOT | 2926.00 | 5 |  |
+| Animate Guardian of Smiting | SkillGem | SkillGem | T0_JACKPOT | 2828.00 | 16 |  |
 | Vivid Vulture | Beast | Beast | T0_JACKPOT | 2683.00 | 8408 |  |
 | Battlemage's Cry | SkillGem | SkillGem | T0_JACKPOT | 2584.00 | 9 |  |
 | Energy Blade | SkillGem | SkillGem | T0_JACKPOT | 2584.00 | 14 |  |
@@ -146,7 +177,7 @@
 | Added Fire Damage Support | SkillGem | SkillGem | T0_JACKPOT | 2438.00 | 23 |  |
 | Arrogance Support | SkillGem | SkillGem | T0_JACKPOT | 2438.00 | 36 |  |
 | Earthshatter | SkillGem | SkillGem | T0_JACKPOT | 2438.00 | 2 |  |
-| Empower Support | SkillGem | SkillGem | T0_JACKPOT | 2438.00 | 423 | Awakened Empower Support, Impale Support, Eclipse Support |
+| Empower Support | SkillGem | SkillGem | T0_JACKPOT | 2438.00 | 423 | Impale Support |
 | Enduring Cry | SkillGem | SkillGem | T0_JACKPOT | 2438.00 | 10 |  |
 | Flame Link | SkillGem | SkillGem | T0_JACKPOT | 2438.00 | 8 |  |
 | Frostbite | SkillGem | SkillGem | T0_JACKPOT | 2438.00 | 10 |  |
@@ -155,7 +186,7 @@
 | Ice Crash | SkillGem | SkillGem | T0_JACKPOT | 2438.00 | 11 |  |
 | Poacher's Mark | SkillGem | SkillGem | T0_JACKPOT | 2438.00 | 12 |  |
 | Spark of the Nova | SkillGem | SkillGem | T0_JACKPOT | 2438.00 | 257 |  |
-| Spectral Shield Throw of Shattering | SkillGem | SkillGem | T0_JACKPOT | 2438.00 | 3 | Spectral Shield Throw of Trarthus |
+| Spectral Shield Throw of Shattering | SkillGem | SkillGem | T0_JACKPOT | 2438.00 | 3 |  |
 | Vaal Impurity of Fire | SkillGem | SkillGem | T0_JACKPOT | 2438.00 | 16 |  |
 | Controlled Destruction Support | SkillGem | SkillGem | T0_JACKPOT | 2434.00 | 18 |  |
 | Eternal Blessing Support | SkillGem | SkillGem | T0_JACKPOT | 2287.00 | 39 |  |
@@ -183,99 +214,35 @@
 | Molten Strike of the Zenith | SkillGem | SkillGem | T0_JACKPOT | 1950.00 | 4 |  |
 | Raise Spectre | SkillGem | SkillGem | T0_JACKPOT | 1950.00 | 76 |  |
 | Rejuvenation Totem | SkillGem | SkillGem | T0_JACKPOT | 1950.00 | 4 |  |
-| Searing Bond | SkillGem | SkillGem | T0_JACKPOT | 1950.00 | 5 |  |
-| Seismic Cry | SkillGem | SkillGem | T0_JACKPOT | 1950.00 | 16 |  |
-| Vengeful Cry | SkillGem | SkillGem | T0_JACKPOT | 1950.00 | 9 |  |
-| Void Sphere of Rending | SkillGem | SkillGem | T0_JACKPOT | 1950.00 | 7 |  |
-| Whirling Blades | SkillGem | SkillGem | T0_JACKPOT | 1950.00 | 3 |  |
-| Hypothermia Support | SkillGem | SkillGem | T0_JACKPOT | 1915.00 | 24 |  |
-| Summon Ice Golem of Shattering | SkillGem | SkillGem | T0_JACKPOT | 1915.00 | 8 |  |
-| Mark On Hit Support | SkillGem | SkillGem | T0_JACKPOT | 1905.00 | 32 |  |
-| Decoy Totem | SkillGem | SkillGem | T0_JACKPOT | 1902.00 | 2 |  |
-| Minion Damage Support | SkillGem | SkillGem | T0_JACKPOT | 1899.00 | 20 | Minion Pact Support |
-| Blade Blast of Dagger Detonation | SkillGem | SkillGem | T0_JACKPOT | 1658.00 | 58 |  |
-| Cleave | SkillGem | SkillGem | T0_JACKPOT | 1560.00 | 7 |  |
-| Wrath | SkillGem | SkillGem | T0_JACKPOT | 1520.00 | 12 |  |
-| Arcane Surge Support | SkillGem | SkillGem | T0_JACKPOT | 1518.00 | 21 |  |
-| Goatman Stomper | Beast | Beast | T0_JACKPOT | 1512.00 | 2 |  |
-| Ancestral Cry | SkillGem | SkillGem | T0_JACKPOT | 1512.00 | 6 |  |
-| Devouring Totem | SkillGem | SkillGem | T0_JACKPOT | 1512.00 | 7 |  |
-| Hexblast of Contradiction | SkillGem | SkillGem | T0_JACKPOT | 1512.00 | 2 |  |
-| Perforate | SkillGem | SkillGem | T0_JACKPOT | 1512.00 | 9 |  |
-| Righteous Fire | SkillGem | SkillGem | T0_JACKPOT | 1512.00 | 18 |  |
-| Summon Flame Golem of Hordes | SkillGem | SkillGem | T0_JACKPOT | 1512.00 | 16 |  |
-| Bladestorm | SkillGem | SkillGem | T0_JACKPOT | 1463.00 | 2 |  |
-| Blast Rain of Trarthus | SkillGem | SkillGem | T0_JACKPOT | 1463.00 | 2 | Bladefall of Trarthus |
-| Consecrated Path | SkillGem | SkillGem | T0_JACKPOT | 1463.00 | 1 |  |
-| Dominating Blow | SkillGem | SkillGem | T0_JACKPOT | 1463.00 | 8 |  |
-| Dread Banner | SkillGem | SkillGem | T0_JACKPOT | 1463.00 | 12 |  |
-| Elemental Hit of the Spectrum | SkillGem | SkillGem | T0_JACKPOT | 1463.00 | 3 |  |
-| Eviscerate | SkillGem | SkillGem | T0_JACKPOT | 1463.00 | 10 |  |
-| Exsanguinate | SkillGem | SkillGem | T0_JACKPOT | 1463.00 | 8 |  |
-| Flamethrower Trap of Stability | SkillGem | SkillGem | T0_JACKPOT | 1463.00 | 49 |  |
-| Frost Bomb | SkillGem | SkillGem | T0_JACKPOT | 1463.00 | 20 |  |
-| Frozen Legion | SkillGem | SkillGem | T0_JACKPOT | 1463.00 | 11 |  |
-| ... | ... | ... | ... | +583 itens omitidos |  |  |
+| ... | ... | ... | ... | +630 itens omitidos |  |  |
 
 ## Itens caros presentes no filtro
 
 | Item | Categoria | Fonte | Tier | Chaos | Liquidez/Volume |
 |---|---:|---:|---:|---:|---:|
 | Mirror of Kalandra | Currency | Currency | T0_JACKPOT | 604678.00 | 21163731 |
-| Awakened Enlighten Support | SkillGem | SkillGem | T0_JACKPOT | 429088.00 | 57 |
 | Damnation | Cards | DivinationCard | T0_JACKPOT | 357867.00 | 18907297 |
-| Awakened Empower Support | SkillGem | SkillGem | T0_JACKPOT | 355948.00 | 31 |
-| Greater Spell Echo Support | SkillGem | SkillGem | T0_JACKPOT | 245750.00 | 9 |
-| Awakened Enhance Support | SkillGem | SkillGem | T0_JACKPOT | 140916.00 | 63 |
 | Hinekora's Lock | Currency | Currency | T0_JACKPOT | 118444.00 | 2625503 |
 | Greater Multistrike Support | SkillGem | SkillGem | T0_JACKPOT | 99470.00 | 9 |
-| Companionship Support | SkillGem | SkillGem | T0_JACKPOT | 96545.00 | 5 |
 | House of Mirrors | Cards | DivinationCard | T0_JACKPOT | 74182.00 | 8283697 |
-| Eclipse Support | SkillGem | SkillGem | T0_JACKPOT | 56562.00 | 17 |
 | History | Cards | DivinationCard | T0_JACKPOT | 48872.00 | 553888 |
-| Siphoning Trap of Pain | SkillGem | SkillGem | T0_JACKPOT | 48760.00 | 4 |
 | Unrequited Love | Cards | DivinationCard | T0_JACKPOT | 41233.00 | 1745540 |
 | Runegraft of the Angler | Runegrafts | Runegraft | T0_JACKPOT | 36574.00 | 6096 |
 | Mirror Shard | Currency | Currency | T0_JACKPOT | 30543.00 | 651581 |
-| Congregation Support | SkillGem | SkillGem | T0_JACKPOT | 28671.00 | 8 |
 | Increased Critical Damage Support | SkillGem | SkillGem | T0_JACKPOT | 25160.00 | 7 |
-| Essence Drain of Wickedness | SkillGem | SkillGem | T0_JACKPOT | 23892.00 | 4 |
 | The Slumbering Beast | Cards | DivinationCard | T0_JACKPOT | 23605.00 | 456358 |
 | Reflecting Mist | Currency | Currency | T0_JACKPOT | 23375.00 | 654506 |
-| Invert the Rules Support | SkillGem | SkillGem | T0_JACKPOT | 22430.00 | 6 |
-| Doryani's Machinarium | UniqueMap | UniqueMap | T0_JACKPOT | 21942.00 | 40 |
-| Cooldown Recovery Support | SkillGem | SkillGem | T0_JACKPOT | 21796.00 | 23 |
-| Cast on Ward Break Support | SkillGem | SkillGem | T0_JACKPOT | 20772.00 | 14 |
-| Greater Unleash Support | SkillGem | SkillGem | T0_JACKPOT | 16383.00 | 4 |
-| Minion Pact Support | SkillGem | SkillGem | T0_JACKPOT | 13848.00 | 14 |
 | Veiled Exalted Orb | Currency | Currency | T0_JACKPOT | 11169.00 | 307138 |
-| Frostblink of Wintry Blast | SkillGem | SkillGem | T0_JACKPOT | 10727.00 | 1 |
 | Greater Ancestral Call Support | SkillGem | SkillGem | T0_JACKPOT | 9898.00 | 9 |
 | Faster Attacks Support | SkillGem | SkillGem | T0_JACKPOT | 9804.00 | 18 |
-| Contagion of Subsiding | SkillGem | SkillGem | T0_JACKPOT | 9508.00 | 15 |
 | The Price of Devotion | Cards | DivinationCard | T0_JACKPOT | 8958.00 | 80625 |
 | The Immortal | Cards | DivinationCard | T0_JACKPOT | 7850.00 | 930272 |
 | The Eye of Terror | Cards | DivinationCard | T0_JACKPOT | 7659.00 | 108502 |
 | Omen of Fortune | Ancestor | Omen | T0_JACKPOT | 7640.00 | 3820 |
 | The Apothecary | Cards | DivinationCard | T0_JACKPOT | 7328.00 | 399385 |
-| Flame Dash of Return | SkillGem | SkillGem | T0_JACKPOT | 7314.00 | 1 |
-| Vaal Temptation Support | SkillGem | SkillGem | T0_JACKPOT | 6436.00 | 19 |
-| Bladefall of Trarthus | SkillGem | SkillGem | T0_JACKPOT | 5997.00 | 6 |
-| Cyclone of Tumult | SkillGem | SkillGem | T0_JACKPOT | 5851.00 | 1 |
-| Ethereal Knives of the Massacre | SkillGem | SkillGem | T0_JACKPOT | 5120.00 | 2 |
 | Void Shockwave Support | SkillGem | SkillGem | T0_JACKPOT | 4876.00 | 32 |
-| Detonate Dead of Scavenging | SkillGem | SkillGem | T0_JACKPOT | 4632.00 | 8 |
-| Wave of Conviction of Trarthus | SkillGem | SkillGem | T0_JACKPOT | 4535.00 | 8 |
-| Explosive Concoction of Destruction | SkillGem | SkillGem | T0_JACKPOT | 4388.00 | 3 |
-| Holy Hammers | SkillGem | SkillGem | T0_JACKPOT | 4388.00 | 5 |
 | Lucky Bastion | Cards | DivinationCard | T0_JACKPOT | 4226.00 | 6339 |
-| Spectral Shield Throw of Trarthus | SkillGem | SkillGem | T0_JACKPOT | 3462.00 | 3 |
 | Orb of Dominance | Currency | Currency | T0_JACKPOT | 3327.00 | 53235 |
-| Reave of Refraction | SkillGem | SkillGem | T0_JACKPOT | 3218.00 | 25 |
-| Ice Spear of Splitting | SkillGem | SkillGem | T0_JACKPOT | 2966.00 | 18 |
-| Essence Drain of Desperation | SkillGem | SkillGem | T0_JACKPOT | 2926.00 | 6 |
-| Kinetic Blast of Clustering | SkillGem | SkillGem | T0_JACKPOT | 2926.00 | 68 |
-| Animate Guardian of Smiting | SkillGem | SkillGem | T0_JACKPOT | 2828.00 | 16 |
 | Syndicate Medallion | Fragments | Fragment | T0_JACKPOT | 2776.00 | 92084 |
 | The Insane Cat | Cards | DivinationCard | T0_JACKPOT | 2766.00 | 33648 |
 | The Lake | Cards | DivinationCard | T0_JACKPOT | 2660.00 | 14629 |
@@ -287,7 +254,6 @@
 | Gift to the Goddess | Fragments | Fragment | T0_JACKPOT | 1717.00 | 7152 |
 | Tainted Divine Teardrop | Currency | Currency | T0_JACKPOT | 1716.00 | 15442 |
 | Tainted Oil | Oils | Oil | T0_JACKPOT | 1654.00 | 14061 |
-| Untainted Paradise | UniqueMap | UniqueMap | T0_JACKPOT | 1609.00 | 24 |
 | Volatile Vaal Orb | Currency | Currency | T0_JACKPOT | 1463.00 | 383861 |
 | Tempering Orb | Currency | Currency | T0_JACKPOT | 1402.00 | 192134 |
 | Brutality Support | SkillGem | SkillGem | T0_JACKPOT | 1384.00 | 32 |
@@ -296,7 +262,6 @@
 | Allflame Ember of the Gilded | AllflameEmbers | AllflameEmber | T0_JACKPOT | 1157.00 | 58437 |
 | Tailoring Orb | Currency | Currency | T0_JACKPOT | 1084.00 | 90703 |
 | Love Through Ice | Cards | DivinationCard | T0_JACKPOT | 1002.00 | 9184 |
-| Charged Dash of Projection | SkillGem | SkillGem | T0_JACKPOT | 975.20 | 3 |
 | Faceted Fossil | Delve | Fossil | T0_JACKPOT | 944.50 | 29909 |
 | Pulverise Support | SkillGem | SkillGem | T0_JACKPOT | 937.60 | 42 |
 | Runegraft of the Warp | Runegrafts | Runegraft | T0_JACKPOT | 864.50 | 3170 |
@@ -310,7 +275,6 @@
 | Prime Chaotic Resonator | Delve | Resonator | T0_JACKPOT | 669.20 | 10484 |
 | Divine Justice | Cards | DivinationCard | T0_JACKPOT | 650.20 | 650.2 |
 | Increased Critical Strikes Support | SkillGem | SkillGem | T0_JACKPOT | 630.00 | 28 |
-| Cold Snap of Power | SkillGem | SkillGem | T0_JACKPOT | 588.50 | 87 |
 | Luminous Trove | Cards | DivinationCard | T0_JACKPOT | 579.40 | 482.8 |
 | Crusader's Exalted Orb | Currency | Currency | T0_JACKPOT | 568.40 | 1705 |
 | Echo of Trauma | Fragments | Fragment | T0_JACKPOT | 558.00 | 18693 |
@@ -319,10 +283,7 @@
 | Journey Tattoo of the Soul | Ancestor | Tattoo | T0_JACKPOT | 487.60 | 243.8 |
 | Temperance | Cards | DivinationCard | T0_JACKPOT | 487.60 | 81.27 |
 | Divine Orb | Currency | Currency | T0_JACKPOT | 487.60 | 2320479 |
-| Crackling Lance of Disintegration | SkillGem | SkillGem | T0_JACKPOT | 487.60 | 9 |
 | Fissure Support | SkillGem | SkillGem | T0_JACKPOT | 487.60 | 3 |
-| Ice Crash of Cadence | SkillGem | SkillGem | T0_JACKPOT | 487.60 | 10 |
-| Summon Reaper of Eviscerating | SkillGem | SkillGem | T0_JACKPOT | 487.60 | 24 |
 | Echo of Reverence | Fragments | Fragment | T0_JACKPOT | 469.60 | 14949 |
 | Omen of Connections | Ancestor | Omen | T0_JACKPOT | 469.00 | 1720 |
 | The Demon | Cards | DivinationCard | T0_JACKPOT | 468.10 | 780.2 |
@@ -330,7 +291,6 @@
 | Unrelenting Timeless Maraketh Emblem | Fragments | Fragment | T0_JACKPOT | 437.50 | 437.5 |
 | Fortify Support | SkillGem | SkillGem | T0_JACKPOT | 422.50 | 30 |
 | The Sephirot | Cards | DivinationCard | T0_JACKPOT | 405.20 | 18911 |
-| Icicle Mine of Fanning | SkillGem | SkillGem | T0_JACKPOT | 350.00 | 18 |
 | Valdo's Puzzle Box | Fragments | Fragment | T0_JACKPOT | 342.20 | 542266 |
 | Exceptional Eldritch Ember | Currency | Currency | T0_JACKPOT | 339.90 | 16824 |
 | Broken Promises | Cards | DivinationCard | T0_JACKPOT | 306.30 | 23895 |
@@ -352,7 +312,6 @@
 | Omen of Amelioration | Ancestor | Omen | T0_JACKPOT | 211.30 | 18028 |
 | Fragment of Knowledge | Fragments | Fragment | T0_JACKPOT | 209.50 | 2758 |
 | Prismatic Oil | Oils | Oil | T0_JACKPOT | 207.10 | 1760 |
-| Flame Surge of Combusting | SkillGem | SkillGem | T0_JACKPOT | 200.90 | 54 |
 | Maven's Chisel of Avarice | Currency | Currency | T0_JACKPOT | 196.20 | 46652 |
 | Dextral Catalyst | Catalysts | Currency | T0_JACKPOT | 195.60 | 52097 |
 | Wealth and Power | Cards | DivinationCard | T0_JACKPOT | 193.50 | 5999 |
@@ -391,7 +350,6 @@
 | The Destination | Cards | DivinationCard | T0_JACKPOT | 102.00 | 85.0 |
 | Pride Before the Fall | Cards | DivinationCard | T1_MUITO_ALTO | 99.40 | 82.83 |
 | Orb of Remembrance | Currency | Currency | T1_MUITO_ALTO | 94.04 | 3166 |
-| Item Rarity Support | SkillGem | SkillGem | T1_MUITO_ALTO | 94.00 | 45 |
 | Tribute to the Goddess | Fragments | Fragment | T1_MUITO_ALTO | 91.14 | 425.3 |
 | I See Brothers | Cards | DivinationCard | T1_MUITO_ALTO | 90.98 | 1258 |
 | Magnum Opus | Cards | DivinationCard | T1_MUITO_ALTO | 88.66 | 4064 |
@@ -402,12 +360,9 @@
 | Monochrome | Cards | DivinationCard | T1_MUITO_ALTO | 80.17 | 2793 |
 | Sanctified Fossil | Delve | Fossil | T1_MUITO_ALTO | 77.55 | 969.3 |
 | Diviner's Delirium Orb | DeliriumOrbs | DeliriumOrb | T1_MUITO_ALTO | 77.40 | 97224 |
-| The Coward's Trial | UniqueMap | UniqueMap | T1_MUITO_ALTO | 77.20 | 317 |
 | The Fortunate | Cards | DivinationCard | T1_MUITO_ALTO | 76.81 | 11880 |
 | Ultimatum Scarab of Catalysing | Fragments | Scarab | T1_MUITO_ALTO | 75.87 | 20876 |
-| Replica Poorjoy's Asylum | UniqueMap | UniqueMap | T1_MUITO_ALTO | 75.40 | 33 |
 | Runegraft of Rotblood | Runegrafts | Runegraft | T1_MUITO_ALTO | 73.14 | 85.33 |
-| Replica Cortex | UniqueMap | UniqueMap | T1_MUITO_ALTO | 72.70 | 163 |
 | Tattoo of the Rongokurai Turtle | Ancestor | Tattoo | T1_MUITO_ALTO | 72.50 | 1486 |
 | Impale Support | SkillGem | SkillGem | T1_MUITO_ALTO | 72.50 | 26 |
 | The Forbidden Fruit | Cards | DivinationCard | T1_MUITO_ALTO | 71.47 | 1858 |
@@ -421,7 +376,51 @@
 | Essence of Horror | Essences | Essence | T1_MUITO_ALTO | 60.29 | 51772 |
 | Cartography Scarab of Risk | Fragments | Scarab | T1_MUITO_ALTO | 57.20 | 26987 |
 | Horned Scarab of Pandemonium | Fragments | Scarab | T1_MUITO_ALTO | 56.64 | 19069 |
-| ... | ... | ... | ... | +236 itens omitidos |  |
+| Cosmic Fragment | Fragments | Fragment | T1_MUITO_ALTO | 56.47 | 2833 |
+| Tainted Exalted Orb | Currency | Currency | T1_MUITO_ALTO | 55.97 | 335.8 |
+| Sacred Orb | Currency | Currency | T1_MUITO_ALTO | 53.76 | 12679 |
+| Opalescent Oil | Oils | Oil | T1_MUITO_ALTO | 53.12 | 2638 |
+| The Silly Boy | Cards | DivinationCard | T1_MUITO_ALTO | 50.21 | 1891 |
+| When Currents Blaze | Cards | DivinationCard | T1_MUITO_ALTO | 50.00 | 8.33 |
+| Horned Scarab of Awakening | Fragments | Scarab | T2_ALTO | 49.33 | 17593 |
+| The Fox in the Brambles | Cards | DivinationCard | T2_ALTO | 48.75 | 32.5 |
+| Darker Half | Cards | DivinationCard | T2_ALTO | 44.29 | 2369 |
+| Simulacrum | Fragments | Fragment | T2_ALTO | 44.05 | 9956 |
+| The Prince of Darkness | Cards | DivinationCard | T2_ALTO | 44.00 | 2750 |
+| Fragment of Emptiness | Fragments | Fragment | T2_ALTO | 41.97 | 405.7 |
+| Mortal Hope | Fragments | Fragment | T2_ALTO | 41.76 | 9688 |
+| Timeless Maraketh Emblem | Fragments | Fragment | T2_ALTO | 41.40 | 2560 |
+| General's Cry | SkillGem | SkillGem | T2_ALTO | 40.00 | 102 |
+| Kalguuran Scarab of Refinement | Fragments | Scarab | T2_ALTO | 37.81 | 6925 |
+| Essence of Insanity | Essences | Essence | T2_ALTO | 37.48 | 7071 |
+| Deafening Essence of Scorn | Essences | Essence | T2_ALTO | 36.79 | 72091 |
+| Fragment of Terror | Fragments | Fragment | T2_ALTO | 36.75 | 385.8 |
+| The Eldritch Decay | Cards | DivinationCard | T2_ALTO | 36.00 | 30.0 |
+| Gilded Fossil | Delve | Fossil | T2_ALTO | 35.49 | 396.3 |
+| Sinistral Catalyst | Catalysts | Currency | T2_ALTO | 35.27 | 6096 |
+| Reflection of the Heart | Cards | DivinationCard | T2_ALTO | 34.52 | 264.7 |
+| Essence Scarab of Adaptation | Fragments | Scarab | T2_ALTO | 34.43 | 9613 |
+| Assassin's Gift | Cards | DivinationCard | T2_ALTO | 34.40 | 57.33 |
+| The Mayor | Cards | DivinationCard | T2_ALTO | 34.40 | 28.67 |
+| The Shieldbearer | Cards | DivinationCard | T2_ALTO | 33.16 | 420.0 |
+| Tattoo of the Tasalio Scout | Ancestor | Tattoo | T2_ALTO | 32.78 | 404.3 |
+| Allflame Ember of Propagation | AllflameEmbers | AllflameEmber | T2_ALTO | 32.74 | 169.2 |
+| The Side Quest | Cards | DivinationCard | T2_ALTO | 32.64 | 875.8 |
+| Essence of Hysteria | Essences | Essence | T2_ALTO | 32.19 | 2108 |
+| Eldritch Chaos Orb | Currency | Currency | T2_ALTO | 31.77 | 34542 |
+| Fine Delirium Orb | DeliriumOrbs | DeliriumOrb | T2_ALTO | 31.45 | 39365 |
+| The Soul | Cards | DivinationCard | T2_ALTO | 31.24 | 286.3 |
+| The Dapper Prodigy | Cards | DivinationCard | T2_ALTO | 30.50 | 10.17 |
+| Domination Scarab of Terrors | Fragments | Scarab | T2_ALTO | 29.86 | 8758 |
+| Timeless Templar Emblem | Fragments | Fragment | T2_ALTO | 29.76 | 1597 |
+| Eldritch Orb of Annulment | Currency | Currency | T2_ALTO | 28.30 | 14386 |
+| Apocalypse | Cards | DivinationCard | T2_ALTO | 27.95 | 172.3 |
+| Traumatic Fragment | Fragments | Fragment | T2_ALTO | 27.89 | 2036 |
+| Harvest Scarab of Doubling | Fragments | Scarab | T2_ALTO | 27.87 | 58763 |
+| Essence of Delirium | Essences | Essence | T2_ALTO | 27.38 | 1410 |
+| Thaumaturge's Delirium Orb | DeliriumOrbs | DeliriumOrb | T2_ALTO | 26.78 | 705.3 |
+| Tattoo of the Hinekora Storyteller | Ancestor | Tattoo | T2_ALTO | 26.69 | 640.7 |
+| ... | ... | ... | ... | +189 itens omitidos |  |
 
 ## Como usar este relatorio
 
