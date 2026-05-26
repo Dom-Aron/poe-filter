@@ -43,7 +43,6 @@ if str(ROOT) not in sys.path:
 from core.time_utils import utc_now_iso
 
 DEFAULT_CONFIG = ROOT / "config" / "market_config.json"
-DEFAULT_RULES = ROOT / "builds" / "upgrade_rules.json"
 LATEST_MARKET = ROOT / "market" / "latest_market.json"
 REPORT_FILE = ROOT / "market" / "reports" / "upgrade_deals.md"
 STATS_CACHE = ROOT / "market" / "trade_stats_cache.json"
@@ -519,12 +518,12 @@ def default_profiles() -> dict[str, Profile]:
     }
 
 
-def make_profiles(rules_path: Path = DEFAULT_RULES) -> dict[str, Profile]:
+def make_profiles(rules_path: Path) -> dict[str, Profile]:
     rules = load_json(rules_path)
     configured = rules.get("trade_profiles") if isinstance(rules.get("trade_profiles"), dict) else {}
     if configured:
         return {key: profile_from_dict(key, value) for key, value in configured.items() if isinstance(value, dict)}
-    if rules.get("allow_legacy_trade_profiles") or rules_path.resolve() == DEFAULT_RULES.resolve():
+    if rules.get("use_builtin_trade_profiles"):
         return default_profiles()
     return {}
 
@@ -950,8 +949,8 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Find budget upgrade deals on official Path of Exile trade.")
     parser.add_argument("--budget", required=True, help="Available budget, e.g. 251c, 1d, 1.5div.")
     parser.add_argument("--league", help="League name. Defaults to config/market_config.json.")
-    parser.add_argument("--rules", type=Path, default=DEFAULT_RULES, help="Build-specific upgrade_rules.json. Prefer passing a profile path.")
-    parser.add_argument("--profiles", default="all", help="Comma list or all. Available profiles come from --rules trade_profiles, or legacy defaults.")
+    parser.add_argument("--rules", type=Path, required=True, help="Build-specific upgrade_rules.json.")
+    parser.add_argument("--profiles", default="all", help="Comma list or all. Profiles come from --rules trade_profiles or explicit use_builtin_trade_profiles.")
     parser.add_argument("--top", type=int, default=5, help="Rows per profile to print/save.")
     parser.add_argument("--max-fetch", type=int, default=25, help="Max listings fetched per profile.")
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)

@@ -36,13 +36,6 @@ sys.path.insert(0, str(ROOT))
 from core.time_utils import utc_now_iso
 
 DEFAULT_CONFIG = ROOT / "config" / "market_config.json"
-BUILDS_DIR = ROOT / "builds"
-PLAYER_ITEMS = BUILDS_DIR / "player_items.json"
-PLAYER_STATS = BUILDS_DIR / "player_stats.json"
-TARGET_ITEMS = BUILDS_DIR / "target_build_items.json"
-TARGET_STATS = BUILDS_DIR / "target_build_stats.json"
-UPGRADE_RULES = BUILDS_DIR / "upgrade_rules.json"
-ACTIVE_BUILD = BUILDS_DIR / "active_build.json"
 REPORT_FILE = ROOT / "market" / "reports" / "upgrade_plan.md"
 REPORT_HTML = ROOT / "market" / "reports" / "upgrade_plan.html"
 REPORT_JSON = ROOT / "market" / "reports" / "upgrade_plan.json"
@@ -85,11 +78,71 @@ class Plan:
     warnings: list[str]
 
 
+def plan_confidence(plan: Plan, rules: dict[str, Any]) -> tuple[str, list[str], bool]:
+    """Estimate how much trust the user should put in an automatic plan.
+
+    This is intentionally separate from score. Score says "how much this seems
+    to help"; confidence says "how safe is it to act on this without extra
+    checking". Trade data is volatile and the planner is heuristic, so even high
+    confidence still means "verify in PoB before buying expensive items".
+    """
+    high_score = float(rules.get("confidence_high_score", 140))
+    medium_score = float(rules.get("confidence_medium_score", rules.get("minimum_plan_score", 50)))
+    reasons: list[str] = []
+    unresolved_goals = sum(1 for warning in plan.warnings if warning.startswith("ainda abaixo da meta:"))
+    soft_minimums = [warning for warning in plan.warnings if warning.startswith("abaixo do minimo derivado:")]
+    sensitive_slots = [warning for warning in plan.warnings if warning.startswith("slot sensivel:")]
+    exact_links = all(candidate.result_id and candidate.query_id and candidate.whisper for candidate in plan.candidates)
+    cheap_outlier = plan.price_chaos <= float(rules.get("confidence_cheap_outlier_chaos", 5))
+
+    if plan.score >= high_score:
+        reasons.append(f"score alto ({plan.score:.1f})")
+    elif plan.score >= medium_score:
+        reasons.append(f"score aceitavel ({plan.score:.1f})")
+    else:
+        reasons.append(f"score perto do minimo ({plan.score:.1f})")
+
+    if unresolved_goals:
+        reasons.append(f"{unresolved_goals} meta(s) ainda abaixo")
+    if soft_minimums:
+        reasons.append("algum minimo derivado precisa ser validado no PoB")
+    if sensitive_slots:
+        reasons.append("envolve slot sensivel da build")
+    if not exact_links:
+        reasons.append("link/listagem exata incompleta")
+    if cheap_outlier and plan.score >= high_score:
+        reasons.append("preco muito baixo para o score; conferir se o item ainda existe")
+
+    needs_pob_validation = bool(unresolved_goals or soft_minimums or sensitive_slots or cheap_outlier)
+    if (
+        plan.score >= high_score
+        and unresolved_goals <= 2
+        and not soft_minimums
+        and not sensitive_slots
+        and exact_links
+        and not cheap_outlier
+    ):
+        return "alta", reasons, needs_pob_validation
+    if plan.score >= medium_score and unresolved_goals <= 7 and exact_links:
+        return "media", reasons, True
+    return "baixa", reasons, True
+
+
+def confidence_badge(confidence: str) -> str:
+    return {
+        "alta": "Alta",
+        "media": "Media",
+        "baixa": "Baixa",
+    }.get(confidence, "Baixa")
+
+
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def active_build_slug(path: Path = ACTIVE_BUILD) -> str:
+def active_build_slug(path: Path | None) -> str:
+    if path is None:
+        return ""
     if not path.exists():
         return ""
     return str(load_json(path).get("active_slug") or "")
@@ -210,7 +263,7 @@ def candidate_for_slot(
     for key, value in current.items():
         delta[key] = delta.get(key, 0.0) - value
 
-    guarded_slots = rules.get("guarded_slots", rules.get("locked_slots", {}))
+    guarded_slots = rules.get("guarded_slots", {})
     required_keys = required_effects_for_slot(profile_rules, slot)
     for key in required_keys:
         if not preserves_required_effect(effects.get(key), current.get(key)):
@@ -257,10 +310,6 @@ def required_effects_for_slot(profile_rules: dict[str, Any], slot: str) -> list[
         value = profile_rules.get(field)
         if isinstance(value, list):
             keys.extend(str(item) for item in value)
-    if slot == "ring_1":
-        legacy = profile_rules.get("must_keep_if_replacing_ring_1")
-        if isinstance(legacy, list):
-            keys.extend(str(item) for item in legacy)
     return list(dict.fromkeys(keys))
 
 
@@ -419,7 +468,7 @@ def combo_score(
         return score, gains, warnings, False
 
     minimum_plan_score = float(rules.get("minimum_plan_score", 0))
-    guarded_slots = rules.get("guarded_slots", rules.get("locked_slots", {}))
+    guarded_slots = rules.get("guarded_slots", {})
     guarded_minimum = float(rules.get("minimum_guarded_slot_score", minimum_plan_score))
     if score < minimum_plan_score:
         warnings.append(f"rejeitado: score {score:.1f} abaixo do ganho minimo {minimum_plan_score:.1f}")
@@ -563,6 +612,7 @@ def write_report(
     league: str,
     top: int,
     cheapest_first: bool,
+    rules: dict[str, Any],
     output_md: Path,
     output_html: Path,
     output_json: Path,
@@ -613,17 +663,23 @@ def write_report(
             [
                 "## Melhores Planos",
                 "",
-                "| Rank | Combo | Custo | Score | O que melhora | Alertas | Whisper |",
-                "| ---: | --- | ---: | ---: | --- | --- | --- |",
+                "| Rank | Combo | Custo | Score | Confianca | O que melhora | Alertas | Whisper |",
+                "| ---: | --- | ---: | ---: | --- | --- | --- | --- |",
             ]
         )
         for rank, plan in enumerate(plans[:top], start=1):
             combo = "<br>".join(item_markdown_links(c) + f" -> `{c.slot}`" for c in plan.candidates)
+            confidence, confidence_reasons, needs_pob = plan_confidence(plan, rules)
+            confidence_text = confidence_badge(confidence)
+            if needs_pob:
+                confidence_text += " - validar no PoB"
+            if confidence_reasons:
+                confidence_text += ": " + "; ".join(confidence_reasons[:3])
             gains = "; ".join(dict.fromkeys(plan.gains)) or "Ganho estimado positivo."
             warnings = "; ".join(dict.fromkeys(plan.warnings[:5])) or "Sem alerta automatico."
             whispers = "<br>".join(f"`{c.whisper}`" for c in plan.candidates if c.whisper) or "n/d"
             lines.append(
-                f"| {rank} | {combo} | {plan.price_chaos:.1f}c | {plan.score:.1f} | {gains} | {warnings} | {whispers} |"
+                f"| {rank} | {combo} | {plan.price_chaos:.1f}c | {plan.score:.1f} | {confidence_text} | {gains} | {warnings} | {whispers} |"
             )
 
     if best_any_budget:
@@ -688,6 +744,7 @@ def write_report(
         league,
         top,
         cheapest_first,
+        rules,
         output_json,
         active_slug,
     )
@@ -700,6 +757,7 @@ def write_report(
         league,
         top,
         cheapest_first,
+        rules,
         output_html,
     )
 
@@ -739,13 +797,18 @@ def candidate_to_dict(candidate: Candidate) -> dict[str, Any]:
     }
 
 
-def plan_to_dict(plan: Plan, rank: int) -> dict[str, Any]:
+def plan_to_dict(plan: Plan, rank: int, rules: dict[str, Any]) -> dict[str, Any]:
+    confidence, confidence_reasons, needs_pob = plan_confidence(plan, rules)
     return {
         "rank": rank,
         "title": plan_title(plan),
         "price_chaos": plan.price_chaos,
         "score": plan.score,
         "value_score": plan.value_score,
+        "confidence": confidence,
+        "confidence_label": confidence_badge(confidence),
+        "confidence_reasons": confidence_reasons,
+        "needs_pob_validation": needs_pob,
         "final_stats": plan.final_stats,
         "gains": plan.gains,
         "warnings": plan.warnings,
@@ -770,6 +833,7 @@ def write_json_report(
     league: str,
     top: int,
     cheapest_first: bool,
+    rules: dict[str, Any],
     output_json: Path,
     active_slug: str,
 ) -> None:
@@ -791,8 +855,8 @@ def write_json_report(
             "budget_chaos e o teto de cada plano 1x1, 2x2 ou 3x3, nao a soma de todos os planos.",
             "Com budget informado, o script amostra faixas de preco ate o teto para nao limitar a busca aos itens mais baratos.",
         ],
-        "plans": [plan_to_dict(plan, rank) for rank, plan in enumerate(plans[:top], start=1)],
-        "best_any_budget": [plan_to_dict(plan, rank) for rank, plan in enumerate(best_any_budget[:3], start=1)],
+        "plans": [plan_to_dict(plan, rank, rules) for rank, plan in enumerate(plans[:top], start=1)],
+        "best_any_budget": [plan_to_dict(plan, rank, rules) for rank, plan in enumerate(best_any_budget[:3], start=1)],
         "candidates": [candidate_to_dict(candidate) for candidate in candidates],
         "diagnostics": list(dict.fromkeys(diagnostics))[:30],
         "diagnostic_summary": diagnostic_summary(diagnostics),
@@ -833,6 +897,7 @@ def write_html_report(
     league: str,
     top: int,
     cheapest_first: bool,
+    rules: dict[str, Any],
     output_html: Path,
 ) -> None:
     output_html.parent.mkdir(parents=True, exist_ok=True)
@@ -842,6 +907,12 @@ def write_html_report(
     cards: list[str] = []
     if plans:
         for rank, plan in enumerate(plans[:top], start=1):
+            confidence, confidence_reasons, needs_pob = plan_confidence(plan, rules)
+            confidence_class = f"confidence-{confidence}"
+            confidence_text = confidence_badge(confidence)
+            if needs_pob:
+                confidence_text += " - validar no PoB"
+            confidence_detail = html_join(confidence_reasons, "Sem motivo adicional.")
             item_links = []
             for candidate in plan.candidates:
                 actions = []
@@ -880,10 +951,11 @@ def write_html_report(
                 f"<h2>{html.escape(plan_title(plan))}</h2>"
                 f"<p class=\"price\">{plan.price_chaos:.1f} chaos</p>"
                 f"<p class=\"score\">Score {plan.score:.1f} | Valor {plan.value_score:.2f}</p>"
+                f"<p class=\"confidence {confidence_class}\">Confianca: {html.escape(confidence_text)}</p>"
                 "<div class=\"grid\">"
                 f"<div><h3>Itens</h3>{''.join(item_links)}</div>"
                 f"<div><h3>Melhoras</h3>{html_join(plan.gains, 'Ganho estimado positivo.')}</div>"
-                f"<div><h3>Alertas</h3>{html_join(plan.warnings)}</div>"
+                f"<div><h3>Confianca</h3>{confidence_detail}<h3>Alertas</h3>{html_join(plan.warnings)}</div>"
                 "</div>"
                 "</section>"
             )
@@ -898,6 +970,10 @@ def write_html_report(
     best_cards: list[str] = []
     for rank, plan in enumerate(best_any_budget[:3], start=1):
         candidate = plan.candidates[0]
+        confidence, confidence_reasons, needs_pob = plan_confidence(plan, rules)
+        confidence_text = confidence_badge(confidence)
+        if needs_pob:
+            confidence_text += " - validar no PoB"
         actions = []
         if candidate.trade_item_url:
             actions.append(
@@ -917,9 +993,11 @@ def write_html_report(
             f"<h2>{html.escape(candidate.name)}</h2>"
             f"<p class=\"price\">{plan.price_chaos:.1f} chaos</p>"
             f"<p class=\"score\">Score {plan.score:.1f} | Valor {plan.value_score:.2f}</p>"
+            f"<p class=\"confidence confidence-{confidence}\">Confianca: {html.escape(confidence_text)}</p>"
             f"<p class=\"muted\">Compra barata de melhor custo-beneficio, calculada sem limitar pelo budget informado.</p>"
             f"<div class=\"actions\">{' '.join(actions)}</div>"
             f"{item_mods_html(candidate.item_mods)}"
+            f"{html_join(confidence_reasons, 'Sem motivo adicional.')}"
             f"{html_join(plan.gains, 'Ganho estimado positivo.')}"
             "</section>"
         )
@@ -976,6 +1054,10 @@ def write_html_report(
     .rank {{ position: absolute; right: 18px; top: 16px; color: #d9b36a; font-weight: 700; }}
     .price {{ font-size: 22px; color: #f2c66d; margin: 6px 0; }}
     .score, .muted {{ color: #b7b0a2; }}
+    .confidence {{ display: inline-flex; margin: 4px 0 12px; padding: 5px 8px; border-radius: 999px; border: 1px solid #4b5560; font-weight: 700; }}
+    .confidence-alta {{ color: #74e29a; border-color: #2f7d4a; background: #102118; }}
+    .confidence-media {{ color: #f2c66d; border-color: #a47f2d; background: #241c10; }}
+    .confidence-baixa {{ color: #ff9b9b; border-color: #a54646; background: #2a1414; }}
     .grid {{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }}
     .item-link {{ display: grid; gap: 4px; margin-bottom: 12px; }}
     .item-link span, small {{ color: #b7b0a2; }}
@@ -1048,12 +1130,12 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         ),
     )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
-    parser.add_argument("--player-items", type=Path, default=PLAYER_ITEMS)
-    parser.add_argument("--player-stats", type=Path, default=PLAYER_STATS)
-    parser.add_argument("--target-items", type=Path, default=TARGET_ITEMS)
-    parser.add_argument("--target-stats", type=Path, default=TARGET_STATS)
-    parser.add_argument("--rules", type=Path, default=UPGRADE_RULES)
-    parser.add_argument("--active-build", type=Path, default=ACTIVE_BUILD)
+    parser.add_argument("--player-items", type=Path, required=True)
+    parser.add_argument("--player-stats", type=Path, required=True)
+    parser.add_argument("--target-items", type=Path, required=True)
+    parser.add_argument("--target-stats", type=Path, required=True)
+    parser.add_argument("--rules", type=Path, required=True)
+    parser.add_argument("--active-build", type=Path)
     parser.add_argument("--output-md", type=Path, default=REPORT_FILE)
     parser.add_argument("--output-html", type=Path, default=REPORT_HTML)
     parser.add_argument("--output-json", type=Path, default=REPORT_JSON)
@@ -1154,6 +1236,7 @@ def main(argv: list[str]) -> int:
         league,
         top,
         cheapest_first,
+        rules,
         args.output_md,
         args.output_html,
         args.output_json,
@@ -1166,7 +1249,9 @@ def main(argv: list[str]) -> int:
         print(f"Safe plans found: {len(plans)}")
         for rank, plan in enumerate(plans[:top], start=1):
             names = " + ".join(candidate.name for candidate in plan.candidates)
-            print(f"{rank}. {names} | {plan.price_chaos:.1f}c | score {plan.score:.1f}")
+            confidence, _, needs_pob = plan_confidence(plan, rules)
+            suffix = " | validar no PoB" if needs_pob else ""
+            print(f"{rank}. {names} | {plan.price_chaos:.1f}c | score {plan.score:.1f} | confianca {confidence}{suffix}")
     print(f"Report saved: {args.output_md}")
     print(f"HTML report saved: {args.output_html}")
     print(f"JSON report saved: {args.output_json}")

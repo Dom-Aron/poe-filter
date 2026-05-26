@@ -7,7 +7,7 @@
   "hard_reject_if_below_minimum": true,
   "minimum_plan_score": 50,
   "minimum_guarded_slot_score": 50,
-  "allow_legacy_trade_profiles": true,
+  "use_builtin_trade_profiles": true,
   "soft_minimum_stats": ["chance_to_hit"],
   "derived_goal_stats": ["chance_to_hit_evasive", "spell_block", "ailment_avoidance"],
   "budget": {

@@ -104,14 +104,6 @@ def read_json(path: Path, fallback: dict[str, Any] | None = None) -> dict[str, A
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def active_character_slug() -> str:
-    active = read_json(paths.BUILDS / "active_character.json")
-    slug = str(active.get("slug") or active.get("character_slug") or "").strip()
-    if not slug:
-        raise SystemExit("Use --character <slug> or activate a character first.")
-    return slug
-
-
 def character_build_slug(character_slug: str) -> str:
     profile = read_json(paths.character_dir(character_slug) / "character_profile.json")
     build_slug = str(profile.get("build_slug") or "").strip()
@@ -408,14 +400,14 @@ def write_snippet(bases: list[dict[str, Any]], rows: list[dict[str, Any]]) -> No
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Review loot-filter strategy using character, target build and market data.")
-    parser.add_argument("--character", help="Character slug. Defaults to builds/active_character.json.")
+    parser.add_argument("--character", required=True, help="Character slug.")
     parser.add_argument("--min-chaos", type=float, default=None, help="Market cut for the report/snippet.")
     return parser.parse_args(argv)
 
 
 def main(argv: list[str]) -> int:
     args = parse_args(argv)
-    character_slug = args.character or active_character_slug()
+    character_slug = args.character
     build_slug = character_build_slug(character_slug)
     config = read_json(CONFIG_FILE)
     thresholds = config.get("tier_thresholds_chaos", {}) if isinstance(config.get("tier_thresholds_chaos"), dict) else {}

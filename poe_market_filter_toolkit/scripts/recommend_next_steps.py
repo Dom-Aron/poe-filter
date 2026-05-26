@@ -23,103 +23,9 @@ sys.path.insert(0, str(ROOT))
 from core.time_utils import utc_now_iso
 
 DEFAULT_GAP = ROOT / "data" / "generated" / "gap_analysis.json"
-DEFAULT_RULES = ROOT / "builds" / "upgrade_rules.json"
-DEFAULT_ACTIVE_BUILD = ROOT / "builds" / "active_build.json"
-DEFAULT_ACTIVE_CHARACTER = ROOT / "builds" / "active_character.json"
 DEFAULT_NEXT_SEARCHES = ROOT / "data" / "generated" / "next_searches.md"
 DEFAULT_RECOMMENDATIONS = ROOT / "data" / "generated" / "upgrade_recommendations.md"
 DEFAULT_REPORT_JSON = ROOT / "data" / "generated" / "upgrade_report.json"
-
-
-LEGACY_SEARCH_LIBRARY: dict[str, dict[str, Any]] = {
-    "life": {
-        "title": "Jewel com maximum life",
-        "priority": "alta",
-        "reason": "Vida esta abaixo da meta e jewels permitem melhorar sem mexer em slots sensiveis.",
-        "trade_terms": [
-            "6-7% increased maximum Life",
-            "Attack Speed with Staves ou Two Handed Melee Weapons",
-            "Global Critical Strike Multiplier",
-            "Physical Damage with Staves",
-            "Chaos Resistance se possivel",
-        ],
-        "price_hint": "Ate 30c: bom; 30-80c: comprar se tiver vida + 2 mods uteis; acima disso, comparar no PoB.",
-        "profiles": ["jewel_damage", "abyss_jewel"],
-    },
-    "chaos_resistance": {
-        "title": "Jewel/anel/cinto com Chaos Resistance",
-        "priority": "alta",
-        "reason": "Chaos Resistance esta positiva, mas abaixo da meta confortavel.",
-        "trade_terms": [
-            "+#% to Chaos Resistance",
-            "+# to maximum Life",
-            "mods de dano fisico/attack speed/crit se for jewel",
-            "nao perder resistencias elementais capadas",
-        ],
-        "price_hint": "Barato em jewels simples; em anel com Vulnerability fica mais caro.",
-        "profiles": ["jewel_damage", "abyss_jewel", "ring_vulnerability"],
-    },
-    "impale_chance": {
-        "title": "Cluster/jewel com Impale ou dano fisico",
-        "priority": "alta",
-        "reason": "Chance de Impale esta longe da meta da build fisica.",
-        "trade_terms": [
-            "Large Cluster Jewel com 8 passivas",
-            "Physical Damage / Staff Attacks / Two Handed Weapons",
-            "notables uteis como Fuel the Fight, Martial Prowess ou equivalentes",
-            "evitar bases elemental, minion, bow ou spell",
-        ],
-        "price_hint": "Cluster bom depende dos notables; nao comprar sem abrir o item no trade.",
-        "profiles": ["large_cluster"],
-    },
-    "spell_block": {
-        "title": "Rumi's nao corrompido ou fontes de spell block",
-        "priority": "media",
-        "reason": "Spell Block ainda esta abaixo da meta defensiva.",
-        "trade_terms": [
-            "Rumi's Concoction nao corrompido",
-            "pelo menos 12% attack block durante efeito",
-            "pelo menos 4% spell block durante efeito",
-            "idealmente permitir enchant automatico depois",
-        ],
-        "price_hint": "Compra de qualidade de vida; nao pagar caro se o atual 12/4 ainda funciona.",
-        "profiles": ["rumi_uncorrupted"],
-    },
-    "ailment_avoidance": {
-        "title": "Ailment avoidance sem quebrar gear atual",
-        "priority": "media",
-        "reason": "Avoidance esta baixo, mas pode ser resolvido por arvore, flask ou crafts depois.",
-        "trade_terms": [
-            "chance to Avoid Elemental Ailments",
-            "flask suffixes uteis",
-            "boots/crafts apenas se nao perder vida/resists",
-        ],
-        "price_hint": "Tratar como defesa futura; so vale trocar botas se o ganho total compensar vida, resists e velocidade.",
-        "profiles": [],
-    },
-    "chance_to_hit": {
-        "title": "Accuracy apenas se vier junto de outros mods",
-        "priority": "baixa",
-        "reason": "Chance to hit esta acima do minimo; accuracy extra nao deve dominar o score.",
-        "trade_terms": [
-            "+# to Accuracy Rating",
-            "comprar apenas se vier com life/dano/chaos res",
-        ],
-        "price_hint": "Nao gastar budget alto so para accuracy.",
-        "profiles": ["jewel_damage"],
-    },
-    "chance_to_hit_evasive": {
-        "title": "Accuracy contra evasivos como bonus",
-        "priority": "baixa",
-        "reason": "Contra evasivos ainda ha espaco, mas nao e gargalo principal como antes.",
-        "trade_terms": [
-            "Accuracy Rating como mod secundario",
-            "preferir jewel com life + dano + accuracy",
-        ],
-        "price_hint": "Bonus, nao prioridade de compra isolada.",
-        "profiles": ["jewel_damage"],
-    },
-}
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -146,8 +52,6 @@ def active_search_library(rules: dict[str, Any]) -> dict[str, dict[str, Any]]:
     configured = rules.get("search_library")
     if isinstance(configured, dict) and configured:
         return {str(key): value for key, value in configured.items() if isinstance(value, dict)}
-    if rules.get("allow_legacy_search_library"):
-        return LEGACY_SEARCH_LIBRARY
     return {}
 
 
@@ -329,7 +233,7 @@ def write_report_json(
         "priorities": gap.get("current_priorities", {}),
         "guarded_slots": gap.get("guarded_slots") or gap.get("protected_slots", {}),
         "recommended_searches": entries,
-        "guarded_slots_rules": rules.get("guarded_slots", rules.get("locked_slots", {})),
+        "guarded_slots_rules": rules.get("guarded_slots", {}),
         "minimum_plan_score": rules.get("minimum_plan_score", 0),
         "notes": [
             "Deterministic recommendation MVP; future run_agent.py can use this as compact context.",
@@ -343,12 +247,12 @@ def write_report_json(
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate next searches and upgrade recommendations from gap analysis.")
     parser.add_argument("--gap", type=Path, default=DEFAULT_GAP)
-    parser.add_argument("--rules", type=Path, default=DEFAULT_RULES)
+    parser.add_argument("--rules", type=Path, required=True)
     parser.add_argument("--next-searches", type=Path, default=DEFAULT_NEXT_SEARCHES)
     parser.add_argument("--recommendations", type=Path, default=DEFAULT_RECOMMENDATIONS)
     parser.add_argument("--report-json", type=Path, default=DEFAULT_REPORT_JSON)
-    parser.add_argument("--active-build", type=Path, default=DEFAULT_ACTIVE_BUILD)
-    parser.add_argument("--active-character", type=Path, default=DEFAULT_ACTIVE_CHARACTER)
+    parser.add_argument("--active-build", type=Path)
+    parser.add_argument("--active-character", type=Path)
     return parser.parse_args(argv)
 
 
@@ -356,8 +260,8 @@ def main(argv: list[str]) -> int:
     args = parse_args(argv)
     gap = load_json(args.gap)
     rules = load_json(args.rules)
-    active_build = load_json(args.active_build) if args.active_build.exists() else {}
-    active_character = load_json(args.active_character) if args.active_character.exists() else {}
+    active_build = load_json(args.active_build) if args.active_build and args.active_build.exists() else {}
+    active_character = load_json(args.active_character) if args.active_character and args.active_character.exists() else {}
     entries = search_entries(gap, rules)
     write_next_searches(args.next_searches, entries)
     write_recommendations(args.recommendations, gap, entries)

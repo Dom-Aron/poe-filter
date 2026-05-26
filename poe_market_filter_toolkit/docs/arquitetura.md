@@ -15,7 +15,9 @@ scripts/
 
 ## Regra de ouro
 
-Personagem e a unidade de trabalho. O fluxo recomendado nunca deve depender dos arquivos globais em `builds/player_items.json` ou `data/generated/gap_analysis.json` como fonte de verdade.
+Personagem e a unidade de trabalho. O fluxo recomendado le arquivos de
+`builds/characters/<personagem>/` e `builds/profiles/<build>/` diretamente, e
+nunca usa artefatos compartilhados como fonte de verdade.
 
 Entrada:
 
@@ -38,10 +40,6 @@ Scripts devem ser finos:
 2. chamar funcoes de `core/` quando houver logica compartilhada;
 3. executar outros scripts quando forem orquestradores;
 4. escrever artefatos no diretorio do personagem.
-
-## Estado global legado
-
-Alguns scripts ainda aceitam defaults globais para compatibilidade. Isso e legado. Novas mudancas devem preferir caminhos explicitos por personagem/build.
 
 ## Proximas extrações naturais
 

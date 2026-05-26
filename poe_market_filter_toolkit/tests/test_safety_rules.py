@@ -15,7 +15,6 @@ import generate_dashboard
 import plan_upgrade_path
 import recommend_next_steps as recommend
 import review_filter_strategy
-import run_build_matrix
 import run_character
 import switch_build
 import sync_pob
@@ -25,10 +24,96 @@ from core import target_analysis
 from core import validation as core_validation
 
 
+CHARACTER_DIR = ROOT / "builds" / "characters" / "aron_shockwave_cyclone_slayer"
+BUILD_DIR = ROOT / "builds" / "profiles" / "ronarray_shockwave_cyclone_slayer"
+
+
+def make_candidate(**overrides):
+    data = {
+        "profile": "test_profile",
+        "profile_label": "Test Profile",
+        "slot": "ring",
+        "name": "Test Item",
+        "type_line": "Ruby Ring",
+        "price_chaos": 50.0,
+        "price_text": "50 chaos",
+        "score": 100.0,
+        "value_score": 2.0,
+        "effects": {"life": 30.0},
+        "gains": ["life +30"],
+        "warnings": [],
+        "seller": "seller",
+        "trade_url": "https://www.pathofexile.com/trade/search/Mirage/test",
+        "trade_item_url": "https://www.pathofexile.com/trade/search/Mirage/test#item",
+        "trade_search_url": "https://www.pathofexile.com/trade/search/Mirage/test",
+        "trade_fetch_url": "https://www.pathofexile.com/api/trade/fetch/test",
+        "result_id": "result",
+        "query_id": "query",
+        "whisper": "@seller Hi",
+        "item_mods": [],
+    }
+    data.update(overrides)
+    return plan_upgrade_path.Candidate(**data)
+
+
+def make_plan(**overrides):
+    candidate = make_candidate()
+    data = {
+        "candidates": (candidate,),
+        "price_chaos": 50.0,
+        "score": 160.0,
+        "value_score": 3.2,
+        "final_stats": {"life": 3900.0},
+        "gains": ["life +30"],
+        "warnings": [],
+    }
+    data.update(overrides)
+    return plan_upgrade_path.Plan(**data)
+
+
+def search_rules(*stats: str) -> dict:
+    library = {}
+    for stat in stats:
+        library[stat] = {
+            "title": f"{stat} search",
+            "priority": "alta",
+            "reason": f"Improve {stat}",
+            "trade_terms": [stat],
+            "price_hint": "test",
+            "profiles": ["jewel_damage"],
+        }
+    return {"search_library": library}
+
+
 class SafetyRulesTest(unittest.TestCase):
+    def test_plan_confidence_high_when_links_and_score_are_clean(self):
+        plan = make_plan()
+
+        confidence, reasons, needs_pob = plan_upgrade_path.plan_confidence(plan, {})
+
+        self.assertEqual(confidence, "alta")
+        self.assertFalse(needs_pob)
+        self.assertTrue(any("score alto" in reason for reason in reasons))
+
+    def test_plan_confidence_requires_pob_for_sensitive_or_unresolved_plan(self):
+        plan = make_plan(
+            score=165.0,
+            warnings=[
+                "slot sensivel: gloves",
+                "ainda abaixo da meta: life 3700/4000",
+            ],
+        )
+
+        confidence, reasons, needs_pob = plan_upgrade_path.plan_confidence(plan, {})
+
+        self.assertEqual(confidence, "media")
+        self.assertTrue(needs_pob)
+        self.assertTrue(any("slot sensivel" in reason for reason in reasons))
+        self.assertTrue(any("meta(s) ainda abaixo" in reason for reason in reasons))
+
     def test_guarded_slots_are_reported(self):
-        player_items = json.loads((ROOT / "builds" / "player_items.json").read_text(encoding="utf-8"))
-        rules = json.loads((ROOT / "builds" / "upgrade_rules.json").read_text(encoding="utf-8"))
+        player_items = json.loads((CHARACTER_DIR / "player_items.json").read_text(encoding="utf-8"))
+        rules = json.loads((BUILD_DIR / "upgrade_rules.json").read_text(encoding="utf-8"))
 
         guarded = compare.guarded_slots(player_items, rules)
 
@@ -38,7 +123,7 @@ class SafetyRulesTest(unittest.TestCase):
         self.assertIn("Death Knuckle", guarded["gloves"])
 
     def test_strength_is_not_scored_as_life_with_brass_dome(self):
-        rules = json.loads((ROOT / "builds" / "upgrade_rules.json").read_text(encoding="utf-8"))
+        rules = json.loads((BUILD_DIR / "upgrade_rules.json").read_text(encoding="utf-8"))
         weights = rules.get("weights", {})
 
         self.assertNotIn("strength", weights)
@@ -56,7 +141,7 @@ class SafetyRulesTest(unittest.TestCase):
             },
         }
 
-        entries = recommend.search_entries(gap, {"allow_legacy_search_library": True})
+        entries = recommend.search_entries(gap, search_rules("life", "spell_block"))
 
         self.assertEqual(entries[0]["stat"], "life")
 
@@ -70,7 +155,7 @@ class SafetyRulesTest(unittest.TestCase):
             },
         }
 
-        entries = recommend.search_entries(gap, {"allow_legacy_search_library": True})
+        entries = recommend.search_entries(gap, search_rules("chance_to_hit"))
 
         self.assertEqual(entries[0]["priority"], "low")
 
@@ -82,11 +167,11 @@ class SafetyRulesTest(unittest.TestCase):
             "current_priorities": {"chance_to_hit_evasive": "needs_data"},
         }
 
-        entries = recommend.search_entries(gap, {"allow_legacy_search_library": True})
+        entries = recommend.search_entries(gap, search_rules("chance_to_hit_evasive"))
 
         self.assertEqual(entries[0]["stat"], "chance_to_hit_evasive")
 
-    def test_search_entries_do_not_use_legacy_library_by_default(self):
+    def test_search_entries_require_configured_library(self):
         gap = {
             "risks": {
                 "life": {"current": 3400, "goal": 3800, "status": "needs_improvement", "missing_to_goal": 400},
@@ -269,31 +354,6 @@ class SafetyRulesTest(unittest.TestCase):
             switch_build.slugify("Shockwave Cyclone / General's Cry Slayer"),
             "shockwave_cyclone_general_s_cry_slayer",
         )
-
-    def test_build_matrix_localizes_global_html_links(self):
-        content = (
-            '<a href="../../data/generated/build_dashboard.html">Dashboard</a>'
-            '<a href="../../market/reports/upgrade_plan.html">Plano</a>'
-        )
-
-        localized = run_build_matrix.localize_global_links(content)
-
-        self.assertIn('href="build_dashboard.html"', localized)
-        self.assertIn('href="upgrade_plan.html"', localized)
-        self.assertNotIn("../../data/generated", localized)
-        self.assertNotIn("../../market/reports", localized)
-
-    def test_build_matrix_switcher_preserves_current_page(self):
-        rows = [
-            {"slug": "build_a", "name": "Build A"},
-            {"slug": "build_b", "name": "Build B"},
-        ]
-
-        switcher = run_build_matrix.build_switcher("build_a", "next_searches.html", rows)
-
-        self.assertIn('data-page="next_searches.html"', switcher)
-        self.assertIn('<option value="build_a" selected>', switcher)
-        self.assertIn('<option value="build_b">', switcher)
 
     def test_recommendations_can_use_build_specific_library(self):
         gap = {

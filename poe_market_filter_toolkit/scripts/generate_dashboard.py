@@ -34,8 +34,8 @@ DEFAULT_UPGRADE_PLAN = REPORTS / "upgrade_plan.md"
 DEFAULT_UPGRADE_PLAN_JSON = REPORTS / "upgrade_plan.json"
 DEFAULT_MARKET_REPORT = REPORTS / "market_report.md"
 DEFAULT_MARKET_JSON = ROOT / "market" / "latest_market.json"
-DEFAULT_ACTIVE_BUILD = ROOT / "builds" / "active_build.json"
-DEFAULT_ACTIVE_CHARACTER = ROOT / "builds" / "active_character.json"
+DEFAULT_ACTIVE_BUILD = GENERATED / "active_build.json"
+DEFAULT_ACTIVE_CHARACTER = GENERATED / "active_character.json"
 DEFAULT_VALIDATION_REPORT = GENERATED / "validation_report.json"
 DEFAULT_RUN_SUMMARY = GENERATED / "run_summary.json"
 DEFAULT_OUTPUT = GENERATED / "build_dashboard.html"
@@ -406,7 +406,7 @@ def active_build_panel(active_build: dict[str, Any]) -> str:
         f"<p><strong>Perfil:</strong> <code>{html.escape(profile_dir)}</code></p>"
         f"<p><strong>PoB:</strong> {pob_html}</p>"
         f"<p class=\"muted\">Ativada em {html.escape(activated or 'n/d')}. "
-        "Se este perfil foi criado com --from-current, os alvos ainda sao uma copia da build anterior ate voce editar/importar os JSONs do perfil.</p>"
+        "Atualize os JSONs do perfil ou reimporte o PoB antes de confiar nas recomendacoes desta build.</p>"
         "</div>"
     )
 
@@ -436,14 +436,21 @@ def build_data_warning(active_build: dict[str, Any]) -> str:
         return ""
     profile_file = ROOT / str(profile_dir) / "build_profile.json"
     profile = read_json(profile_file)
-    if profile.get("target_files_source") != "cloned_from_current":
+    files = profile.get("files", {})
+    if not isinstance(files, dict):
+        return ""
+    missing = []
+    for filename in ("target_build_items.json", "target_build_stats.json", "upgrade_rules.json"):
+        configured = str(files.get(filename) or filename)
+        if not (ROOT / str(profile_dir) / configured).exists():
+            missing.append(configured)
+    if not missing:
         return ""
     return (
         "<div class=\"panel small warning-panel\">"
-        "<h3>Dados Alvo Ainda Clonados</h3>"
-        "<p>Esta build foi criada a partir dos arquivos alvo ativos na epoca. "
-        "As paginas podem trocar a build corretamente, mas as recomendacoes so serao especificas "
-        "quando target_build_items.json, target_build_stats.json e upgrade_rules.json deste perfil forem ajustados/importados.</p>"
+        "<h3>Dados Alvo Incompletos</h3>"
+        "<p>Esta build ainda precisa dos arquivos de alvo para gerar recomendacoes especificas: "
+        f"<code>{html.escape(', '.join(missing))}</code>.</p>"
         "</div>"
     )
 
@@ -512,6 +519,12 @@ def upgrade_plan_cards(upgrade_plan: dict[str, Any], fallback_md: str) -> str:
 
     cards: list[str] = []
     for plan in plans[:10]:
+        confidence = str(plan.get("confidence", "baixa"))
+        confidence_label = str(plan.get("confidence_label") or confidence.title())
+        confidence_reasons = [str(reason) for reason in plan.get("confidence_reasons", []) if str(reason).strip()]
+        needs_pob = bool(plan.get("needs_pob_validation"))
+        confidence_text = confidence_label + (" - validar no PoB" if needs_pob else "")
+        confidence_items = "".join(f"<li>{html.escape(reason)}</li>" for reason in confidence_reasons[:5])
         candidate_blocks: list[str] = []
         for candidate in plan.get("candidates", []):
             gains = "".join(f"<li>{html.escape(str(gain))}</li>" for gain in candidate.get("gains", [])[:6])
@@ -534,8 +547,9 @@ def upgrade_plan_cards(upgrade_plan: dict[str, Any], fallback_md: str) -> str:
             f"<h3>{html.escape(str(plan.get('title', 'Plano')))}</h3>"
             f"<strong>{float(plan.get('price_chaos', 0.0)):.1f}c</strong></div>"
             f"<p class=\"muted\">Score {float(plan.get('score', 0.0)):.1f} | Valor {float(plan.get('value_score', 0.0)):.2f}</p>"
+            f"<p class=\"confidence confidence-{html.escape(confidence)}\">Confianca: {html.escape(confidence_text)}</p>"
             f"<div class=\"deal-grid\">{''.join(candidate_blocks)}</div>"
-            f"<div class=\"columns compact\"><div><h4>Melhoras</h4><ul>{gains}</ul></div><div><h4>Alertas</h4><ul>{warnings or '<li>Sem alerta automatico.</li>'}</ul></div></div>"
+            f"<div class=\"columns compact\"><div><h4>Melhoras</h4><ul>{gains}</ul></div><div><h4>Confianca</h4><ul>{confidence_items or '<li>Sem motivo adicional.</li>'}</ul><h4>Alertas</h4><ul>{warnings or '<li>Sem alerta automatico.</li>'}</ul></div></div>"
             "</section>"
         )
     notes = "".join(f"<li>{html.escape(str(note))}</li>" for note in upgrade_plan.get("notes", []))
@@ -563,11 +577,16 @@ def upgrade_plan_cards(upgrade_plan: dict[str, Any], fallback_md: str) -> str:
         best_cards = []
         for plan in best[:3]:
             candidate = (plan.get("candidates") or [{}])[0]
+            confidence = str(plan.get("confidence", "baixa"))
+            confidence_label = str(plan.get("confidence_label") or confidence.title())
+            needs_pob = bool(plan.get("needs_pob_validation"))
+            confidence_text = confidence_label + (" - validar no PoB" if needs_pob else "")
             gains = "".join(f"<li>{html.escape(str(gain))}</li>" for gain in plan.get("gains", [])[:6])
             best_cards.append(
                 "<article class=\"deal-item\">"
                 f"<h4>{html.escape(str(candidate.get('name', 'Item')))}</h4>"
                 f"<p><strong>{float(plan.get('price_chaos', 0.0)):.1f}c</strong> | Score {float(plan.get('score', 0.0)):.1f} | Valor {float(plan.get('value_score', 0.0)):.2f}</p>"
+                f"<p class=\"confidence confidence-{html.escape(confidence)}\">Confianca: {html.escape(confidence_text)}</p>"
                 f"{trade_actions(candidate)}"
                 f"{item_mods_details(candidate)}"
                 f"<ul>{gains}</ul>"
@@ -652,6 +671,10 @@ def common_css() -> str:
     .deal-head strong { color: #f2c66d; font-size: 22px; }
     .deal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 12px; }
     .deal-item { border: 1px solid #38424c; border-radius: 8px; padding: 14px; background: #15191d; }
+    .confidence { display: inline-flex; margin: 4px 0 10px; padding: 5px 8px; border-radius: 999px; border: 1px solid #4b5560; font-weight: 700; }
+    .confidence-alta { color: #74e29a; border-color: #2f7d4a; background: #102118; }
+    .confidence-media { color: #f2c66d; border-color: #a47f2d; background: #241c10; }
+    .confidence-baixa { color: #ff9b9b; border-color: #a54646; background: #2a1414; }
     .actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
     .actions a { padding: 7px 9px; border: 1px solid #3f596e; border-radius: 6px; background: #202a32; }
     details.mods { margin: 10px 0; border: 1px solid #303842; border-radius: 6px; padding: 8px; background: #11161a; }

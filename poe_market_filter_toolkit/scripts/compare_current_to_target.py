@@ -20,10 +20,6 @@ sys.path.insert(0, str(ROOT))
 
 from core.time_utils import utc_now_iso
 
-DEFAULT_PLAYER_ITEMS = ROOT / "builds" / "player_items.json"
-DEFAULT_PLAYER_STATS = ROOT / "builds" / "player_stats.json"
-DEFAULT_TARGET_STATS = ROOT / "builds" / "target_build_stats.json"
-DEFAULT_RULES = ROOT / "builds" / "upgrade_rules.json"
 DEFAULT_OUTPUT_JSON = ROOT / "data" / "generated" / "gap_analysis.json"
 DEFAULT_OUTPUT_MD = ROOT / "data" / "generated" / "gap_analysis.md"
 
@@ -78,8 +74,6 @@ def compare_stat(current: float | None, minimum: float | None, goal: float | Non
 def guarded_slots(player_items: dict[str, Any], rules: dict[str, Any]) -> dict[str, str]:
     out: dict[str, str] = {}
     rule_slots = rules.get("guarded_slots", {}) if isinstance(rules.get("guarded_slots"), dict) else {}
-    if not rule_slots and isinstance(rules.get("locked_slots"), dict):
-        rule_slots = rules.get("locked_slots", {})
     for slot, reason in rule_slots.items():
         item = player_items.get("items", {}).get(slot, {})
         name = item.get("name") or item.get("base") or slot
@@ -191,10 +185,10 @@ def write_markdown(path: Path, analysis: dict[str, Any]) -> None:
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Compare current character state with target build goals.")
-    parser.add_argument("--player-items", type=Path, default=DEFAULT_PLAYER_ITEMS)
-    parser.add_argument("--player-stats", type=Path, default=DEFAULT_PLAYER_STATS)
-    parser.add_argument("--target-stats", type=Path, default=DEFAULT_TARGET_STATS)
-    parser.add_argument("--rules", type=Path, default=DEFAULT_RULES)
+    parser.add_argument("--player-items", type=Path, required=True)
+    parser.add_argument("--player-stats", type=Path, required=True)
+    parser.add_argument("--target-stats", type=Path, required=True)
+    parser.add_argument("--rules", type=Path, required=True)
     parser.add_argument("--output-json", type=Path, default=DEFAULT_OUTPUT_JSON)
     parser.add_argument("--output-md", type=Path, default=DEFAULT_OUTPUT_MD)
     return parser.parse_args(argv)

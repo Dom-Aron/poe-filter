@@ -21,7 +21,7 @@ Motivo:
   estava diferente do filtro ativo rastreado na raiz (`active_loot_filter.filter`).
   Essa copia ainda continha regras antigas com risco de erro de parser.
 
-## Manter por enquanto, mas revisar depois
+## Removidos nesta limpeza
 
 ```text
 poe_market_filter_toolkit/builds/player_items.json
@@ -29,44 +29,36 @@ poe_market_filter_toolkit/builds/player_stats.json
 poe_market_filter_toolkit/builds/target_build_items.json
 poe_market_filter_toolkit/builds/target_build_stats.json
 poe_market_filter_toolkit/builds/upgrade_rules.json
-```
-
-Esses arquivos sao o estado global legado. O fluxo atual por personagem usa
-`builds/characters/<personagem>/` e `builds/profiles/<build>/`, mas alguns
-scripts antigos ainda usam esses defaults. Nao remover ate todos os scripts
-legados aceitarem explicitamente `--character`/`--build`.
-
-```text
+poe_market_filter_toolkit/builds/active_build.json
+poe_market_filter_toolkit/builds/active_character.json
 poe_market_filter_toolkit/scripts/run_build_matrix.py
-poe_market_filter_toolkit/scripts/run_all.py
+poe_market_filter_toolkit/README.md
+poe_market_filter_toolkit/INSTRUCOES.md
 ```
 
-Ambos ainda existem para compatibilidade, mas o fluxo recomendado e
-`run_character.py` ou `run_character_matrix.py`.
+Esses arquivos pertenciam ao estado global antigo. O fluxo atual por personagem
+usa `builds/characters/<personagem>/`, `builds/profiles/<build>/` e
+`data/generated/characters/<personagem>/`.
 
 ```text
 poe_market_filter_toolkit/scripts/find_upgrade_deals.py
 ```
 
-Parece legado como CLI, mas ainda fornece funcoes usadas por
-`plan_upgrade_path.py`. Nao remover sem extrair essas funcoes para `core/trade`.
+Ainda fornece funcoes usadas por `plan_upgrade_path.py`. A CLI agora exige
+`--rules` explicito para evitar voltar ao estado global antigo.
 
 ## Candidatos a consolidacao
 
 ```text
 README.md
-poe_market_filter_toolkit/README.md
-poe_market_filter_toolkit/INSTRUCOES.md
 plano_automacao_poe_build_agent.md
 ```
 
-O README da raiz esta mais atual. O README e INSTRUCOES dentro do toolkit ainda
-descrevem fluxos antigos (`run_all.py`, estado global e OAuth). Recomendo
-consolidar tudo em `README.md` + `docs/`, depois remover os documentos antigos.
+O README da raiz esta mais atual. O README interno e `INSTRUCOES.md` do toolkit
+foram removidos nesta limpeza por duplicarem instrucoes antigas.
 
-`plano_automacao_poe_build_agent.md` e um plano historico grande. Pode virar
-arquivo de arquivo morto em `docs/archive/` ou ser removido depois que as partes
-uteis estiverem documentadas em `docs/arquitetura.md`.
+`plano_automacao_poe_build_agent.md` era um plano historico grande e tambem foi
+removido depois que as partes uteis foram consolidadas em `README.md` e `docs/`.
 
 ## Gerados que devem continuar fora do Git
 

@@ -12,7 +12,7 @@ from .time_utils import utc_now_iso
 
 REQUIRED_CHARACTER_FILES = ("character_profile.json", "player_items.json", "player_stats.json")
 REQUIRED_BUILD_FILES = ("build_profile.json", "target_build_items.json", "target_build_stats.json", "upgrade_rules.json")
-LEGACY_STAT_ALIASES = {
+STAT_ALIASES = {
     "crit_chance": "critical_strike_chance",
     "critical_multiplier": "crit_multiplier",
 }
@@ -165,7 +165,7 @@ def validate_character(character_slug: str, strict: bool = False) -> dict[str, A
     if not target_stat_keys(target_stats):
         errors.append("target_build_stats.json nao contem minimums/goals")
 
-    for old_key, new_key in LEGACY_STAT_ALIASES.items():
+    for old_key, new_key in STAT_ALIASES.items():
         found = (
             old_key in current_stats
             or old_key in item_stat_keys(player_items)
@@ -173,7 +173,7 @@ def validate_character(character_slug: str, strict: bool = False) -> dict[str, A
             or old_key in rule_stat_references(rules)
         )
         if found:
-            warnings.append(f"stat legado encontrado: {old_key}; prefira {new_key}")
+            warnings.append(f"stat antigo encontrado: {old_key}; prefira {new_key}")
 
     known_stats = current_stats.keys() | item_stat_keys(player_items) | target_stat_keys(target_stats) | PLANNER_EFFECT_KEYS
     weights = rules.get("weights", {})
@@ -182,7 +182,7 @@ def validate_character(character_slug: str, strict: bool = False) -> dict[str, A
         if unknown_weight_keys:
             warnings.append("weights sem stat conhecido nos arquivos atuais/alvo: " + ", ".join(sorted(unknown_weight_keys)))
 
-    guarded_slots = rules.get("guarded_slots", rules.get("locked_slots", {}))
+    guarded_slots = rules.get("guarded_slots", {})
     if isinstance(guarded_slots, dict):
         missing_guarded = [slot for slot in guarded_slots if slot not in slots]
         if missing_guarded:
@@ -200,13 +200,11 @@ def validate_character(character_slug: str, strict: bool = False) -> dict[str, A
             warnings.append(f"trade_profile {profile_key} mira slots ausentes: {', '.join(missing_slots)}")
 
     target_keys = target_stat_keys(target_stats)
-    if build_profile.get("target_files_source") == "cloned_from_current":
-        warnings.append("build alvo parece clonada de outra build; revise target_build_items/stats e upgrade_rules")
     if len(target_slots) < 3 and len(target_keys) < 5:
         suggestions.append("preencha mais slots ou metas em target_build_items/target_build_stats para comparacoes melhores")
     if len(current_stats) < 5:
         suggestions.append("preencha stats agregados do personagem em player_stats.json, idealmente vindos do PoB")
-    if not trade_profiles(rules) and not rules.get("allow_legacy_trade_profiles"):
+    if not trade_profiles(rules) and not rules.get("use_builtin_trade_profiles"):
         suggestions.append("adicione trade_profiles em upgrade_rules.json para busca automatica especifica da build")
 
     return make_report(character_slug, build_slug, errors, warnings, suggestions, strict)

@@ -2,15 +2,16 @@
 """
 switch_build.py
 
-Manages multiple target build profiles for the build agent.
+Manages target build and character profiles for the build agent.
 
-Each profile lives in builds/profiles/<slug>/ and owns the target build files
-used by compare_current_to_target.py, recommend_next_steps.py and
-plan_upgrade_path.py. Activating a profile copies those files into builds/.
+Each target profile lives in builds/profiles/<slug>/ and each character profile
+lives in builds/characters/<slug>/. The official execution flow is
+run_character.py, which reads those folders directly and writes isolated output
+under data/generated/characters/<character_slug>/.
 
-The PoB link/code is stored as metadata. Full PoB XML/stat parsing is a later
-step; this script is the stable switchboard that lets the rest of the toolkit
-work with more than one build target.
+This script intentionally avoids copying profile JSON files into builds/. It may
+write active metadata for CLI convenience, but that metadata is not a source of
+truth for the character flow.
 """
 
 from __future__ import annotations
@@ -73,11 +74,6 @@ def write_json(path: Path, data: dict[str, Any]) -> None:
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
-def copy_profile_file(source: Path, target: Path) -> None:
-    target.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(source, target)
-
-
 def profile_dir(slug: str) -> Path:
     return PROFILES_DIR / slugify(slug)
 
@@ -111,7 +107,6 @@ def build_profile_payload(name: str, slug: str, pob_url: str = "", notes: str = 
 def create_profile(
     name: str,
     pob_url: str,
-    from_current: bool,
     notes: str = "",
     fetch_pob: bool = False,
     timeout: int = 30,
@@ -133,26 +128,13 @@ def create_profile(
     else:
         profile = build_profile_payload(name or slug, slug, pob_url, notes)
 
-    if from_current:
-        for filename in TARGET_FILES:
-            source = BUILDS_DIR / filename
-            if not source.exists():
-                raise SystemExit(f"Cannot create profile from current files; missing {source}")
-            shutil.copy2(source, target / filename)
-        profile["target_files_source"] = "cloned_from_current"
-        profile["target_files_note"] = (
-            "This profile was created from the currently active target JSON files. "
-            "Edit/import target_build_items.json, target_build_stats.json and upgrade_rules.json "
-            "before expecting recommendations to differ from the previous build."
-        )
+    missing = [filename for filename in TARGET_FILES if not (target / filename).exists()]
+    if missing:
+        profile["target_files_status"] = "incomplete"
+        profile["target_files_missing"] = missing
     else:
-        missing = [filename for filename in TARGET_FILES if not (target / filename).exists()]
-        if missing:
-            raise SystemExit(
-                "Profile target files are missing: "
-                + ", ".join(missing)
-                + ". Use --from-current for the first version, then edit the profile files."
-            )
+        profile["target_files_status"] = "ready"
+        profile.pop("target_files_missing", None)
 
     if fetch_pob and pob_url:
         fetch_pob_source(pob_url, target / "pob_source.txt", timeout)
@@ -188,9 +170,6 @@ def activate_profile(slug: str) -> dict[str, Any]:
     missing = [filename for filename in TARGET_FILES if not (source_dir / filename).exists()]
     if missing:
         raise SystemExit(f"Build profile {slug} is incomplete. Missing: {', '.join(missing)}")
-
-    for filename in TARGET_FILES:
-        copy_profile_file(source_dir / filename, BUILDS_DIR / filename)
 
     profile = read_json(source_dir / "build_profile.json")
     active = {
@@ -233,22 +212,16 @@ def character_profile_dir(slug: str) -> Path:
     return CHARACTER_PROFILES_DIR / slugify(slug)
 
 
-def create_character_profile(name: str, from_current: bool, notes: str = "") -> Path:
+def create_character_profile(name: str, notes: str = "") -> Path:
     slug = slugify(name)
     target = character_profile_dir(slug)
     target.mkdir(parents=True, exist_ok=True)
-    if from_current:
-        for filename in PLAYER_FILES:
-            source = BUILDS_DIR / filename
-            if not source.exists():
-                raise SystemExit(f"Cannot create character profile from current files; missing {source}")
-            shutil.copy2(source, target / filename)
     missing = [filename for filename in PLAYER_FILES if not (target / filename).exists()]
     if missing:
         raise SystemExit(
             "Character profile files are missing: "
             + ", ".join(missing)
-            + ". Use --character-from-current for the first version."
+            + ". Create/import player_items.json and player_stats.json inside this character profile."
         )
     write_json(
         target / "character_profile.json",
@@ -273,8 +246,6 @@ def activate_character_profile(slug: str) -> Path:
     missing = [filename for filename in PLAYER_FILES if not (source_dir / filename).exists()]
     if missing:
         raise SystemExit(f"Character profile {slug} is incomplete. Missing: {', '.join(missing)}")
-    for filename in PLAYER_FILES:
-        copy_profile_file(source_dir / filename, BUILDS_DIR / filename)
     profile = read_json(source_dir / "character_profile.json")
     active = {
         "schema_version": 1,
@@ -353,13 +324,11 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--force", action="store_true", help="Allow deleting the active build profile.")
     parser.add_argument("--name", help="Human-readable build name when creating/updating a profile.")
     parser.add_argument("--pob-url", help="Path of Building link/code to store with the profile.")
-    parser.add_argument("--from-current", action="store_true", help="Create/update profile files from the current builds/ target files.")
     parser.add_argument("--activate", action="store_true", help="Activate the created or updated profile.")
     parser.add_argument("--notes", default="", help="Short free-form notes saved in build_profile.json.")
     parser.add_argument("--fetch-pob", action="store_true", help="Save the PoB URL/code content to pob_source.txt when possible.")
     parser.add_argument("--timeout", type=int, default=30)
     parser.add_argument("--create-character", help="Create/update a saved current-character profile.")
-    parser.add_argument("--character-from-current", action="store_true", help="Create/update character profile from current player files.")
     parser.add_argument("--switch-character", help="Activate a saved current-character profile.")
     parser.add_argument("--character-build", help="Build slug to associate with --create-character or --switch-character.")
     parser.add_argument("--set-character-build", nargs=2, metavar=("CHARACTER", "BUILD"), help="Associate an existing character profile with a build profile.")
@@ -377,7 +346,7 @@ def main(argv: list[str]) -> int:
         return 0
 
     if args.create_character:
-        created = create_character_profile(args.create_character, args.character_from_current, args.notes)
+        created = create_character_profile(args.create_character, args.notes)
         if args.character_build:
             set_character_build(args.create_character, args.character_build)
         print(f"Character profile saved: {created}")
@@ -430,17 +399,18 @@ def main(argv: list[str]) -> int:
         profile_path = create_profile(
             name=args.name or args.switch_to or "",
             pob_url=args.pob_url or "",
-            from_current=args.from_current,
             notes=args.notes,
             fetch_pob=args.fetch_pob,
             timeout=args.timeout,
         )
         selected_slug = profile_path.name
         print(f"Build profile saved: {profile_path}")
-        if args.from_current:
+        profile = read_json(profile_path / "build_profile.json")
+        missing = profile.get("target_files_missing", [])
+        if missing:
             print(
-                "Note: --from-current cloned the existing target JSON files. "
-                "Edit/import the profile files before expecting build-specific gaps or recommendations to change."
+                "Note: build profile is registered but incomplete. Missing target files: "
+                + ", ".join(str(name) for name in missing)
             )
 
     if args.switch_to:

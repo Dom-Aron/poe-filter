@@ -63,7 +63,8 @@ python poe_market_filter_toolkit\scripts\analyze_target_build.py --build ronarra
 switch_build.py
 ```
 
-Cadastra builds e personagens. Ainda mantem compatibilidade com estado global legado, mas o fluxo recomendado nao depende disso.
+Cadastra builds e personagens. O fluxo recomendado continua sendo
+`run_character.py`, que grava contexto e relatorios por personagem.
 
 ## Mercado e filtro
 
@@ -90,15 +91,10 @@ generate_dashboard.py
 ```
 
 Comparam personagem/build, geram recomendações, buscam planos no trade e criam HTMLs.
-
-## Scripts legados
-
-```text
-run_build_matrix.py
-parse_character.py --update-builds
-```
-
-Podem mexer em arquivos globais antigos. Use apenas com flags de legado quando realmente precisar.
+O `plan_upgrade_path.py` tambem calcula uma confianca (`Alta`, `Media` ou
+`Baixa`) para cada plano. A confianca separa potencial de upgrade de risco
+operacional: score alto com slot sensivel, metas ainda abaixo ou link incompleto
+deve aparecer como algo a validar no PoB antes da compra.
 
 ## OAuth
 

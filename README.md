@@ -57,6 +57,11 @@ validation_report.json
 run_summary.json
 ```
 
+O plano de compra marca cada sugestao com `Confianca` (`Alta`, `Media` ou
+`Baixa`). Esse campo mede a seguranca operacional da recomendacao, nao o DPS
+real no PoB. Quando aparecer "validar no PoB", use a sugestao como shortlist e
+confira a troca antes de comprar.
+
 ## Atualizar Dados Do Personagem
 
 Importar dados calculados do Path of Building salvo localmente:
@@ -178,6 +183,7 @@ poe_market_filter_toolkit/docs/arquitetura.md
 ## Limites
 
 - O planner nao substitui PoB.
+- `Confianca` Alta/Media/Baixa ajuda a priorizar, mas nao prova que o item e upgrade final.
 - Itens sugeridos precisam de revisao humana antes da compra.
 - Links do trade podem ficar obsoletos se o item vender ou mudar de preco.
 - Rate limit da API publica pode deixar uma busca incompleta.

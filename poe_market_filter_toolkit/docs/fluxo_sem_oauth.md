@@ -114,6 +114,7 @@ python poe_market_filter_toolkit\scripts\run_character.py --character aron_shock
 
 - O script nao sabe tudo que o PoB sabe.
 - Alguns mods sao interpretados por texto e podem exigir revisao manual.
+- O plano de compra mostra `Confianca`; sugestoes com "validar no PoB" devem ser tratadas como shortlist, nao compra automatica.
 - Links do trade podem apontar para a busca/listagem retornada, mas o item pode ter vendido ou mudado.
 - Rate limit da API de trade pode deixar o plano incompleto.
 - OAuth nao e necessario para o fluxo local.

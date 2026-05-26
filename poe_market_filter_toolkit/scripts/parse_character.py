@@ -16,7 +16,6 @@ from __future__ import annotations
 import argparse
 import json
 import re
-import shutil
 import sys
 from pathlib import Path
 from typing import Any
@@ -25,7 +24,6 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_INPUT = ROOT / "data" / "raw" / "character_api_raw.json"
 CURRENT_DIR = ROOT / "data" / "current"
-BUILDS_DIR = ROOT / "builds"
 
 
 FRAME_TYPES = {
@@ -276,21 +274,10 @@ def write_json(path: Path, data: dict[str, Any]) -> None:
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
-def copy_to_builds(source: Path, target: Path, backup: bool = False) -> None:
-    target.parent.mkdir(parents=True, exist_ok=True)
-    if backup and target.exists():
-        backup = target.with_suffix(target.suffix + ".bak")
-        shutil.copy2(target, backup)
-    shutil.copy2(source, target)
-
-
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Parse raw PoE character API data into normalized build files.")
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
     parser.add_argument("--output-dir", type=Path, default=CURRENT_DIR)
-    parser.add_argument("--update-builds", action="store_true", help="Also copy player_items/player_stats into builds/ for the planner.")
-    parser.add_argument("--backup-builds", action="store_true", help="Create .bak files before overwriting builds/player_items.json and builds/player_stats.json.")
-    parser.add_argument("--allow-legacy-global-state", action="store_true", help="Allow --update-builds to overwrite global builds/player_*.json files.")
     return parser.parse_args(argv)
 
 
@@ -310,21 +297,7 @@ def main(argv: list[str]) -> int:
     write_json(args.output_dir / "player_skills.json", player_skills)
     write_json(args.output_dir / "player_stats.json", player_stats)
 
-    if args.update_builds and not args.allow_legacy_global_state:
-        raise SystemExit(
-            "--update-builds writes global planner inputs and is legacy. "
-            "Write directly into builds/characters/<slug>/ instead, or pass "
-            "--allow-legacy-global-state intentionally."
-        )
-
-    if args.update_builds:
-        copy_to_builds(args.output_dir / "player_items.json", BUILDS_DIR / "player_items.json", args.backup_builds)
-        copy_to_builds(args.output_dir / "player_stats.json", BUILDS_DIR / "player_stats.json", args.backup_builds)
-
     print(f"Parsed character files written to: {args.output_dir}")
-    if args.update_builds:
-        suffix = " with .bak backups." if args.backup_builds else "."
-        print(f"Updated planner input files in builds/{suffix}")
     return 0
 
 

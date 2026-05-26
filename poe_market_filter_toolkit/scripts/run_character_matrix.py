@@ -88,13 +88,18 @@ def run_for_character(
     profiles: str,
     request_delay: float | None,
     best_any_budget_mode: str,
+    skip_filter_reports: bool,
+    skip_upgrade_plan: bool,
+    max_combo_size: int | None,
+    fail_on_stale_market: bool,
+    max_market_age_minutes: float | None,
+    fail_on_market_errors: bool,
 ) -> dict[str, Any]:
     args = [
         "--character",
         character_slug,
         "--skip-market-update",
         "--skip-market-report",
-        "--skip-filter-reports",
         "--budget",
         budget,
         "--top",
@@ -102,12 +107,24 @@ def run_for_character(
         "--max-fetch",
         str(max_fetch),
     ]
+    if skip_filter_reports:
+        args.append("--skip-filter-reports")
+    if skip_upgrade_plan:
+        args.append("--skip-upgrade-plan")
     if profiles:
         args.extend(["--profiles", profiles])
+    if max_combo_size is not None:
+        args.extend(["--max-combo-size", str(max_combo_size)])
     if request_delay is not None:
         args.extend(["--request-delay", str(request_delay)])
     if best_any_budget_mode:
         args.extend(["--best-any-budget-mode", best_any_budget_mode])
+    if fail_on_stale_market:
+        args.append("--fail-on-stale-market")
+    if max_market_age_minutes is not None:
+        args.extend(["--max-market-age-minutes", str(max_market_age_minutes)])
+    if fail_on_market_errors:
+        args.append("--fail-on-market-errors")
     run_script("run_character.py", *args)
     target = paths.CHARACTER_OUTPUT / character_slug
     character = read_json(target / "active_character.json")
@@ -259,11 +276,18 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--budget", default="1000c")
     parser.add_argument("--top", type=int, default=10)
     parser.add_argument("--max-fetch", type=int, default=30)
+    parser.add_argument("--max-combo-size", type=int)
     parser.add_argument("--profiles", default="all")
     parser.add_argument("--request-delay", type=float)
     parser.add_argument("--best-any-budget-mode", choices=("reuse", "extra", "off"), default="reuse")
+    parser.add_argument("--skip-market-update", action="store_true", help="Use existing market/latest_market.json instead of updating it once before the matrix.")
     parser.add_argument("--index-only", action="store_true", help="Rebuild the HTML index from existing per-character outputs.")
     parser.add_argument("--skip-market-report", action="store_true", help="Use existing market report instead of rebuilding it once before the matrix.")
+    parser.add_argument("--skip-filter-reports", action="store_true", help="Forward to every run_character.py call.")
+    parser.add_argument("--skip-upgrade-plan", action="store_true", help="Forward to every run_character.py call.")
+    parser.add_argument("--fail-on-stale-market", action="store_true", help="Forward to every run_character.py call.")
+    parser.add_argument("--max-market-age-minutes", type=float, help="Forward to every run_character.py call.")
+    parser.add_argument("--fail-on-market-errors", action="store_true", help="Forward to every run_character.py call.")
     return parser.parse_args(argv)
 
 
@@ -277,6 +301,8 @@ def main(argv: list[str]) -> int:
         output = write_index(rows, args.budget)
         print(f"Character matrix dashboard saved: {output}")
         return 0
+    if not args.skip_market_update:
+        run_script("update_market.py")
     if not args.skip_market_report:
         run_script("market_report.py")
     rows = []
@@ -294,6 +320,12 @@ def main(argv: list[str]) -> int:
                 args.profiles,
                 args.request_delay,
                 args.best_any_budget_mode,
+                args.skip_filter_reports,
+                args.skip_upgrade_plan,
+                args.max_combo_size,
+                args.fail_on_stale_market,
+                args.max_market_age_minutes,
+                args.fail_on_market_errors,
             )
         )
     output = write_index(rows, args.budget)
