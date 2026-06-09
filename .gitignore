@@ -16,6 +16,8 @@ equipamentos_e_status_atuais_poe_slayer.txt
 poe_market_filter_toolkit/builds/characters/
 poe_market_filter_toolkit/data/raw/
 poe_market_filter_toolkit/data/generated/
+poe_market_filter_toolkit/market/latest_market.json
+poe_market_filter_toolkit/market/reports/
 
 poe_market_filter_toolkit/market/reports/upgrade_plan.json
 poe_market_filter_toolkit/builds/active_build.json

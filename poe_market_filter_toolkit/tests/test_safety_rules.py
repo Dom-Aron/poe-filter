@@ -485,8 +485,9 @@ class SafetyRulesTest(unittest.TestCase):
         self.assertTrue(report["errors"])
 
     def test_run_character_requires_explicit_oauth_opt_in(self):
-        with self.assertRaises(SystemExit) as raised:
-            run_character.main(["--character", "aron_shockwave_cyclone_slayer", "--fetch-character", "--skip-market-update"])
+        with temporary_character_tree():
+            with self.assertRaises(SystemExit) as raised:
+                run_character.main(["--character", "test_character", "--fetch-character", "--skip-market-update"])
 
         self.assertIn("experimental", str(raised.exception))
 

@@ -41,20 +41,12 @@ Rodar de forma conservadora, bloqueando mercado velho ou coleta com erro:
 python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --budget 1000c --fail-on-stale-market --max-market-age-minutes 180 --fail-on-market-errors --open
 ```
 
-Atalhos locais:
+Revisar filtro para um personagem local:
 
 ```powershell
-.\tasks.ps1 character aron_shockwave_cyclone_slayer 1000c
-.\tasks.ps1 test
-.\tasks.ps1 filter aron_shockwave_cyclone_slayer
-```
-
-Atalhos de desenvolvimento:
-
-```powershell
-.\dev.ps1 check
-.\dev.ps1 status
-.\dev.ps1 artifacts
+python poe_market_filter_toolkit\scripts\review_filter_strategy.py --character aron_shockwave_cyclone_slayer
+python poe_market_filter_toolkit\scripts\filter_audit.py
+python poe_market_filter_toolkit\scripts\suggest_filter_tiers.py
 ```
 
 ## Dados Do Personagem
@@ -171,6 +163,7 @@ Depois gere `poe_market_filter_toolkit\secrets\tokens.json` com
 
 ```powershell
 python -m unittest discover -s poe_market_filter_toolkit\tests
+python -m compileall poe_market_filter_toolkit\core poe_market_filter_toolkit\scripts
 ```
 
 ## Documentacao
