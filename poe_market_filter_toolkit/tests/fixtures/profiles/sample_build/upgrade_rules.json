@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "weights": {
+    "life": 1.0,
+    "accuracy": 0.2,
+    "crit_multiplier": 0.4
+  },
+  "use_builtin_trade_profiles": true,
+  "guarded_slots": {
+    "body_armour": [
+      "Sample Armour"
+    ]
+  }
+}

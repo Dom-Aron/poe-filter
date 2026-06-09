@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source": "fixture",
+  "character": {
+    "level": 90,
+    "class": "Duelist",
+    "ascendancy": "Slayer"
+  },
+  "stats": {
+    "life": 3600,
+    "fire_resistance": 75,
+    "chance_to_hit": 92,
+    "accuracy": 2000,
+    "crit_multiplier": 250
+  }
+}

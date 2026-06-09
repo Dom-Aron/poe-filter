@@ -125,6 +125,93 @@ def make_report(character_slug: str, build_slug: str, errors: list[str], warning
     }
 
 
+def validate_basic_content(
+    player_items: dict[str, Any],
+    player_stats: dict[str, Any],
+    target_stats: dict[str, Any],
+    errors: list[str],
+    warnings: list[str],
+) -> tuple[dict[str, dict[str, Any]], dict[str, float]]:
+    slots = item_slots(player_items)
+    current_stats = numeric_stats(player_stats)
+    if not slots:
+        errors.append("player_items.json nao contem items com slots equipados")
+    if not current_stats:
+        warnings.append("player_stats.json nao contem stats numericos; comparacao ficara pobre")
+    if not target_stat_keys(target_stats):
+        errors.append("target_build_stats.json nao contem minimums/goals")
+    return slots, current_stats
+
+
+def validate_stat_aliases(
+    current_stats: dict[str, float],
+    player_items: dict[str, Any],
+    target_stats: dict[str, Any],
+    rules: dict[str, Any],
+    warnings: list[str],
+) -> None:
+    for old_key, new_key in STAT_ALIASES.items():
+        found = (
+            old_key in current_stats
+            or old_key in item_stat_keys(player_items)
+            or old_key in target_stat_keys(target_stats)
+            or old_key in rule_stat_references(rules)
+        )
+        if found:
+            warnings.append(f"stat antigo encontrado: {old_key}; prefira {new_key}")
+
+
+def validate_rule_references(
+    slots: dict[str, dict[str, Any]],
+    current_stats: dict[str, float],
+    player_items: dict[str, Any],
+    target_stats: dict[str, Any],
+    rules: dict[str, Any],
+    errors: list[str],
+    warnings: list[str],
+) -> None:
+    known_stats = current_stats.keys() | item_stat_keys(player_items) | target_stat_keys(target_stats) | PLANNER_EFFECT_KEYS
+    weights = rules.get("weights", {})
+    if isinstance(weights, dict):
+        unknown_weight_keys = [key for key in weights if key not in known_stats and key not in rule_stat_references(rules, include_weights=False)]
+        if unknown_weight_keys:
+            warnings.append("weights sem stat conhecido nos arquivos atuais/alvo: " + ", ".join(sorted(unknown_weight_keys)))
+
+    guarded_slots = rules.get("guarded_slots", {})
+    if isinstance(guarded_slots, dict):
+        missing_guarded = [slot for slot in guarded_slots if slot not in slots]
+        if missing_guarded:
+            warnings.append("guarded_slots nao existem no personagem atual: " + ", ".join(sorted(missing_guarded)))
+
+    for profile_key, trade_profile in trade_profiles(rules).items():
+        if not isinstance(trade_profile, dict):
+            errors.append(f"trade_profile invalido: {profile_key}")
+            continue
+        replacement_slots = list_names(trade_profile.get("replacement_slots"))
+        if not replacement_slots:
+            warnings.append(f"trade_profile sem replacement_slots: {profile_key}")
+        missing_slots = [slot for slot in replacement_slots if slot not in slots]
+        if missing_slots:
+            warnings.append(f"trade_profile {profile_key} mira slots ausentes: {', '.join(missing_slots)}")
+
+
+def add_quality_suggestions(
+    target_items: dict[str, Any],
+    target_stats: dict[str, Any],
+    current_stats: dict[str, float],
+    rules: dict[str, Any],
+    suggestions: list[str],
+) -> None:
+    target_slots = item_slots(target_items)
+    target_keys = target_stat_keys(target_stats)
+    if len(target_slots) < 3 and len(target_keys) < 5:
+        suggestions.append("preencha mais slots ou metas em target_build_items/target_build_stats para comparacoes melhores")
+    if len(current_stats) < 5:
+        suggestions.append("preencha stats agregados do personagem em player_stats.json, idealmente vindos do PoB")
+    if not trade_profiles(rules) and not rules.get("use_builtin_trade_profiles"):
+        suggestions.append("adicione trade_profiles em upgrade_rules.json para busca automatica especifica da build")
+
+
 def validate_character(character_slug: str, strict: bool = False) -> dict[str, Any]:
     errors: list[str] = []
     warnings: list[str] = []
@@ -150,61 +237,14 @@ def validate_character(character_slug: str, strict: bool = False) -> dict[str, A
         return make_report(character_slug, build_slug, errors, warnings, suggestions, strict)
 
     validate_files(profile_dir, REQUIRED_BUILD_FILES, errors)
-    build_profile = read_json_checked(profile_dir / "build_profile.json", errors)
+    read_json_checked(profile_dir / "build_profile.json", errors)
     target_items = read_json_checked(profile_dir / "target_build_items.json", errors)
     target_stats = read_json_checked(profile_dir / "target_build_stats.json", errors)
     rules = read_json_checked(profile_dir / "upgrade_rules.json", errors)
 
-    slots = item_slots(player_items)
-    target_slots = item_slots(target_items)
-    current_stats = numeric_stats(player_stats)
-    if not slots:
-        errors.append("player_items.json nao contem items com slots equipados")
-    if not current_stats:
-        warnings.append("player_stats.json nao contem stats numericos; comparacao ficara pobre")
-    if not target_stat_keys(target_stats):
-        errors.append("target_build_stats.json nao contem minimums/goals")
-
-    for old_key, new_key in STAT_ALIASES.items():
-        found = (
-            old_key in current_stats
-            or old_key in item_stat_keys(player_items)
-            or old_key in target_stat_keys(target_stats)
-            or old_key in rule_stat_references(rules)
-        )
-        if found:
-            warnings.append(f"stat antigo encontrado: {old_key}; prefira {new_key}")
-
-    known_stats = current_stats.keys() | item_stat_keys(player_items) | target_stat_keys(target_stats) | PLANNER_EFFECT_KEYS
-    weights = rules.get("weights", {})
-    if isinstance(weights, dict):
-        unknown_weight_keys = [key for key in weights if key not in known_stats and key not in rule_stat_references(rules, include_weights=False)]
-        if unknown_weight_keys:
-            warnings.append("weights sem stat conhecido nos arquivos atuais/alvo: " + ", ".join(sorted(unknown_weight_keys)))
-
-    guarded_slots = rules.get("guarded_slots", {})
-    if isinstance(guarded_slots, dict):
-        missing_guarded = [slot for slot in guarded_slots if slot not in slots]
-        if missing_guarded:
-            warnings.append("guarded_slots nao existem no personagem atual: " + ", ".join(sorted(missing_guarded)))
-
-    for profile_key, trade_profile in trade_profiles(rules).items():
-        if not isinstance(trade_profile, dict):
-            errors.append(f"trade_profile invalido: {profile_key}")
-            continue
-        replacement_slots = list_names(trade_profile.get("replacement_slots"))
-        if not replacement_slots:
-            warnings.append(f"trade_profile sem replacement_slots: {profile_key}")
-        missing_slots = [slot for slot in replacement_slots if slot not in slots]
-        if missing_slots:
-            warnings.append(f"trade_profile {profile_key} mira slots ausentes: {', '.join(missing_slots)}")
-
-    target_keys = target_stat_keys(target_stats)
-    if len(target_slots) < 3 and len(target_keys) < 5:
-        suggestions.append("preencha mais slots ou metas em target_build_items/target_build_stats para comparacoes melhores")
-    if len(current_stats) < 5:
-        suggestions.append("preencha stats agregados do personagem em player_stats.json, idealmente vindos do PoB")
-    if not trade_profiles(rules) and not rules.get("use_builtin_trade_profiles"):
-        suggestions.append("adicione trade_profiles em upgrade_rules.json para busca automatica especifica da build")
+    slots, current_stats = validate_basic_content(player_items, player_stats, target_stats, errors, warnings)
+    validate_stat_aliases(current_stats, player_items, target_stats, rules, warnings)
+    validate_rule_references(slots, current_stats, player_items, target_stats, rules, errors, warnings)
+    add_quality_suggestions(target_items, target_stats, current_stats, rules, suggestions)
 
     return make_report(character_slug, build_slug, errors, warnings, suggestions, strict)

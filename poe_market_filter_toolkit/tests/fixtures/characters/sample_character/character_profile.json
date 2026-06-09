@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "slug": "sample_character",
+  "name": "Sample Character",
+  "notes": "Synthetic fixture for repository tests.",
+  "build_slug": "sample_build",
+  "files": {
+    "player_items.json": "player_items.json",
+    "player_stats.json": "player_stats.json"
+  }
+}

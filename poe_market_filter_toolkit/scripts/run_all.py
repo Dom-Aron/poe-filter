@@ -38,7 +38,7 @@ def run_script(script_name: str, *args: str) -> None:
         raise SystemExit(f"Script failed: {script_name} (exit code {result.returncode})")
 
 
-def main() -> int:
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run all PoE market toolkit scripts.")
     parser.add_argument("--skip-update", action="store_true", help="Do not fetch the market; use market/latest_market.json.")
     parser.add_argument("--character", help="Official flow: run run_character.py for one saved character profile.")
@@ -66,62 +66,47 @@ def main() -> int:
     parser.add_argument("--fail-on-stale-market", action="store_true", help="Forward to run_character.py.")
     parser.add_argument("--max-market-age-minutes", type=float, help="Forward to run_character.py.")
     parser.add_argument("--fail-on-market-errors", action="store_true", help="Forward to run_character.py.")
-    args = parser.parse_args()
+    return parser.parse_args()
 
-    if args.compare_build or args.recommend_next or args.upgrade_plan or args.dashboard:
-        raise SystemExit(
-            "Global compare/recommend/upgrade/dashboard flags were removed from run_all.py. "
-            "Use --character <slug> or --characters all so reports are generated per character."
-        )
 
+def character_flow_args(args: argparse.Namespace, slug_option: str, slug_value: str) -> list[str]:
+    flow_args = [slug_option, slug_value]
+    if args.skip_update:
+        flow_args.append("--skip-market-update")
+    for option_name, flag in (
+        ("budget", "--budget"),
+        ("profiles", "--profiles"),
+        ("top", "--top"),
+        ("max_fetch", "--max-fetch"),
+        ("max_combo_size", "--max-combo-size"),
+        ("max_market_age_minutes", "--max-market-age-minutes"),
+    ):
+        value = getattr(args, option_name)
+        if value is not None:
+            flow_args.extend([flag, str(value)])
+    for option_name, flag in (
+        ("fail_on_stale_market", "--fail-on-stale-market"),
+        ("fail_on_market_errors", "--fail-on-market-errors"),
+    ):
+        if getattr(args, option_name):
+            flow_args.append(flag)
+    return flow_args
+
+
+def run_character_flow(args: argparse.Namespace) -> bool:
     if args.character:
-        character_args = ["--character", args.character]
-        if args.skip_update:
-            character_args.append("--skip-market-update")
-        if args.budget:
-            character_args.extend(["--budget", args.budget])
-        if args.profiles:
-            character_args.extend(["--profiles", args.profiles])
-        if args.top is not None:
-            character_args.extend(["--top", str(args.top)])
-        if args.max_fetch is not None:
-            character_args.extend(["--max-fetch", str(args.max_fetch)])
-        if args.max_combo_size is not None:
-            character_args.extend(["--max-combo-size", str(args.max_combo_size)])
-        if args.fail_on_stale_market:
-            character_args.append("--fail-on-stale-market")
-        if args.max_market_age_minutes is not None:
-            character_args.extend(["--max-market-age-minutes", str(args.max_market_age_minutes)])
-        if args.fail_on_market_errors:
-            character_args.append("--fail-on-market-errors")
+        character_args = character_flow_args(args, "--character", args.character)
         if args.open:
             character_args.append("--open")
         run_script("run_character.py", *character_args)
-        return 0
-
+        return True
     if args.characters:
-        matrix_args = ["--characters", args.characters]
-        if args.skip_update:
-            matrix_args.append("--skip-market-update")
-        if args.budget:
-            matrix_args.extend(["--budget", args.budget])
-        if args.profiles:
-            matrix_args.extend(["--profiles", args.profiles])
-        if args.top is not None:
-            matrix_args.extend(["--top", str(args.top)])
-        if args.max_fetch is not None:
-            matrix_args.extend(["--max-fetch", str(args.max_fetch)])
-        if args.max_combo_size is not None:
-            matrix_args.extend(["--max-combo-size", str(args.max_combo_size)])
-        if args.fail_on_stale_market:
-            matrix_args.append("--fail-on-stale-market")
-        if args.max_market_age_minutes is not None:
-            matrix_args.extend(["--max-market-age-minutes", str(args.max_market_age_minutes)])
-        if args.fail_on_market_errors:
-            matrix_args.append("--fail-on-market-errors")
-        run_script("run_character_matrix.py", *matrix_args)
-        return 0
+        run_script("run_character_matrix.py", *character_flow_args(args, "--characters", args.characters))
+        return True
+    return False
 
+
+def run_switch_flow(args: argparse.Namespace) -> None:
     if args.list_builds:
         run_script("switch_build.py", "--list")
 
@@ -143,37 +128,58 @@ def main() -> int:
             switch_args.append("--fetch-pob")
         run_script("switch_build.py", *switch_args)
 
+
+def run_market_flow(args: argparse.Namespace) -> None:
     if args.fetch_character:
         run_script("fetch_character.py")
-
     if args.parse_character or args.fetch_character:
         run_script("parse_character.py")
-
     if not args.skip_update:
         run_script("update_market.py")
-
     run_script("market_report.py")
     run_script("suggest_filter_tiers.py")
     run_script("filter_audit.py")
 
-    if args.run_tests:
-        print()
-        print("=" * 72)
-        print("Running: unittest discover")
-        print("=" * 72, flush=True)
-        result = subprocess.run(
-            [sys.executable, "-m", "unittest", "discover", "-s", str(ROOT / "tests")],
-            cwd=str(ROOT),
-        )
-        if result.returncode != 0:
-            raise SystemExit(f"Tests failed (exit code {result.returncode})")
 
+def run_tests_if_requested(args: argparse.Namespace) -> None:
+    if not args.run_tests:
+        return
+    print()
+    print("=" * 72)
+    print("Running: unittest discover")
+    print("=" * 72, flush=True)
+    result = subprocess.run(
+        [sys.executable, "-m", "unittest", "discover", "-s", str(ROOT / "tests")],
+        cwd=str(ROOT),
+    )
+    if result.returncode != 0:
+        raise SystemExit(f"Tests failed (exit code {result.returncode})")
+
+
+def print_summary() -> None:
     print()
     print("Flow complete.")
     print("Main reports:")
     print("- market/reports/market_report.md")
     print("- market/reports/filter_suggestions.md")
     print("- market/reports/filter_audit.md")
+
+
+def main() -> int:
+    args = parse_args()
+    if args.compare_build or args.recommend_next or args.upgrade_plan or args.dashboard:
+        raise SystemExit(
+            "Global compare/recommend/upgrade/dashboard flags were removed from run_all.py. "
+            "Use --character <slug> or --characters all so reports are generated per character."
+        )
+
+    if run_character_flow(args):
+        return 0
+
+    run_switch_flow(args)
+    run_market_flow(args)
+    run_tests_if_requested(args)
+    print_summary()
     return 0
 
 

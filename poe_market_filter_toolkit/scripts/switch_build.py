@@ -337,20 +337,18 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
-def main(argv: list[str]) -> int:
-    args = parse_args(argv)
-
+def handle_character_commands(args: argparse.Namespace) -> bool:
     if args.delete_build:
         deleted = delete_build_profile(args.delete_build, force=args.force)
         print(f"Deleted build profile: {deleted}")
-        return 0
+        return True
 
     if args.create_character:
         created = create_character_profile(args.create_character, args.notes)
         if args.character_build:
             set_character_build(args.create_character, args.character_build)
         print(f"Character profile saved: {created}")
-        return 0
+        return True
 
     if args.switch_character:
         activated = activate_character_profile(args.switch_character)
@@ -360,19 +358,22 @@ def main(argv: list[str]) -> int:
         if build_slug and not args.no_switch_character_build:
             active = activate_profile(str(build_slug))
             print(f"Associated build activated: {active['active_slug']} ({active['name']})")
-        return 0
+        return True
 
     if args.set_character_build:
         character_slug, build_slug = args.set_character_build
         updated = set_character_build(character_slug, build_slug)
         print(f"Character build association saved: {updated}")
-        return 0
+        return True
 
     if args.delete_character:
         deleted = delete_character_profile(args.delete_character)
         print(f"Deleted character profile: {deleted}")
-        return 0
+        return True
+    return False
 
+
+def show_requested_lists(args: argparse.Namespace) -> bool:
     if args.list_characters:
         rows = list_character_profiles()
         if not rows:
@@ -382,7 +383,7 @@ def main(argv: list[str]) -> int:
             build = f" | build={row['build_slug']}" if row.get("build_slug") else ""
             print(f"  {row['slug']} | {row['name']}{build}{note}")
         if not args.list and not args.switch_to and not args.name and not args.pob_url:
-            return 0
+            return True
 
     if args.list:
         rows = list_profiles()
@@ -392,8 +393,11 @@ def main(argv: list[str]) -> int:
             marker = "*" if row["active"] else " "
             print(f"{marker} {row['slug']} | {row['name']} | {row['pob']}")
         if not args.switch_to and not args.name and not args.pob_url:
-            return 0
+            return True
+    return False
 
+
+def create_or_select_build(args: argparse.Namespace) -> str:
     selected_slug = ""
     if args.name or args.pob_url:
         profile_path = create_profile(
@@ -412,16 +416,31 @@ def main(argv: list[str]) -> int:
                 "Note: build profile is registered but incomplete. Missing target files: "
                 + ", ".join(str(name) for name in missing)
             )
-
     if args.switch_to:
         selected_slug = slugify(args.switch_to)
+    return selected_slug
 
+
+def activate_selected_build(args: argparse.Namespace, selected_slug: str) -> bool:
     if args.activate or args.switch_to:
         if not selected_slug:
             raise SystemExit("Use --switch-to or --name/--pob-url with --activate.")
         active = activate_profile(selected_slug)
         print(f"Active build: {active['active_slug']} ({active['name']})")
         print(f"Active metadata: {ACTIVE_BUILD}")
+        return True
+    return False
+
+
+def main(argv: list[str]) -> int:
+    args = parse_args(argv)
+    if handle_character_commands(args):
+        return 0
+    if show_requested_lists(args):
+        return 0
+
+    selected_slug = create_or_select_build(args)
+    if activate_selected_build(args, selected_slug):
         return 0
 
     if not args.list and not selected_slug:

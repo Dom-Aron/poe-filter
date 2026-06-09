@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "items": {
+    "weapon": {
+      "slot": "weapon",
+      "name": "Target Staff",
+      "base": "Ezomyte Staff",
+      "stats": {
+        "accuracy": 180,
+        "crit_multiplier": 35
+      }
+    },
+    "ring_1": {
+      "slot": "ring_1",
+      "name": "Target Ring",
+      "base": "Ruby Ring",
+      "stats": {
+        "life": 100,
+        "fire_resistance": 40
+      }
+    },
+    "body_armour": {
+      "slot": "body_armour",
+      "name": "Target Armour",
+      "base": "Full Dragonscale",
+      "stats": {
+        "life": 140
+      }
+    }
+  }
+}

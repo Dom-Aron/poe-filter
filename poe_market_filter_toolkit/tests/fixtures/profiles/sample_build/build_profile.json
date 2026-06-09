@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "slug": "sample_build",
+  "name": "Sample Build",
+  "notes": "Synthetic fixture for repository tests."
+}

@@ -451,11 +451,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
-def main(argv: list[str]) -> int:
-    args = parse_args(argv)
-    if args.list_local:
-        list_local_builds()
-        return 0
+def validate_import_args(args: argparse.Namespace) -> None:
     source_count = sum(1 for value in (args.source, args.from_clipboard, args.from_stdin) if value)
     if source_count != 1:
         raise SystemExit("Use exactly one source: --source, --from-clipboard, --from-stdin, or --list-local.")
@@ -464,32 +460,38 @@ def main(argv: list[str]) -> int:
     if args.stats_only and args.items_only:
         raise SystemExit("Use either --stats-only or --items-only, not both.")
 
+
+def clipboard_text() -> str:
+    try:
+        import tkinter as tk
+    except ImportError as exc:
+        raise SystemExit("--from-clipboard requires tkinter on this Python installation.") from exc
+    clipboard = tk.Tk()
+    clipboard.withdraw()
+    try:
+        return str(clipboard.clipboard_get())
+    finally:
+        clipboard.destroy()
+
+
+def materialize_source(args: argparse.Namespace) -> tuple[str, Path | None]:
     source = args.source
-    temporary_source: Path | None = None
     if args.from_clipboard:
-        try:
-            import tkinter as tk
-        except ImportError as exc:
-            raise SystemExit("--from-clipboard requires tkinter on this Python installation.") from exc
-        clipboard = tk.Tk()
-        clipboard.withdraw()
-        try:
-            source = clipboard.clipboard_get()
-        finally:
-            clipboard.destroy()
+        source = clipboard_text()
     elif args.from_stdin:
         source = read_pob_code_from_stdin()
 
     if args.save_code:
-        source = str(save_pob_code(args.save_code, str(source or "")))
-    elif source and not Path(str(source)).expanduser().exists() and not str(source).lstrip().startswith("<"):
+        return str(save_pob_code(args.save_code, str(source or ""))), None
+    if source and not Path(str(source)).expanduser().exists() and not str(source).lstrip().startswith("<"):
         RAW_DIR.mkdir(parents=True, exist_ok=True)
         with NamedTemporaryFile("w", encoding="utf-8", suffix=".pob.txt", dir=RAW_DIR, delete=False) as tmp:
             tmp.write(str(source).strip())
-            temporary_source = Path(tmp.name)
-            source = str(temporary_source)
+            return str(Path(tmp.name)), Path(tmp.name)
+    return str(source or ""), None
 
-    mode = args.mode or ("player" if args.character else "target")
+
+def load_documents(source: str, temporary_source: Path | None) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     root, source_label = load_pob_xml(str(source))
     stats_doc = extract_stats(root)
     items_doc = extract_items(root)
@@ -502,24 +504,28 @@ def main(argv: list[str]) -> int:
             temporary_source.unlink()
         except OSError:
             pass
+    return stats_doc, items_doc, skills_doc
 
-    if mode == "player":
-        if not args.character:
-            raise SystemExit("--as player requires --character.")
-        target_dir = CHARACTERS_DIR / args.character
-        if not target_dir.exists():
-            raise SystemExit(f"Character profile not found: {target_dir}")
-        if not args.items_only:
-            write_json(target_dir / "player_stats.json", stats_doc)
-        if not args.stats_only:
-            write_json(target_dir / "player_items.json", items_doc)
-            write_json(target_dir / "player_skills.json", skills_doc)
-        print(f"Updated character from PoB: {args.character}")
-        print(f"- stats: {target_dir / 'player_stats.json'}")
-        print(f"- items: {target_dir / 'player_items.json'}")
-        print(f"- skills: {target_dir / 'player_skills.json'}")
-        return 0
 
+def write_player_docs(args: argparse.Namespace, stats_doc: dict[str, Any], items_doc: dict[str, Any], skills_doc: dict[str, Any]) -> int:
+    if not args.character:
+        raise SystemExit("--as player requires --character.")
+    target_dir = CHARACTERS_DIR / args.character
+    if not target_dir.exists():
+        raise SystemExit(f"Character profile not found: {target_dir}")
+    if not args.items_only:
+        write_json(target_dir / "player_stats.json", stats_doc)
+    if not args.stats_only:
+        write_json(target_dir / "player_items.json", items_doc)
+        write_json(target_dir / "player_skills.json", skills_doc)
+    print(f"Updated character from PoB: {args.character}")
+    print(f"- stats: {target_dir / 'player_stats.json'}")
+    print(f"- items: {target_dir / 'player_items.json'}")
+    print(f"- skills: {target_dir / 'player_skills.json'}")
+    return 0
+
+
+def write_target_docs(args: argparse.Namespace, stats_doc: dict[str, Any], items_doc: dict[str, Any], skills_doc: dict[str, Any]) -> int:
     if not args.build:
         raise SystemExit("--as target requires --build.")
     target_dir = PROFILES_DIR / args.build
@@ -539,6 +545,20 @@ def main(argv: list[str]) -> int:
     if not args.items_only:
         print(f"- requirements: {target_dir / 'target_requirements.json'}")
     return 0
+
+
+def main(argv: list[str]) -> int:
+    args = parse_args(argv)
+    if args.list_local:
+        list_local_builds()
+        return 0
+    validate_import_args(args)
+    source, temporary_source = materialize_source(args)
+    stats_doc, items_doc, skills_doc = load_documents(source, temporary_source)
+    mode = args.mode or ("player" if args.character else "target")
+    if mode == "player":
+        return write_player_docs(args, stats_doc, items_doc, skills_doc)
+    return write_target_docs(args, stats_doc, items_doc, skills_doc)
 
 
 if __name__ == "__main__":

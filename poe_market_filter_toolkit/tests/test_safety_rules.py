@@ -1,4 +1,5 @@
 import json
+import shutil
 import sys
 import tempfile
 import unittest
@@ -8,6 +9,7 @@ from types import SimpleNamespace
 
 
 ROOT = Path(__file__).resolve().parents[1]
+FIXTURES = ROOT / "tests" / "fixtures"
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import compare_current_to_target as compare
@@ -87,60 +89,20 @@ def search_rules(*stats: str) -> dict:
 
 
 @contextmanager
-def temporary_character_tree(build_slug: str = "test_build"):
+def temporary_character_tree():
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
         characters = root / "characters"
         profiles = root / "profiles"
-        character = characters / "test_character"
-        build = profiles / build_slug
-        character.mkdir(parents=True)
-        build.mkdir(parents=True)
-
-        (character / "character_profile.json").write_text(
-            json.dumps({"schema_version": 1, "slug": "test_character", "build_slug": build_slug}),
-            encoding="utf-8",
-        )
-        (character / "player_items.json").write_text(
-            json.dumps(
-                {
-                    "schema_version": 1,
-                    "items": {
-                        "weapon": {"name": "Sample Staff", "stats": {"accuracy": 120}},
-                        "ring_1": {"name": "Sample Ring", "stats": {"life": 80}},
-                        "body_armour": {"name": "Sample Armour", "stats": {"life": 100}},
-                    },
-                }
-            ),
-            encoding="utf-8",
-        )
-        (character / "player_stats.json").write_text(
-            json.dumps({"schema_version": 1, "stats": {"life": 3600, "fire_resistance": 75, "chance_to_hit": 92, "accuracy": 2000, "crit_multiplier": 250}}),
-            encoding="utf-8",
-        )
-        (build / "build_profile.json").write_text(
-            json.dumps({"schema_version": 1, "slug": build_slug, "name": "Test Build"}),
-            encoding="utf-8",
-        )
-        (build / "target_build_items.json").write_text(
-            json.dumps({"schema_version": 1, "items": {"weapon": {"name": "Target Staff"}, "ring_1": {"name": "Target Ring"}, "body_armour": {"name": "Target Armour"}}}),
-            encoding="utf-8",
-        )
-        (build / "target_build_stats.json").write_text(
-            json.dumps({"schema_version": 1, "minimums": {"life": 3400, "fire_resistance": 75}, "goals": {"life": 4000, "chance_to_hit": 95, "crit_multiplier": 300}}),
-            encoding="utf-8",
-        )
-        (build / "upgrade_rules.json").write_text(
-            json.dumps({"schema_version": 1, "weights": {"life": 1.0, "accuracy": 0.2}, "use_builtin_trade_profiles": True}),
-            encoding="utf-8",
-        )
+        shutil.copytree(FIXTURES / "characters", characters)
+        shutil.copytree(FIXTURES / "profiles", profiles)
 
         old_characters = core_validation.paths.CHARACTERS
         old_profiles = core_validation.paths.PROFILES
         core_validation.paths.CHARACTERS = characters
         core_validation.paths.PROFILES = profiles
         try:
-            yield character
+            yield characters / "sample_character"
         finally:
             core_validation.paths.CHARACTERS = old_characters
             core_validation.paths.PROFILES = old_profiles
@@ -471,10 +433,10 @@ class SafetyRulesTest(unittest.TestCase):
 
     def test_character_validator_accepts_saved_character_profile(self):
         with temporary_character_tree():
-            report = validate_character.validate_character("test_character")
+            report = validate_character.validate_character("sample_character")
 
         self.assertIn(report["status"], {"ok", "warning"})
-        self.assertEqual(report["build_slug"], "test_build")
+        self.assertEqual(report["build_slug"], "sample_build")
         self.assertEqual(report["errors"], [])
         self.assertNotIn("preencha mais slots em target_build_items.json", " ".join(report["suggestions"]))
 
@@ -487,7 +449,7 @@ class SafetyRulesTest(unittest.TestCase):
     def test_run_character_requires_explicit_oauth_opt_in(self):
         with temporary_character_tree():
             with self.assertRaises(SystemExit) as raised:
-                run_character.main(["--character", "test_character", "--fetch-character", "--skip-market-update"])
+                run_character.main(["--character", "sample_character", "--fetch-character", "--skip-market-update"])
 
         self.assertIn("experimental", str(raised.exception))
 

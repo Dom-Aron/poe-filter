@@ -10,6 +10,9 @@ python -m compileall poe_market_filter_toolkit\core poe_market_filter_toolkit\sc
 git status --short
 ```
 
+A suite de testes inclui integridade do repositorio, fixtures sinteticas e
+complexidade ciclomatica maxima de 30 por funcao em `core/` e `scripts/`.
+
 ## Validar Personagem
 
 ```powershell

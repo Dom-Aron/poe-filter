@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "minimums": {
+    "life": 3400,
+    "fire_resistance": 75
+  },
+  "goals": {
+    "life": 4000,
+    "chance_to_hit": 95,
+    "crit_multiplier": 300
+  }
+}
