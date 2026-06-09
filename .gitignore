@@ -1,4 +1,23 @@
 poe_market_filter_toolkit.zip
+.env
+.env.*
+!.env.example
+*.log
+
+# Local credentials and OAuth state
+poe_market_filter_toolkit/secrets/*
+!poe_market_filter_toolkit/secrets/README_SECRETS.md
+poe_market_filter_toolkit/config/account_config.json
+poe_market_filter_toolkit/config/oauth_config.json
+poe_market_filter_toolkit/config/*secret*.json
+poe_market_filter_toolkit/config/*token*.json
+
+# Local character data and PoB exports
+equipamentos_e_status_atuais_poe_slayer.txt
+poe_market_filter_toolkit/builds/characters/
+poe_market_filter_toolkit/data/raw/
+poe_market_filter_toolkit/data/generated/
+
 poe_market_filter_toolkit/market/reports/upgrade_plan.json
 poe_market_filter_toolkit/builds/active_build.json
 poe_market_filter_toolkit/builds/active_character.json

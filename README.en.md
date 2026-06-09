@@ -1,18 +1,18 @@
 # PoE Filter Toolkit
 
-Toolkit local para Path of Exile 1. Ele ajuda a manter um filtro de loot,
-atualizar dados de mercado e planejar upgrades por personagem comparando o
-estado atual com uma build alvo.
+Local toolkit for Path of Exile 1. It helps maintain a loot filter, refresh
+market data, and plan character upgrades by comparing the current character
+state against a target build.
 
-English version: [README.en.md](README.en.md).
+Portuguese version: [README.md](README.md).
 
-## Estado De Seguranca
+## Security Status
 
-O fluxo principal nao depende de OAuth. Credenciais, tokens, arquivos de conta,
-exports crus do Path of Building e dados reais de personagem devem ficar apenas
-na maquina local.
+The main workflow does not require OAuth. Credentials, tokens, account files,
+raw Path of Building exports, and real character data should stay only on the
+local machine.
 
-Arquivos locais ignorados pelo Git:
+Local files ignored by Git:
 
 ```text
 poe_market_filter_toolkit/secrets/tokens.json
@@ -25,23 +25,24 @@ equipamentos_e_status_atuais_poe_slayer.txt
 .env
 ```
 
-Os arquivos `*.example.json` podem ser versionados porque nao contem segredos.
+The `*.example.json` files are safe to commit because they do not contain
+secrets.
 
-## Fluxo Recomendado
+## Recommended Flow
 
-Rodar tudo para um personagem salvo localmente:
+Run the full workflow for a locally saved character:
 
 ```powershell
 python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --budget 1000c --open
 ```
 
-Rodar de forma conservadora, bloqueando mercado velho ou coleta com erro:
+Run conservatively, failing on stale market data or market collection errors:
 
 ```powershell
 python poe_market_filter_toolkit\scripts\run_character.py --character aron_shockwave_cyclone_slayer --budget 1000c --fail-on-stale-market --max-market-age-minutes 180 --fail-on-market-errors --open
 ```
 
-Atalhos locais:
+Local shortcuts:
 
 ```powershell
 .\tasks.ps1 character aron_shockwave_cyclone_slayer 1000c
@@ -49,7 +50,7 @@ Atalhos locais:
 .\tasks.ps1 filter aron_shockwave_cyclone_slayer
 ```
 
-Atalhos de desenvolvimento:
+Development shortcuts:
 
 ```powershell
 .\dev.ps1 check
@@ -57,41 +58,41 @@ Atalhos de desenvolvimento:
 .\dev.ps1 artifacts
 ```
 
-## Dados Do Personagem
+## Character Data
 
-Crie ou atualize um personagem local a partir do Path of Building:
+Create or update a local character from Path of Building:
 
 ```powershell
 python poe_market_filter_toolkit\scripts\sync_pob.py --list-local
-python poe_market_filter_toolkit\scripts\sync_pob.py --character aron_shockwave_cyclone_slayer --source "C:\Users\<voce>\Documents\Path of Building\Builds\MinhaBuild.xml"
+python poe_market_filter_toolkit\scripts\sync_pob.py --character aron_shockwave_cyclone_slayer --source "C:\Users\<you>\Documents\Path of Building\Builds\MyBuild.xml"
 ```
 
-Tambem e possivel importar o codigo exportado pelo PoB:
+You can also import an exported PoB code:
 
 ```powershell
 python poe_market_filter_toolkit\scripts\sync_pob.py --character aron_shockwave_cyclone_slayer --from-clipboard --save-code poe_market_filter_toolkit\data\raw\pob_export_aron.txt
 ```
 
-Editar dados manualmente:
+Edit and validate data manually:
 
 ```powershell
 python poe_market_filter_toolkit\scripts\edit_character.py --character aron_shockwave_cyclone_slayer
 python poe_market_filter_toolkit\scripts\validate_character.py --character aron_shockwave_cyclone_slayer
 ```
 
-Arquivos locais por personagem:
+Local character files:
 
 ```text
-poe_market_filter_toolkit/builds/characters/<personagem>/
+poe_market_filter_toolkit/builds/characters/<character>/
   character_profile.json
   player_items.json
   player_stats.json
   player_skills.json
 ```
 
-## Build Alvo
+## Target Build
 
-Builds alvo ficam versionadas quando forem presets publicos ou anonimizados:
+Target builds can be versioned when they are public or anonymized presets:
 
 ```text
 poe_market_filter_toolkit/builds/profiles/<build>/
@@ -102,22 +103,22 @@ poe_market_filter_toolkit/builds/profiles/<build>/
   upgrade_rules.json
 ```
 
-Importar uma build alvo a partir de um PoB:
+Import a target build from a PoB file:
 
 ```powershell
-python poe_market_filter_toolkit\scripts\sync_pob.py --build ronarray_shockwave_cyclone_slayer --source "C:\pob\BuildAlvo.xml" --as target
+python poe_market_filter_toolkit\scripts\sync_pob.py --build ronarray_shockwave_cyclone_slayer --source "C:\pob\TargetBuild.xml" --as target
 python poe_market_filter_toolkit\scripts\analyze_target_build.py --build ronarray_shockwave_cyclone_slayer
 ```
 
-## Mercado E Filtro
+## Market And Filter
 
-Atualizar mercado e relatorios tecnicos do filtro:
+Refresh market data and technical filter reports:
 
 ```powershell
 python poe_market_filter_toolkit\scripts\run_all.py --skip-update
 ```
 
-Scripts principais:
+Main scripts:
 
 ```text
 update_market.py
@@ -127,18 +128,18 @@ filter_audit.py
 review_filter_strategy.py
 ```
 
-Esses scripts ajudam a revisar o filtro, mas nao editam automaticamente
+These scripts help review the filter, but they do not automatically edit
 `active_loot_filter.filter`.
 
-## Saidas
+## Outputs
 
-Os resultados sao gerados localmente em:
+Results are generated locally under:
 
 ```text
-poe_market_filter_toolkit/data/generated/characters/<personagem>/
+poe_market_filter_toolkit/data/generated/characters/<character>/
 ```
 
-Arquivos comuns:
+Common files:
 
 ```text
 build_dashboard.html
@@ -150,30 +151,30 @@ validation_report.json
 run_summary.json
 ```
 
-O plano de compra marca cada sugestao com `Confianca` (`Alta`, `Media` ou
-`Baixa`). Esse campo mede a seguranca operacional da recomendacao; valide no PoB
-antes de comprar.
+The purchase plan labels each suggestion with `Confianca` (`Alta`, `Media`, or
+`Baixa`). This measures operational confidence, not real PoB DPS. Validate in
+PoB before buying.
 
-## OAuth Opcional
+## Optional OAuth
 
-OAuth esta mantido apenas como recurso experimental. Para usar, copie os
-exemplos para arquivos locais ignorados:
+OAuth is kept only as an experimental helper. To use it, copy the examples to
+ignored local files:
 
 ```powershell
 Copy-Item poe_market_filter_toolkit\config\account_config.example.json poe_market_filter_toolkit\config\account_config.json
 Copy-Item poe_market_filter_toolkit\config\oauth_config.example.json poe_market_filter_toolkit\config\oauth_config.json
 ```
 
-Depois gere `poe_market_filter_toolkit\secrets\tokens.json` com
-`oauth_login.py` ou use a variavel `POE_OAUTH_TOKEN`. Nao commite esses arquivos.
+Then generate `poe_market_filter_toolkit\secrets\tokens.json` with
+`oauth_login.py` or set `POE_OAUTH_TOKEN`. Do not commit these files.
 
-## Testes
+## Tests
 
 ```powershell
 python -m unittest discover -s poe_market_filter_toolkit\tests
 ```
 
-## Documentacao
+## Documentation
 
 ```text
 poe_market_filter_toolkit/docs/fluxo_sem_oauth.md
@@ -183,11 +184,11 @@ poe_market_filter_toolkit/docs/arquitetura.md
 poe_market_filter_toolkit/docs/limpeza_repositorio.md
 ```
 
-## Limites
+## Limits
 
-- O planner nao substitui o Path of Building.
-- `Confianca` ajuda a priorizar, mas nao prova que o item e upgrade final.
-- Itens sugeridos precisam de revisao humana antes da compra.
-- Links do trade podem ficar obsoletos se o item vender ou mudar de preco.
-- Rate limit da API publica pode deixar uma busca incompleta.
-- O filtro de loot e a busca de upgrades usam o mercado de formas diferentes.
+- The planner does not replace Path of Building.
+- `Confianca` helps prioritize, but it does not prove an item is a final upgrade.
+- Suggested items need human review before purchase.
+- Trade links can become stale if an item sells or its price changes.
+- Public API rate limits can leave a search incomplete.
+- The loot filter and upgrade search use market data in different ways.

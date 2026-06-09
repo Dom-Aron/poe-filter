@@ -17,10 +17,16 @@ market/reports/filter_strategy_snippets.filter
 secrets/*
 !secrets/README_SECRETS.md
 config/account_config.json
+config/oauth_config.json
+config/*secret*.json
+config/*token*.json
+builds/characters/
 data/raw/
 data/generated/
 *.log
 .env
+.env.*
+!.env.example
 
 # Optional local filter copies for toolkit experiments
 filters/current/*.filter
