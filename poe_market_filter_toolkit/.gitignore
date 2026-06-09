@@ -15,7 +15,6 @@ market/reports/filter_strategy_snippets.filter
 
 # Account/API secrets and raw character exports
 secrets/*
-!secrets/README_SECRETS.md
 config/account_config.json
 config/oauth_config.json
 config/*secret*.json

@@ -6,7 +6,6 @@ poe_market_filter_toolkit.zip
 
 # Local credentials and OAuth state
 poe_market_filter_toolkit/secrets/*
-!poe_market_filter_toolkit/secrets/README_SECRETS.md
 poe_market_filter_toolkit/config/account_config.json
 poe_market_filter_toolkit/config/oauth_config.json
 poe_market_filter_toolkit/config/*secret*.json
